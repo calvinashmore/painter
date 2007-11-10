@@ -1,0 +1,7 @@
+#summary Fn Language
+
+= Fn Language =
+
+Painter uses a special language called _Fn_ that is used to create expressions, commands, accessors and statement lists.
+
+TODO: make pages for individual genetic components

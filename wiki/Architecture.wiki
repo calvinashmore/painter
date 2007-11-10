@@ -4,12 +4,12 @@
 
 Module GeneticBase defines an architecture for the code generation in Painter that uses the following components:
 
-* Programs
-* Methods
-* Contexts and Context Models
-* Statement Lists
-* Statements
-* Expressions
-* Expression Functions
-* Commands
-* Accessors
+  * Programs
+  * Methods
+  * Contexts and Context Models
+  * Statement Lists
+  * Statements
+  * Expressions
+  * Expression Functions
+  * Commands
+  * Accessors

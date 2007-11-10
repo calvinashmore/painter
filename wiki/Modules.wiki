@@ -1,0 +1,10 @@
+#summary modules in the project
+
+= Introduction =
+
+Painter uses several modules
+
+  * GeneticBase
+  * GeneticLibrary
+  * Painter
+  * Util

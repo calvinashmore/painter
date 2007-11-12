@@ -10,7 +10,7 @@
 package genetic.component.expression;
 
 import genetic.*;
-import java.lang.reflect.Method;
+import genetic.util.Mutator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +23,7 @@ import utils.linear.LVect3d;
  *
  * @author Calvin Ashmore
  */
-public class ExpressionMutator {
+public class ExpressionMutator extends Mutator<Expression> {
     
     public static Expression mutate(ContextModel contextModel, Expression base) {
         Expression r = null;

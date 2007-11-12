@@ -11,21 +11,16 @@
 package genetic.component.expression;
 
 import genetic.*;
+import java.awt.Color;
 import java.util.*;
 import java.io.*;
 import java.util.ArrayList;
-import utils.linear.Color;
-import utils.linear.Complex;
-import utils.linear.LDouble;
-import utils.linear.LVect2d;
-import utils.linear.LVect3d;
-import utils.linear.Quaternion;
 
 /**
  *
  * @author gtg126z
  */
-public class Expression implements Parameterized, Serializable, Cloneable {
+public class Expression implements Parameterized, GeneticComponent, Cloneable {
     
     private List<Expression> children;
     private Object[] cacheInputs;
@@ -255,5 +250,25 @@ public class Expression implements Parameterized, Serializable, Cloneable {
             args[i] = children.get(i).toString();
         }
         return function.toString(args);
+    }
+
+    public GeneticComponent getParent() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public ContextModel getContextModel() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void resetParent(GeneticComponent newParent) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public GeneticComponent clone(GeneticComponent newParent) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void removeVariable(String name) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

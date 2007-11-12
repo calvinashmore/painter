@@ -22,7 +22,7 @@
         />
     </target>
     
-    <target name="-pre-compile" depends="run-fn"/>
+    <!-- <target name="-pre-compile" depends="run-fn"/> -->
     
     <target name="run-fn">
         

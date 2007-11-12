@@ -14,10 +14,26 @@ import genetic.component.expression.accessor.AllAccessors;
 import genetic.component.statement.command.AllCommands;
 import genetic.component.statement.command.CommandFactory;
 import genetic.component.expression.AllExpressionFunctions;
+import genetic.component.expression.Expression;
+import genetic.component.expression.ExpressionBreeder;
 import genetic.component.expression.ExpressionFunctionFactory;
 import genetic.component.expression.ExpressionMutator;
+import genetic.component.method.Method;
+import genetic.component.method.MethodBreeder;
+import genetic.component.method.MethodMutator;
+import genetic.component.program.Program;
+import genetic.component.program.ProgramBreeder;
+import genetic.component.program.ProgramMutator;
 import genetic.component.statement.AllStatements;
+import genetic.component.statement.Statement;
+import genetic.component.statement.StatementBreeder;
 import genetic.component.statement.StatementFactory;
+import genetic.component.statement.StatementMutator;
+import genetic.component.statementlist.StatementList;
+import genetic.component.statementlist.StatementListBreeder;
+import genetic.component.statementlist.StatementListMutator;
+import genetic.util.Breeder;
+import genetic.util.Mutator;
 import java.util.Random;
 
 /**
@@ -52,17 +68,17 @@ public class GeneticFoundation {
     
     // MUTATORS!
     
-    public ProgramMutator getProgramMutator() {return new ProgramMutator();}
-    public MethodMutator getMethodMutator() {return new MethodMutator();}
-    public StatementMutator getStatementMutator() {return new StatementMutator();}
-    public StatementListMutator getStatementListMutator() {return new StatementListMutator();}
-    public ExpressionMutator getExpressionMutator() {return new ExpressionMutator();}
+    public Mutator<Program> getProgramMutator() {return new ProgramMutator();}
+    public Mutator<Method> getMethodMutator() {return new MethodMutator();}
+    public Mutator<Statement> getStatementMutator() {return new StatementMutator();}
+    public Mutator<StatementList> getStatementListMutator() {return new StatementListMutator();}
+    public Mutator<Expression> getExpressionMutator() {return new ExpressionMutator();}
     
     // BREEDERS
     
-    public ProgramBreeder getProgramBreeder() {return new ProgramBreeder();}
-    public MethodBreeder getMethodBreeder() {return new MethodBreeder();}
-    public StatementBreeder getStatementBreeder() {return new StatementBreeder();}
-    public StatementListBreeder getStatementListBreeder() {return new StatementListBreeder();}
-    public ExpressionBreeder getExpressionBreeder() {return new ExpressionBreeder();}
+    public Breeder<Program> getProgramBreeder() {return new ProgramBreeder();}
+    public Breeder<Method> getMethodBreeder() {return new MethodBreeder();}
+    public Breeder<Statement> getStatementBreeder() {return new StatementBreeder();}
+    public Breeder<StatementList> getStatementListBreeder() {return new StatementListBreeder();}
+    public Breeder<Expression> getExpressionBreeder() {return new ExpressionBreeder();}
 }

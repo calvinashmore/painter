@@ -9,10 +9,17 @@
 
 package genetic.component.statement.command;
 
+import genetic.util.AllComponents;
+import java.util.List;
+
 /**
  *
  * @author Calvin Ashmore
  */
-public class AllCommands {
+public class AllCommands implements AllComponents<Command> {
+
+    public List<Command> allInstances() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

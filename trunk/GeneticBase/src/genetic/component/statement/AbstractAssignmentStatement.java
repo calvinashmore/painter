@@ -10,9 +10,8 @@
 package genetic.component.statement;
 
 import genetic.component.expression.Expression;
-import genetic.component.expression.ExpressionFunctionFactory;
+import genetic.component.expression.ExpressionFunctionFactoryImpl;
 import genetic.component.expression.ExpressionMutator;
-import genetic.component.statement.Statement;
 import java.util.List;
 import java.util.Random;
 
@@ -20,7 +19,7 @@ import java.util.Random;
  *
  * @author Calvin Ashmore
  */
-abstract public class XAssignmentStatement extends Statement {
+abstract public class AbstractAssignmentStatement extends Statement {
     
     protected Expression content;
     protected String variableName;
@@ -54,7 +53,7 @@ abstract public class XAssignmentStatement extends Statement {
             return;
         }
         
-        content = ExpressionFunctionFactory.removeVariable(content, name);
+        content = ExpressionFunctionFactoryImpl.removeVariable(content, name);
     }
     
 }

@@ -11,9 +11,7 @@ package genetic.component.statement;
 
 import genetic.Context;
 import genetic.component.expression.Expression;
-import genetic.expressions.ExpressionException;
-import genetic.component.expression.ExpressionFunctionFactory;
-import genetic.component.expression.ExpressionMutator;
+import genetic.component.expression.ExpressionFunctionFactoryImpl;
 import genetic.GeneticComponent;
 import genetic.component.program.Program;
 import genetic.component.statementlist.StatementList;
@@ -44,7 +42,7 @@ public class CommandStatement extends Statement {
             expressions = new ArrayList<Expression>();
             for(int i=0;i<numberParameters;i++) {
                 Class variableType = program.getCommand(commandName).getInputType(i);
-                expressions.add( new ExpressionFunctionFactory(getContextModel()).makeTree(variableType)  );
+                expressions.add( factory(getContextModel()).makeTree(variableType)  );
             }
         } catch(ExpressionException e) {
             throw new StatementConstructionException();
@@ -76,17 +74,6 @@ public class CommandStatement extends Statement {
             getContextModel().getTopLevel().getCommand(commandName).execute(context);
     }
 
-    public void mutate() {
-        if(expressions.size() == 0)
-            return;
-        int index = new Random().nextInt(expressions.size());
-        expressions.set(index, ExpressionMutator.mutate(getContextModel(), expressions.get(index)));
-    }
-
-    public GeneticComponent breed(GeneticComponent component) {
-        return null;
-    }
-
     public String printout(String indent) {
         String r = indent+"command."+commandName + " (";
         if(expressions.size() != 0) {
@@ -96,12 +83,6 @@ public class CommandStatement extends Statement {
         }
         r += ")\n";
         return r;
-    }
-
-    public void removeVariable(String name) {
-        for(int i=0;i<expressions.size();i++) {
-            expressions.set(i, ExpressionFunctionFactory.removeVariable(expressions.get(i), name));
-        }
     }
     
 }

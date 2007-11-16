@@ -9,16 +9,21 @@
 
 package genetic.component.expression.accessor;
 
-import genetic.ContextModel;
+import genetic.util.BuildException;
+import genetic.util.Factory;
 
 /**
  *
  * @author Calvin Ashmore
  */
-public class AccessorFactory {
+public class AccessorFactory implements Factory<Accessor> {
 
     public AccessorFactory() {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public Accessor shallowBuild(Class t) throws BuildException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

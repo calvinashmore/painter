@@ -16,8 +16,13 @@ import genetic.component.statement.command.CommandFactory;
 import genetic.component.expression.AllExpressionFunctions;
 import genetic.component.expression.Expression;
 import genetic.component.expression.ExpressionBreeder;
+import genetic.component.expression.ExpressionBuilder;
+import genetic.component.expression.ExpressionBuilderImpl;
+import genetic.component.expression.ExpressionFunction;
 import genetic.component.expression.ExpressionFunctionFactory;
+import genetic.component.expression.ExpressionFunctionFactoryImpl;
 import genetic.component.expression.ExpressionMutator;
+import genetic.component.expression.accessor.Accessor;
 import genetic.component.method.Method;
 import genetic.component.method.MethodBreeder;
 import genetic.component.method.MethodMutator;
@@ -29,11 +34,17 @@ import genetic.component.statement.Statement;
 import genetic.component.statement.StatementBreeder;
 import genetic.component.statement.StatementFactory;
 import genetic.component.statement.StatementMutator;
+import genetic.component.statement.command.Command;
 import genetic.component.statementlist.StatementList;
 import genetic.component.statementlist.StatementListBreeder;
 import genetic.component.statementlist.StatementListMutator;
+import genetic.util.AllComponents;
 import genetic.util.Breeder;
+import genetic.util.Factory;
 import genetic.util.Mutator;
+import genetic.util.TypeSystem;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -42,29 +53,48 @@ import java.util.Random;
  */
 public class GeneticFoundation {
     
+    // STATIC INSTANCE
+    
     private static GeneticFoundation foundation;
-    public static GeneticFoundation getFoundation() {return foundation;}
+    public static GeneticFoundation getInstance() {return foundation;}
     
     public GeneticFoundation() {
         foundation = this;
     }
     
-    private Random builderRandom = new Random();
+    
+    // RANDOM FOR BUILDING
+    
+    protected Random builderRandom = new Random();
     public Random getBuilderRandom() {return builderRandom;}
+    
+    
+    // TYPE SYSTEM
+    private TypeSystem defaultTypeSystem = new TypeSystem() {
+        public List<Class> allTypes() {return Collections.<Class>emptyList();}
+        public Object perturbValue(Object obj) {return obj;}
+        public Object checkInvalid(Object obj) {return obj;}
+        public Object createDefault(Class c) {return null;}
+    };
+    public TypeSystem getTypeSystem() {return defaultTypeSystem;}
+    
     
     // UNIVERSAL COMPONENT CONSTRUCTION
     
-    public AllAccessors getAllAccessors() {return new AllAccessors();}
-    public AllCommands getAllCommands() {return new AllCommands();}
-    public AllExpressionFunctions getAllExpressionFunctions() {return new AllExpressionFunctions();}
-    public AllStatements getAllStatements() {return new AllStatements();}
-
+    public AllComponents<Accessor> getAllAccessors() {return new AllAccessors();}
+    public AllComponents<Command> getAllCommands() {return new AllCommands();}
+    public AllComponents<ExpressionFunction> getAllExpressionFunctions() {return new AllExpressionFunctions();}
+    public AllComponents<Statement> getAllStatements() {return new AllStatements();}
+    
+    
     // CONTEXTUAL COMPONENT FACTORIES
     
-    public AccessorFactory getAccessorFactory() {return new AccessorFactory();}
-    public CommandFactory getCommandFactory() {return new CommandFactory();}
-    public ExpressionFunctionFactory getExpressionFunctionFactory() {return new ExpressionFunctionFactory();}
-    public StatementFactory getStatementFactory() {return new StatementFactory();}
+    public Factory<Accessor> getAccessorFactory() {return new AccessorFactory();}
+    public Factory<Command> getCommandFactory() {return new CommandFactory();}
+    public ExpressionFunctionFactory getExpressionFunctionFactory() {return new ExpressionFunctionFactoryImpl();}
+    public ExpressionBuilder getExpressionBuilder() {return new ExpressionBuilderImpl();}
+    public Factory<Statement> getStatementFactory() {return new StatementFactory();}
+    
     
     // MUTATORS!
     
@@ -73,6 +103,7 @@ public class GeneticFoundation {
     public Mutator<Statement> getStatementMutator() {return new StatementMutator();}
     public Mutator<StatementList> getStatementListMutator() {return new StatementListMutator();}
     public Mutator<Expression> getExpressionMutator() {return new ExpressionMutator();}
+    
     
     // BREEDERS
     

@@ -11,6 +11,8 @@ package genetic.component.statement;
 
 import genetic.component.statementlist.StatementList;
 import genetic.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,6 +25,8 @@ abstract public class Statement implements GeneticComponent {
     public boolean isDestroyFlagged() {return destroyFlag;}
     protected void setDestroyFlag(boolean value) {destroyFlag = value;}
     
+    private List<GeneticComponent> children = new ArrayList<GeneticComponent>();
+    
     /** Creates a new instance of Statement */
     public Statement() {
     }
@@ -32,9 +36,23 @@ abstract public class Statement implements GeneticComponent {
     abstract public Statement clone(GeneticComponent newParent);
     abstract public void execute(Context context);
     
+    protected void addChild(GeneticComponent child) {children.add(child);}
+    public List<GeneticComponent> getChildren() {return children;}
+    
     public ContextModel getContextModel() {
         return parent.getContextModel();
     }
 
     abstract public String printout(String indent);
+
+    public void resetParent(GeneticComponent newParent) {
+        
+    }
+
+    public void removeVariable(String name) {
+        for(GeneticComponent child : children) {
+            child.removeVariable(name);
+        }
+    }
+    
 }

@@ -9,10 +9,17 @@
 
 package genetic.component.expression.accessor;
 
+import genetic.util.AllComponents;
+import java.util.List;
+
 /**
  *
  * @author Calvin Ashmore
  */
-public class AllAccessors {
+public class AllAccessors implements AllComponents<Accessor> {
+
+    public List<Accessor> allInstances() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

@@ -23,7 +23,7 @@ import java.util.Random;
 public class Mutator<T extends GeneticComponent> {
     
     protected Random getRandom() {
-        return GeneticFoundation.getFoundation().getBuilderRandom();
+        return GeneticFoundation.getInstance().getBuilderRandom();
     }
     
     private List<MutatorAction<T>> mutators = new ArrayList<MutatorAction<T>>();

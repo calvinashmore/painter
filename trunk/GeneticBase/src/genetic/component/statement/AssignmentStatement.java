@@ -11,7 +11,7 @@ package genetic.component.statement;
 
 import genetic.Context;
 import genetic.expressions.ExpressionException;
-import genetic.component.expression.ExpressionFunctionFactory;
+import genetic.component.expression.ExpressionFunctionFactoryImpl;
 import genetic.GeneticComponent;
 import genetic.component.statement.Statement;
 import genetic.component.statement.StatementConstructionException;
@@ -23,7 +23,7 @@ import java.util.Random;
  *
  * @author gtg126z
  */
-public class AssignmentStatement extends XAssignmentStatement {
+public class AssignmentStatement extends AbstractAssignmentStatement {
     
     /** Creates a new instance of Assignment */
     public AssignmentStatement(StatementList parent) throws StatementConstructionException {
@@ -32,7 +32,7 @@ public class AssignmentStatement extends XAssignmentStatement {
             List<String> vars = getContextModel().getAssignableVariables();
             variableName = vars.get( new Random().nextInt(vars.size()) );
             Class variableType = getContextModel().getType(variableName);
-            content = new ExpressionFunctionFactory(getContextModel()).makeTree(variableType);
+            content = new ExpressionFunctionFactoryImpl(getContextModel()).makeTree(variableType);
         }
         catch(NullPointerException e) {throw new StatementConstructionException();}
         catch(ArrayIndexOutOfBoundsException e) {throw new StatementConstructionException();}

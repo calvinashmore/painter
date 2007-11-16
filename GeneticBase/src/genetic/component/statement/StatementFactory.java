@@ -11,20 +11,15 @@ package genetic.component.statement;
 
 import genetic.component.statementlist.StatementList;
 import genetic.*;
+import genetic.util.Factory;
 import java.util.Random;
 
 /**
  *
  * @author gtg126z
  */
-public class StatementFactory {
+public class StatementFactory implements Factory<Statement> {
     
-    // suppose for a second that statements are made in a non-threaded environment
-    // and a static counter is okay. Otherwise each program needs its own statement factory,
-    // and that would be slightly messy.
-    
-    private static int depth = 0;
-    private static final int maxDepth = 3;
     
     //private ContextModel contextModel;
 

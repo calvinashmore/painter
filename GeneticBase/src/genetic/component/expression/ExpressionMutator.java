@@ -10,14 +10,11 @@
 package genetic.component.expression;
 
 import genetic.*;
+import genetic.util.BuildException;
 import genetic.util.Mutator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import utils.linear.Color;
-import utils.linear.Complex;
-import utils.linear.LVect2d;
-import utils.linear.LVect3d;
 
 /**
  *
@@ -50,7 +47,7 @@ public class ExpressionMutator extends Mutator<Expression> {
                 case 10: mutated = collapseBinaryRight(contextModel, r); break;
                 case 11: mutated = collapseBinaryLeft(contextModel, r); break;
                 case 12: mutated = collapseBinaryRight(contextModel, r); break;
-            }} catch(ExpressionException e) {mutated = false;}
+            }} catch(BuildException e) {mutated = false;}
         }
         
         // setup, now r is complete
@@ -59,8 +56,8 @@ public class ExpressionMutator extends Mutator<Expression> {
         return r;
     }
     
-    public static boolean expandConstant(ContextModel contextModel, Expression target) throws ExpressionException {
-        List<Expression> allNodes = ExpressionFunctionFactory.gatherNodes(target);
+    public static boolean expandConstant(ContextModel contextModel, Expression target) throws BuildException {
+        List<Expression> allNodes = ExpressionFunctionFactoryImpl.gatherNodes(target);
         List<Expression> constNodes = new ArrayList();
         
         for(Expression n : allNodes)
@@ -75,7 +72,7 @@ public class ExpressionMutator extends Mutator<Expression> {
         Expression constNode = constNodes.get(rand.nextInt(constNodes.size()));
         Class returnClass = constNode.getOutputType();
         
-        Expression replacement = new ExpressionFunctionFactory(contextModel).makeTree(returnClass);
+        Expression replacement = new ExpressionFunctionFactoryImpl(contextModel).makeTree(returnClass);
         //Expression replacement = new Expression(new ExpressionFactory(contextModel).build(returnClass));
         //builder.buildNode(returnClass, target.getContextClass(), false, true, 3, 10, 1);
         
@@ -87,15 +84,15 @@ public class ExpressionMutator extends Mutator<Expression> {
         return true;
     }
     
-    public static boolean randomReplace(ContextModel contextModel, Expression target) throws ExpressionException {
-        List<Expression> allNodes = ExpressionFunctionFactory.gatherNodes(target);
+    public static boolean randomReplace(ContextModel contextModel, Expression target) throws BuildException {
+        List<Expression> allNodes = ExpressionFunctionFactoryImpl.gatherNodes(target);
         
         Random rand = new Random();
         
         Expression replaceNode = allNodes.get(rand.nextInt(allNodes.size()));
         Class returnClass = replaceNode.getOutputType();
         
-        Expression replacement = new ExpressionFunctionFactory(contextModel).makeTree(returnClass);
+        Expression replacement = new ExpressionFunctionFactoryImpl(contextModel).makeTree(returnClass);
         //new Expression(new ExpressionFactory(contextModel).build(returnClass));
         //builder.buildNode(returnClass, target.getContextClass(), false, false, 4, 20, 2);
         
@@ -107,16 +104,16 @@ public class ExpressionMutator extends Mutator<Expression> {
         return true;
     }
     
-    public static boolean randomReplaceWithVar(ContextModel contextModel, Expression target) throws ExpressionException {
-        List<Expression> allNodes = ExpressionFunctionFactory.gatherNodes(target);
+    public static boolean randomReplaceWithVar(ContextModel contextModel, Expression target) throws BuildException {
+        List<Expression> allNodes = ExpressionFunctionFactoryImpl.gatherNodes(target);
      
         Random rand = new Random();
      
         Expression replaceNode = allNodes.get(rand.nextInt(allNodes.size()));
         Class returnClass = replaceNode.getOutputType();
      
-        ExpressionFunctionFactory nff = new ExpressionFunctionFactory(contextModel);
-        Expression replacement = new Expression(nff.build( nff.getVariableFunction(returnClass) ));
+        ExpressionFunctionFactoryImpl nff = new ExpressionFunctionFactoryImpl(contextModel);
+        Expression replacement = new Expression(nff.shallowBuild( nff.getVariableFunction(returnClass) ));
      
         //Expression replacement = new Expression(new ExpressionFactory(contextModel).build(returnClass));
         //builder.buildNode(returnClass, target.getContextClass(), false, false, 4, 20, 2);
@@ -129,16 +126,16 @@ public class ExpressionMutator extends Mutator<Expression> {
         return true;
     }
     
-    public static boolean randomReplaceWithConst(ContextModel contextModel, Expression target) throws ExpressionException {
-        List<Expression> allNodes = ExpressionFunctionFactory.gatherNodes(target);
+    public static boolean randomReplaceWithConst(ContextModel contextModel, Expression target) throws BuildException {
+        List<Expression> allNodes = ExpressionFunctionFactoryImpl.gatherNodes(target);
      
         Random rand = new Random();
      
         Expression replaceNode = allNodes.get(rand.nextInt(allNodes.size()));
         Class returnClass = replaceNode.getOutputType();
      
-        ExpressionFunctionFactory nff = new ExpressionFunctionFactory(contextModel);
-        Expression replacement = new Expression(nff.build( nff.getConstantFunction(returnClass) ));
+        ExpressionFunctionFactoryImpl nff = new ExpressionFunctionFactoryImpl(contextModel);
+        Expression replacement = new Expression(nff.shallowBuild( nff.getConstantFunction(returnClass) ));
      
         //Expression replacement = new Expression(new ExpressionFactory(contextModel).build(returnClass));
         //builder.buildNode(returnClass, target.getContextClass(), false, false, 4, 20, 2);
@@ -151,12 +148,12 @@ public class ExpressionMutator extends Mutator<Expression> {
         return true;
     }
     
-    public static boolean mutateInsert(ContextModel contextModel, Expression target) throws ExpressionException {
+    public static boolean mutateInsert(ContextModel contextModel, Expression target) throws BuildException {
         
-        List<Expression> allNodes = ExpressionFunctionFactory.gatherNodes(target);
+        List<Expression> allNodes = ExpressionFunctionFactoryImpl.gatherNodes(target);
         Random rand = new Random();
         
-        ExpressionFunctionFactory nff = new ExpressionFunctionFactory(contextModel);//builder.makeNFF(1);
+        ExpressionFunctionFactoryImpl nff = new ExpressionFunctionFactoryImpl(contextModel);//builder.makeNFF(1);
         
         Expression insertNode;
         boolean found = false;
@@ -169,7 +166,7 @@ public class ExpressionMutator extends Mutator<Expression> {
             
             //Class returnClass = insertables.get(rand.nextInt(insertables.size())).getClass();
             //Expression inserted = new ExpressionFactory(contextModel).makeTree(returnClass);
-            ExpressionFunction insertNF = nff.build( insertables.get(rand.nextInt(insertables.size())).getClass() );
+            ExpressionFunction insertNF = nff.shallowBuild( insertables.get(rand.nextInt(insertables.size())).getClass() );
             Expression inserted = new Expression(insertNF);
             inserted.setInput(0, insertNode);
             
@@ -186,12 +183,12 @@ public class ExpressionMutator extends Mutator<Expression> {
         return false;
     }
     
-    public static boolean mutateBranch(ContextModel contextModel, Expression target) throws ExpressionException {
+    public static boolean mutateBranch(ContextModel contextModel, Expression target) throws BuildException {
         
-        List<Expression> allNodes = ExpressionFunctionFactory.gatherNodes(target);
+        List<Expression> allNodes = ExpressionFunctionFactoryImpl.gatherNodes(target);
         Random rand = new Random();
         
-        ExpressionFunctionFactory nff = new ExpressionFunctionFactory(contextModel);//builder.makeNFF(1);
+        ExpressionFunctionFactoryImpl nff = new ExpressionFunctionFactoryImpl(contextModel);//builder.makeNFF(1);
         
         Expression insertNode;
         boolean found = false;
@@ -204,7 +201,7 @@ public class ExpressionMutator extends Mutator<Expression> {
             
             //Class returnClass = insertables.get(rand.nextInt(insertables.size())).getClass();
             //Expression inserted = new ExpressionFactory(contextModel).makeTree(returnClass);
-            ExpressionFunction insertNF = nff.build( insertables.get(rand.nextInt(insertables.size())).getClass() );
+            ExpressionFunction insertNF = nff.shallowBuild( insertables.get(rand.nextInt(insertables.size())).getClass() );
             Expression inserted = new Expression(insertNF);
             
             boolean hasInserted = false;
@@ -236,13 +233,13 @@ public class ExpressionMutator extends Mutator<Expression> {
         return false;
     }
     
-    public static boolean mutateBridge(ContextModel contextModel, Expression target) throws ExpressionException {
+    public static boolean mutateBridge(ContextModel contextModel, Expression target) throws BuildException {
         
-        List<Expression> allNodes = ExpressionFunctionFactory.gatherNodes(target);
+        List<Expression> allNodes = ExpressionFunctionFactoryImpl.gatherNodes(target);
         
         Random rand = new Random();
         
-        ExpressionFunctionFactory nff = new ExpressionFunctionFactory(contextModel);//builder.makeNFF(1);
+        ExpressionFunctionFactoryImpl nff = new ExpressionFunctionFactoryImpl(contextModel);//builder.makeNFF(1);
         
         Expression insertNode;
         boolean found = false;
@@ -254,7 +251,7 @@ public class ExpressionMutator extends Mutator<Expression> {
             // make sure no circular referencing
             for(int j=0;j<100 && bridgeNode==null;j++) {
                 bridgeNode =  allNodes.get(rand.nextInt(allNodes.size()));
-                if(ExpressionFunctionFactory.gatherNodes(bridgeNode).contains(insertNode))
+                if(ExpressionFunctionFactoryImpl.gatherNodes(bridgeNode).contains(insertNode))
                     bridgeNode = null;
             }
             if(bridgeNode == null)
@@ -267,7 +264,7 @@ public class ExpressionMutator extends Mutator<Expression> {
             
             //Class returnClass = insertables.get(rand.nextInt(insertables.size())).getClass();
             //Expression inserted = new ExpressionFactory(contextModel).makeTree(returnClass);
-            ExpressionFunction insertNF = nff.build( insertables.get(rand.nextInt(insertables.size())).getClass() );
+            ExpressionFunction insertNF = nff.shallowBuild( insertables.get(rand.nextInt(insertables.size())).getClass() );
             Expression inserted = new Expression(insertNF);
             
             boolean hasInserted = false;
@@ -296,7 +293,7 @@ public class ExpressionMutator extends Mutator<Expression> {
 
     private static boolean collapseBinaryLeft(ContextModel contextModel, Expression target) {
         
-        List<Expression> allNodes = ExpressionFunctionFactory.gatherNodes(target);
+        List<Expression> allNodes = ExpressionFunctionFactoryImpl.gatherNodes(target);
         Random rand = new Random();
         
         for(int i=0;i<100;i++) {
@@ -318,7 +315,7 @@ public class ExpressionMutator extends Mutator<Expression> {
     }
 
     private static boolean collapseBinaryRight(ContextModel contextModel, Expression target) {
-        List<Expression> allNodes = ExpressionFunctionFactory.gatherNodes(target);
+        List<Expression> allNodes = ExpressionFunctionFactoryImpl.gatherNodes(target);
         Random rand = new Random();
         
         for(int i=0;i<100;i++) {

@@ -10,13 +10,14 @@
 
 package genetic.component.expression;
 
+import genetic.util.AllComponents;
 import java.util.*;
 
 /**
  *
  * @author Ron Ashmore
  */
-public interface FunctionGroup {
-    public List<ExpressionFunction> getFunctions();
-    public ExpressionFunction build(Class<? extends ExpressionFunction> nfClass, ExpressionFunctionFactory nff);
+public interface FunctionGroup extends AllComponents<ExpressionFunction> {
+    //public List<ExpressionFunction> getFunctions();
+    //public ExpressionFunction build(Class<? extends ExpressionFunction> nfClass, ExpressionFunctionFactory nff);
 }

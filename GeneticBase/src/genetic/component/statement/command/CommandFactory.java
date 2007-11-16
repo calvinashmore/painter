@@ -9,16 +9,21 @@
 
 package genetic.component.statement.command;
 
-import genetic.ContextModel;
+import genetic.util.BuildException;
+import genetic.util.Factory;
 
 /**
  *
  * @author Calvin Ashmore
  */
-public class CommandFactory {
+public class CommandFactory implements Factory<Command> {
 
     public CommandFactory() {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public Command shallowBuild(Class t) throws BuildException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

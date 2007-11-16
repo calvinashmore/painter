@@ -20,12 +20,6 @@ import java.util.Map;
  */
 public class AllExpressionFunctions implements FunctionGroup {
     
-    public List<ExpressionFunction> getFunctions() {
-        
-        List<ExpressionFunction> allFunctions = new ArrayList<ExpressionFunction>();
-        allFunctions.addAll(new AllFn().getFunctions());
-        return allFunctions;
-    }
     
     static private Map<Class, ExpressionFunction> variables = new HashMap<Class, ExpressionFunction>();
     static private Map<Class, ExpressionFunction> constants = new HashMap<Class, ExpressionFunction>();
@@ -42,9 +36,10 @@ public class AllExpressionFunctions implements FunctionGroup {
         return (Class<ExpressionFunction>) f.getClass();
     }
 
-    public ExpressionFunction build(Class<?extends ExpressionFunction> nfClass,
-        ExpressionFunctionFactory nff) {
-        // this is not supported for this class...
-        return null;
+    public List<ExpressionFunction> allInstances() {
+        List<ExpressionFunction> allFunctions = new ArrayList<ExpressionFunction>();
+        //allFunctions.addAll(new AllFn().getFunctions());
+        return allFunctions;
     }
+
 }

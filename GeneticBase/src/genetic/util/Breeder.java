@@ -23,7 +23,7 @@ import java.util.Random;
 public class Breeder<T extends GeneticComponent> {
 
     protected Random getRandom() {
-        return GeneticFoundation.getFoundation().getBuilderRandom();
+        return GeneticFoundation.getInstance().getBuilderRandom();
     }
     
     private List<BreederAction<T>> breeders = new ArrayList<BreederAction<T>>();

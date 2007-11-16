@@ -37,14 +37,6 @@ abstract public class ExpressionFunction implements Evaluatable, Parameterized, 
     public void setIsSetup(boolean v) {isSetup = v;}
     public void setup() {}
     
-    /*public Object evaluate(List inputs, Context context) {
-        if(inputs.size() == 0)
-            return evaluate((Object[])null, context);
-        else {
-            return evaluate(inputs.toArray(), context);
-        }
-    }*/
-    
     abstract public Object evaluate( Context context, Object inputs[]);
     abstract public int getNumberInputs();
     abstract public Class getInputType(int i);

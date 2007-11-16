@@ -9,10 +9,18 @@
 
 package genetic.component.statement;
 
+import genetic.util.AllComponents;
+import java.util.List;
+
 /**
  *
  * @author Calvin Ashmore
  */
-public class AllStatements {
+public class AllStatements implements AllComponents<Statement> {
+
+    public List<Statement> allInstances() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
 
 }

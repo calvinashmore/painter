@@ -41,7 +41,7 @@ public class Method implements GeneticComponent {
         this.returnType = returnType;
         this.argumentTypes = argumentTypes;
         
-        this.contextModel = new ContextModel(parent.getContextModel(), false);
+        this.contextModel = new ContextModel(parent.getContextModel());
         this.argumentNames = new ArrayList<String>();
         
         for(Class type : argumentTypes)
@@ -56,15 +56,6 @@ public class Method implements GeneticComponent {
 
     public ContextModel getContextModel() {
         return contextModel;
-    }
-
-    public void mutate() {
-        body.mutate();
-    }
-
-    public Method breed(GeneticComponent component) {
-        Method mate = (Method) component;
-        return null; // FIXME
     }
     
     public Method clone(GeneticComponent newParent) {
@@ -99,6 +90,9 @@ public class Method implements GeneticComponent {
 
     public void removeVariable(String name) {
         body.removeVariable(name);
+    }
+
+    public void resetParent(GeneticComponent newParent) {
     }
 
 }

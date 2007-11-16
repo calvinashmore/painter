@@ -40,9 +40,9 @@ public class StatementList implements GeneticComponent {
         //boolean newVars = Math.random() < .1f;
         contextModel = new ContextModel(parent.getContextModel());
         
-        StatementFactory factory = GeneticFoundation.getFoundation().getStatementFactory();
+        StatementFactory factory = GeneticFoundation.getInstance().getStatementFactory();
         
-        int numberStatements = GeneticFoundation.getFoundation().getBuilderRandom().
+        int numberStatements = GeneticFoundation.getInstance().getBuilderRandom().
                 nextInt(numberFlexStatements) + numberBaseStatements;
         for(int i=0;i<numberStatements;i++) {
             Statement statement = factory.createStatement(this);

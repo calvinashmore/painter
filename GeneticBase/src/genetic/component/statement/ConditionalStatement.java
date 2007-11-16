@@ -11,14 +11,9 @@ package genetic.component.statement;
 
 import genetic.Context;
 import genetic.component.expression.Expression;
-import genetic.expressions.ExpressionException;
-import genetic.component.expression.ExpressionFunctionFactory;
-import genetic.component.expression.ExpressionMutator;
+import genetic.component.expression.ExpressionFunctionFactoryImpl;
 import genetic.GeneticComponent;
-import genetic.component.statement.Statement;
-import genetic.component.statement.StatementConstructionException;
 import genetic.component.statementlist.StatementList;
-import java.util.Random;
 
 /**
  *
@@ -38,7 +33,7 @@ public class ConditionalStatement extends Statement {
         setParent(parent);
         
         try {
-            condition = new ExpressionFunctionFactory(getContextModel()).makeTree(Boolean.class);
+            condition = new ExpressionFunctionFactoryImpl(getContextModel()).makeTree(Boolean.class);
         } catch(ExpressionException e) {
             throw new StatementConstructionException();
         }
@@ -66,32 +61,12 @@ public class ConditionalStatement extends Statement {
             elseBody.execute(context);
     }
 
-    public void mutate() {
-        
-        switch(new Random().nextInt(3)) {
-            case 0: condition = ExpressionMutator.mutate(getContextModel(), condition); return;
-            case 1: ifBody.mutate(); return;
-            case 2: elseBody.mutate(); return;
-        }
-    }
-
-    public GeneticComponent breed(GeneticComponent component) {
-        return null;
-    }
-
     public String printout(String indent) {
         String r = indent+"if("+condition+")\n";
         r += ifBody.printout(indent+"  ");
         r += indent+"else\n";
         r += elseBody.printout(indent+"  ");
         return r;
-    }
-
-    public void removeVariable(String name) {
-        
-        condition = ExpressionFunctionFactory.removeVariable(condition, name);
-        ifBody.removeVariable(name);
-        elseBody.removeVariable(name);
     }
     
 }

@@ -185,20 +185,11 @@ public class ContextModel {
         if (parent != null) context = new Context(parent, this);
         else context = new Context(this);
         for (String name : variableTypes.keySet()) {
-            context.setVariable(name, createVariable(variableTypes.get(name).type));
+            Object value = GeneticFoundation.getInstance().getTypeSystem().createDefault(variableTypes.get(name).type);
+            context.setVariable(name, value);
         }
 
         return context;
-    }
-
-    public static Object createVariable(Class type) {
-        try {
-            return type.newInstance();
-        }
-        catch (InstantiationException ex) {}
-        catch (IllegalAccessException ex) {}
-        
-        return null;
     }
 
     public String printout(String indent) {

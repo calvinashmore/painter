@@ -24,9 +24,14 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
     private Object[] cacheInputs;
     private ExpressionFunction function;
     private transient Object cacheOutput = null;
+    private ContextModel cm;
+    private GeneticComponent parent;
 
-    public Expression(ExpressionFunction function) {
+    public Expression(ExpressionFunction function, ContextModel cm, GeneticComponent parent) {
 
+        this.parent = parent;
+        this.cm = cm;
+        
         children = new ArrayList<Expression>(function.getNumberInputs());
         cacheInputs = new Object[function.getNumberInputs()];
 
@@ -74,7 +79,7 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
         return function;
     }
 
-    synchronized public Object evaluate(Context context) {
+    public Object evaluate(Context context) {
 
         if (cacheOutput != null) {
             return cacheOutput;
@@ -99,57 +104,6 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
         return cacheOutput;
     }
 
-    /*
-    private void checkInvalid() {
-    if(cacheOutput instanceof LDouble) {
-    LDouble v = (LDouble)cacheOutput;
-    if(Double.isInfinite(v.val) || Double.isNaN(v.val))
-    v.val = 0;
-    }
-    else if(cacheOutput instanceof LVect2d) {
-    LVect2d v = (LVect2d)cacheOutput;
-    if(Double.isInfinite(v.x) || Double.isNaN(v.x))
-    v.x = 0;
-    if(Double.isInfinite(v.y) || Double.isNaN(v.y))
-    v.y = 0;
-    }
-    else if(cacheOutput instanceof Complex) {
-    Complex v = (Complex)cacheOutput;
-    if(Double.isInfinite(v.x) || Double.isNaN(v.x))
-    v.x = 0;
-    if(Double.isInfinite(v.y) || Double.isNaN(v.y))
-    v.y = 0;
-    }
-    else if(cacheOutput instanceof LVect3d) {
-    LVect3d v = (LVect3d)cacheOutput;
-    if(Double.isInfinite(v.x) || Double.isNaN(v.x))
-    v.x = 0;
-    if(Double.isInfinite(v.y) || Double.isNaN(v.y))
-    v.y = 0;
-    if(Double.isInfinite(v.z) || Double.isNaN(v.z))
-    v.z = 0;
-    }
-    else if(cacheOutput instanceof Color) {
-    Color v = (Color)cacheOutput;
-    if(Double.isInfinite(v.r) || Double.isNaN(v.r))
-    v.r = 0;
-    if(Double.isInfinite(v.g) || Double.isNaN(v.g))
-    v.g = 0;
-    if(Double.isInfinite(v.b) || Double.isNaN(v.b))
-    v.b = 0;
-    }
-    else if(cacheOutput instanceof Quaternion) {
-    Quaternion v = (Quaternion)cacheOutput;
-    if(Double.isInfinite(v.u) || Double.isNaN(v.u))
-    v.u = 0;
-    if(Double.isInfinite(v.i) || Double.isNaN(v.i))
-    v.i = 0;
-    if(Double.isInfinite(v.j) || Double.isNaN(v.j))
-    v.j = 0;
-    if(Double.isInfinite(v.k) || Double.isNaN(v.k))
-    v.k = 0;
-    }
-    }*/
     private void debugPrint(Exception e, Context context) {
         synchronized (System.err) {
             System.err.println(function);
@@ -225,6 +179,11 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
         return function.getNumberInputs();
     }
 
+    public Class getReturnType() {
+        return function.getReturnType();
+    }
+    
+
     @Deprecated
     public List<Expression> getInputs() {
         List<Expression> r = new ArrayList<Expression>(getNumberInputs());
@@ -272,12 +231,15 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
     }
 
     public GeneticComponent getParent() {
+        return parent;
     }
 
     public ContextModel getContextModel() {
+        return cm;
     }
 
     public void resetParent(GeneticComponent newParent) {
+        this.parent = newParent;
     }
 
     public GeneticComponent clone(GeneticComponent newParent) {

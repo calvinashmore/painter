@@ -1,45 +1,23 @@
 /*
- * AllFunctions.java
+ * FunctionGroup.java
  *
- * Created on February 26, 2006, 12:35 AM
+ * Created on January 2, 2006, 11:37 PM
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ * To change this template, choose Tools | Options and locate the template under
+ * the Source Creation and Management node. Right-click the template and choose
+ * Open. You can then make changes to the template in the Source Editor.
  */
+
 package genetic.component.expression;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import genetic.util.AllComponents;
+import java.util.*;
 
 /**
  *
- * @author Calvin Ashmore
+ * @author Ron Ashmore
  */
-public class AllExpressionFunctions implements FunctionGroup {
-    
-    
-    static private Map<Class, ExpressionFunction> variables = new HashMap<Class, ExpressionFunction>();
-    static private Map<Class, ExpressionFunction> constants = new HashMap<Class, ExpressionFunction>();
-    
-    public static Class<ExpressionFunction> getVariableFunction(Class type) {
-        ExpressionFunction f = variables.get(type);
-        if(f == null) return null;
-        return (Class<ExpressionFunction>) f.getClass();
-    }
-    
-    public static Class<ExpressionFunction> getConstantFunction(Class type) {
-        ExpressionFunction f = constants.get(type);
-        if(f == null) return null;
-        return (Class<ExpressionFunction>) f.getClass();
-    }
-
-    public List<ExpressionFunction> allInstances() {
-        List<ExpressionFunction> allFunctions = new ArrayList<ExpressionFunction>();
-        //allFunctions.addAll(new AllFn().getFunctions());
-        return allFunctions;
-    }
-
+public interface AllExpressionFunctions extends AllComponents<ExpressionFunction> {
+    public Class<ExpressionFunction> getVariableFunction(Class type);
+    public Class<ExpressionFunction> getConstantFunction(Class type);
 }

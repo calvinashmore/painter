@@ -9,6 +9,8 @@
 
 package genetic.util;
 
+import genetic.ContextModel;
+
 /**
  * <p>A Factory builds an object of a type that belongs to a certain class.
  * Factories are responsible for creating ExpressionFunction objects and the like.
@@ -21,7 +23,7 @@ package genetic.util;
  * @author Calvin Ashmore
  */
 public interface Factory<T> {
-    public T shallowBuild(Class<? extends T> t) throws BuildException;
+    public T shallowBuild(Class<? extends T> t, ContextModel cm) throws BuildException;
     
     /**
      * 
@@ -29,7 +31,7 @@ public interface Factory<T> {
      * @return a deep build of t
      * @throws genetic.util.BuildException
      */
-    public T deepBuild(Class<? extends T> t) throws BuildException;
+    public T deepBuild(Class<? extends T> t, ContextModel cm) throws BuildException;
     
     /**
      * 

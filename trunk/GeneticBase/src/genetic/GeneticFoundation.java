@@ -13,7 +13,7 @@ import genetic.component.expression.accessor.AccessorFactory;
 import genetic.component.expression.accessor.AllAccessors;
 import genetic.component.statement.command.AllCommands;
 import genetic.component.statement.command.CommandFactory;
-import genetic.component.expression.AllExpressionFunctions;
+import genetic.component.expression.AllExpressionFunctionsImpl;
 import genetic.component.expression.Expression;
 import genetic.component.expression.ExpressionBreeder;
 import genetic.component.expression.ExpressionBuilder;
@@ -22,6 +22,7 @@ import genetic.component.expression.ExpressionFunction;
 import genetic.component.expression.ExpressionFunctionFactory;
 import genetic.component.expression.ExpressionFunctionFactoryImpl;
 import genetic.component.expression.ExpressionMutator;
+import genetic.component.expression.AllExpressionFunctions;
 import genetic.component.expression.accessor.Accessor;
 import genetic.component.method.Method;
 import genetic.component.method.MethodBreeder;
@@ -83,7 +84,7 @@ public class GeneticFoundation {
     
     public AllComponents<Accessor> getAllAccessors() {return new AllAccessors();}
     public AllComponents<Command> getAllCommands() {return new AllCommands();}
-    public AllComponents<ExpressionFunction> getAllExpressionFunctions() {return new AllExpressionFunctions();}
+    public AllExpressionFunctions getAllExpressionFunctions() {return new AllExpressionFunctionsImpl();}
     public AllComponents<Statement> getAllStatements() {return new AllStatements();}
     
     

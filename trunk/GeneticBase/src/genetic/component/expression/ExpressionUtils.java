@@ -4,6 +4,7 @@
  */
 package genetic.component.expression;
 
+import genetic.GeneticFoundation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class ExpressionUtils {
                 // the expression is a variable, and the variable name matches the variable being removed
                 // need to replace the NF with a constant
 
+                *********** REVISE
+                
                 String nfClassName = expression1.getFunction().getClass().getName().replace("Variable", "Constant");
 
                 ExpressionFunction constant;
@@ -62,7 +65,7 @@ public class ExpressionUtils {
                     throw new RuntimeException(ex);
                 }
 
-                Expression replacement = new Expression(constant);
+                Expression replacement = GeneticFoundation.getInstance().getExpressionBuilder().newNode(constant, cm, expression1.getParent());
 
                 for (Expression expression2 : expressions) {
                     List<Expression> subExpressions = expression2.getChildren();

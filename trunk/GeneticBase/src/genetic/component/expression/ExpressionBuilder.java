@@ -5,6 +5,8 @@
 
 package genetic.component.expression;
 
+import genetic.ContextModel;
+import genetic.GeneticComponent;
 import genetic.util.BuildException;
 import genetic.util.Builder;
 
@@ -14,7 +16,7 @@ import genetic.util.Builder;
  */
 public interface ExpressionBuilder extends Builder<Expression> {
     
-    public Expression makeTree(Class outputClass) throws BuildException;
-    public Expression makeTree(Class outputClass, int depth) throws BuildException;
-    public Expression newNode(ExpressionFunction nf);
+    public Expression makeTree(Class outputClass, ContextModel cm, GeneticComponent parent) throws BuildException;
+    public Expression makeTree(Class outputClass, ContextModel cm, GeneticComponent parent, int depth) throws BuildException;
+    public Expression newNode(ExpressionFunction nf, ContextModel cm, GeneticComponent parent) throws BuildException;
 }

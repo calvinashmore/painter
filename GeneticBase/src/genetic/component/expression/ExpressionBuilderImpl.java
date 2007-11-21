@@ -4,9 +4,11 @@
  */
 package genetic.component.expression;
 
+import genetic.component.expression.function.ExpressionFunctionFactory;
+import genetic.component.expression.function.ExpressionFunction;
 import genetic.ContextModel;
 import genetic.GeneticComponent;
-import genetic.GeneticFoundation;
+import genetic.Foundation;
 import genetic.util.BuildException;
 
 /**
@@ -19,7 +21,7 @@ public class ExpressionBuilderImpl implements ExpressionBuilder {
     private int targetDepth = 5;
 
     public ExpressionBuilderImpl() {
-        this.nff = GeneticFoundation.getInstance().getExpressionFunctionFactory();
+        this.nff = Foundation.getInstance().getExpressionFunctionFactory();
     }
 
     public Expression makeTree(Class outputClass, ContextModel cm, GeneticComponent parent) throws BuildException {

@@ -10,8 +10,8 @@
 package genetic.component.statement;
 
 import genetic.component.expression.Expression;
-import genetic.component.expression.ExpressionFunctionFactoryImpl;
-import genetic.component.expression.ExpressionMutator;
+import genetic.component.expression.function.ExpressionFunctionFactoryImpl;
+import genetic.component.expression.mutator.ExpressionMutator;
 import java.util.List;
 import java.util.Random;
 

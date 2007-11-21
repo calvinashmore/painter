@@ -9,7 +9,9 @@
  */
 package genetic.component.expression;
 
+import genetic.component.expression.function.ExpressionFunction;
 import genetic.*;
+import genetic.Foundation;
 import java.util.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -92,13 +94,13 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
 
         try {
             cacheOutput = function.evaluate(context, cacheInputs);
-            cacheOutput = GeneticFoundation.getInstance().getTypeSystem().checkInvalid(cacheOutput);
+            cacheOutput = Foundation.getInstance().getTypeSystem().checkInvalid(cacheOutput);
         } catch (ClassCastException e) {
             debugPrint(e, context);
-            cacheOutput = GeneticFoundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
+            cacheOutput = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
         } catch (NullPointerException e) {
             debugPrint(e, context);
-            cacheOutput = GeneticFoundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
+            cacheOutput = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
         }
 
         return cacheOutput;

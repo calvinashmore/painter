@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package genetic.component.expression;
+package genetic.component.expression.function;
 
 import genetic.Context;
 
@@ -18,8 +18,10 @@ import genetic.Context;
 public class ConstantExpressionFunction<Type> extends ExpressionFunction {
 
     private Type value;
-    public ConstantExpressionFunction(Type value) {
+    private Class<Type> type;
+    public ConstantExpressionFunction(Type value, Class<Type> type) {
         this.value = value;
+        this.type = type;
     }
     
     public Object evaluate(Context context, Object[] inputs) {
@@ -35,7 +37,7 @@ public class ConstantExpressionFunction<Type> extends ExpressionFunction {
     public Class getInputType(int i) {return null;}
 
     public Class getReturnType() {
-        return value.getClass();
+        return type;
     }
 
 }

@@ -7,8 +7,11 @@
  * and open the template in the editor.
  */
 
-package genetic.component.expression;
+package genetic.component.expression.mutator;
 
+import genetic.component.expression.*;
+import genetic.component.expression.function.ExpressionFunction;
+import genetic.component.expression.function.ExpressionFunctionFactoryImpl;
 import genetic.*;
 import genetic.util.BuildException;
 import genetic.util.Mutator;

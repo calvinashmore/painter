@@ -9,7 +9,6 @@
  */
 package genetic;
 
-import genetic.component.program.Program;
 import java.util.*;
 
 
@@ -35,7 +34,7 @@ public class Context implements java.io.Serializable {
     }
     
     public ContextModel getModel() {return model;}
-    public Program getTopLevel() {return getModel().getTopLevel();}
+    public GeneticTopLevel getTopLevel() {return getModel().getTopLevel();}
 
     public void setVariable(String name, Object value) {
         if(parent != null && parent.getVariable(name) != null) {

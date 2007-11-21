@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package genetic.component.expression;
+package genetic.component.expression.function;
 
 import genetic.component.expression.accessor.Accessor;
 import genetic.*;
@@ -36,7 +36,6 @@ abstract public class AccessorFunction extends ExpressionFunction {
         } else {
             inputClasses = null;
         }
-        
     }
 
     public Object evaluate(Object[] inputs, Context context) {

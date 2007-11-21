@@ -17,5 +17,5 @@ import genetic.GeneticComponent;
  * @author Calvin Ashmore
  */
 abstract public class MutatorAction<T extends GeneticComponent> {
-    abstract public boolean mutate(ContextModel model, T target);
+    abstract public boolean mutate(ContextModel model, T target) throws BuildException;
 }

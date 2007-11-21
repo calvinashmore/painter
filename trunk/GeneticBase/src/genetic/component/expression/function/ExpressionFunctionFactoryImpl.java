@@ -7,7 +7,7 @@
  * the Source Creation and Management node. Right-click the template and choose
  * Open. You can then make changes to the template in the Source Editor.
  */
-package genetic.component.expression;
+package genetic.component.expression.function;
 
 import genetic.*;
 import genetic.util.BuildException;
@@ -21,7 +21,6 @@ import java.lang.reflect.*;
 public class ExpressionFunctionFactoryImpl implements ExpressionFunctionFactory {
 
     public ExpressionFunctionFactoryImpl() {
-
     }
 
     public float getFunctionWeight(Class<? extends ExpressionFunction> nfClass) {
@@ -31,7 +30,7 @@ public class ExpressionFunctionFactoryImpl implements ExpressionFunctionFactory 
     public ExpressionFunction selectByOutput(Class outputClass, ContextModel cm, boolean seekTerminal) throws BuildException {
 
         List<Class<? extends ExpressionFunction>> matches = new ArrayList<Class<? extends ExpressionFunction>>();
-        for (ExpressionFunction nf : GeneticFoundation.getInstance().getAllExpressionFunctions().allInstances()) {
+        for (ExpressionFunction nf : GeneticFoundation.getInstance().getAllExpressionFunctions().allInstances(cm)) {
             if (nf.getReturnType() == outputClass &&
                     (!seekTerminal || nf.getNumberInputs() == 0)) {
                 matches.add(nf.getClass());
@@ -41,7 +40,7 @@ public class ExpressionFunctionFactoryImpl implements ExpressionFunctionFactory 
         // if we are seeking a terminal, and there are no possible terminals, go ahead and
         // just select from all possible outputs
         if (matches.size() == 0 && seekTerminal) {
-            for (ExpressionFunction nf : GeneticFoundation.getInstance().getAllExpressionFunctions().allInstances()) {
+            for (ExpressionFunction nf : GeneticFoundation.getInstance().getAllExpressionFunctions().allInstances(cm)) {
                 if (nf.getReturnType() == outputClass) {
                     matches.add(nf.getClass());
                 }

@@ -8,9 +8,11 @@
  * Open. You can then make changes to the template in the Source Editor.
  */
 
-package genetic.component.expression;
+package genetic.component.expression.function;
 
+import genetic.ContextModel;
 import genetic.util.AllComponents;
+import genetic.util.BuildException;
 import java.util.*;
 
 /**
@@ -18,6 +20,6 @@ import java.util.*;
  * @author Ron Ashmore
  */
 public interface AllExpressionFunctions extends AllComponents<ExpressionFunction> {
-    public Class<ExpressionFunction> getVariableFunction(Class type);
-    public Class<ExpressionFunction> getConstantFunction(Class type);
+    public ExpressionFunction getVariableFunction(Class type, ContextModel cm) throws BuildException;
+    public ExpressionFunction getConstantFunction(Class type) throws BuildException;
 }

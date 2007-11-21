@@ -10,11 +10,8 @@
 package genetic.component.statement;
 
 import genetic.Context;
-import genetic.expressions.ExpressionException;
-import genetic.component.expression.ExpressionFunctionFactoryImpl;
+import genetic.component.expression.function.ExpressionFunctionFactoryImpl;
 import genetic.GeneticComponent;
-import genetic.component.statement.Statement;
-import genetic.component.statement.StatementConstructionException;
 import genetic.component.statementlist.StatementList;
 import java.util.List;
 import java.util.Random;

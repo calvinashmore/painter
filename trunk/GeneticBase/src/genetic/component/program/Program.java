@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author gtg126z
  */
-public class Program implements GeneticComponent {
+public class Program implements GeneticTopLevel {
     
     // must find ways in here to articulate catalog of action functions
     // maybe these are just NFs?

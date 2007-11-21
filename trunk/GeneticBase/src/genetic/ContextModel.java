@@ -8,7 +8,7 @@
  */
 package genetic;
 
-import genetic.component.program.Program;
+import genetic.Foundation;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -41,7 +41,7 @@ public class ContextModel {
     //private static final int numberBaseVars = 0;
     //private static final int numberFlexVars = 4;
     private ContextModel parent;
-    private Program topLevel;
+    private GeneticTopLevel topLevel;
     private Map<String, VariableDefinition> variableTypes;
 
     /** Creates a new instance of ContextModel */
@@ -54,7 +54,7 @@ public class ContextModel {
         variableTypes = new Hashtable<String, ContextModel.VariableDefinition>();
     }
 
-    public ContextModel(Program topLevel) {
+    public ContextModel(GeneticTopLevel topLevel) {
         this.parent = null;
         this.topLevel = topLevel;
         variableTypes = new Hashtable<String, ContextModel.VariableDefinition>();
@@ -67,7 +67,7 @@ public class ContextModel {
         }
     }
 
-    public void setProgram(Program topLevel) {
+    public void setTopLevel(GeneticTopLevel topLevel) {
         this.topLevel = topLevel;
     }
 
@@ -177,7 +177,7 @@ public class ContextModel {
         return typedVars;
     }
 
-    public Program getTopLevel() {
+    public GeneticTopLevel getTopLevel() {
         return topLevel;
     }
 
@@ -201,7 +201,7 @@ public class ContextModel {
             context = new Context(this);
         }
         for (String name : variableTypes.keySet()) {
-            Object value = GeneticFoundation.getInstance().getTypeSystem().createDefault(variableTypes.get(name).type);
+            Object value = Foundation.getInstance().getTypeSystem().createDefault(variableTypes.get(name).type);
             context.setVariable(name, value);
         }
 

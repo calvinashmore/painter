@@ -12,6 +12,7 @@ package genetic.component.statementlist;
 import genetic.*;
 import genetic.component.statement.StatementFactory;
 import genetic.component.statement.Statement;
+import genetic.Foundation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +41,9 @@ public class StatementList implements GeneticComponent {
         //boolean newVars = Math.random() < .1f;
         contextModel = new ContextModel(parent.getContextModel());
         
-        StatementFactory factory = GeneticFoundation.getInstance().getStatementFactory();
+        StatementFactory factory = Foundation.getInstance().getStatementFactory();
         
-        int numberStatements = GeneticFoundation.getInstance().getBuilderRandom().
+        int numberStatements = Foundation.getInstance().getBuilderRandom().
                 nextInt(numberFlexStatements) + numberBaseStatements;
         for(int i=0;i<numberStatements;i++) {
             Statement statement = factory.createStatement(this);

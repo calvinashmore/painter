@@ -9,6 +9,7 @@
 
 package genetic.component.expression.accessor;
 
+import genetic.ContextModel;
 import genetic.util.AllComponents;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class AllAccessors implements AllComponents<Accessor> {
 
-    public List<Accessor> allInstances() {
+    public List<Accessor> allInstances(ContextModel cm) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

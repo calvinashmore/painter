@@ -8,10 +8,15 @@
  * Open. You can then make changes to the template in the Source Editor.
  */
 
-package genetic.component.expression;
-import genetic.*;
-import java.util.*;
-import java.io.*;
+package genetic.component.expression.function;
+
+import genetic.Context;
+import genetic.Evaluatable;
+import genetic.Metadata;
+import genetic.Parameterized;
+import java.io.Serializable;
+import java.util.Hashtable;
+import java.util.Map;
 
 /**
  *

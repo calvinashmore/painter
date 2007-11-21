@@ -11,7 +11,7 @@ package genetic.util;
 
 import genetic.ContextModel;
 import genetic.GeneticComponent;
-import genetic.GeneticFoundation;
+import genetic.Foundation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +23,7 @@ import java.util.Random;
 public class Mutator<T extends GeneticComponent> {
     
     protected Random getRandom() {
-        return GeneticFoundation.getInstance().getBuilderRandom();
+        return Foundation.getInstance().getBuilderRandom();
     }
     
     private List<MutatorAction<T>> mutators = new ArrayList<MutatorAction<T>>();
@@ -31,7 +31,7 @@ public class Mutator<T extends GeneticComponent> {
     
     protected int getNumberAttempts() {return 5;}
     
-    public T mutate(GeneticComponent newParent, ContextModel model, T target) {
+    public T mutate(GeneticComponent newParent, ContextModel model, T target) throws BuildException {
         
         for(int i=0; i<getNumberAttempts(); i++) {
             MutatorAction<T> action = selectAction();

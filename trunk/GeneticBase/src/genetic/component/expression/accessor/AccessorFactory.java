@@ -9,6 +9,7 @@
 
 package genetic.component.expression.accessor;
 
+import genetic.ContextModel;
 import genetic.util.BuildException;
 import genetic.util.Factory;
 
@@ -22,7 +23,11 @@ public class AccessorFactory implements Factory<Accessor> {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public Accessor shallowBuild(Class t) throws BuildException {
+    public Accessor shallowBuild(Class<? extends Accessor> t, ContextModel cm) throws BuildException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Accessor deepBuild(Class<? extends Accessor> t, ContextModel cm) throws BuildException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

@@ -16,4 +16,5 @@ public interface TypeSystem {
     public Object perturbValue(Object obj);
     public Object checkInvalid(Object obj);
     public Object createDefault(Class c);
+    public Object createRandom(Class c);
 }

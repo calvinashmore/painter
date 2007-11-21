@@ -5,6 +5,7 @@
 
 package genetic.util;
 
+import genetic.ContextModel;
 import java.util.List;
 
 /**
@@ -12,5 +13,5 @@ import java.util.List;
  * @author Calvin Ashmore
  */
 public interface AllComponents<T> {
-    public List<T> allInstances();
+    public List<T> allInstances(ContextModel cm);
 }

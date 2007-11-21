@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package genetic.component.expression;
+package genetic.component.expression.function;
 
 import genetic.ContextModel;
 import genetic.util.BuildException;

@@ -11,7 +11,7 @@ package genetic.util;
 
 import genetic.ContextModel;
 import genetic.GeneticComponent;
-import genetic.GeneticFoundation;
+import genetic.Foundation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +23,7 @@ import java.util.Random;
 public class Breeder<T extends GeneticComponent> {
 
     protected Random getRandom() {
-        return GeneticFoundation.getInstance().getBuilderRandom();
+        return Foundation.getInstance().getBuilderRandom();
     }
     
     private List<BreederAction<T>> breeders = new ArrayList<BreederAction<T>>();

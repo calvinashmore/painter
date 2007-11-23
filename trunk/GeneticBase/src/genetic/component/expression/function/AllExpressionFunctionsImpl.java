@@ -9,7 +9,7 @@
 package genetic.component.expression.function;
 
 import genetic.ContextModel;
-import genetic.GeneticFoundation;
+import genetic.Foundation;
 import genetic.util.BuildException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +25,12 @@ public class AllExpressionFunctionsImpl implements AllExpressionFunctions {
         List<String> variables = cm.getVariablesByType(type);
         if(variables.size() == 0)
             throw new BuildException("No variables of type "+type);
-        String name = variables.get(GeneticFoundation.getInstance().getBuilderRandom().nextInt(variables.size()));
+        String name = variables.get(Foundation.getInstance().getBuilderRandom().nextInt(variables.size()));
         return new VariableExpressionFunction(name, type);
     }
     
     public ConstantExpressionFunction getConstantFunction(Class type) {
-        Object result = GeneticFoundation.getInstance().getTypeSystem().createRandom(type);
+        Object result = Foundation.getInstance().getTypeSystem().createRandom(type);
         return new ConstantExpressionFunction(result,type);
     }
 

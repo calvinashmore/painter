@@ -29,6 +29,10 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
     private ContextModel cm;
     private GeneticComponent parent;
 
+    private void setParent(Expression parent) {
+        this.parent = parent;
+    }
+    
     public Expression(ExpressionFunction function, ContextModel cm, GeneticComponent parent) {
 
         this.parent = parent;
@@ -60,6 +64,7 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
             return false;
         }
 
+        child.setParent(this);
         children.set(index, child);
         return true;
     }
@@ -143,7 +148,7 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
 
     public Expression clone() {
 
-        try {
+        /*try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bos);
             oos.writeUnshared(this);
@@ -158,7 +163,7 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     public String getName() {
@@ -186,14 +191,14 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
     }
     
 
-    @Deprecated
+    /*@Deprecated
     public List<Expression> getInputs() {
         List<Expression> r = new ArrayList<Expression>(getNumberInputs());
         for (int i = 0; i < getNumberInputs(); i++) {
             r.add(getInput(i));
         }
         return r;
-    }
+    }*/
 
     public Expression getInput(int i) {
         return children.get(i);
@@ -244,7 +249,7 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
         this.parent = newParent;
     }
 
-    public GeneticComponent clone(GeneticComponent newParent) {
+    public Expression clone(GeneticComponent newParent) {
     }
 
     public void removeVariable(String name) {

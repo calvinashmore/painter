@@ -9,7 +9,7 @@ import genetic.ContextModel;
 import genetic.Foundation;
 import genetic.component.expression.Expression;
 import genetic.component.expression.ExpressionUtils;
-import genetic.component.expression.function.ExpressionFunction;
+import genetic.component.expression.function.ConstantExpressionFunction;
 import genetic.util.BuildException;
 import genetic.util.MutatorAction;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class ExpandConstant extends MutatorAction<Expression> {
         List<Expression> constNodes = new ArrayList();
         
         for(Expression n : allNodes)
-            if(n.getFunction().getClass().getName().contains("Constant"))
+            if(n.getFunction() instanceof ConstantExpressionFunction)
                 constNodes.add(n);
         
         if(constNodes.isEmpty())
@@ -41,8 +41,6 @@ public class ExpandConstant extends MutatorAction<Expression> {
         
         Expression replacement = Foundation.getInstance().getExpressionBuilder().
                 makeTree(returnClass, model, target.getParent());
-        //Expression replacement = new Expression(new ExpressionFactory(contextModel).build(returnClass));
-        //builder.buildNode(returnClass, target.getContextClass(), false, true, 3, 10, 1);
         
         ExpressionUtils.replaceExpression(target, constNode, replacement, model);
         

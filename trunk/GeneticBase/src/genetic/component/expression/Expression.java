@@ -146,25 +146,9 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
         }
     }
 
-    public Expression clone() {
+    /*public Expression clone() {
 
-        /*try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeUnshared(this);
-            byte data[] = bos.toByteArray();
-
-            ByteArrayInputStream bis = new ByteArrayInputStream(data);
-            ObjectInputStream ois = new ObjectInputStream(bis);
-
-            Expression clone = (Expression) ois.readObject();
-            return clone;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }*/
-    }
+    }*/
 
     public String getName() {
         return function.getClass().getName();

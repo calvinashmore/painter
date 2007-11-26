@@ -9,13 +9,11 @@
 
 package genetic;
 
-import java.io.Serializable;
-
 /**
  *
  * @author gtg126z
  */
-public interface GeneticComponent extends Serializable {
+public interface GeneticComponent extends Cloneable {
     
     public GeneticComponent getParent();
     public ContextModel getContextModel();

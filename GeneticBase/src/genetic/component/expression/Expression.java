@@ -12,9 +12,13 @@ package genetic.component.expression;
 import genetic.component.expression.function.ExpressionFunction;
 import genetic.*;
 import genetic.Foundation;
+import genetic.component.expression.function.VariableExpressionFunction;
+import genetic.util.BuildException;
 import java.util.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -234,8 +238,31 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
     }
 
     public Expression clone(GeneticComponent newParent) {
+        
+        Expression clone;
+        if(newParent instanceof Expression)
+            clone = new Expression(function.clone(), cm, newParent);
+        else clone = new Expression(function.clone(), cm.clone(), newParent);
+        
+        return clone;
     }
 
     public void removeVariable(String name) {
+        if(function instanceof VariableExpressionFunction) {
+            VariableExpressionFunction variableFunction = (VariableExpressionFunction) function;
+            if(variableFunction.getVariableName().equals(name)) {
+                try {
+                    // now we need to replace the function.
+                    // this 
+                    Class returnType = variableFunction.getReturnType();
+                    ExpressionFunction constantFunction = Foundation.getInstance().getAllExpressionFunctions().getConstantFunction(returnType);
+                    function = constantFunction;
+                    
+                } catch (BuildException ex) {
+                    // Supress an exception here, it should never occur.
+                }
+            }
+        }
+        // otherwise do nothing, we're okay.
     }
 }

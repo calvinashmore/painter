@@ -7,8 +7,9 @@
  * and open the template in the editor.
  */
 
-package genetic.component.expression;
+package genetic.component.expression.breeder;
 
+import genetic.component.expression.*;
 import genetic.util.Breeder;
 
 /**

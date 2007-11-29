@@ -44,7 +44,7 @@ public class ExpressionUtils {
         }
     }
     
-    public static Expression replaceExpressionAndClone(Expression expression, Expression replaced, Expression replacer, ContextModel cm) throws BuildException {
+    /*public static Expression replaceExpressionAndClone(Expression expression, Expression replaced, Expression replacer, ContextModel cm) throws BuildException {
 
         // sanity case
         if(expression == replaced)
@@ -63,7 +63,7 @@ public class ExpressionUtils {
         }
         
         return r;
-    }
+    }*/
 
     /**
      * root must NOT be same as replaced.
@@ -88,7 +88,7 @@ public class ExpressionUtils {
         }
     }
 
-    public static Expression removeVariableAndClone(Expression expression, String name, ContextModel cm) throws BuildException {
+    /*public static Expression removeVariableAndClone(Expression expression, String name, ContextModel cm) throws BuildException {
 
         Expression r = expression.clone();
 
@@ -118,5 +118,5 @@ public class ExpressionUtils {
         }
 
         return r;
-    }
+    }*/
 }

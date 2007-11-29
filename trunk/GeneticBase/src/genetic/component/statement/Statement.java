@@ -36,6 +36,11 @@ abstract public class Statement implements GeneticComponent {
     abstract public Statement clone(GeneticComponent newParent);
     abstract public void execute(Context context);
     
+    /**
+     * true if this statement contains one or more StatementLists. 
+     */
+    public boolean isNestingStatement() {return true;}
+    
     protected void addChild(GeneticComponent child) {children.add(child);}
     public List<GeneticComponent> getChildren() {return children;}
     

@@ -11,7 +11,6 @@ package genetic.component.statement;
 
 import genetic.Context;
 import genetic.component.expression.Expression;
-import genetic.component.expression.function.ExpressionFunctionFactoryImpl;
 import genetic.GeneticComponent;
 import genetic.component.program.Program;
 import genetic.component.statementlist.StatementList;

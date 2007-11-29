@@ -9,6 +9,7 @@
 
 package genetic.component.statement;
 
+import genetic.ContextModel;
 import genetic.util.AllComponents;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class AllStatements implements AllComponents<Statement> {
 
-    public List<Statement> allInstances() {
+    public List<Statement> allInstances(ContextModel cm) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

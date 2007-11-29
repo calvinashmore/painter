@@ -16,7 +16,7 @@ import genetic.component.statement.command.AllCommands;
 import genetic.component.statement.command.CommandFactory;
 import genetic.component.expression.function.AllExpressionFunctionsImpl;
 import genetic.component.expression.Expression;
-import genetic.component.expression.ExpressionBreeder;
+import genetic.component.expression.breeder.ExpressionBreeder;
 import genetic.component.expression.ExpressionBuilder;
 import genetic.component.expression.ExpressionBuilderImpl;
 import genetic.component.expression.function.ExpressionFunctionFactory;

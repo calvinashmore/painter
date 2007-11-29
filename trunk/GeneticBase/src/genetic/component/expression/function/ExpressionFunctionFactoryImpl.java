@@ -30,7 +30,7 @@ public class ExpressionFunctionFactoryImpl implements ExpressionFunctionFactory 
     public ExpressionFunction selectByOutput(Class outputClass, ContextModel cm, boolean seekTerminal) throws BuildException {
 
         List<Class<? extends ExpressionFunction>> matches = new ArrayList<Class<? extends ExpressionFunction>>();
-        for (ExpressionFunction nf : GeneticFoundation.getInstance().getAllExpressionFunctions().allInstances(cm)) {
+        for (ExpressionFunction nf : Foundation.getInstance().getAllExpressionFunctions().allInstances(cm)) {
             if (nf.getReturnType() == outputClass &&
                     (!seekTerminal || nf.getNumberInputs() == 0)) {
                 matches.add(nf.getClass());
@@ -40,7 +40,7 @@ public class ExpressionFunctionFactoryImpl implements ExpressionFunctionFactory 
         // if we are seeking a terminal, and there are no possible terminals, go ahead and
         // just select from all possible outputs
         if (matches.size() == 0 && seekTerminal) {
-            for (ExpressionFunction nf : GeneticFoundation.getInstance().getAllExpressionFunctions().allInstances(cm)) {
+            for (ExpressionFunction nf : Foundation.getInstance().getAllExpressionFunctions().allInstances(cm)) {
                 if (nf.getReturnType() == outputClass) {
                     matches.add(nf.getClass());
                 }
@@ -59,7 +59,7 @@ public class ExpressionFunctionFactoryImpl implements ExpressionFunctionFactory 
             weightTotal += getFunctionWeight(nfc);
         }
 
-        double target = GeneticFoundation.getInstance().getBuilderRandom().nextFloat() * weightTotal;
+        double target = Foundation.getInstance().getBuilderRandom().nextFloat() * weightTotal;
         int index = 0;
         for (Class<? extends ExpressionFunction> nfc : matches) {
             target -= getFunctionWeight(nfc);

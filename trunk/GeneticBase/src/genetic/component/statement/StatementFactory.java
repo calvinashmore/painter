@@ -11,6 +11,7 @@ package genetic.component.statement;
 
 import genetic.component.statementlist.StatementList;
 import genetic.*;
+import genetic.util.BuildException;
 import genetic.util.Factory;
 import java.util.Random;
 
@@ -66,6 +67,18 @@ public class StatementFactory implements Factory<Statement> {
             }
         }
         
+    }
+    
+    public Statement select(ContextModel cm) throws BuildException {
+        
+    }
+
+    public Statement shallowBuild(Class<? extends Statement> t, ContextModel cm) throws BuildException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Statement deepBuild(Class<? extends Statement> t, ContextModel cm) throws BuildException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

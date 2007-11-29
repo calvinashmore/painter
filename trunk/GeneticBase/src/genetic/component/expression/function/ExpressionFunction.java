@@ -14,7 +14,6 @@ import genetic.Context;
 import genetic.Evaluatable;
 import genetic.Metadata;
 import genetic.Parameterized;
-import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ import java.util.Map;
  *
  * @author gtg126z
  */
-abstract public class ExpressionFunction implements Evaluatable, Parameterized, Metadata, Serializable {
+abstract public class ExpressionFunction implements Evaluatable, Parameterized, Metadata, Cloneable {
     
     private boolean parametersChanged = true;
     public void setParametersChanged(boolean changed) {parametersChanged=changed;}
@@ -35,6 +34,19 @@ abstract public class ExpressionFunction implements Evaluatable, Parameterized, 
     /** Creates a new instance of NodeFunction */
     public ExpressionFunction() {
         //meta = new Hashtable();
+    }
+    
+    public ExpressionFunction clone() {
+        try {
+            ExpressionFunction clone = (ExpressionFunction) super.clone();
+            clone.isSetup = false;
+            clone.parametersChanged = true;
+            clone.meta = meta; // referential copy
+            
+            return clone;
+        } catch (CloneNotSupportedException ex) {
+            throw new AssertionError(ex);
+        }
     }
     
     private transient boolean isSetup;

@@ -10,6 +10,7 @@ package genetic.component.expression.function;
 
 import genetic.ContextModel;
 import genetic.Foundation;
+import genetic.component.accessor.Accessor;
 import genetic.util.BuildException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,19 @@ public class AllExpressionFunctionsImpl implements AllExpressionFunctions {
 
     public List<ExpressionFunction> allInstances(ContextModel cm) {
         List<ExpressionFunction> allFunctions = new ArrayList<ExpressionFunction>();
+        
+        for(Class type : Foundation.getInstance().getTypeSystem().allTypes()) {
+            try {
+                // add a variable function if we can, otherwise ignore
+                ExpressionFunction function = getVariableFunction(type, cm);
+                allFunctions.add(function);
+            } catch(BuildException e) {} 
+            allFunctions.add(getConstantFunction(type));
+        }
+        
+        for(Accessor accessor : Foundation.getInstance().getAllAccessors().allInstances(cm))
+            allFunctions.add(new AccessorFunction(accessor));
+        
         return allFunctions;
     }
 

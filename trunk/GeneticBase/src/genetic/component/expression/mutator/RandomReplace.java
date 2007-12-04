@@ -23,7 +23,7 @@ public class RandomReplace extends MutatorAction<Expression> {
 
     protected Expression getReplacement(Class returnClass, ContextModel model, GeneticComponent parent) throws BuildException {
         return Foundation.getInstance().getExpressionBuilder().
-                makeTree(returnClass, model, parent);
+                makeTree(returnClass, parent);
     }
     
     @Override
@@ -37,7 +37,7 @@ public class RandomReplace extends MutatorAction<Expression> {
         
         Expression replacement = getReplacement(returnClass, model, replaced.getParent());
         
-        ExpressionUtils.replaceExpression(target, replaced, replacement, model);
+        ExpressionUtils.replaceExpression(target, replaced, replacement);
         
         return true;
     }

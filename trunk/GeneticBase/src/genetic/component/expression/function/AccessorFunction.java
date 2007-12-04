@@ -6,57 +6,83 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package genetic.component.expression.function;
 
-import genetic.component.expression.accessor.Accessor;
+import genetic.component.accessor.Accessor;
 import genetic.*;
-import java.util.List;
-import java.util.Random;
 
 /**
  *
  * @author Calvin Ashmore
  */
-abstract public class AccessorFunction extends ExpressionFunction {
-    String name;
-    Class[] inputClasses;
-    
+public class AccessorFunction extends ExpressionFunction {
+    //String name;
+    Accessor accessor;
+    //Class[] inputClasses;
     /** Creates a new instance of Variable */
-    public AccessorFunction() {}
-    public AccessorFunction(ContextModel contextModel) {
-        List<String> accessors = contextModel.getTopLevel().getAccessorsByType( getReturnType() );
-        name = accessors.get(new Random().nextInt(accessors.size()));
-        
-        Accessor accessor = contextModel.getTopLevel().getAccessor(name);
-        if(accessor.getNumberParameters() > 0) {
-            inputClasses = new Class[accessor.getNumberParameters()];
-            for(int i=0;i< accessor.getNumberParameters();i++)
-                inputClasses[i] = accessor.getParameterType(i);
-        } else {
-            inputClasses = null;
-        }
+    public AccessorFunction() {
     }
 
-    public Object evaluate(Object[] inputs, Context context) {
-        //return context.getVariable(name);
-        return context.getModel().getTopLevel().getAccessor(name).evaluate(inputs);
+    public AccessorFunction(Accessor accessor) {
+        this.accessor = accessor;
     }
 
-    public Class[] getInputClasses() {
-        return inputClasses;
+    @Override
+    public Object evaluate(Context context, Object[] inputs) {
+        return accessor.evaluate(context, inputs);
     }
-    
-    public String toString(String... args) {
-        String r = "accessor."+name+"(";
-        if(args != null && args.length > 0) {
-            r += " "+args[0];
-            for(int i=1;i<args.length;i++)
-                r += ", "+args[i];
-            r += " ";
-        }
-        r += ")";
-        return r;
+
+    @Override
+    public int getNumberInputs() {
+        return accessor.getNumberInputs();
     }
+
+    @Override
+    public Class getInputType(int i) {
+        return accessor.getInputType(i);
+    }
+
+    public Class getReturnType() {
+        return accessor.getReturnType();
+    }
+
+    @Override
+    public int getNumberParameters() {
+        return accessor.getNumberParameters();
+    }
+
+    @Override
+    public Object getParameter(int i) {
+        return accessor.getParameter(i);
+    }
+
+    @Override
+    public String getParameterName(int i) {
+        return accessor.getParameterName(i);
+    }
+
+    @Override
+    public Class getParameterType(int i) {
+        return accessor.getParameterType(i);
+    }
+
+    @Override
+    public void setParameter(int i, Object value) {
+        accessor.setParameter(i, value);
     
+    }
+    /*public Class[] getInputClasses() {
+    return inputClasses;
+    }*/
+    /*public String toString(String... args) {
+    String r = "accessor."+name+"(";
+    if(args != null && args.length > 0) {
+    r += " "+args[0];
+    for(int i=1;i<args.length;i++)
+    r += ", "+args[i];
+    r += " ";
+    }
+    r += ")";
+    return r;
+    }*/
 }

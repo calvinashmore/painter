@@ -10,7 +10,7 @@
 package app01;
 
 import genetic.Context;
-import genetic.component.statement.command.Command;
+import genetic.component.command.Command;
 import painter.PainterProgram;
 
 /**
@@ -42,13 +42,13 @@ public class Main {
         program.initialize();
         
         System.out.println("Executing main... ");
-        program.callEvent("main");
+        program.callMethod("main");
         
         System.out.println("Mutating...");
         
         program = (PainterProgram)program.mutateProgram();
         System.out.flush();
         System.out.println("Executing main... ");
-        program.callEvent("main");
+        program.callMethod("main");
     }
 }

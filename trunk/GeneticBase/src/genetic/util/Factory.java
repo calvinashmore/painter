@@ -23,19 +23,18 @@ import genetic.ContextModel;
  * @author Calvin Ashmore
  */
 public interface Factory<T> {
-    public T shallowBuild(Class<? extends T> t, ContextModel cm) throws BuildException;
-    
     /**
+     * This constructs a new instance of the object in question. It does not
+     * run the object's setup function (if it has one), and does not initialize it,
+     * so this is essentially a shallow build.
+     * 
+     * The actual object in question should be responsible for initializing itself
+     * and making sure that it sets up correctly at runtime.
      * 
      * @param t
      * @return a deep build of t
      * @throws genetic.util.BuildException
      */
-    public T deepBuild(Class<? extends T> t, ContextModel cm) throws BuildException;
+    public T build(Class<? extends T> t, ContextModel cm) throws BuildException;
     
-    /**
-     * 
-     * @return a shallow build of a randomly selected T.
-     */
-    //public T select();
 }

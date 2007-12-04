@@ -17,8 +17,6 @@ import genetic.util.BuildException;
 import java.util.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -30,17 +28,17 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
     private Object[] cacheInputs;
     private ExpressionFunction function;
     private transient Object cacheOutput = null;
-    private ContextModel cm;
+    //private ContextModel cm;
     private GeneticComponent parent;
 
     private void setParent(Expression parent) {
         this.parent = parent;
     }
     
-    public Expression(ExpressionFunction function, ContextModel cm, GeneticComponent parent) {
+    public Expression(ExpressionFunction function, /*ContextModel cm,*/ GeneticComponent parent) {
 
         this.parent = parent;
-        this.cm = cm;
+        //this.cm = cm;
         
         children = new ArrayList<Expression>(function.getNumberInputs());
         cacheInputs = new Object[function.getNumberInputs()];
@@ -134,14 +132,11 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
         throw new RuntimeException();
     }
     // this sets up the node and makes it ready for evaluation
-    private transient boolean isSetup;
+    //private transient boolean isSetup;
 
     public void setup() {
 
-        if (!isSetup) {
-            function.setup();
-            isSetup = true;
-        }
+        function.setup();
 
         for (Expression child : children) {
             if (child != null) {
@@ -149,10 +144,17 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
             }
         }
     }
-
-    /*public Expression clone() {
-
-    }*/
+    
+    public boolean isSetup() {
+        //return isSetup;
+        if(!function.isSetup())
+            return false;
+        
+        for(Expression child : children)
+            if(!child.isSetup())
+                return false;
+        return true;
+    }
 
     public String getName() {
         return function.getClass().getName();
@@ -230,19 +232,21 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
     }
 
     public ContextModel getContextModel() {
-        return cm;
+        return getParent().getContextModel();
     }
 
-    public void resetParent(GeneticComponent newParent) {
+    public void setParent(GeneticComponent newParent) {
         this.parent = newParent;
     }
 
     public Expression clone(GeneticComponent newParent) {
         
-        Expression clone;
-        if(newParent instanceof Expression)
-            clone = new Expression(function.clone(), cm, newParent);
-        else clone = new Expression(function.clone(), cm.clone(), newParent);
+        Expression clone = new Expression(function.clone(), newParent);
+        
+        // clone children
+        for(int i=0; i<getNumberInputs(); i++) {
+            clone.setInput(i, getInput(i).clone(clone));
+        }
         
         return clone;
     }
@@ -264,5 +268,19 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
             }
         }
         // otherwise do nothing, we're okay.
+    }
+
+    public boolean hasVariable(String name) {
+        if(function instanceof VariableExpressionFunction) {
+            VariableExpressionFunction variableFunction = (VariableExpressionFunction) function;
+            if(variableFunction.getVariableName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasMethod(String name) {
+        return false;
     }
 }

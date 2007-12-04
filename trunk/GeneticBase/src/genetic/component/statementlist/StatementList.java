@@ -10,9 +10,10 @@
 package genetic.component.statementlist;
 
 import genetic.*;
-import genetic.component.statement.StatementFactory;
 import genetic.component.statement.Statement;
 import genetic.Foundation;
+import genetic.component.statement.function.StatementFunctionFactory;
+import genetic.util.BuildException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,30 +30,43 @@ public class StatementList implements GeneticComponent {
     private List<Statement> statements;
     private GeneticComponent parent;
     
-    /** Creates a new instance of StatementList */
-    protected StatementList() {
-        statements = new ArrayList<Statement>();
-    }
+    private boolean isSetup;
     
     public StatementList(GeneticComponent parent) {
         this.parent = parent;
-        statements = new ArrayList<Statement>();
+    }
+
+    public boolean isSetup() {
+        return isSetup;
+    }
+
+    public void setup() throws BuildException {
         
-        //boolean newVars = Math.random() < .1f;
-        contextModel = new ContextModel(parent.getContextModel());
-        
-        StatementFactory factory = Foundation.getInstance().getStatementFactory();
-        
-        int numberStatements = Foundation.getInstance().getBuilderRandom().
-                nextInt(numberFlexStatements) + numberBaseStatements;
-        for(int i=0;i<numberStatements;i++) {
-            Statement statement = factory.createStatement(this);
-            statements.add(statement);
+        if(statements == null) {
+            statements = new ArrayList<Statement>();
+
+            contextModel = new ContextModel(parent.getContextModel());
+
+            StatementFunctionFactory factory = Foundation.getInstance().getStatementFactory();
+
+            int numberStatements = Foundation.getInstance().getBuilderRandom().
+                    nextInt(numberFlexStatements) + numberBaseStatements;
+
+            for(int i=0;i<numberStatements;i++) {
+                Statement statementTemplate = factory.select(contextModel, false);
+                Statement statement = factory.build(statementTemplate.getClass(), contextModel);
+                statements.add(statement);
+            }
         }
+        
+        for(Statement statement : statements)
+            statement.setup();
+        
+        isSetup = true;
     }
     
-    public void resetParent(GeneticComponent newParent) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setParent(GeneticComponent newParent) {
+        this.parent = newParent;
     }
 
     public GeneticComponent getParent() {
@@ -62,62 +76,21 @@ public class StatementList implements GeneticComponent {
     public ContextModel getContextModel() {
         return contextModel;
     }
-
-    /*public void mutate() {
-        //return null; // FIXME
-        
-        if(Math.random() < .1f && contextModel.getMyVariables().size() > 0) {
-            int toRemove = new Random().nextInt( Math.min(contextModel.getMyVariables().size(), 3) );
-            for(int i=0;i<toRemove;i++) {
-                String varName = contextModel.getMyVariables().get( new Random().nextInt(contextModel.getMyVariables().size()) );
-                removeVariable(varName);
-                contextModel.removeVariable(varName);
-            }
-        }
-        if(Math.random() < .05f)
-            contextModel.createNewVariables();
-        
-        if(Math.random() < .75f && statements.size() > 0) {
-            
-            int index = new Random().nextInt(statements.size());
-            statements.get(index).mutate();
-            
-            return;
-        }
-        
-        boolean mutated = false;
-        while(!mutated) {
-            switch(new Random().nextInt(10)) {
-                case 0: mutated = mutateAddStatement(); break;
-                case 1: mutated = mutateRemoveStatement(); break;
-                case 2: mutated = mutateRemoveStatement(); break;
-                case 3: mutated = mutateRemoveStatement(); break;
-                case 4: mutated = mutateCollapseConditionalLeft(); break;
-                case 5: mutated = mutateCollapseConditionalRight(); break;
-                case 6: mutated = mutateCollapseConditionalLeft(); break;
-                case 7: mutated = mutateCollapseConditionalRight(); break;
-                case 8: mutated = mutateAddConditional1(); break;
-                case 9: mutated = mutateAddConditional2(); break;
-            }
-        }
-    }
-
-    public GeneticComponent breed(GeneticComponent component) {
-        StatementList mate = (StatementList) component;
-        
-        return null; // FIXME
-    }*/
     
-    public StatementList clone(GeneticComponent newParent) {
-        StatementList r = new StatementList();
+    public StatementList clone(GeneticComponent newParent) throws BuildException {
+        StatementList clone = new StatementList(newParent);
         
-        r.parent = newParent;
-        r.contextModel = contextModel.clone();
-        r.contextModel.setParent(newParent.getContextModel());
+        clone.parent = newParent;
+        clone.contextModel = contextModel.clone();
+        clone.contextModel.setParent(newParent.getContextModel());
         for(Statement statement : statements) {
-            r.statements.add(statement.clone(r));
+            clone.statements.add(statement.clone(clone));
         }
-        return r;
+        
+        clone.isSetup = true;
+        //r.setup();
+        
+        return clone;
     }
     
     public void execute(Context parentContext) {
@@ -142,14 +115,6 @@ public class StatementList implements GeneticComponent {
         throw e;
     }
 
-    public String printout(String indent) {
-        String r = indent + "statementList\n";
-        r += contextModel.printout(indent+"  ");
-        for(Statement statement : statements) {
-            r += statement.printout(indent+"  ");
-        }
-        return r;
-    }
 
     /*protected boolean mutateAddStatement() {
         
@@ -260,5 +225,21 @@ public class StatementList implements GeneticComponent {
                 toRemove.add(statement);
         }
         statements.removeAll(toRemove);
+    }
+
+    public boolean hasVariable(String name) {
+        for(Statement statement : statements) {
+            if(statement.hasVariable(name))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean hasMethod(String name) {
+        for(Statement statement : statements) {
+            if(statement.hasMethod(name))
+                return true;
+        }
+        return false;
     }
 }

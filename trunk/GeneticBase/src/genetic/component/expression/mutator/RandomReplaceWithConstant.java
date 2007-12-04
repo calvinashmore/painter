@@ -22,6 +22,6 @@ public class RandomReplaceWithConstant extends RandomReplace {
         return Foundation.getInstance().getExpressionBuilder().
                 newNode(
                     Foundation.getInstance().getAllExpressionFunctions().getConstantFunction(returnClass),
-                    model,parent);
+                    parent);
     }
 }

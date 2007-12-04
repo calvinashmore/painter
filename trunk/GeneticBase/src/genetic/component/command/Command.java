@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package genetic.component.statement.command;
+package genetic.component.command;
 
 import genetic.Context;
 import genetic.Metadata;

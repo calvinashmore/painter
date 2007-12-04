@@ -44,9 +44,9 @@ public class MutateBranch extends MutatorAction<Expression> {
                 continue;
             
             Class<? extends ExpressionFunction> nfClass = insertables.get(rand.nextInt(insertables.size())).getClass();
-            ExpressionFunction insertNF = nff.deepBuild(nfClass, model);
+            ExpressionFunction insertNF = nff.build(nfClass, model);
             
-            Expression inserted = nb.newNode(insertNF, model, replaced.getParent());
+            Expression inserted = nb.newNode(insertNF, replaced.getParent());
             
             boolean hasInserted = false;
             for(int j = 0; j<inserted.getNumberInputs(); j++) {
@@ -55,14 +55,14 @@ public class MutateBranch extends MutatorAction<Expression> {
                     inserted.setInput(j, replaced);
                     hasInserted = true;
                 } else {
-                    inserted.setInput(j, nb.makeTree(inserted.getInputType(j), model, replaced.getParent()));
+                    inserted.setInput(j, nb.makeTree(inserted.getInputType(j), replaced.getParent()));
                 }
             }
             
             if(!hasInserted)
                 continue;
             
-            ExpressionUtils.replaceExpression(target, replaced, inserted, model);
+            ExpressionUtils.replaceExpression(target, replaced, inserted);
             return true;
         }
         

@@ -8,7 +8,6 @@
  */
 package genetic;
 
-import genetic.Foundation;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -25,6 +24,7 @@ public class ContextModel {
         public Class type;
         public boolean readOnly;
 
+        @Override
         public int hashCode() {
             int hash = 3;
             hash = 61 * hash + (this.type != null ? this.type.hashCode() : 0);
@@ -32,6 +32,7 @@ public class ContextModel {
             return hash;
         }
 
+        @Override
         public boolean equals(Object obj) {
             return obj instanceof VariableDefinition &&
                     ((VariableDefinition) obj).type == type &&
@@ -181,6 +182,7 @@ public class ContextModel {
         return topLevel;
     }
 
+    @Override
     public ContextModel clone() {
         ContextModel r = new ContextModel();
         r.setParent(parent);

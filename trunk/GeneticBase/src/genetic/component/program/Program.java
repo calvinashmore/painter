@@ -11,9 +11,9 @@ package genetic.component.program;
 
 import genetic.*;
 import genetic.component.method.Method;
-import genetic.component.expression.accessor.Accessor;
-import genetic.component.statement.command.Command;
+import genetic.util.BuildException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -31,49 +31,62 @@ public class Program implements GeneticTopLevel {
     // have return type void?
     // also articulate the core functions that make up the triggered events
     
-    private Map<String, Method> events;
+    private Map<String, Method> methods;
     //private Map<Integer, Function> internalFunctions;
     
     private ContextModel contextModel;
     private Context context;
     
-    private Map<String, Command> commands;
-    private Map<String, Accessor> accessors;
+    private boolean isSetup;
+    
+    //private Map<String, Command> commands;
+    //private Map<String, Accessor> accessors;
     
     /** Creates a new instance of Program */
     public Program() {
-        events = new Hashtable<String, Method>();
-        commands = new Hashtable<String, Command>();
-        accessors = new Hashtable<String, Accessor>();
+        methods = new Hashtable<String, Method>();
+        //commands = new Hashtable<String, Command>();
+        //accessors = new Hashtable<String, Accessor>();
         //internalFunctions = new Hashtable();
         
         contextModel = new ContextModel(this);
         // init vars again for goodly program variables
         //.createNewVariables();
     }
-    
-    public void initialize() {
-        context = contextModel.createContext();
+
+    public boolean isSetup() {
+        return isSetup;
     }
     
-    public void createEvent(String name, Class... parameters) {
+    public void setup() {
+        context = contextModel.createContext();
+    
+        isSetup = true;
+    }
+    
+    public void createMethod(String name, Class... parameters) {
         
         List<Class> lparams = new ArrayList<Class>();
         for(Class parameter : parameters)
             lparams.add(parameter);
         
         Method eventFunction = new Method(name, this, null, lparams);
-        events.put(name, eventFunction);
+        methods.put(name, eventFunction);
     }
     
-    public void callEvent(String name, Object... parameters) {
+    public void callMethod(String name, Object... parameters) {
         
-        Method eventFunction = events.get(name);
+        Method eventFunction = methods.get(name);
         List<Object> lparameters = new ArrayList<Object>();
         for(Object parameter : parameters)
             lparameters.add(parameter);
         eventFunction.execute(context, lparameters);
     }
+
+    public Map<String, Method> getMethods() {
+        return Collections.unmodifiableMap(methods);
+    }
+    
     
     /*public List<Integer> getFunctionNames() {
         return new ArrayList(internalFunctions.keySet());
@@ -82,7 +95,7 @@ public class Program implements GeneticTopLevel {
     public Function getFunction(int name) {
         return internalFunctions.get(name);
     }*/
-    
+    /*
     public void createCommand(String name, Command command) {
         commands.put(name, command);
     }
@@ -104,7 +117,7 @@ public class Program implements GeneticTopLevel {
     
     public Command getCommand(String name) {return commands.get(name);}
     public Accessor getAccessor(String name) {return accessors.get(name);}
-    
+    */
     public GeneticComponent getParent() {
         return null;
     }
@@ -153,19 +166,26 @@ public class Program implements GeneticTopLevel {
         return null;
     }*/
     
-    public Program clone() {return clone(null);}
-    public Program clone(GeneticComponent newParent) {
+    //@Override
+    //public Program clone() {return clone(null);}
+    
+    public Program clone(GeneticComponent newParent) throws BuildException {
         try {
             Program program = (Program) getClass().newInstance();
             program.contextModel = contextModel.clone();
-            program.contextModel.setProgram(program);
-            program.commands = new Hashtable<String, Command>(commands);
-            program.accessors = new Hashtable<String, Accessor>(accessors);
+            program.contextModel.setTopLevel(program);
+            //program.commands = new Hashtable<String, Command>(commands);
+            //program.accessors = new Hashtable<String, Accessor>(accessors);
 
-            for (String i : events.keySet()) {
-                Method newFunction = events.get(i).clone(program);
-                program.events.put(i, newFunction);
+            for (String i : methods.keySet()) {
+                Method newFunction = methods.get(i).clone(program);
+                program.methods.put(i, newFunction);
             }
+            
+            program.context = program.getContextModel().createContext();
+            
+            program.isSetup = true;
+            
 
             /*for(Integer i : internalFunctions.keySet()) {
             Function newFunction = internalFunctions.get(i).clone(program);
@@ -181,24 +201,27 @@ public class Program implements GeneticTopLevel {
         return null;
     }
     
-    public String printout(String indent) {
-        String r = indent+"program\n";
-        r += contextModel.printout(indent+"  ");
-        for(String name : events.keySet()) {
-            Method function = events.get(name);
-            r += function.printout(indent+"  ", name);
-        }
-        return r;
-    }
-
     public void removeVariable(String name) {
-        for(String fname : events.keySet()) {
-            Method function = events.get(fname);
+        for(String fname : methods.keySet()) {
+            Method function = methods.get(fname);
             function.removeVariable(name);
         }
     }
+    
+    public boolean hasVariable(String name) {
+        for(String fname : methods.keySet()) {
+            Method function = methods.get(fname);
+            if(function.hasVariable(name))
+                return true;
+        }
+        return false;
+    }
 
-    public void resetParent(GeneticComponent newParent) {
-        
+    public void setParent(GeneticComponent newParent) {
+        throw new UnsupportedOperationException("Cannot assign a parent to a Program");
+    }
+
+    public boolean hasMethod(String name) {
+        return methods.containsKey(name);
     }
 }

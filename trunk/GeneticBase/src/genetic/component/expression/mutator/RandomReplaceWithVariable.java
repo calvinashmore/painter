@@ -22,7 +22,7 @@ public class RandomReplaceWithVariable extends RandomReplace {
         return Foundation.getInstance().getExpressionBuilder().
                 newNode(
                     Foundation.getInstance().getAllExpressionFunctions().getVariableFunction(returnClass, model),
-                    model,parent);
+                    parent);
     }
     
 }

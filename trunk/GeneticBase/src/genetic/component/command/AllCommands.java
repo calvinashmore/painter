@@ -7,9 +7,11 @@
  * and open the template in the editor.
  */
 
-package genetic.component.statement.command;
+package genetic.component.command;
 
+import genetic.ContextModel;
 import genetic.util.AllComponents;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,8 +20,9 @@ import java.util.List;
  */
 public class AllCommands implements AllComponents<Command> {
 
-    public List<Command> allInstances() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Command> allInstances(ContextModel cm) {
+        return new ArrayList<Command>();
     }
+
 
 }

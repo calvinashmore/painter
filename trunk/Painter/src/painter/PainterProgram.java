@@ -34,7 +34,7 @@ public class PainterProgram extends Program {
         setImage(image);
         
         super.initialize();
-        createEvent("main");
+        createMethod("main");
     }
     
     

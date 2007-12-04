@@ -12,6 +12,7 @@ package genetic.component.method;
 import genetic.component.statementlist.StatementList;
 import genetic.component.program.Program;
 import genetic.*;
+import genetic.util.BuildException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,14 +52,14 @@ public class Method implements GeneticComponent {
     }
     
     public Program getParent() {
-        return contextModel.getTopLevel();
+        return parent;
     }
 
     public ContextModel getContextModel() {
         return contextModel;
     }
     
-    public Method clone(GeneticComponent newParent) {
+    public Method clone(GeneticComponent newParent) throws BuildException {
         Method r = new Method();
         r.contextModel = contextModel.clone();
         r.contextModel.setParent(newParent.getContextModel());
@@ -74,25 +75,27 @@ public class Method implements GeneticComponent {
         body.execute(context);
     }
 
-    public String printout(String indent, String name) {
-        String r = indent+"function ("+name+")\n";
-        r += indent+"  "+returnType+": (";
-        if(argumentTypes.size() > 0) {
-            r += argumentTypes.get(0);
-            for(int i=1;i<argumentTypes.size();i++)
-                r += ", "+argumentTypes.get(1);
-        }
-        r += ")\n";
-        r += contextModel.printout(indent+"  ");
-        r += body.printout(indent+"  ");
-        return r;
-    }
-
     public void removeVariable(String name) {
         body.removeVariable(name);
     }
 
-    public void resetParent(GeneticComponent newParent) {
+    public void setParent(GeneticComponent newParent) {
+    }
+
+    public boolean hasVariable(String name) {
+        return body.hasVariable(name);
+    }
+
+    public boolean isSetup() {
+        return body.isSetup();
+    }
+
+    public void setup() throws BuildException {
+        body.setup();
+    }
+
+    public boolean hasMethod(String name) {
+        return body.hasMethod(name);
     }
 
 }

@@ -9,17 +9,21 @@
 
 package genetic;
 
+import genetic.util.BuildException;
+
 /**
  *
  * @author gtg126z
  */
-public interface GeneticComponent extends Cloneable {
+public interface GeneticComponent extends Cloneable, SetupComponent {
     
     public GeneticComponent getParent();
     public ContextModel getContextModel();
     
-    public void resetParent(GeneticComponent newParent);
+    public void setParent(GeneticComponent newParent);
     
-    public GeneticComponent clone(GeneticComponent newParent);
+    public GeneticComponent clone(GeneticComponent newParent) throws BuildException;
     public void removeVariable(String name);
+    public boolean hasVariable(String name);
+    public boolean hasMethod(String name);
 }

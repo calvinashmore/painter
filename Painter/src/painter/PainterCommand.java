@@ -9,7 +9,7 @@
 
 package painter;
 
-import genetic.component.statement.command.Command;
+import genetic.component.command.Command;
 
 /**
  *

@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package genetic.component.expression.accessor;
+package genetic.component.accessor;
 
 import genetic.ContextModel;
 import genetic.util.AllComponents;

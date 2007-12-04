@@ -7,8 +7,9 @@
  * and open the template in the editor.
  */
 
-package genetic.component.statement;
+package library.statements;
 
+import genetic.component.statement.*;
 import genetic.Context;
 import genetic.component.expression.Expression;
 import genetic.component.expression.function.ExpressionFunctionFactoryImpl;

@@ -38,12 +38,17 @@ public class Breeder<T extends GeneticComponent> {
             if(action == null)
                 continue;
             
-            T test1 = (T) target1.clone(target1.getParent());
-            T test2 = (T) target2.clone(target2.getParent());
-            T result = action.breed(model, test1, test2);
-            if(result != null && reconcileContextModels(newParent, result, model, test1, test2)) {
-                result.resetParent(newParent);
-                return result;
+            try {
+                T test1 = (T) target1.clone(target1.getParent());
+                T test2 = (T) target2.clone(target2.getParent());
+                
+                T result = action.breed(model, test1, test2);
+                if(result != null && reconcileContextModels(newParent, result, model, test1, test2)) {
+                    result.setParent(newParent);
+                    return result;
+                }
+            } catch(BuildException e) {
+                continue;
             }
         }
         return null;

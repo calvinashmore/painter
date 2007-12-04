@@ -10,6 +10,7 @@
 package genetic.component.expression.function;
 
 import genetic.*;
+import genetic.util.AbstractFactory;
 import genetic.util.BuildException;
 import java.util.*;
 import java.lang.reflect.*;
@@ -18,7 +19,8 @@ import java.lang.reflect.*;
  *
  * @author gtg126z
  */
-public class ExpressionFunctionFactoryImpl implements ExpressionFunctionFactory {
+public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFunction>
+        implements ExpressionFunctionFactory {
 
     public ExpressionFunctionFactoryImpl() {
     }
@@ -69,35 +71,7 @@ public class ExpressionFunctionFactoryImpl implements ExpressionFunctionFactory 
             index++;
         }
 
-        return shallowBuild(matches.get(index), cm);
+        return build(matches.get(index), cm);
     }
 
-    public ExpressionFunction shallowBuild(Class<? extends ExpressionFunction> nfClass, ContextModel cm) throws BuildException {
-
-        try {
-            return nfClass.newInstance();
-        } catch (IllegalAccessException e) {
-        } catch (InstantiationException e) {
-        }
-
-        throw new BuildException("Failed to instantiate class: " + nfClass.getName());
-    }
-
-    public ExpressionFunction deepBuild(Class<? extends ExpressionFunction> nfClass, ContextModel cm) throws BuildException {
-
-        try {
-            try {
-                Constructor<? extends ExpressionFunction> c = nfClass.getConstructor(ContextModel.class);
-                return c.newInstance(cm);
-            } catch (NoSuchMethodException e) {
-            }
-
-            return nfClass.newInstance();
-        } catch (IllegalAccessException e) {
-        } catch (InstantiationException e) {
-        } catch (InvocationTargetException e) {
-        }
-
-        throw new BuildException("Failed to instantiate class: " + nfClass.getName());
-    }
 }

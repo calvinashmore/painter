@@ -14,6 +14,7 @@ import genetic.Context;
 import genetic.Evaluatable;
 import genetic.Metadata;
 import genetic.Parameterized;
+import genetic.SetupComponent;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ import java.util.Map;
  *
  * @author gtg126z
  */
-abstract public class ExpressionFunction implements Evaluatable, Parameterized, Metadata, Cloneable {
+abstract public class ExpressionFunction implements Evaluatable, Parameterized, Metadata, SetupComponent, Cloneable {
     
     private boolean parametersChanged = true;
     public void setParametersChanged(boolean changed) {parametersChanged=changed;}
@@ -36,12 +37,18 @@ abstract public class ExpressionFunction implements Evaluatable, Parameterized, 
         //meta = new Hashtable();
     }
     
+    @Override
     public ExpressionFunction clone() {
         try {
             ExpressionFunction clone = (ExpressionFunction) super.clone();
             clone.isSetup = false;
-            clone.parametersChanged = true;
+            clone.parametersChanged = false;
             clone.meta = meta; // referential copy
+            
+            for(int i=0; i<getNumberParameters(); i++)
+                clone.setParameter(i, getParameter(i));
+            
+            clone.setup();
             
             return clone;
         } catch (CloneNotSupportedException ex) {
@@ -51,8 +58,8 @@ abstract public class ExpressionFunction implements Evaluatable, Parameterized, 
     
     private transient boolean isSetup;
     public boolean isSetup() {return isSetup;}
-    public void setIsSetup(boolean v) {isSetup = v;}
-    public void setup() {}
+    //public void setIsSetup(boolean v) {isSetup = v;}
+    public void setup() {isSetup = true;}
     
     abstract public Object evaluate( Context context, Object inputs[]);
     abstract public int getNumberInputs();

@@ -40,7 +40,7 @@ public class Mutator<T extends GeneticComponent> {
             
             T test = (T) target.clone(target.getParent());
             if(action.mutate(model, test)) {
-                test.resetParent(newParent);
+                test.setParent(newParent);
                 return test;
             }
         }

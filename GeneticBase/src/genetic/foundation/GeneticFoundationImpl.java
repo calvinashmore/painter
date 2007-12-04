@@ -10,10 +10,10 @@
 package genetic.foundation;
 
 import genetic.GeneticFoundation;
-import genetic.component.expression.accessor.AccessorFactory;
-import genetic.component.expression.accessor.AllAccessors;
-import genetic.component.statement.command.AllCommands;
-import genetic.component.statement.command.CommandFactory;
+import genetic.component.accessor.AccessorFactory;
+import genetic.component.accessor.AllAccessors;
+import genetic.component.command.AllCommands;
+import genetic.component.command.CommandFactory;
 import genetic.component.expression.function.AllExpressionFunctionsImpl;
 import genetic.component.expression.Expression;
 import genetic.component.expression.breeder.ExpressionBreeder;
@@ -23,19 +23,23 @@ import genetic.component.expression.function.ExpressionFunctionFactory;
 import genetic.component.expression.function.ExpressionFunctionFactoryImpl;
 import genetic.component.expression.mutator.ExpressionMutator;
 import genetic.component.expression.function.AllExpressionFunctions;
-import genetic.component.expression.accessor.Accessor;
+import genetic.component.accessor.Accessor;
 import genetic.component.method.Method;
 import genetic.component.method.MethodBreeder;
 import genetic.component.method.MethodMutator;
 import genetic.component.program.Program;
 import genetic.component.program.ProgramBreeder;
 import genetic.component.program.ProgramMutator;
-import genetic.component.statement.AllStatements;
+import genetic.component.statement.function.AllStatementFunctions;
 import genetic.component.statement.Statement;
 import genetic.component.statement.StatementBreeder;
-import genetic.component.statement.StatementFactory;
+import genetic.component.statement.function.StatementFunctionFactory;
+import genetic.component.statement.function.StatementFunctionFactoryImpl;
 import genetic.component.statement.StatementMutator;
-import genetic.component.statement.command.Command;
+import genetic.component.command.Command;
+import genetic.component.statement.StatementBuilder;
+import genetic.component.statement.StatementBuilderImpl;
+import genetic.component.statement.function.StatementFunction;
 import genetic.component.statementlist.StatementList;
 import genetic.component.statementlist.StatementListBreeder;
 import genetic.component.statementlist.StatementListMutator;
@@ -86,7 +90,7 @@ public class GeneticFoundationImpl implements GeneticFoundation {
     public AllComponents<Accessor> getAllAccessors() {return new AllAccessors();}
     public AllComponents<Command> getAllCommands() {return new AllCommands();}
     public AllExpressionFunctions getAllExpressionFunctions() {return new AllExpressionFunctionsImpl();}
-    public AllComponents<Statement> getAllStatements() {return new AllStatements();}
+    public AllComponents<StatementFunction> getAllStatementFunctions() {return new AllStatementFunctions();}
     
     
     // CONTEXTUAL COMPONENT FACTORIES
@@ -95,7 +99,8 @@ public class GeneticFoundationImpl implements GeneticFoundation {
     public Factory<Command> getCommandFactory() {return new CommandFactory();}
     public ExpressionFunctionFactory getExpressionFunctionFactory() {return new ExpressionFunctionFactoryImpl();}
     public ExpressionBuilder getExpressionBuilder() {return new ExpressionBuilderImpl();}
-    public Factory<Statement> getStatementFactory() {return new StatementFactory();}
+    public StatementFunctionFactory getStatementFunctionFactory() {return new StatementFunctionFactoryImpl();}
+    public StatementBuilder getStatementBuilder() {return new StatementBuilderImpl();}
     
     
     // MUTATORS!

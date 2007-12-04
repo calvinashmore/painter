@@ -7,13 +7,16 @@ package genetic;
 
 import genetic.component.expression.Expression;
 import genetic.component.expression.ExpressionBuilder;
-import genetic.component.expression.accessor.Accessor;
+import genetic.component.accessor.Accessor;
 import genetic.component.expression.function.AllExpressionFunctions;
 import genetic.component.expression.function.ExpressionFunctionFactory;
 import genetic.component.method.Method;
 import genetic.component.program.Program;
 import genetic.component.statement.Statement;
-import genetic.component.statement.command.Command;
+import genetic.component.statement.function.StatementFunctionFactory;
+import genetic.component.command.Command;
+import genetic.component.statement.StatementBuilder;
+import genetic.component.statement.function.StatementFunction;
 import genetic.component.statementlist.StatementList;
 import genetic.util.AllComponents;
 import genetic.util.Breeder;
@@ -36,7 +39,7 @@ public interface GeneticFoundation {
 
     AllExpressionFunctions getAllExpressionFunctions();
 
-    AllComponents<Statement> getAllStatements();
+    AllComponents<StatementFunction> getAllStatementFunctions();
 
     Random getBuilderRandom();
 
@@ -59,8 +62,10 @@ public interface GeneticFoundation {
     Mutator<Program> getProgramMutator();
 
     Breeder<Statement> getStatementBreeder();
+    
+    StatementBuilder getStatementBuilder();
 
-    Factory<Statement> getStatementFactory();
+    StatementFunctionFactory getStatementFunctionFactory();
 
     Breeder<StatementList> getStatementListBreeder();
 

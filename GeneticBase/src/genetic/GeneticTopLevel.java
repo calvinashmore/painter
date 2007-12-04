@@ -5,9 +5,8 @@
 
 package genetic;
 
-import genetic.component.expression.accessor.Accessor;
-import genetic.component.statement.command.Command;
-import java.util.List;
+import genetic.component.method.Method;
+import java.util.Map;
 
 /**
  *
@@ -15,10 +14,11 @@ import java.util.List;
  */
 public interface GeneticTopLevel extends GeneticComponent {
     
-    public void createEvent(String name, Class... parameters);
-    public void callEvent(String name, Object... parameters);
+    public void createMethod(String name, Class... parameters);
+    public void callMethod(String name, Object... parameters);
+    public Map<String, Method> getMethods();
     
-    public void createCommand(String name, Command command);
+    /*public void createCommand(String name, Command command);
     public void createAccessor(String name, Accessor accessor);
     
     public List<String> getCommands();
@@ -27,6 +27,6 @@ public interface GeneticTopLevel extends GeneticComponent {
     public List<String> getAccessorsByType(Class type);
     
     public Command getCommand(String name);
-    public Accessor getAccessor(String name);
+    public Accessor getAccessor(String name);*/
     
 }

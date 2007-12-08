@@ -134,7 +134,7 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
     // this sets up the node and makes it ready for evaluation
     //private transient boolean isSetup;
 
-    public void setup() {
+    public void setup() throws BuildException {
 
         function.setup();
 
@@ -218,6 +218,7 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
         function.setParameter(i, value);
     }
 
+    @Override
     public String toString() {
 
         String args[] = new String[getNumberInputs()];
@@ -239,9 +240,9 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
         this.parent = newParent;
     }
 
-    public Expression clone(GeneticComponent newParent) {
+    public Expression clone(GeneticComponent newParent) throws BuildException {
         
-        Expression clone = new Expression(function.clone(), newParent);
+        Expression clone = new Expression(function.cloneFunction(), newParent);
         
         // clone children
         for(int i=0; i<getNumberInputs(); i++) {

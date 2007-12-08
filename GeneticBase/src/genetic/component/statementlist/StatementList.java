@@ -12,7 +12,7 @@ package genetic.component.statementlist;
 import genetic.*;
 import genetic.component.statement.Statement;
 import genetic.Foundation;
-import genetic.component.statement.function.StatementFunctionFactory;
+import genetic.component.statement.StatementBuilder;
 import genetic.util.BuildException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +34,8 @@ public class StatementList implements GeneticComponent {
     
     public StatementList(GeneticComponent parent) {
         this.parent = parent;
+
+        contextModel = new ContextModel(parent.getContextModel());
     }
 
     public boolean isSetup() {
@@ -45,17 +47,17 @@ public class StatementList implements GeneticComponent {
         if(statements == null) {
             statements = new ArrayList<Statement>();
 
-            contextModel = new ContextModel(parent.getContextModel());
-
-            StatementFunctionFactory factory = Foundation.getInstance().getStatementFactory();
+            StatementBuilder builder = Foundation.getInstance().getStatementBuilder();
 
             int numberStatements = Foundation.getInstance().getBuilderRandom().
                     nextInt(numberFlexStatements) + numberBaseStatements;
 
             for(int i=0;i<numberStatements;i++) {
-                Statement statementTemplate = factory.select(contextModel, false);
-                Statement statement = factory.build(statementTemplate.getClass(), contextModel);
+                Statement statement = builder.buildStatement(contextModel, this);
                 statements.add(statement);
+                //Statement statementTemplate = factory.select(contextModel, false);
+                //Statement statement = factory.build(statementTemplate.getClass(), contextModel);
+                //statements.add(statement);
             }
         }
         

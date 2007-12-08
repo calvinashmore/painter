@@ -24,7 +24,7 @@ public class Method implements GeneticComponent {
     
     private String name;
     
-    private Class returnType;
+    //private Class returnType;
     private List<Class> argumentTypes;
     private List<String> argumentNames;
     
@@ -36,10 +36,10 @@ public class Method implements GeneticComponent {
     protected Method() {}
     
     // creates a function and some starting statement list
-    public Method(String name, Program parent, Class returnType, List<Class> argumentTypes) {
+    public Method(String name, Program parent, /*Class returnType,*/ List<Class> argumentTypes) {
         this.name = name;
         this.parent = parent;
-        this.returnType = returnType;
+        //this.returnType = returnType;
         this.argumentTypes = argumentTypes;
         
         this.contextModel = new ContextModel(parent.getContextModel());
@@ -50,6 +50,10 @@ public class Method implements GeneticComponent {
         
         body = new StatementList( this );
     }
+    
+    public int getNumberArguments() {return argumentTypes.size();}
+    public Class getArgumentType(int i) {return argumentTypes.get(i);}
+    public String getArgumentName(int i) {return argumentNames.get(i);}
     
     public Program getParent() {
         return parent;
@@ -63,7 +67,7 @@ public class Method implements GeneticComponent {
         Method r = new Method();
         r.contextModel = contextModel.clone();
         r.contextModel.setParent(newParent.getContextModel());
-        r.returnType = returnType;
+        //r.returnType = returnType;
         r.parent = (Program)newParent;
         r.argumentTypes = new ArrayList<Class>(argumentTypes);
         r.body = body.clone(r);

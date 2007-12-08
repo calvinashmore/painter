@@ -9,6 +9,7 @@
 
 package genetic.component.statement.function;
 
+import genetic.GeneticComponent;
 import genetic.component.statement.*;
 import genetic.Context;
 import genetic.ContextModel;
@@ -23,14 +24,16 @@ import java.util.List;
  */
 public class AssignmentStatementFunction extends StatementFunction {
     
-    protected Expression content;
+    //protected Expression content;
     protected String variableName;
+    protected Class variableType;
     
     // note: we do not override hasVariable to include "variableName"
     // since that is not actually *used*, though it is assigned to.
     
     public String getVariableName() {return variableName;}
-
+    public Class getVariableType() {return variableType;}
+    
     @Override
     public void setup() throws BuildException {
         ContextModel contextModel = getContextModel();
@@ -40,39 +43,29 @@ public class AssignmentStatementFunction extends StatementFunction {
             throw new BuildException("Cannot create an AssignmentStatement without variables");
         
         variableName = variables.get(Foundation.getInstance().getBuilderRandom().nextInt(variables.size()));
-        Class variableType = contextModel.getType(variableName);
+        variableType = contextModel.getType(variableName);
         
-        content = Foundation.getInstance().getExpressionBuilder().makeTree(variableType, getContextModel(), this);
-        addChild(content);
+        //content = Foundation.getInstance().getExpressionBuilder().makeTree(variableType, getContextModel(), this);
+        //addChild(content);
         
         super.setup();
     }
     
-    @Override
-    public boolean isNestingStatement() {
-        return false;
-    }
-    
-    @Override
-    public void removeVariable(String name) {
-        // try: check current variable name, if current is removed, switch to another, or post for destroy??
-        // otherwise, pass to expression
-        
-        if(name.equals(getVariableName())) {
-            setDestroyFlag(true);
-            return;
-        }
-        
-        super.removeVariable(name);
-    }
-
-    @Override
-    public void execute(Context context) {
-        Object expressionResult = content.evaluate(context);
-        performAssignment(context, expressionResult);
-    }
-    
     protected void performAssignment(Context context, Object expressionResult) {
         context.setVariable(getVariableName(), expressionResult);
+    }
+    
+    @Override public int getNumberInputs() {return 1;}
+    @Override public String getInputName(int i) {return "expression";}
+    @Override public InputSignature getInputSignature(int i) {
+        return new ExpressionInputSignature(variableType);
+    }
+    
+    @Override
+    public void execute(Context context, List<GeneticComponent> inputs) {
+        Expression content = (Expression) inputs.get(0);
+        
+        Object expressionResult = content.evaluate(context);
+        performAssignment(context, expressionResult);
     }
 }

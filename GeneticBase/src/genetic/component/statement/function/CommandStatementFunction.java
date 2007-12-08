@@ -9,13 +9,13 @@
 
 package genetic.component.statement.function;
 
+import genetic.GeneticComponent;
 import genetic.component.statement.*;
 import genetic.Context;
 import genetic.Foundation;
-import genetic.component.expression.Expression;
 import genetic.component.command.Command;
+import genetic.component.expression.Expression;
 import genetic.util.BuildException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ import java.util.List;
 public class CommandStatementFunction extends StatementFunction {
     
     private Command command;
-    private List<Expression> expressions;
+    //private List<Expression> expressions;
 
     @Override
     public void setup() throws BuildException {
@@ -33,34 +33,23 @@ public class CommandStatementFunction extends StatementFunction {
         List<Command> commands = Foundation.getInstance().getAllCommands().allInstances(getContextModel());
         command = commands.get(Foundation.getInstance().getBuilderRandom().nextInt(commands.size()));
         
-        int numberInputs = command.getNumberInputs();
-        expressions = new ArrayList<Expression>();
-        for(int i=0; i<numberInputs; i++) {
-            Class inputClass = command.getInputType(i);
-            Expression expression = Foundation.getInstance().getExpressionBuilder().makeTree(
-                    inputClass, getContextModel(), this);
-            expressions.add(expression);
-            
-            addChild(expression);
-        }
-        
         super.setup();
     }
-
+    
+    @Override public int getNumberInputs() {return command.getNumberInputs();}
+    @Override public String getInputName(int i) {return "expression "+i;}
     @Override
-    public boolean isNestingStatement() {
-        return false;
+    public InputSignature getInputSignature(int i) {
+        return new ExpressionInputSignature(command.getInputType(i));
     }
     
-    protected CommandStatementFunction() {
-    }
-
-    public void execute(Context context) {
-        
-        if(expressions.size() > 0) {
-            Object objects[] = new Object[expressions.size()];
-            for(int i=0;i<expressions.size();i++)
-                objects[i] = expressions.get(i).evaluate(context);
+    
+    @Override
+    public void execute(Context context, List<GeneticComponent> inputs) {
+        if(inputs.size() > 0) {
+            Object objects[] = new Object[inputs.size()];
+            for(int i=0;i<inputs.size();i++)
+                objects[i] = ((Expression)inputs.get(i)).evaluate(context);
             command.execute(context, objects);
         }
         else

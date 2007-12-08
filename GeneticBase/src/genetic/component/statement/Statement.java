@@ -11,6 +11,7 @@ package genetic.component.statement;
 
 import genetic.component.statementlist.StatementList;
 import genetic.*;
+import genetic.component.statement.function.MethodStatementFunction;
 import genetic.component.statement.function.StatementFunction;
 import genetic.util.BuildException;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class Statement implements GeneticComponent {
     protected void setDestroyFlag(boolean value) {destroyFlag = value;}
     
     private StatementFunction function;
+    public StatementFunction getFunction() {return function;}
     
     //private boolean isSetup;
     //public boolean isSetup() {return isSetup;}
@@ -39,8 +41,12 @@ public class Statement implements GeneticComponent {
     }
     
     /** Creates a new instance of Statement */
-    public Statement(StatementFunction function) {
+    public Statement(StatementFunction function, GeneticComponent parent) {
         this.function = function;
+        assert (parent instanceof StatementList);
+        this.parent = (StatementList) parent;
+        for(int i=0; i<function.getNumberInputs(); i++)
+            children.add(null);
     }
     
     //protected void setParent(StatementList parent) {this.parent = parent;}
@@ -48,33 +54,30 @@ public class Statement implements GeneticComponent {
     public Statement clone(GeneticComponent newParent) throws BuildException {
         assert(newParent instanceof StatementList) : "Attempt to assign "+newParent+" as parent of a clone of "+this;
         
-        Statement clone = new Statement();
+        Statement clone = new Statement(function.cloneFunction(parent.getContextModel()), newParent);
         
         for(GeneticComponent child : children)
             clone.children.add(child.clone(clone));
-        
         
         return clone;
-        
-        /*Statement clone = Foundation.getInstance().getStatementFactory().build(getClass(), parent.getContextModel());
-        clone.parent = (StatementList) parent;
-        
-        for(GeneticComponent child : children)
-            clone.children.add(child.clone(clone));
-        
-        clone.isSetup = true;
-        
-        return clone;*/
     }
     
     public void setup() throws BuildException {
+        
+        function.setup();
+        for(GeneticComponent child : children)
+            child.setup();
     }
     
     public boolean isSetup() {
         
-        function.setup();
+        if(!function.isSetup())
+            return false;
         
-        
+        for(GeneticComponent child : children)
+            if(!child.isSetup())
+                return false;
+        return true;
     }
     
     public void execute(Context context) {
@@ -86,8 +89,14 @@ public class Statement implements GeneticComponent {
      */
     public boolean isNestingStatement() {return true;}
     
-    protected void addChild(GeneticComponent child) {children.add(child);}
-    public List<GeneticComponent> getChildren() {return children;}
+    //protected void addChild(GeneticComponent child) {children.add(child);}
+    //public List<GeneticComponent> getInputs() {return children;}
+    
+    //public int getNumberInputs() {return function.getNumberInputs();}
+    //public Class getInputType(int i) {return function.getInputType(i);}
+    //public String getInputName(int i) {return function.getInputName(i);}
+    public GeneticComponent getInput(int i) {return children.get(i);}
+    public void setInput(int i, GeneticComponent child) {children.set(i, child);}
     
     public ContextModel getContextModel() {
         return parent.getContextModel();
@@ -115,6 +124,11 @@ public class Statement implements GeneticComponent {
     }
 
     public boolean hasMethod(String name) {
+        if(function instanceof MethodStatementFunction) {
+            MethodStatementFunction methodFunction = (MethodStatementFunction)function;
+            return methodFunction.getMethodName().equals(name);
+        }
+        
         for(GeneticComponent child : children) {
             if(child.hasMethod(name))
                 return true;

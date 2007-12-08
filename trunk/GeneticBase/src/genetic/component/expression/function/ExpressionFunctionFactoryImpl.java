@@ -25,17 +25,18 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
     public ExpressionFunctionFactoryImpl() {
     }
 
-    public float getFunctionWeight(Class<? extends ExpressionFunction> nfClass) {
+    public float getFunctionWeight(ContextModel cm, ExpressionFunction nf) {
         return 1.0f;
     }
+    private static final int SELECT_ATTEMPTS = 10;
 
     public ExpressionFunction selectByOutput(Class outputClass, ContextModel cm, boolean seekTerminal) throws BuildException {
 
-        List<Class<? extends ExpressionFunction>> matches = new ArrayList<Class<? extends ExpressionFunction>>();
+        List<ExpressionFunction> matches = new ArrayList<ExpressionFunction>();
         for (ExpressionFunction nf : Foundation.getInstance().getAllExpressionFunctions().allInstances(cm)) {
             if (nf.getReturnType() == outputClass &&
                     (!seekTerminal || nf.getNumberInputs() == 0)) {
-                matches.add(nf.getClass());
+                matches.add(nf);
             }
         }
 
@@ -44,34 +45,49 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
         if (matches.size() == 0 && seekTerminal) {
             for (ExpressionFunction nf : Foundation.getInstance().getAllExpressionFunctions().allInstances(cm)) {
                 if (nf.getReturnType() == outputClass) {
-                    matches.add(nf.getClass());
+                    matches.add(nf);
                 }
             }
         }
 
 
         if (matches.size() == 0) {
-            System.out.println("Cannot match output class " + outputClass.getName());
-            return null;
+            //System.out.println("Cannot match output class " + outputClass.getName());
+            throw new BuildException("Cannot match output class " + outputClass.getName());
         }
 
-        // select from this list, using weights
-        double weightTotal = 0;
-        for (Class<? extends ExpressionFunction> nfc : matches) {
-            weightTotal += getFunctionWeight(nfc);
-        }
-
-        double target = Foundation.getInstance().getBuilderRandom().nextFloat() * weightTotal;
-        int index = 0;
-        for (Class<? extends ExpressionFunction> nfc : matches) {
-            target -= getFunctionWeight(nfc);
-            if (target < 0) {
-                break;
+        for (int attempt = 0; attempt < SELECT_ATTEMPTS; attempt++) {
+            
+            // select from this list, using weights
+            double weightTotal = 0;
+            for (ExpressionFunction nfc : matches) {
+                weightTotal += getFunctionWeight(cm,nfc);
             }
-            index++;
-        }
 
-        return build(matches.get(index), cm);
+            double target = Foundation.getInstance().getBuilderRandom().nextFloat() * weightTotal;
+            int index = 0;
+            for (ExpressionFunction nfc : matches) {
+                target -= getFunctionWeight(cm,nfc);
+                if (target < 0) {
+                    break;
+                }
+                index++;
+            }
+
+            try {
+                ExpressionFunction nf = build(matches.get(index).getClass(), cm);
+                return nf;
+            } catch (BuildException ex) {
+            }
+        }
+        throw new BuildException("Could not build a suitable match");
     }
 
+    @Override
+    public ExpressionFunction build(Class<? extends ExpressionFunction> t, ContextModel cm) throws BuildException {
+        ExpressionFunction nf = super.build(t, cm);
+        nf.setup();
+        return nf;
+    }
+    
 }

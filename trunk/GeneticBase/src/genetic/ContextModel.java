@@ -21,8 +21,13 @@ public class ContextModel {
 
     private class VariableDefinition {
 
-        public Class type;
-        public boolean readOnly;
+        public VariableDefinition(Class type, boolean readOnly) {
+            this.type = type;
+            this.readOnly = readOnly;
+        }
+        
+        final public Class type;
+        final public boolean readOnly;
 
         @Override
         public int hashCode() {
@@ -98,9 +103,7 @@ public class ContextModel {
             } while (variableTypes.get(name) != null);
         }
 
-        VariableDefinition def = new VariableDefinition();
-        def.readOnly = readOnly;
-        def.type = type;
+        VariableDefinition def = new VariableDefinition(type, readOnly);
         variableTypes.put(name, def);
         return name;
     }

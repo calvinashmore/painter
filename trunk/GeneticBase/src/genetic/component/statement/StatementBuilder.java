@@ -5,12 +5,18 @@
 
 package genetic.component.statement;
 
+import genetic.ContextModel;
+import genetic.GeneticComponent;
+import genetic.util.BuildException;
 import genetic.util.Builder;
+import java.util.List;
 
 /**
  *
  * @author Calvin Ashmore
  */
 public interface StatementBuilder extends Builder<Statement> {
-    public Statement buildStatement();
+    public Statement buildStatement(ContextModel cm, GeneticComponent parent) throws BuildException;
+    public Statement buildStatement(ContextModel cm, GeneticComponent parent, boolean seekTerminal) throws BuildException;
+    public List<String> getAllowableMethodCalls(GeneticComponent parent);
 }

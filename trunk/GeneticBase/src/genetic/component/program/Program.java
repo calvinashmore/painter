@@ -70,7 +70,7 @@ public class Program implements GeneticTopLevel {
         for(Class parameter : parameters)
             lparams.add(parameter);
         
-        Method eventFunction = new Method(name, this, null, lparams);
+        Method eventFunction = new Method(name, this, lparams);
         methods.put(name, eventFunction);
     }
     

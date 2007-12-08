@@ -15,5 +15,13 @@ import genetic.util.Factory;
  * @author Calvin Ashmore
  */
 public interface StatementFunctionFactory extends Factory<StatementFunction> {
+    
+    /**
+     * Selects and BUILDS a new StatementFunction
+     * @param cm
+     * @param seekTerminal
+     * @return
+     * @throws genetic.util.BuildException
+     */
     public StatementFunction select(ContextModel cm, boolean seekTerminal) throws BuildException;
 }

@@ -15,7 +15,7 @@ import genetic.util.BuildException;
  *
  * @author gtg126z
  */
-public interface GeneticComponent extends Cloneable, SetupComponent {
+public interface GeneticComponent extends SetupComponent {
     
     public GeneticComponent getParent();
     public ContextModel getContextModel();

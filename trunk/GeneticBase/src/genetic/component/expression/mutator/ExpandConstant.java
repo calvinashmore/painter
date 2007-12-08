@@ -42,7 +42,7 @@ public class ExpandConstant extends MutatorAction<Expression> {
         Expression replacement = Foundation.getInstance().getExpressionBuilder().
                 makeTree(returnClass, target.getParent());
         
-        ExpressionUtils.replaceExpression(target, constNode, replacement, model);
+        ExpressionUtils.replaceExpression(target, constNode, replacement);
         
         return true;
     }

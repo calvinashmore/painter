@@ -51,7 +51,7 @@ public class CollapseBranch extends MutatorAction<Expression> {
             
             Expression branchChild = branchChildren.get(rand.nextInt(branchChildren.size()));
             
-            ExpressionUtils.replaceExpression(target, replaced, branchChild, model);
+            ExpressionUtils.replaceExpression(target, replaced, branchChild);
             return true;
         }
         return false;

@@ -9,11 +9,12 @@
 
 package genetic.component.statement;
 
+import genetic.GeneticComponent;
 import genetic.component.statementlist.StatementList;
 import genetic.*;
 import genetic.component.statement.function.MethodStatementFunction;
 import genetic.component.statement.function.StatementFunction;
-import genetic.util.BuildException;
+import genetic.BuildException;
 import java.util.ArrayList;
 import java.util.List;
 

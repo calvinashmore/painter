@@ -9,7 +9,7 @@
 
 package genetic.component.accessor;
 
-import genetic.util.AbstractFactory;
+import genetic.AbstractFactory;
 
 /**
  *

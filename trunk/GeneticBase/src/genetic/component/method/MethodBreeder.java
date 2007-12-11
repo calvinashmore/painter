@@ -9,7 +9,7 @@
 
 package genetic.component.method;
 
-import genetic.util.Breeder;
+import genetic.Breeder;
 
 /**
  *

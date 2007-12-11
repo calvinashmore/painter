@@ -13,7 +13,7 @@ import genetic.component.method.Method;
 import genetic.component.statement.function.MethodStatementFunction;
 import genetic.component.statement.function.StatementFunction;
 import genetic.component.statementlist.StatementList;
-import genetic.util.BuildException;
+import genetic.BuildException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

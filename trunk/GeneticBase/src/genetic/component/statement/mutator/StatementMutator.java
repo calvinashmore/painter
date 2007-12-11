@@ -7,9 +7,10 @@
  * and open the template in the editor.
  */
 
-package genetic.component.statement;
+package genetic.component.statement.mutator;
 
-import genetic.util.Mutator;
+import genetic.component.statement.*;
+import genetic.Mutator;
 
 /**
  *

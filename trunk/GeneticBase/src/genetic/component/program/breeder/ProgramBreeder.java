@@ -7,9 +7,10 @@
  * and open the template in the editor.
  */
 
-package genetic.component.program;
+package genetic.component.program.breeder;
 
-import genetic.util.Breeder;
+import genetic.component.program.*;
+import genetic.Breeder;
 
 /**
  *

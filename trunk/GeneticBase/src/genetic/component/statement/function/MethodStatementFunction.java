@@ -11,7 +11,7 @@ import genetic.ContextModel;
 import genetic.GeneticComponent;
 import genetic.component.expression.Expression;
 import genetic.component.method.Method;
-import genetic.util.BuildException;
+import genetic.BuildException;
 import java.util.ArrayList;
 import java.util.List;
 

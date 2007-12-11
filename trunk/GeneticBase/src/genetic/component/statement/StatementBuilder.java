@@ -7,8 +7,8 @@ package genetic.component.statement;
 
 import genetic.ContextModel;
 import genetic.GeneticComponent;
-import genetic.util.BuildException;
-import genetic.util.Builder;
+import genetic.BuildException;
+import genetic.Builder;
 import java.util.List;
 
 /**

@@ -9,7 +9,7 @@ import genetic.ContextModel;
 import genetic.Foundation;
 import genetic.GeneticComponent;
 import genetic.component.expression.Expression;
-import genetic.util.BuildException;
+import genetic.BuildException;
 
 /**
  *

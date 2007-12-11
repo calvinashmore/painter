@@ -8,7 +8,7 @@ import genetic.component.expression.function.ExpressionFunctionFactory;
 import genetic.component.expression.function.ExpressionFunction;
 import genetic.GeneticComponent;
 import genetic.Foundation;
-import genetic.util.BuildException;
+import genetic.BuildException;
 
 /**
  *

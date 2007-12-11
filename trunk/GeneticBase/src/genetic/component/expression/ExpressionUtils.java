@@ -4,7 +4,7 @@
  */
 package genetic.component.expression;
 
-import genetic.util.BuildException;
+import genetic.BuildException;
 import java.util.ArrayList;
 import java.util.List;
 

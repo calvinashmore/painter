@@ -3,9 +3,7 @@
  * and open the template in the editor.
  */
 
-package genetic.util;
-
-import genetic.GeneticComponent;
+package genetic;
 
 /**
  *

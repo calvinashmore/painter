@@ -5,8 +5,6 @@
 
 package genetic;
 
-import genetic.util.BuildException;
-
 /**
  *
  * @author Calvin Ashmore

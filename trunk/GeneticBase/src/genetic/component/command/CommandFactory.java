@@ -9,7 +9,7 @@
 
 package genetic.component.command;
 
-import genetic.util.AbstractFactory;
+import genetic.AbstractFactory;
 
 /**
  *

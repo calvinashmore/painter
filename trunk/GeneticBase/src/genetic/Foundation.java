@@ -10,6 +10,8 @@ package genetic;
  * @author Calvin Ashmore
  */
 public class Foundation {
+    private Foundation() {}
+    
     private static GeneticFoundation foundation;
     public static void setInstance(GeneticFoundation foundation) {
         if(Foundation.foundation != null)

@@ -9,6 +9,9 @@
 
 package genetic.component.accessor;
 
+import genetic.Metadata;
+import genetic.Parameterized;
+import genetic.Evaluatable;
 import genetic.*;
 import java.io.Serializable;
 import java.util.ArrayList;

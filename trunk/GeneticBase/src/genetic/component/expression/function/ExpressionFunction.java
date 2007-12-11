@@ -15,7 +15,7 @@ import genetic.Evaluatable;
 import genetic.Metadata;
 import genetic.Parameterized;
 import genetic.SetupComponent;
-import genetic.util.BuildException;
+import genetic.BuildException;
 import java.util.Hashtable;
 import java.util.Map;
 

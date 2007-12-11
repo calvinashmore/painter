@@ -11,7 +11,7 @@ package genetic.component.expression.mutator;
 
 import genetic.component.expression.*;
 import genetic.*;
-import genetic.util.Mutator;
+import genetic.Mutator;
 
 /**
  *

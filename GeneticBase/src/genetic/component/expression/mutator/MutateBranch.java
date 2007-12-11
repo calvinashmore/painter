@@ -12,9 +12,9 @@ import genetic.component.expression.ExpressionBuilder;
 import genetic.component.expression.ExpressionUtils;
 import genetic.component.expression.function.ExpressionFunction;
 import genetic.component.expression.function.ExpressionFunctionUtils;
-import genetic.util.BuildException;
-import genetic.util.Factory;
-import genetic.util.MutatorAction;
+import genetic.BuildException;
+import genetic.Factory;
+import genetic.MutatorAction;
 import java.util.List;
 import java.util.Random;
 

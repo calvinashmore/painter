@@ -10,8 +10,8 @@
 package genetic.component.expression.function;
 
 import genetic.*;
-import genetic.util.AbstractFactory;
-import genetic.util.BuildException;
+import genetic.AbstractFactory;
+import genetic.BuildException;
 import java.util.*;
 import java.lang.reflect.*;
 

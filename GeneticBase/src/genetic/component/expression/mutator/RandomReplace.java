@@ -10,8 +10,8 @@ import genetic.Foundation;
 import genetic.GeneticComponent;
 import genetic.component.expression.Expression;
 import genetic.component.expression.ExpressionUtils;
-import genetic.util.BuildException;
-import genetic.util.MutatorAction;
+import genetic.BuildException;
+import genetic.MutatorAction;
 import java.util.List;
 import java.util.Random;
 

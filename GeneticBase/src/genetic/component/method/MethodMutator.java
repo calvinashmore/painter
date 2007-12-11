@@ -9,7 +9,7 @@
 
 package genetic.component.method;
 
-import genetic.util.Mutator;
+import genetic.Mutator;
 
 /**
  *

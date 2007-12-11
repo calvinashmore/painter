@@ -13,7 +13,7 @@ import genetic.Parameterized;
 import genetic.SetupComponent;
 import genetic.component.expression.Expression;
 import genetic.component.statementlist.StatementList;
-import genetic.util.BuildException;
+import genetic.BuildException;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;

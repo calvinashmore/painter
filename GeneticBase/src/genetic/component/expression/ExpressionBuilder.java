@@ -7,8 +7,8 @@ package genetic.component.expression;
 
 import genetic.component.expression.function.ExpressionFunction;
 import genetic.GeneticComponent;
-import genetic.util.BuildException;
-import genetic.util.Builder;
+import genetic.BuildException;
+import genetic.Builder;
 
 /**
  *

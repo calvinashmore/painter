@@ -11,8 +11,8 @@
 package genetic.component.expression.function;
 
 import genetic.ContextModel;
-import genetic.util.AllComponents;
-import genetic.util.BuildException;
+import genetic.AllComponents;
+import genetic.BuildException;
 import java.util.*;
 
 /**

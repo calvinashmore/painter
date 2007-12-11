@@ -7,9 +7,7 @@
  * and open the template in the editor.
  */
 
-package genetic.util;
-
-import genetic.ContextModel;
+package genetic;
 
 /**
  * <p>A Factory builds an object of a type that belongs to a certain class.

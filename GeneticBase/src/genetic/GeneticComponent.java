@@ -9,8 +9,6 @@
 
 package genetic;
 
-import genetic.util.BuildException;
-
 /**
  *
  * @author gtg126z

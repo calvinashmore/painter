@@ -7,8 +7,8 @@ package genetic.component.statement.function;
 
 import genetic.component.statement.*;
 import genetic.ContextModel;
-import genetic.util.BuildException;
-import genetic.util.Factory;
+import genetic.BuildException;
+import genetic.Factory;
 
 /**
  *

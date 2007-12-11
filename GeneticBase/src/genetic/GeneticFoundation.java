@@ -18,11 +18,6 @@ import genetic.component.command.Command;
 import genetic.component.statement.StatementBuilder;
 import genetic.component.statement.function.StatementFunction;
 import genetic.component.statementlist.StatementList;
-import genetic.util.AllComponents;
-import genetic.util.Breeder;
-import genetic.util.Factory;
-import genetic.util.Mutator;
-import genetic.util.TypeSystem;
 import java.util.Random;
 
 /**

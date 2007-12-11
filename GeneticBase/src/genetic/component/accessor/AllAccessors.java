@@ -10,7 +10,7 @@
 package genetic.component.accessor;
 
 import genetic.ContextModel;
-import genetic.util.AllComponents;
+import genetic.AllComponents;
 import java.util.List;
 
 /**

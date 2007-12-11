@@ -9,9 +9,11 @@
 
 package genetic.component.program;
 
+import genetic.GeneticTopLevel;
+import genetic.GeneticComponent;
 import genetic.*;
 import genetic.component.method.Method;
-import genetic.util.BuildException;
+import genetic.BuildException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;

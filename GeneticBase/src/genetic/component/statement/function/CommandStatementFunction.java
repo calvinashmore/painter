@@ -15,7 +15,7 @@ import genetic.Context;
 import genetic.Foundation;
 import genetic.component.command.Command;
 import genetic.component.expression.Expression;
-import genetic.util.BuildException;
+import genetic.BuildException;
 import java.util.List;
 
 /**

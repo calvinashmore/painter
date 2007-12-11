@@ -10,7 +10,7 @@
 package genetic.component.expression.breeder;
 
 import genetic.component.expression.*;
-import genetic.util.Breeder;
+import genetic.Breeder;
 
 /**
  *

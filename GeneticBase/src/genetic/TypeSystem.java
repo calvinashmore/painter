@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package genetic.util;
+package genetic;
 
 import java.util.List;
 

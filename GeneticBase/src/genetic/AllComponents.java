@@ -3,9 +3,8 @@
  * and open the template in the editor.
  */
 
-package genetic.util;
+package genetic;
 
-import genetic.ContextModel;
 import java.util.List;
 
 /**

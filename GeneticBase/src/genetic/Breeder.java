@@ -7,11 +7,8 @@
  * and open the template in the editor.
  */
 
-package genetic.util;
+package genetic;
 
-import genetic.ContextModel;
-import genetic.GeneticComponent;
-import genetic.Foundation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

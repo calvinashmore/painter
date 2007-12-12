@@ -32,19 +32,19 @@ abstract public class StatementFunction implements Parameterized, Metadata, Setu
         abstract public Class getInputClass();
     }
 
-    public static class ExpressionInputSignature extends InputSignature {
+    final public static class ExpressionInputSignature extends InputSignature {
         private Class expressionType;
-        ExpressionInputSignature(Class expressionType) {this.expressionType = expressionType;}
+        public ExpressionInputSignature(Class expressionType) {this.expressionType = expressionType;}
         
         @Override
         public Class getInputClass() {return Expression.class;}
         public Class getExpressionReturnType() {return expressionType;}
     }
     
-    public static class StatementListInputSignature extends InputSignature {
+    final public static class StatementListInputSignature extends InputSignature {
         //private String[] contextVariableNames;
         //private Class[] contextVariableTypes;
-        StatementListInputSignature() {}
+        public StatementListInputSignature() {}
         //StatementListInputSignature(String[] contextVariableNames, Class[] contextVariableTypes) {
         //    this.contextVariableNames = contextVariableNames;
         //    this.contextVariableTypes = contextVariableTypes;

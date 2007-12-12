@@ -31,13 +31,13 @@ public class Method implements GeneticComponent {
     
     private StatementList body;
     private ContextModel contextModel;
-    private Program parent;
+    private GeneticTopLevel parent;
     
     /** Creates a new instance of Function */
     protected Method() {}
     
     // creates a function and some starting statement list
-    public Method(String name, Program parent, /*Class returnType,*/ List<Class> argumentTypes) {
+    public Method(String name, GeneticTopLevel parent, /*Class returnType,*/ List<Class> argumentTypes) {
         this.name = name;
         this.parent = parent;
         //this.returnType = returnType;
@@ -49,14 +49,15 @@ public class Method implements GeneticComponent {
         for(Class type : argumentTypes)
             argumentNames.add(contextModel.declareVariable(type, true));
         
-        body = new StatementList( this );
+        body = Foundation.getInstance().getStatementListBuilder().build(this);
+                // = new StatementList( this );
     }
     
     public int getNumberArguments() {return argumentTypes.size();}
     public Class getArgumentType(int i) {return argumentTypes.get(i);}
     public String getArgumentName(int i) {return argumentNames.get(i);}
     
-    public Program getParent() {
+    public GeneticTopLevel getParent() {
         return parent;
     }
 
@@ -100,7 +101,7 @@ public class Method implements GeneticComponent {
     }
 
     public boolean hasMethod(String name) {
-        return body.hasMethod(name);
+        return name.equals(this.name) || body.hasMethod(name);
     }
 
 }

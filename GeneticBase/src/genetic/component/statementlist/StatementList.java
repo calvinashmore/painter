@@ -63,7 +63,8 @@ public class StatementList implements GeneticComponent {
         }
         
         for(Statement statement : statements)
-            statement.setup();
+            if(!statement.isSetup())
+                statement.setup();
         
         isSetup = true;
     }

@@ -29,10 +29,12 @@ public class CommandStatementFunction extends StatementFunction {
 
     @Override
     public void setup() throws BuildException {
-        
-        List<Command> commands = Foundation.getInstance().getAllCommands().allInstances(getContextModel());
-        command = commands.get(Foundation.getInstance().getBuilderRandom().nextInt(commands.size()));
-        
+
+        if(command == null) {
+            List<Command> commands = Foundation.getInstance().getAllCommands().allInstances(getContextModel());
+            command = commands.get(Foundation.getInstance().getBuilderRandom().nextInt(commands.size()));
+        }
+
         super.setup();
     }
     

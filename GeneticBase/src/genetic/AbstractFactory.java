@@ -24,11 +24,13 @@ public class AbstractFactory<T> implements Factory<T> {
 
             return t.newInstance();
         } catch (IllegalAccessException e) {
+            throw new BuildException("Failed to instantiate class: " + t.getName(),e);
         } catch (InstantiationException e) {
+            throw new BuildException("Failed to instantiate class: " + t.getName(),e);
         } catch (InvocationTargetException e) {
+            throw new BuildException("Failed to instantiate class: " + t.getName(),e);
         }
 
-        throw new BuildException("Failed to instantiate class: " + t.getName());
     }
 
 }

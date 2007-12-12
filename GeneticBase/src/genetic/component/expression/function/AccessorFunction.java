@@ -26,6 +26,8 @@ public class AccessorFunction extends ExpressionFunction {
     public AccessorFunction(Accessor accessor) {
         this.accessor = accessor;
     }
+    
+    public Accessor getAccessor() {return accessor;}
 
     @Override
     public Object evaluate(Context context, Object[] inputs) {

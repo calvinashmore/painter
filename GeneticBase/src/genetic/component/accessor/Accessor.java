@@ -15,7 +15,9 @@ import genetic.Evaluatable;
 import genetic.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -33,6 +35,10 @@ abstract public class Accessor implements Evaluatable, Parameterized, Metadata, 
             this.inputs.add(input);
     }
     
+    private Map<String,Object> meta = new Hashtable<String, Object>();
+    public Object getMeta(String key) {return meta.get(key);}
+    public void addMeta(String key, Object value) {meta.put(key,value);}
+    
     public int getNumberInputs() {return inputs.size();}
     public Class getInputType(int i) {return inputs.get(i);}
     public String getInputName(int i) {return "input "+i;}
@@ -45,6 +51,5 @@ abstract public class Accessor implements Evaluatable, Parameterized, Metadata, 
     public void setParameter(int i, Object value) {}
     
     abstract public Class getReturnType();
-    abstract public Object evaluate(Object ... params);
     
 }

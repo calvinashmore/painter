@@ -25,8 +25,8 @@ import genetic.component.expression.mutator.ExpressionMutator;
 import genetic.component.expression.function.AllExpressionFunctions;
 import genetic.component.accessor.Accessor;
 import genetic.component.method.Method;
-import genetic.component.method.MethodBreeder;
-import genetic.component.method.MethodMutator;
+import genetic.component.method.breeder.MethodBreeder;
+import genetic.component.method.mutator.MethodMutator;
 import genetic.component.program.Program;
 import genetic.component.program.breeder.ProgramBreeder;
 import genetic.component.program.mutator.ProgramMutator;
@@ -48,6 +48,12 @@ import genetic.Breeder;
 import genetic.Factory;
 import genetic.Mutator;
 import genetic.TypeSystem;
+import genetic.component.method.MethodBuilder;
+import genetic.component.method.MethodBuilderImpl;
+import genetic.component.program.ProgramBuilder;
+import genetic.component.program.ProgramBuilderImpl;
+import genetic.component.statementlist.StatementListBuilder;
+import genetic.component.statementlist.StatementListBuilderImpl;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -101,7 +107,9 @@ public class GeneticFoundationImpl implements GeneticFoundation {
     public ExpressionBuilder getExpressionBuilder() {return new ExpressionBuilderImpl();}
     public StatementFunctionFactory getStatementFunctionFactory() {return new StatementFunctionFactoryImpl();}
     public StatementBuilder getStatementBuilder() {return new StatementBuilderImpl();}
-    
+    public MethodBuilder getMethodBuilder() {return new MethodBuilderImpl();}
+    public ProgramBuilder getProgramBuilder() {return new ProgramBuilderImpl();}
+    public StatementListBuilder getStatementListBuilder() {return new StatementListBuilderImpl();}
     
     // MUTATORS!
     

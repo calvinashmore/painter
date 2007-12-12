@@ -49,7 +49,7 @@ public class ExpressionBuilderImpl implements ExpressionBuilder {
         // *** okay, we've found the nf we are looking for,
         // build a real one
         // the current nf is just a shallow copy
-        nf = nff.build(nf.getClass(), parent.getContextModel());
+        //nf = nff.build(nf.getClass(), parent.getContextModel());
 
         Expression node = newNode(nf, parent);
 

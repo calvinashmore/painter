@@ -64,6 +64,7 @@ public class StatementBuilderImpl implements StatementBuilder {
 
     public Statement buildStatement(ContextModel cm, GeneticComponent parent, boolean seekTerminal) throws BuildException {
 
+        BuildException lastException = null;
         for (int attempt = 0; attempt < ATTEMPTS; attempt++) {
             try {
                 StatementFunction function = Foundation.getInstance().getStatementFunctionFactory().select(cm, seekTerminal);
@@ -95,9 +96,10 @@ public class StatementBuilderImpl implements StatementBuilder {
 
                 return statement;
             } catch (BuildException ex) {
+                lastException = ex;
             }
         }
-        throw new BuildException("Failed to construct Statement");
+        throw new BuildException("Failed to construct Statement",lastException);
     }
 
     protected Expression makeExpression(Statement statement, StatementFunction.ExpressionInputSignature signature)

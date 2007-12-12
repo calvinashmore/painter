@@ -14,8 +14,8 @@ public class Foundation {
     
     private static GeneticFoundation foundation;
     public static void setInstance(GeneticFoundation foundation) {
-        if(Foundation.foundation != null)
-            throw new IllegalStateException("setFoundation called when foundation was not null.");
+        //if(Foundation.foundation != null)
+        //    throw new IllegalStateException("setFoundation called when foundation was not null.");
         Foundation.foundation = foundation;
     }
     public static GeneticFoundation getInstance() {return foundation;}

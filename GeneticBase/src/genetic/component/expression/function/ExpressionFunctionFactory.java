@@ -8,6 +8,7 @@ package genetic.component.expression.function;
 import genetic.ContextModel;
 import genetic.BuildException;
 import genetic.Factory;
+import genetic.component.accessor.Accessor;
 
 /**
  *
@@ -15,4 +16,7 @@ import genetic.Factory;
  */
 public interface ExpressionFunctionFactory extends Factory<ExpressionFunction> {
     public ExpressionFunction selectByOutput(Class outputClass, ContextModel cm, boolean seekTerminal) throws BuildException;
+    public ConstantExpressionFunction  buildConstant(Class type, ContextModel cm) throws BuildException;
+    public VariableExpressionFunction  buildVariable(Class type, ContextModel cm) throws BuildException;
+    public AccessorFunction  buildAccessor(Accessor accessor, ContextModel cm) throws BuildException;
 }

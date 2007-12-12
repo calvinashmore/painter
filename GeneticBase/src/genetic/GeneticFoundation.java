@@ -15,9 +15,12 @@ import genetic.component.program.Program;
 import genetic.component.statement.Statement;
 import genetic.component.statement.function.StatementFunctionFactory;
 import genetic.component.command.Command;
+import genetic.component.method.MethodBuilder;
+import genetic.component.program.ProgramBuilder;
 import genetic.component.statement.StatementBuilder;
 import genetic.component.statement.function.StatementFunction;
 import genetic.component.statementlist.StatementList;
+import genetic.component.statementlist.StatementListBuilder;
 import java.util.Random;
 
 /**
@@ -25,6 +28,12 @@ import java.util.Random;
  * @author Calvin Ashmore
  */
 public interface GeneticFoundation {
+
+    StatementListBuilder getStatementListBuilder();
+
+    MethodBuilder getMethodBuilder();
+    
+    ProgramBuilder getProgramBuilder();
 
     Factory<Accessor> getAccessorFactory();
 

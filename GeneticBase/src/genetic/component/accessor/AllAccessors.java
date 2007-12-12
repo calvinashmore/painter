@@ -11,6 +11,7 @@ package genetic.component.accessor;
 
 import genetic.ContextModel;
 import genetic.AllComponents;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
 public class AllAccessors implements AllComponents<Accessor> {
 
     public List<Accessor> allInstances(ContextModel cm) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new ArrayList<Accessor>();
     }
 
 }

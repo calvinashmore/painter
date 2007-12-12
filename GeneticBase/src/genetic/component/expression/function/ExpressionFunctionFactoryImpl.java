@@ -12,6 +12,7 @@ package genetic.component.expression.function;
 import genetic.*;
 import genetic.AbstractFactory;
 import genetic.BuildException;
+import genetic.component.accessor.Accessor;
 import java.util.*;
 import java.lang.reflect.*;
 
@@ -56,6 +57,7 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
             throw new BuildException("Cannot match output class " + outputClass.getName());
         }
 
+        BuildException lastException = null;
         for (int attempt = 0; attempt < SELECT_ATTEMPTS; attempt++) {
             
             // select from this list, using weights
@@ -75,14 +77,40 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
             }
 
             try {
-                ExpressionFunction nf = build(matches.get(index).getClass(), cm);
+                ExpressionFunction template = matches.get(index);
+                
+                if(template instanceof ConstantExpressionFunction)
+                    return buildConstant(((ConstantExpressionFunction)template).getReturnType(), cm);
+                
+                if(template instanceof VariableExpressionFunction)
+                    return buildVariable(((VariableExpressionFunction)template).getReturnType(), cm);
+                
+                if(template instanceof AccessorFunction)
+                    return buildAccessor(((AccessorFunction)template).getAccessor(), cm);
+                
+                ExpressionFunction nf = build(template.getClass(), cm);
                 return nf;
             } catch (BuildException ex) {
+                lastException = ex;
             }
         }
-        throw new BuildException("Could not build a suitable match");
+        throw new BuildException("Could not build a suitable match", lastException);
     }
 
+    public ConstantExpressionFunction buildConstant(Class type, ContextModel cm) throws BuildException {
+        ConstantExpressionFunction nf = Foundation.getInstance().getAllExpressionFunctions().getConstantFunction(type);
+        return nf;
+    }
+
+    public VariableExpressionFunction buildVariable(Class type, ContextModel cm) throws BuildException {
+        VariableExpressionFunction nf = Foundation.getInstance().getAllExpressionFunctions().getVariableFunction(type,cm);
+        return nf;
+    }
+
+    public AccessorFunction buildAccessor(Accessor accessor, ContextModel cm) throws BuildException {
+        return new AccessorFunction(accessor);
+    }
+    
     @Override
     public ExpressionFunction build(Class<? extends ExpressionFunction> t, ContextModel cm) throws BuildException {
         ExpressionFunction nf = super.build(t, cm);

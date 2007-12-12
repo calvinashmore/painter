@@ -46,6 +46,7 @@ public class StatementFunctionFactoryImpl extends AbstractFactory<StatementFunct
             throw new BuildException("Cannot construct a suitable statement!");
         }
 
+        BuildException lastException = null;
         for (int attempt = 0; attempt < SELECT_ATTEMPTS; attempt++) {
             // select from this list, using weights
             double weightTotal = 0;
@@ -66,9 +67,9 @@ public class StatementFunctionFactoryImpl extends AbstractFactory<StatementFunct
             try {
                 StatementFunction result = build(matches.get(index).getClass(), cm);
                 return result;
-            } catch(BuildException ex) {}
+            } catch(BuildException ex) {lastException = ex;}
         }
-        throw new BuildException("Could not construct suitable statement!");
+        throw new BuildException("Could not construct suitable statement!", lastException);
     }
 
     @Override

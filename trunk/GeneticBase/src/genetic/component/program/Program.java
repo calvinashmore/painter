@@ -60,10 +60,13 @@ public class Program implements GeneticTopLevel {
         return isSetup;
     }
     
-    public void setup() {
+    public void setup() throws BuildException {
         context = contextModel.createContext();
     
         isSetup = true;
+        
+        for(Method method : methods.values())
+            method.setup();
     }
     
     public void createMethod(String name, Class... parameters) {
@@ -72,7 +75,7 @@ public class Program implements GeneticTopLevel {
         for(Class parameter : parameters)
             lparams.add(parameter);
         
-        Method eventFunction = new Method(name, this, lparams);
+        Method eventFunction = Foundation.getInstance().getMethodBuilder().build(name, this, lparams); //new Method(name, this, lparams);
         methods.put(name, eventFunction);
     }
     

@@ -20,6 +20,6 @@ import java.util.*;
  * @author Ron Ashmore
  */
 public interface AllExpressionFunctions extends AllComponents<ExpressionFunction> {
-    public ExpressionFunction getVariableFunction(Class type, ContextModel cm) throws BuildException;
-    public ExpressionFunction getConstantFunction(Class type) throws BuildException;
+    public VariableExpressionFunction getVariableFunction(Class type, ContextModel cm) throws BuildException;
+    public ConstantExpressionFunction getConstantFunction(Class type) throws BuildException;
 }

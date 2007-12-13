@@ -16,7 +16,7 @@ import java.util.*;
  *
  * @author gtg126z
  */
-public class Context implements java.io.Serializable {
+public class Context {
 
     private ContextModel model;
     private Context parent;

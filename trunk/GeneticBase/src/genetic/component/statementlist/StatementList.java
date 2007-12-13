@@ -85,7 +85,7 @@ public class StatementList implements GeneticComponent {
         StatementList clone = new StatementList(newParent);
         
         clone.parent = newParent;
-        clone.contextModel = contextModel.clone();
+        clone.contextModel = contextModel.copy();
         clone.contextModel.setParent(newParent.getContextModel());
         for(Statement statement : statements) {
             clone.statements.add(statement.clone(clone));

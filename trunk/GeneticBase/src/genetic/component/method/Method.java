@@ -67,7 +67,7 @@ public class Method implements GeneticComponent {
     
     public Method clone(GeneticComponent newParent) throws BuildException {
         Method r = new Method();
-        r.contextModel = contextModel.clone();
+        r.contextModel = contextModel.copy();
         r.contextModel.setParent(newParent.getContextModel());
         //r.returnType = returnType;
         r.parent = (Program)newParent;

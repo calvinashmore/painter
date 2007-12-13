@@ -78,7 +78,7 @@ abstract public class ExpressionFunction implements Evaluatable, Parameterized, 
     }
     
     //abstract public String toString(String... args);
-    public String toString(String... args) {
+    /*public String toString(String... args) {
         String r = getClass().getName()+"(";
         
         for(int i=0; i<args.length; i++) {
@@ -89,5 +89,5 @@ abstract public class ExpressionFunction implements Evaluatable, Parameterized, 
         
         r += ")";
         return r;
-    }
+    }*/
 }

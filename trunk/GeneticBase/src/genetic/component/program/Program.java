@@ -177,7 +177,7 @@ public class Program implements GeneticTopLevel {
     public Program clone(GeneticComponent newParent) throws BuildException {
         try {
             Program program = (Program) getClass().newInstance();
-            program.contextModel = contextModel.clone();
+            program.contextModel = contextModel.copy();
             program.contextModel.setTopLevel(program);
             //program.commands = new Hashtable<String, Command>(commands);
             //program.accessors = new Hashtable<String, Accessor>(accessors);

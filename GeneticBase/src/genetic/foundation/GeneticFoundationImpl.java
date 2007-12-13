@@ -64,16 +64,6 @@ import java.util.Random;
  */
 public class GeneticFoundationImpl implements GeneticFoundation {
     
-    // STATIC INSTANCE
-    
-    private static GeneticFoundationImpl foundation;
-    public static GeneticFoundationImpl getInstance() {return foundation;}
-    
-    public GeneticFoundationImpl() {
-        foundation = this;
-    }
-    
-    
     // RANDOM FOR BUILDING
     
     protected Random builderRandom = new Random();

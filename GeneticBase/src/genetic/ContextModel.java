@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class ContextModel {
 
-    private class VariableDefinition {
+    private static class VariableDefinition {
 
         public VariableDefinition(Class type, boolean readOnly) {
             this.type = type;
@@ -185,8 +185,7 @@ public class ContextModel {
         return topLevel;
     }
 
-    @Override
-    public ContextModel clone() {
+    public ContextModel copy() {
         ContextModel r = new ContextModel();
         r.setParent(parent);
         r.topLevel = topLevel;
@@ -213,7 +212,7 @@ public class ContextModel {
         return context;
     }
 
-    public String printout(String indent) {
+    /*public String printout(String indent) {
         String r = indent + "contextModel\n";
         for (String name : variableTypes.keySet()) {
             r += indent + "  " + name + ": " + variableTypes.get(name).type;
@@ -223,7 +222,7 @@ public class ContextModel {
             r += "\n";
         }
         return r;
-    }
+    }*/
 
     /*protected void createNewVariables() {
     int vars = numberBaseVars + new Random().nextInt(numberFlexVars);

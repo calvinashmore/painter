@@ -37,21 +37,23 @@ public class StatementBuilderImpl implements StatementBuilder {
         Map<String, Method> methods = program.getMethods();
 
         String myMethodName = null;
-        for (String name : methods.keySet()) {
-            if (methods.get(name) == myMethod) {
-                myMethodName = name;
-            }
+        for (Map.Entry<String, Method> entry : methods.entrySet()) {
+            // entry.getValue() == method
+            // entry.getKey() == name
+            if(entry.getValue() == myMethod)
+                myMethodName = entry.getKey();
         }
 
         List<String> methodNames = new ArrayList<String>();
-        for (String name : methods.keySet()) {
+        for (Map.Entry<String, Method> entry : methods.entrySet()) {
             // check for valid method names, ie
             // methods that do not cycle
 
             // this method does not use myMethod, so it is safe.
-            if (!methods.get(name).hasMethod(myMethodName)) {
-                methodNames.add(name);
-            }
+            // entry.getValue() == method
+            // entry.getKey() == name
+            if(!entry.getValue().hasMethod(myMethodName))
+                methodNames.add(entry.getKey());
         }
 
         return methodNames;

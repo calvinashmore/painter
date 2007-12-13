@@ -24,7 +24,7 @@ import java.util.ArrayList;
  *
  * @author gtg126z
  */
-public class Expression implements Parameterized, GeneticComponent, Cloneable {
+public class Expression implements Parameterized, GeneticComponent {
 
     private List<Expression> children;
     private Object[] cacheInputs;
@@ -58,14 +58,17 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
 
     public boolean assignChild(int index, Expression child) {
 
-        if (index >= function.getNumberInputs()) {
-            return false;
+        if (index >= function.getNumberInputs() || index < 0) {
+            throw new IllegalArgumentException("Assigning child index of "+index+" where number is: "+function.getNumberInputs());
         }
+        
+        if(child == null)
+            throw new IllegalArgumentException("Attempting to assign null child!");
 
         // allowing child to be null here
         // for sake of use in editor
-        if (child != null && child.getOutputType() != function.getInputType(index)) {
-            return false;
+        if (child.getOutputType() != function.getInputType(index)) {
+            throw new IllegalArgumentException("Child output type "+child.getOutputType()+" does not match function type "+function.getInputType(index));
         }
 
         child.setParent(this);
@@ -105,17 +108,17 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
             cacheOutput = function.evaluate(context, cacheInputs);
             cacheOutput = Foundation.getInstance().getTypeSystem().checkInvalid(cacheOutput);
         } catch (ClassCastException e) {
-            debugPrint(e, context);
+            //debugPrint(e, context);
             cacheOutput = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
         } catch (NullPointerException e) {
-            debugPrint(e, context);
+            //debugPrint(e, context);
             cacheOutput = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
         }
 
         return cacheOutput;
     }
 
-    private void debugPrint(Exception e, Context context) {
+    /*private void debugPrint(Exception e, Context context) {
         synchronized (System.err) {
             System.err.println(function);
             System.err.println("inputs: ");
@@ -132,7 +135,7 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
         }
         //throw e;
         throw new RuntimeException();
-    }
+    }*/
     // this sets up the node and makes it ready for evaluation
     //private transient boolean isSetup;
 
@@ -220,7 +223,7 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
         function.setParameter(i, value);
     }
 
-    @Override
+    /*@Override
     public String toString() {
 
         String args[] = new String[getNumberInputs()];
@@ -228,7 +231,7 @@ public class Expression implements Parameterized, GeneticComponent, Cloneable {
             args[i] = children.get(i).toString();
         }
         return function.toString(args);
-    }
+    }*/
 
     public GeneticComponent getParent() {
         return parent;

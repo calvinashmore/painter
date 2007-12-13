@@ -8,12 +8,9 @@ package genetic.component.expression.mutator;
 import genetic.ContextModel;
 import genetic.Foundation;
 import genetic.component.expression.Expression;
-import genetic.component.expression.ExpressionBuilder;
 import genetic.component.expression.ExpressionUtils;
-import genetic.component.expression.function.ExpressionFunction;
 import genetic.component.expression.function.ExpressionFunctionUtils;
 import genetic.BuildException;
-import genetic.Factory;
 import genetic.MutatorAction;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +28,8 @@ public class CollapseBranch extends MutatorAction<Expression> {
         List<Expression> allNodes = ExpressionUtils.gatherNodes(target);
         Random rand = Foundation.getInstance().getBuilderRandom();
         
-        Factory<ExpressionFunction> nff = Foundation.getInstance().getExpressionFunctionFactory();
-        ExpressionBuilder nb = Foundation.getInstance().getExpressionBuilder();
+        //Factory<ExpressionFunction> nff = Foundation.getInstance().getExpressionFunctionFactory();
+        //ExpressionBuilder nb = Foundation.getInstance().getExpressionBuilder();
         
         for(int i=0; i<100; i++) {
             

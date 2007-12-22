@@ -8,19 +8,21 @@
     
     <target name="build-parser">
         <jjtree
-            target="src/fn/fn_gen.jjt" 
-            outputdirectory="src/fn"
+            target="src/fn/parser/fn_gen.jjt" 
+            outputdirectory="src/fn/parser"
             javacchome="lib" 
             nodeusesparser="true"
-            nodepackage="gen"
+            nodepackage="fn.parser"
         />
         <javacc 
-            target="src/fn/fn_gen.jj" 
-            outputdirectory="src/fn" 
+            target="src/fn/parser/fn_gen.jj" 
+            outputdirectory="src/fn/parser" 
             javacchome="lib" 
             buildparser="true"
         />
     </target>
+    
+    <target name="-pre-compile" depends="build-parser"/>
     
     <!--
 

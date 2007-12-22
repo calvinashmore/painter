@@ -14,9 +14,7 @@ import genetic.Parameterized;
 import genetic.Evaluatable;
 import genetic.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,20 +26,20 @@ import java.util.Map;
  */
 abstract public class Accessor implements Evaluatable, Parameterized, Metadata, Serializable {
     
-    private List<Class> inputs;
+    /*private List<Class> inputs;
     protected void setInputs(Class ... inputs) {
         this.inputs = new ArrayList<Class>();
         for(Class input : inputs)
             this.inputs.add(input);
-    }
+    }*/
     
     private Map<String,Object> meta = new Hashtable<String, Object>();
     public Object getMeta(String key) {return meta.get(key);}
     public void addMeta(String key, Object value) {meta.put(key,value);}
     
-    public int getNumberInputs() {return inputs.size();}
-    public Class getInputType(int i) {return inputs.get(i);}
-    public String getInputName(int i) {return "input "+i;}
+    public int getNumberInputs() {return 0;}
+    public Class getInputType(int i) {return null;}
+    public String getInputName(int i) {return null;}
     
     // these should be overridden
     public int getNumberParameters() {return 0;}

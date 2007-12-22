@@ -14,9 +14,7 @@ import genetic.Metadata;
 import genetic.Parameterized;
 import genetic.Evaluatable;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
 /**

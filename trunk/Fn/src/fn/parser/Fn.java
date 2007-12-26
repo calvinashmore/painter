@@ -61,9 +61,9 @@ public class Fn {
         allFn.packageName = "genetic.expressions.functions";
         allFn.addClassModifier("public");
         allFn.addInterface("FunctionGroup");
-        allFn.addPackageImport("genetic.*");
-        allFn.addPackageImport("genetic.expressions.*");
-        allFn.addPackageImport("java.util.*");
+        allFn.addImport("genetic.*");
+        allFn.addImport("genetic.expressions.*");
+        allFn.addImport("java.util.*");
         
         MethodDescriptor getFunctionsMeth = new MethodDescriptor();
         getFunctionsMeth.methodName = "getFunctions";

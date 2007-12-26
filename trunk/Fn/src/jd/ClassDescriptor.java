@@ -8,20 +8,33 @@ import java.io.*;
 
 public class ClassDescriptor extends CodeBlockDescriptor {
 
-    public String packageName;
+    private String packageName;
     private List<String> imports = new LinkedList();
-    public String className;
+    private String className;
     private List<String> classModifiers = new LinkedList();
     private List<FieldDescriptor> fieldMembers = new LinkedList();
     private List<MethodDescriptor> methodMembers = new LinkedList();
     private List<ClassDescriptor> nestedClasses = new LinkedList();
     private List<NestableCodeDescriptor> miscMembers = new LinkedList();
-    private Vector staticBlocks = new Vector();
-    public String extendsClass;
+    private List staticBlocks = new LinkedList();
+    private String extendsClass;
     private List<String> interfaces = new LinkedList();
     private int nestLevel = 0;
     private boolean isNested = false;
 
+    public ClassDescriptor(String className) {
+        this.className = className;
+    }
+    
+    public ClassDescriptor(String className, String extendsClass) {
+        this.className = className;
+        this.extendsClass = extendsClass;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+    
     public void setIsNested(boolean isNested) {
         this.isNested = isNested;
         if (isNested) {
@@ -29,7 +42,7 @@ public class ClassDescriptor extends CodeBlockDescriptor {
         }
     }
 
-    public void addPackageImport(String importPackage) {
+    public void addImport(String importPackage) {
         imports.add(importPackage);
     }
 

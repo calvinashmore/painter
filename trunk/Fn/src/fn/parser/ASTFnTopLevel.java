@@ -1,18 +1,16 @@
 // Parse node for the beat top level 
 package fn.parser;
 
-import jd.Compilable;
-import jd.CompileException;
-import java.util.*;
-import java.io.*;
-import java.security.*;
-import java.lang.reflect.*;
-import jd.*;
 //import macro.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 // fixme: for now I'm not including the machinery for variable definitions (scope maintainence). 
 // If I want to add this, extend BeatScopeMaintainer.
-public class ASTFnTopLevel extends FnParseNode implements Compilable {
+public class ASTFnTopLevel extends FnParseNode {
 
     // name of the package within which the beat(s) should be defined
     //String fnPackage = null;
@@ -21,9 +19,12 @@ public class ASTFnTopLevel extends FnParseNode implements Compilable {
     private String fnGroup;
     private String fnType;
     
-    public void setGroup(String group) {this.fnGroup = group;}
-    public void setType(String type) {this.fnType = type;}
+    void setGroup(String group) {this.fnGroup = group;}
+    void setType(String type) {this.fnType = type;}
 
+    public String getGroup() {return fnGroup;}
+    public String getType() {return fnType;}
+    
     // Names of import packages. 
     /*private final static String[] importPackages = {
         "utils.*",
@@ -37,8 +38,7 @@ public class ASTFnTopLevel extends FnParseNode implements Compilable {
         "genetic.*",
         "genetic.expressions.*",};   */
          
-    private List<String> userImportPackages = new LinkedList();
-    private List<String> userImportClasses = new LinkedList();
+    private List<String> userImports = new ArrayList();
 
     // root node of the parse tree
     private static ASTFnTopLevel fnTopLevel;
@@ -54,54 +54,72 @@ public class ASTFnTopLevel extends FnParseNode implements Compilable {
     }
 
     // Set accessor for user imports. 
-    public void addUserImport(String importName) {
-	if (importName.endsWith("*")) {
-            /* The import name ends with a "*"; trim off the ".*"
+    void addUserImport(String importName) {
+        userImports.add(importName);
+	/*if (importName.endsWith("*")) {
+            / The import name ends with a "*"; trim off the ".*"
             suffix and add the resulting package name to
-            userImportPackages. */
-            userImportPackages.add(importName.substring(0, importName.length() - 2));
+            userImportPackages. /
+            userImports.add(importName.substring(0, importName.length() - 2));
         } else {
-            /* The import name doesn't end in "*"; it is an import of
-            a specific class. */
+            / The import name doesn't end in "*"; it is an import of
+            a specific class. /
             userImportClasses.add(importName);
+        }*/
+    }
+    
+    public List<ASTFnDefinition> getFnDefinitions() {
+        
+        List<ASTFnDefinition> allFn = new ArrayList<ASTFnDefinition>();
+        
+        for (int i = 0; i < jjtGetNumChildren(); i++) {
+            // Loop through the children nodes, compiling functions
+
+            SimpleNode n = (SimpleNode) jjtGetChild(i);
+            if ((FnParserTreeConstants.jjtNodeName[n.id].equals("FnDefinition"))) {
+
+                ASTFnDefinition fnDef = (ASTFnDefinition) n;
+                allFn.add(fnDef);
+            }
         }
+        return allFn;
     }
 
     /* Adds all user imports (packages and classes) to the
     ClassDescriptor. */
-    public void addUserImports(ClassDescriptor c) {
-        ListIterator packageIter = userImportPackages.listIterator();
+    /*public void addUserImports(ClassDescriptor c) {
+        ListIterator packageIter = userImports.listIterator();
         while (packageIter.hasNext()) {
-            c.addPackageImport((String) packageIter.next() + ".*");
+            c.addImport((String) packageIter.next() + ".*");
         }
 
         ListIterator classIter = userImportClasses.listIterator();
         while (classIter.hasNext()) {
-            c.addPackageImport((String) classIter.next());
+            c.addImport((String) classIter.next());
         }
-    }
+    }*/
 
     /* Get accessor for user package imports. Returns a ListIterator
     for the package imports. */
-    public Iterator getUserImportPackages() {
-        return userImportPackages.listIterator();
+    public List<String> getUserImports() {
+        return Collections.unmodifiableList(userImports);
     }
 
-    public Iterator getUserImportClasses() {
+    /*public Iterator getUserImportClasses() {
         return userImportClasses.listIterator();
-    }
+    }*/
 
     /* Public get accessor for the unique ASTFnTopLevel reference. */
     public static ASTFnTopLevel getFnTopLevel() {
         return fnTopLevel;
     }
 
-    public ClassDescriptor compileToJava() throws CompileException {
+/*    public ClassDescriptor compileToJava() throws CompileException {
         
         SimpleNode n;
 
         ClassDescriptor functionGroup = new ClassDescriptor();
-/*
+
         functionGroup.className = fnGroup;
         functionGroup.packageName = fnPackage;
         functionGroup.addClassModifier("public");
@@ -188,9 +206,9 @@ public class ASTFnTopLevel extends FnParseNode implements Compilable {
                 }
             }
         }
-*/
+
         return functionGroup;
-    }
+    }*/
 }
 
 

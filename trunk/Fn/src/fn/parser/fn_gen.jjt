@@ -266,6 +266,7 @@ TOKEN :
 | < META: "meta">
 | < SLIN: "slin"> // statement list in
 | < EXIN: "exin"> // expression in
+| < CVAR: "cvar"> // context variable
 }
 
 /* LITERALS */
@@ -515,6 +516,7 @@ void FnTypeAndName(ASTFnDefinition fn) : {
     (t = <IN>)
 |   (t = <PARAMETER>)
 |   (t = <EXIN>)
+|   (t = <CVAR>)
 
     type = FnTypeBody()
     name = <IDENTIFIER>

@@ -5,15 +5,70 @@
 
 package fn;
 
+import fn.parser.ASTFnDefinition;
+import fn.parser.ASTFnTopLevel;
 import java.util.ArrayList;
 import java.util.List;
+import jd.ClassDescriptor;
+import jd.CodeStringDescriptor;
 import jd.Compilable;
+import jd.MethodDescriptor;
 
 /**
  *
  * @author Calvin Ashmore
  */
 abstract public class FnGroup<NodeType extends FnNode> implements Compilable{
-    private List<NodeType> myNodes = new ArrayList<NodeType>();
+    //private List<NodeType> myNodes = new ArrayList<NodeType>();
 
+    private String packageName;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+    
+    private List<String> imports = new ArrayList<String>();
+    
+    private ASTFnTopLevel top;
+    
+    abstract FnNode getNode(ASTFnDefinition fn);
+    String getGroupImplements() {return "AllComponents<"+getFnClassName()+">";} // "AllComponents<StatementFunction>", etc
+    abstract String getFnClassName(); // StatementFunction, ExpressionFunction, Accessor, or Command
+    
+    ClassDescriptor make_class() {
+        ClassDescriptor descriptor = new ClassDescriptor(top.getGroup());
+        descriptor.addClassModifier("public");
+        descriptor.addClassModifier("final");
+        descriptor.setPackageName( packageName );
+        
+        descriptor.addInterface( getGroupImplements() );
+        
+        for(String s : imports)
+            descriptor.addImport(s);
+        
+        for(String s : top.getUserImports())
+            descriptor.addImport(s);
+        
+        for(ASTFnDefinition fn : top.getFnDefinitions()) {
+            descriptor.addNestedClass( getNode(fn).make_class() );
+        }
+        
+        return descriptor;
+    }
+    
+    MethodDescriptor make_allComponents() {
+         //List<T> allInstances(ContextModel cm);
+        MethodDescriptor method = new MethodDescriptor("allInstances");
+        method.addModifier("public");
+        method.addModifier("List<"+getFnClassName()+">");
+        
+        method.addToBlockBody(new CodeStringDescriptor("List<"+getFnClassName()+"> r = new ArrayList<"+getFnClassName()+">();\n"));
+        for(ASTFnDefinition fn : top.getFnDefinitions()) {
+            method.addToBlockBody( new CodeStringDescriptor("r.add(new "+fn.getName()+"());\n") );
+            //descriptor.addNestedClass( getNode(fn).make_class() );
+        }
+        method.addToBlockBody(new CodeStringDescriptor("return r;\n"));
+        
+        method.addArgument("ContextModel", "cm");
+        return method;
+    }
 }

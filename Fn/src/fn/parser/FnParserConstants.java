@@ -3,280 +3,279 @@ package fn.parser;
 
 public interface FnParserConstants {
 
-  int EOF = 0;
-  int SINGLE_LINE_COMMENT = 9;
-  int FORMAL_COMMENT = 10;
-  int MULTI_LINE_COMMENT = 11;
-  int ABSTRACT = 13;
-  int ASSERT = 14;
-  int BOOLEAN = 15;
-  int BREAK = 16;
-  int BYTE = 17;
-  int CASE = 18;
-  int CATCH = 19;
-  int CHAR = 20;
-  int CLASS = 21;
-  int CONST = 22;
-  int CONTINUE = 23;
-  int _DEFAULT = 24;
-  int DO = 25;
-  int DOUBLE = 26;
-  int ELSE = 27;
-  int ENUM = 28;
-  int EXTENDS = 29;
-  int FALSE = 30;
-  int FINAL = 31;
-  int FINALLY = 32;
-  int FLOAT = 33;
-  int FOR = 34;
-  int GOTO = 35;
-  int IF = 36;
-  int IMPLEMENTS = 37;
-  int IMPORT = 38;
-  int INSTANCEOF = 39;
-  int INT = 40;
-  int INTERFACE = 41;
-  int LONG = 42;
-  int NATIVE = 43;
-  int NEW = 44;
-  int NULL = 45;
-  int PACKAGE = 46;
-  int PRIVATE = 47;
-  int PROTECTED = 48;
-  int PUBLIC = 49;
-  int RETURN = 50;
-  int SHORT = 51;
-  int STATIC = 52;
-  int STRICTFP = 53;
-  int SUPER = 54;
-  int SWITCH = 55;
-  int SYNCHRONIZED = 56;
-  int THIS = 57;
-  int THROW = 58;
-  int THROWS = 59;
-  int TRANSIENT = 60;
-  int TRUE = 61;
-  int TRY = 62;
-  int VOID = 63;
-  int VOLATILE = 64;
-  int WHILE = 65;
-  int FN = 66;
-  int GROUP = 67;
-  int TYPE = 68;
-  int IN = 69;
-  int OUT = 70;
-  int EVAL = 71;
-  int EXEC = 72;
-  int INIT = 73;
-  int PARAMETER = 74;
-  int SETUP = 75;
-  int META = 76;
-  int SLIN = 77;
-  int EXIN = 78;
-  int INTEGER_LITERAL = 79;
-  int DECIMAL_LITERAL = 80;
-  int HEX_LITERAL = 81;
-  int OCTAL_LITERAL = 82;
-  int FLOATING_POINT_LITERAL = 83;
-  int EXPONENT = 84;
-  int CHARACTER_LITERAL = 85;
-  int STRING_LITERAL = 86;
-  int IDENTIFIER = 87;
-  int LETTER = 88;
-  int DIGIT = 89;
-  int LPAREN = 90;
-  int RPAREN = 91;
-  int LBRACE = 92;
-  int RBRACE = 93;
-  int LBRACKET = 94;
-  int RBRACKET = 95;
-  int SEMICOLON = 96;
-  int COMMA = 97;
-  int DOT = 98;
-  int AT = 99;
-  int ASSIGN = 100;
-  int LT = 101;
-  int BANG = 102;
-  int TILDE = 103;
-  int HOOK = 104;
-  int COLON = 105;
-  int EQ = 106;
-  int LE = 107;
-  int GE = 108;
-  int NE = 109;
-  int SC_OR = 110;
-  int SC_AND = 111;
-  int INCR = 112;
-  int DECR = 113;
-  int PLUS = 114;
-  int MINUS = 115;
-  int STAR = 116;
-  int SLASH = 117;
-  int BIT_AND = 118;
-  int BIT_OR = 119;
-  int XOR = 120;
-  int REM = 121;
-  int LSHIFT = 122;
-  int PLUSASSIGN = 123;
-  int MINUSASSIGN = 124;
-  int STARASSIGN = 125;
-  int SLASHASSIGN = 126;
-  int ANDASSIGN = 127;
-  int ORASSIGN = 128;
-  int XORASSIGN = 129;
-  int REMASSIGN = 130;
-  int LSHIFTASSIGN = 131;
-  int RSIGNEDSHIFTASSIGN = 132;
-  int RUNSIGNEDSHIFTASSIGN = 133;
-  int ELLIPSIS = 134;
-  int RUNSIGNEDSHIFT = 135;
-  int RSIGNEDSHIFT = 136;
-  int GT = 137;
-
-  int DEFAULT = 0;
-  int IN_SINGLE_LINE_COMMENT = 1;
-  int IN_FORMAL_COMMENT = 2;
-  int IN_MULTI_LINE_COMMENT = 3;
-
-  String[] tokenImage = {
-    "<EOF>",
-    "\" \"",
-    "\"\\t\"",
-    "\"\\n\"",
-    "\"\\r\"",
-    "\"\\f\"",
-    "\"//\"",
-    "<token of kind 7>",
-    "\"/*\"",
-    "<SINGLE_LINE_COMMENT>",
-    "\"*/\"",
-    "\"*/\"",
-    "<token of kind 12>",
-    "\"abstract\"",
-    "\"assert\"",
-    "\"boolean\"",
-    "\"break\"",
-    "\"byte\"",
-    "\"case\"",
-    "\"catch\"",
-    "\"char\"",
-    "\"class\"",
-    "\"const\"",
-    "\"continue\"",
-    "\"default\"",
-    "\"do\"",
-    "\"double\"",
-    "\"else\"",
-    "\"enum\"",
-    "\"extends\"",
-    "\"false\"",
-    "\"final\"",
-    "\"finally\"",
-    "\"float\"",
-    "\"for\"",
-    "\"goto\"",
-    "\"if\"",
-    "\"implements\"",
-    "\"import\"",
-    "\"instanceof\"",
-    "\"int\"",
-    "\"interface\"",
-    "\"long\"",
-    "\"native\"",
-    "\"new\"",
-    "\"null\"",
-    "\"package\"",
-    "\"private\"",
-    "\"protected\"",
-    "\"public\"",
-    "\"return\"",
-    "\"short\"",
-    "\"static\"",
-    "\"strictfp\"",
-    "\"super\"",
-    "\"switch\"",
-    "\"synchronized\"",
-    "\"this\"",
-    "\"throw\"",
-    "\"throws\"",
-    "\"transient\"",
-    "\"true\"",
-    "\"try\"",
-    "\"void\"",
-    "\"volatile\"",
-    "\"while\"",
-    "\"fn\"",
-    "\"group\"",
-    "\"type\"",
-    "\"in\"",
-    "\"out\"",
-    "\"eval\"",
-    "\"exec\"",
-    "\"init\"",
-    "\"parameter\"",
-    "\"setup\"",
-    "\"meta\"",
-    "\"slin\"",
-    "\"exin\"",
-    "<INTEGER_LITERAL>",
-    "<DECIMAL_LITERAL>",
-    "<HEX_LITERAL>",
-    "<OCTAL_LITERAL>",
-    "<FLOATING_POINT_LITERAL>",
-    "<EXPONENT>",
-    "<CHARACTER_LITERAL>",
-    "<STRING_LITERAL>",
-    "<IDENTIFIER>",
-    "<LETTER>",
-    "<DIGIT>",
-    "\"(\"",
-    "\")\"",
-    "\"{\"",
-    "\"}\"",
-    "\"[\"",
-    "\"]\"",
-    "\";\"",
-    "\",\"",
-    "\".\"",
-    "\"@\"",
-    "\"=\"",
-    "\"<\"",
-    "\"!\"",
-    "\"~\"",
-    "\"?\"",
-    "\":\"",
-    "\"==\"",
-    "\"<=\"",
-    "\">=\"",
-    "\"!=\"",
-    "\"||\"",
-    "\"&&\"",
-    "\"++\"",
-    "\"--\"",
-    "\"+\"",
-    "\"-\"",
-    "\"*\"",
-    "\"/\"",
-    "\"&\"",
-    "\"|\"",
-    "\"^\"",
-    "\"%\"",
-    "\"<<\"",
-    "\"+=\"",
-    "\"-=\"",
-    "\"*=\"",
-    "\"/=\"",
-    "\"&=\"",
-    "\"|=\"",
-    "\"^=\"",
-    "\"%=\"",
-    "\"<<=\"",
-    "\">>=\"",
-    "\">>>=\"",
-    "\"...\"",
-    "\">>>\"",
-    "\">>\"",
-    "\">\"",
-  };
+    int EOF = 0;
+    int SINGLE_LINE_COMMENT = 9;
+    int FORMAL_COMMENT = 10;
+    int MULTI_LINE_COMMENT = 11;
+    int ABSTRACT = 13;
+    int ASSERT = 14;
+    int BOOLEAN = 15;
+    int BREAK = 16;
+    int BYTE = 17;
+    int CASE = 18;
+    int CATCH = 19;
+    int CHAR = 20;
+    int CLASS = 21;
+    int CONST = 22;
+    int CONTINUE = 23;
+    int _DEFAULT = 24;
+    int DO = 25;
+    int DOUBLE = 26;
+    int ELSE = 27;
+    int ENUM = 28;
+    int EXTENDS = 29;
+    int FALSE = 30;
+    int FINAL = 31;
+    int FINALLY = 32;
+    int FLOAT = 33;
+    int FOR = 34;
+    int GOTO = 35;
+    int IF = 36;
+    int IMPLEMENTS = 37;
+    int IMPORT = 38;
+    int INSTANCEOF = 39;
+    int INT = 40;
+    int INTERFACE = 41;
+    int LONG = 42;
+    int NATIVE = 43;
+    int NEW = 44;
+    int NULL = 45;
+    int PACKAGE = 46;
+    int PRIVATE = 47;
+    int PROTECTED = 48;
+    int PUBLIC = 49;
+    int RETURN = 50;
+    int SHORT = 51;
+    int STATIC = 52;
+    int STRICTFP = 53;
+    int SUPER = 54;
+    int SWITCH = 55;
+    int SYNCHRONIZED = 56;
+    int THIS = 57;
+    int THROW = 58;
+    int THROWS = 59;
+    int TRANSIENT = 60;
+    int TRUE = 61;
+    int TRY = 62;
+    int VOID = 63;
+    int VOLATILE = 64;
+    int WHILE = 65;
+    int FN = 66;
+    int GROUP = 67;
+    int TYPE = 68;
+    int IN = 69;
+    int OUT = 70;
+    int EVAL = 71;
+    int EXEC = 72;
+    int INIT = 73;
+    int PARAMETER = 74;
+    int SETUP = 75;
+    int META = 76;
+    int SLIN = 77;
+    int EXIN = 78;
+    int INTEGER_LITERAL = 79;
+    int DECIMAL_LITERAL = 80;
+    int HEX_LITERAL = 81;
+    int OCTAL_LITERAL = 82;
+    int FLOATING_POINT_LITERAL = 83;
+    int EXPONENT = 84;
+    int CHARACTER_LITERAL = 85;
+    int STRING_LITERAL = 86;
+    int IDENTIFIER = 87;
+    int LETTER = 88;
+    int DIGIT = 89;
+    int LPAREN = 90;
+    int RPAREN = 91;
+    int LBRACE = 92;
+    int RBRACE = 93;
+    int LBRACKET = 94;
+    int RBRACKET = 95;
+    int SEMICOLON = 96;
+    int COMMA = 97;
+    int DOT = 98;
+    int AT = 99;
+    int ASSIGN = 100;
+    int LT = 101;
+    int BANG = 102;
+    int TILDE = 103;
+    int HOOK = 104;
+    int COLON = 105;
+    int EQ = 106;
+    int LE = 107;
+    int GE = 108;
+    int NE = 109;
+    int SC_OR = 110;
+    int SC_AND = 111;
+    int INCR = 112;
+    int DECR = 113;
+    int PLUS = 114;
+    int MINUS = 115;
+    int STAR = 116;
+    int SLASH = 117;
+    int BIT_AND = 118;
+    int BIT_OR = 119;
+    int XOR = 120;
+    int REM = 121;
+    int LSHIFT = 122;
+    int PLUSASSIGN = 123;
+    int MINUSASSIGN = 124;
+    int STARASSIGN = 125;
+    int SLASHASSIGN = 126;
+    int ANDASSIGN = 127;
+    int ORASSIGN = 128;
+    int XORASSIGN = 129;
+    int REMASSIGN = 130;
+    int LSHIFTASSIGN = 131;
+    int RSIGNEDSHIFTASSIGN = 132;
+    int RUNSIGNEDSHIFTASSIGN = 133;
+    int ELLIPSIS = 134;
+    int RUNSIGNEDSHIFT = 135;
+    int RSIGNEDSHIFT = 136;
+    int GT = 137;
+    int DEFAULT = 0;
+    int IN_SINGLE_LINE_COMMENT = 1;
+    int IN_FORMAL_COMMENT = 2;
+    int IN_MULTI_LINE_COMMENT = 3;
+    String[] tokenImage = {
+        "<EOF>",
+        "\" \"",
+        "\"\\t\"",
+        "\"\\n\"",
+        "\"\\r\"",
+        "\"\\f\"",
+        "\"//\"",
+        "<token of kind 7>",
+        "\"/*\"",
+        "<SINGLE_LINE_COMMENT>",
+        "\"*/\"",
+        "\"*/\"",
+        "<token of kind 12>",
+        "\"abstract\"",
+        "\"assert\"",
+        "\"boolean\"",
+        "\"break\"",
+        "\"byte\"",
+        "\"case\"",
+        "\"catch\"",
+        "\"char\"",
+        "\"class\"",
+        "\"const\"",
+        "\"continue\"",
+        "\"default\"",
+        "\"do\"",
+        "\"double\"",
+        "\"else\"",
+        "\"enum\"",
+        "\"extends\"",
+        "\"false\"",
+        "\"final\"",
+        "\"finally\"",
+        "\"float\"",
+        "\"for\"",
+        "\"goto\"",
+        "\"if\"",
+        "\"implements\"",
+        "\"import\"",
+        "\"instanceof\"",
+        "\"int\"",
+        "\"interface\"",
+        "\"long\"",
+        "\"native\"",
+        "\"new\"",
+        "\"null\"",
+        "\"package\"",
+        "\"private\"",
+        "\"protected\"",
+        "\"public\"",
+        "\"return\"",
+        "\"short\"",
+        "\"static\"",
+        "\"strictfp\"",
+        "\"super\"",
+        "\"switch\"",
+        "\"synchronized\"",
+        "\"this\"",
+        "\"throw\"",
+        "\"throws\"",
+        "\"transient\"",
+        "\"true\"",
+        "\"try\"",
+        "\"void\"",
+        "\"volatile\"",
+        "\"while\"",
+        "\"fn\"",
+        "\"group\"",
+        "\"type\"",
+        "\"in\"",
+        "\"out\"",
+        "\"eval\"",
+        "\"exec\"",
+        "\"init\"",
+        "\"parameter\"",
+        "\"setup\"",
+        "\"meta\"",
+        "\"slin\"",
+        "\"exin\"",
+        "<INTEGER_LITERAL>",
+        "<DECIMAL_LITERAL>",
+        "<HEX_LITERAL>",
+        "<OCTAL_LITERAL>",
+        "<FLOATING_POINT_LITERAL>",
+        "<EXPONENT>",
+        "<CHARACTER_LITERAL>",
+        "<STRING_LITERAL>",
+        "<IDENTIFIER>",
+        "<LETTER>",
+        "<DIGIT>",
+        "\"(\"",
+        "\")\"",
+        "\"{\"",
+        "\"}\"",
+        "\"[\"",
+        "\"]\"",
+        "\";\"",
+        "\",\"",
+        "\".\"",
+        "\"@\"",
+        "\"=\"",
+        "\"<\"",
+        "\"!\"",
+        "\"~\"",
+        "\"?\"",
+        "\":\"",
+        "\"==\"",
+        "\"<=\"",
+        "\">=\"",
+        "\"!=\"",
+        "\"||\"",
+        "\"&&\"",
+        "\"++\"",
+        "\"--\"",
+        "\"+\"",
+        "\"-\"",
+        "\"*\"",
+        "\"/\"",
+        "\"&\"",
+        "\"|\"",
+        "\"^\"",
+        "\"%\"",
+        "\"<<\"",
+        "\"+=\"",
+        "\"-=\"",
+        "\"*=\"",
+        "\"/=\"",
+        "\"&=\"",
+        "\"|=\"",
+        "\"^=\"",
+        "\"%=\"",
+        "\"<<=\"",
+        "\">>=\"",
+        "\">>>=\"",
+        "\"...\"",
+        "\">>>\"",
+        "\">>\"",
+        "\">\""
+    ,}
+;
 
 }

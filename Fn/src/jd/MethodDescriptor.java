@@ -9,8 +9,12 @@ public class MethodDescriptor extends CodeBlockDescriptor {
     private LinkedList methodModifiers = new LinkedList();
     private MethodArglistDescriptor methodArguments = new MethodArglistDescriptor();
     private HashSet localVarNames = new HashSet();
-    public String methodName;
+    private String methodName;
 
+    public MethodDescriptor(String methodName) {
+        this.methodName = methodName;
+    }
+    
     /** The method body is maintained by super.blockBody. */
     public void addModifier(String s) {
         methodModifiers.add(s);
@@ -66,13 +70,13 @@ public class MethodDescriptor extends CodeBlockDescriptor {
         return tempBuffer.toString();
     }
 
-    /* Block headers should not be set directy on a
+    /** Block headers should not be set directy on a
     MethodDescriptor. */
     public void setBlockHeader(String headerToSet) {
         throw new JavaDescriptorError("setBlockHeader() should not be called on a MethodDescriptor.");
     }
 
-    /* Block footers should not be set directy on a
+    /** Block footers should not be set directy on a
     MethodDescriptor. */
     public void setBlockFooter(String footerToSet) {
         throw new JavaDescriptorError("setBlockFooter() should not be called on a MethodDescriptor.");

@@ -257,7 +257,7 @@ TOKEN :
 | < GROUP: "group" >
 | < TYPE: "type" >
 | < IN: "in" >
-| < OUT: "out" >
+| < OUT: "fout" >
 | < EVAL: "eval" >
 | < EXEC: "exec">
 | < INIT: "init" >
@@ -449,36 +449,38 @@ TOKEN :
 ASTFnTopLevel FnTopLevel() #FnTopLevel : {
 	Token t;
 	String s;
+        ASTFnDefinition fn;
+        ASTType p;
 }{
 
-    ( <GROUP> t = <IDENTIFIER> { jjtThis.setGroup(t.image); } ";" )
-    ( <TYPE> t = <IDENTIFIER> { jjtThis.setType(t.image); } ";" )
+    ( <PACKAGE> p = FnTypeBody() { jjtThis.setPackage(p.dumpTokens()); } <SEMICOLON> )
+    ( <GROUP> t = <IDENTIFIER> { jjtThis.setGroup(t.image); } <SEMICOLON> )
+    ( <TYPE> t = <IDENTIFIER> { jjtThis.setType(t.image); } <SEMICOLON> )
     
     ( 
        ( s = ImportDeclaration() { jjtThis.addUserImport(s); } )
     )*
     
-    ( FnDefinition() )*
+    ( fn = FnDefinition() { jjtThis.addFn(fn); } )*
     <EOF>
     { return jjtThis; }
 }
 
-void FnDefinition() #FnDefinition : {
+ASTFnDefinition FnDefinition() #FnDefinition : {
     Token t;
 }{
     ( <FN> t = <IDENTIFIER> { jjtThis.setName(t.image); } )
     <LBRACE>
         ( FnField(jjtThis) )+
     <RBRACE>
+    { return jjtThis; }
 }
 
 void FnField(ASTFnDefinition fn) : {
 }{
-    LOOKAHEAD(FnType(fn))
-
     FnBlock(fn)
 |   FnTypeAndName(fn)
-|   FnType(fn)
+|   LOOKAHEAD(3) FnType(fn)
 |   FnMeta(fn)
 |   FnLocalDeclaration(fn)
 }
@@ -490,7 +492,7 @@ void FnMeta(ASTFnDefinition fn) : {
 }{
     <META>
     t = <IDENTIFIER>
-    expression = FnExpressionBody()
+    expression = FnExpressionBody() <SEMICOLON>
     {fn.addMeta(t.image, expression);}
 }
 
@@ -498,10 +500,10 @@ void FnBlock(ASTFnDefinition fn) : {
     Token t;
     ASTBlock block;
 }{
-    (t = <EXEC>)
+    ( (t = <EXEC>)
 |   (t = <EVAL>)
 |   (t = <SETUP>)
-|   (t = <INIT>)
+|   (t = <INIT>) )
 
     block = FnBlockBody()
 
@@ -513,10 +515,10 @@ void FnTypeAndName(ASTFnDefinition fn) : {
     ASTType type;
     Token name;
 }{
-    (t = <IN>)
+    ( (t = <IN>)
 |   (t = <PARAMETER>)
 |   (t = <EXIN>)
-|   (t = <CVAR>)
+|   (t = <CVAR>) )
 
     type = FnTypeBody()
     name = <IDENTIFIER>
@@ -529,21 +531,19 @@ void FnType(ASTFnDefinition fn) : {
     Token t;
     ASTType type;
 }{
-    (t = <OUT>)
+    ( (t = <OUT>)
 |   (t = <INTERFACE>) // this
-|   (t = <SLIN>) // and this are kind of cheap, they are not strictly types.
-
+|   (t = <SLIN>) )    // and this are kind of cheap, they are not strictly types.
+    
     type = FnTypeBody() 
     <SEMICOLON>
 
     {fn.addType(t.image, type);}
 }
 
-void FnLocalDeclaration(ASTFnDefinition fn) #LocalDeclaration :
-{
+void FnLocalDeclaration(ASTFnDefinition fn) #LocalDeclaration : {
     int modifiers;
-}
-{
+}{
     modifiers = Modifiers()
 
     (
@@ -589,16 +589,8 @@ void PackageDeclaration():
   "package" Name() ";"
 }
 
-/*
-void ImportDeclaration():
-{}
-{
-  "import" [ "static" ] Name() [ "." "*" ] ";"
-}*/
-
 String ImportDeclaration() #ImportDeclaration :
-{
-}
+{}
 {
   "import" Name() [ "." "*" ] ";"
   // Dump all tokens between "import" and ";" (exclusive)
@@ -1167,7 +1159,7 @@ void PrimaryPrefix():
   LOOKAHEAD( ResultType() "." "class" )
   ResultType() "." "class"
 |
-  Name()
+  Name() 
 }
 
 void PrimarySuffix():

@@ -257,7 +257,7 @@ TOKEN :
 | < GROUP: "group" >
 | < TYPE: "type" >
 | < IN: "in" >
-| < OUT: "out" >
+| < OUT: "fout" >
 | < EVAL: "eval" >
 | < EXEC: "exec">
 | < INIT: "init" >
@@ -266,6 +266,7 @@ TOKEN :
 | < META: "meta">
 | < SLIN: "slin"> // statement list in
 | < EXIN: "exin"> // expression in
+| < CVAR: "cvar"> // context variable
 }
 
 /* LITERALS */
@@ -453,18 +454,21 @@ ASTFnTopLevel FnTopLevel()             : {/*@bgen(jjtree) FnTopLevel */
 /*@egen*/
 	Token t;
 	String s;
+        ASTFnDefinition fn;
+        ASTType p;
 }{/*@bgen(jjtree) FnTopLevel */
     try {
 /*@egen*/
 
-    ( <GROUP> t = <IDENTIFIER> { jjtn000.setGroup(t.image); } ";" )
-    ( <TYPE> t = <IDENTIFIER> { jjtn000.setType(t.image); } ";" )
+    ( <PACKAGE> p = FnTypeBody() { jjtn000.setPackage(p.dumpTokens()); } <SEMICOLON> )
+    ( <GROUP> t = <IDENTIFIER> { jjtn000.setGroup(t.image); } <SEMICOLON> )
+    ( <TYPE> t = <IDENTIFIER> { jjtn000.setType(t.image); } <SEMICOLON> )
     
     ( 
        ( s = ImportDeclaration() { jjtn000.addUserImport(s); } )
     )*
     
-    ( FnDefinition() )*
+    ( fn = FnDefinition() { jjtn000.addFn(fn); } )*
     <EOF>/*@bgen(jjtree)*/
     {
       jjtree.closeNodeScope(jjtn000, true);
@@ -496,7 +500,7 @@ ASTFnTopLevel FnTopLevel()             : {/*@bgen(jjtree) FnTopLevel */
 /*@egen*/
 }
 
-void FnDefinition()               : {/*@bgen(jjtree) FnDefinition */
+ASTFnDefinition FnDefinition()               : {/*@bgen(jjtree) FnDefinition */
     ASTFnDefinition jjtn000 = new ASTFnDefinition(this, JJTFNDEFINITION);
     boolean jjtc000 = true;
     jjtree.openNodeScope(jjtn000);
@@ -510,6 +514,13 @@ void FnDefinition()               : {/*@bgen(jjtree) FnDefinition */
     <LBRACE>
         ( FnField(jjtn000) )+
     <RBRACE>/*@bgen(jjtree)*/
+    {
+      jjtree.closeNodeScope(jjtn000, true);
+      jjtc000 = false;
+      jjtreeCloseNodeScope(jjtn000);
+    }
+/*@egen*/
+    { return jjtn000; }/*@bgen(jjtree)*/
     } catch (Throwable jjte000) {
       if (jjtc000) {
         jjtree.clearNodeScope(jjtn000);
@@ -535,11 +546,9 @@ void FnDefinition()               : {/*@bgen(jjtree) FnDefinition */
 
 void FnField(ASTFnDefinition fn) : {
 }{
-    LOOKAHEAD(FnType(fn))
-
     FnBlock(fn)
 |   FnTypeAndName(fn)
-|   FnType(fn)
+|   LOOKAHEAD(3) FnType(fn)
 |   FnMeta(fn)
 |   FnLocalDeclaration(fn)
 }
@@ -551,7 +560,7 @@ void FnMeta(ASTFnDefinition fn) : {
 }{
     <META>
     t = <IDENTIFIER>
-    expression = FnExpressionBody()
+    expression = FnExpressionBody() <SEMICOLON>
     {fn.addMeta(t.image, expression);}
 }
 
@@ -559,10 +568,10 @@ void FnBlock(ASTFnDefinition fn) : {
     Token t;
     ASTBlock block;
 }{
-    (t = <EXEC>)
+    ( (t = <EXEC>)
 |   (t = <EVAL>)
 |   (t = <SETUP>)
-|   (t = <INIT>)
+|   (t = <INIT>) )
 
     block = FnBlockBody()
 
@@ -574,9 +583,10 @@ void FnTypeAndName(ASTFnDefinition fn) : {
     ASTType type;
     Token name;
 }{
-    (t = <IN>)
+    ( (t = <IN>)
 |   (t = <PARAMETER>)
 |   (t = <EXIN>)
+|   (t = <CVAR>) )
 
     type = FnTypeBody()
     name = <IDENTIFIER>
@@ -589,26 +599,24 @@ void FnType(ASTFnDefinition fn) : {
     Token t;
     ASTType type;
 }{
-    (t = <OUT>)
+    ( (t = <OUT>)
 |   (t = <INTERFACE>) // this
-|   (t = <SLIN>) // and this are kind of cheap, they are not strictly types.
-
+|   (t = <SLIN>) )    // and this are kind of cheap, they are not strictly types.
+    
     type = FnTypeBody() 
     <SEMICOLON>
 
     {fn.addType(t.image, type);}
 }
 
-void FnLocalDeclaration(ASTFnDefinition fn)                   :
-{/*@bgen(jjtree) LocalDeclaration */
+void FnLocalDeclaration(ASTFnDefinition fn)                   : {/*@bgen(jjtree) LocalDeclaration */
     ASTLocalDeclaration jjtn000 = new ASTLocalDeclaration(this, JJTLOCALDECLARATION);
     boolean jjtc000 = true;
     jjtree.openNodeScope(jjtn000);
     jjtreeOpenNodeScope(jjtn000);
 /*@egen*/
     int modifiers;
-}
-{/*@bgen(jjtree) LocalDeclaration */
+}{/*@bgen(jjtree) LocalDeclaration */
     try {
 /*@egen*/
     modifiers = Modifiers()
@@ -785,21 +793,13 @@ void PackageDeclaration():
   "package" Name() ";"
 }
 
-/*
-void ImportDeclaration():
-{}
-{
-  "import" [ "static" ] Name() [ "." "*" ] ";"
-}*/
-
 String ImportDeclaration()                    :
 {/*@bgen(jjtree) ImportDeclaration */
   ASTImportDeclaration jjtn000 = new ASTImportDeclaration(this, JJTIMPORTDECLARATION);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
   jjtreeOpenNodeScope(jjtn000);
-/*@egen*/
-}
+/*@egen*/}
 {/*@bgen(jjtree) ImportDeclaration */
   try {
 /*@egen*/
@@ -1397,7 +1397,7 @@ void PrimaryPrefix():
   LOOKAHEAD( ResultType() "." "class" )
   ResultType() "." "class"
 |
-  Name()
+  Name() 
 }
 
 void PrimarySuffix():

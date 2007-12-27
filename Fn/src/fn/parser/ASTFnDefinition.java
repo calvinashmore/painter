@@ -50,7 +50,11 @@ public class ASTFnDefinition extends FnParseNode {
         }
         typeList.add(type);
     }
-    public List<ASTType> getTypes(String id) {return Collections.unmodifiableList(types.get(id));}
+    public List<ASTType> getTypes(String id) {
+        if(types.get(id) == null)
+            return Collections.<ASTType>emptyList();
+        return Collections.unmodifiableList(types.get(id));
+    }
     
     public class TypeAndName {
         TypeAndName(ASTType type, String name) {
@@ -72,7 +76,11 @@ public class ASTFnDefinition extends FnParseNode {
         }
         typeList.add(new TypeAndName(type, name));
     }
-    public List<TypeAndName> getTypeAndNames(String id) {return Collections.unmodifiableList(typesAndNames.get(id));}
+    public List<TypeAndName> getTypeAndNames(String id) {
+        if(typesAndNames.get(id) == null)
+            return Collections.<TypeAndName>emptyList();
+        return Collections.unmodifiableList(typesAndNames.get(id));
+    }
     
     /*public void setEval(ASTBlock eval) {
     this.eval = eval;

@@ -11,24 +11,40 @@ import java.util.ArrayList;
 import java.util.List;
 import jd.ClassDescriptor;
 import jd.CodeStringDescriptor;
-import jd.Compilable;
 import jd.MethodDescriptor;
 
 /**
  *
  * @author Calvin Ashmore
  */
-abstract public class FnGroup<NodeType extends FnNode> implements Compilable{
+abstract public class FnGroup<NodeType extends FnNode> {
+
+    public FnGroup(ASTFnTopLevel top) {
+        this.top = top;
+        
+        addImport("genetic.*");
+        addImport("genetic.component.accessor.*");
+        addImport("genetic.component.command.*");
+        addImport("genetic.component.expression.*");
+        addImport("genetic.component.expression.function.*");
+        addImport("genetic.component.method.*");
+        addImport("genetic.component.program.*");
+        addImport("genetic.component.statement.*");
+        addImport("genetic.component.statementlist.*");
+        addImport("genetic.component.statement.function.*");
+    }
     //private List<NodeType> myNodes = new ArrayList<NodeType>();
 
-    private String packageName;
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
-    }
+    //private String packageName;
+    //public void setPackageName(String packageName) {
+    //    this.packageName = packageName;
+    //}
     
     private List<String> imports = new ArrayList<String>();
     
     private ASTFnTopLevel top;
+    
+    protected void addImport(String importName)  {imports.add(importName);}
     
     abstract FnNode getNode(ASTFnDefinition fn);
     String getGroupImplements() {return "AllComponents<"+getFnClassName()+">";} // "AllComponents<StatementFunction>", etc
@@ -38,7 +54,8 @@ abstract public class FnGroup<NodeType extends FnNode> implements Compilable{
         ClassDescriptor descriptor = new ClassDescriptor(top.getGroup());
         descriptor.addClassModifier("public");
         descriptor.addClassModifier("final");
-        descriptor.setPackageName( packageName );
+        
+        descriptor.setPackageName( top.getPackage() );
         
         descriptor.addInterface( getGroupImplements() );
         

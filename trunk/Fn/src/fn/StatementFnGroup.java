@@ -6,8 +6,7 @@
 package fn;
 
 import fn.parser.ASTFnDefinition;
-import jd.CompileException;
-import jd.JavaCodeDescriptor;
+import fn.parser.ASTFnTopLevel;
 
 /**
  *
@@ -15,18 +14,18 @@ import jd.JavaCodeDescriptor;
  */
 public class StatementFnGroup extends FnGroup<StatementFnNode> {
 
+    public StatementFnGroup(ASTFnTopLevel top) {
+        super(top);
+    }
+    
     @Override
     FnNode getNode(ASTFnDefinition fn) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new StatementFnNode(fn);
     }
 
     @Override
     String getFnClassName() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public JavaCodeDescriptor compileToJava() throws CompileException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "StatementFunction";
     }
 
 }

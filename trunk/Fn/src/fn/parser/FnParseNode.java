@@ -45,6 +45,7 @@ public class FnParseNode extends SimpleNode {
 	Token currentToken;
 	for(currentToken = firstToken; currentToken != lastToken; currentToken = currentToken.next) {
 	    image.append(currentToken.image);
+            image.append(" ");
 	}
 	image.append(currentToken.image); // Add the last token to the image to return. 
 	return image.toString();

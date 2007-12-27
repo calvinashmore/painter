@@ -59,7 +59,7 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addModifier("public");
         method.addModifier("int");
         
-        int numberParameters = getFn( ).getTypeAndNames("parameter").size();
+        int numberParameters = getFn().getTypeAndNames("parameter").size();
         method.addToBlockBody(new CodeStringDescriptor("return "+numberParameters+";"));
         return method;
     }
@@ -70,25 +70,21 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addModifier("Object");
         method.addArgument("int","i");
         
-        if(getFn( ).getTypeAndNames("parameter").size() == 0) {
-            // no parameters
-            method.addToBlockBody(new CodeStringDescriptor("return null;"));
-        } else {
-            // switch on parameters
-            CodeBlockDescriptor block = new CodeBlockDescriptor();
-            
-            block.setBlockHeader("switch(i) {");
-            int i=0;
-            for (TypeAndName parameter : getFn( ).getTypeAndNames("parameter")) {
-                block.addToBlockBody(new CodeStringDescriptor(
-                        "case "+i+": return "+parameter.getName()+";\n"
-                        ));
-                i++;
-            }
-            block.addToBlockBody(new CodeStringDescriptor("default: return null;\n }"));
-            block.setBlockFooter("}");
-            method.addToBlockBody(block);
+        // switch on parameters
+        CodeBlockDescriptor block = new CodeBlockDescriptor();
+
+        block.setBlockHeader("switch(i) {");
+        int i=0;
+        for (TypeAndName parameter : getFn().getTypeAndNames("parameter")) {
+            block.addToBlockBody(new CodeStringDescriptor(
+                    "case "+i+": return "+parameter.getName()+";\n"
+                    ));
+            i++;
         }
+        block.addToBlockBody(new CodeStringDescriptor("default: return null;\n"));
+        block.setBlockFooter("}");
+        method.addToBlockBody(block);
+            
         return method;
     }
     
@@ -98,25 +94,21 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addModifier("String");
         method.addArgument("int","i");
         
-        if(getFn( ).getTypeAndNames("parameter").size() == 0) {
-            // no parameters
-            method.addToBlockBody(new CodeStringDescriptor("return null;"));
-        } else {
-            // switch on parameters
-            CodeBlockDescriptor block = new CodeBlockDescriptor();
-            
-            block.setBlockHeader("switch(i) {");
-            int i=0;
-            for (TypeAndName parameter : getFn( ).getTypeAndNames("parameter")) {
-                block.addToBlockBody(new CodeStringDescriptor(
-                        "case "+i+": return \""+parameter.getName()+"\";\n"
-                        ));
-                i++;
-            }
-            block.addToBlockBody(new CodeStringDescriptor("default: return null;\n }"));
-            block.setBlockFooter("}");
-            method.addToBlockBody(block);
+        // switch on parameters
+        CodeBlockDescriptor block = new CodeBlockDescriptor();
+
+        block.setBlockHeader("switch(i) {");
+        int i=0;
+        for (TypeAndName parameter : getFn().getTypeAndNames("parameter")) {
+            block.addToBlockBody(new CodeStringDescriptor(
+                    "case "+i+": return \""+parameter.getName()+"\";\n"
+                    ));
+            i++;
         }
+        block.addToBlockBody(new CodeStringDescriptor("default: return null;\n"));
+        block.setBlockFooter("}");
+        method.addToBlockBody(block);
+
         return method;
     }
     
@@ -126,25 +118,21 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addModifier("Class");
         method.addArgument("int","i");
         
-        if(getFn( ).getTypeAndNames("parameter").size() == 0) {
-            // no parameters
-            method.addToBlockBody(new CodeStringDescriptor("return null;"));
-        } else {
-            // switch on parameters
-            CodeBlockDescriptor block = new CodeBlockDescriptor();
-            
-            block.setBlockHeader("switch(i) {");
-            int i=0;
-            for (TypeAndName parameter : getFn( ).getTypeAndNames("parameter")) {
-                block.addToBlockBody(new CodeStringDescriptor(
-                        "case "+i+": return "+parameter.getType().dumpTokens()+".class;\n"
-                        ));
-                i++;
-            }
-            block.addToBlockBody(new CodeStringDescriptor("default: return null;\n }"));
-            block.setBlockFooter("}");
-            method.addToBlockBody(block);
+        // switch on parameters
+        CodeBlockDescriptor block = new CodeBlockDescriptor();
+
+        block.setBlockHeader("switch(i) {");
+        int i=0;
+        for (TypeAndName parameter : getFn().getTypeAndNames("parameter")) {
+            block.addToBlockBody(new CodeStringDescriptor(
+                    "case "+i+": return "+parameter.getType().dumpTokens()+".class;\n"
+                    ));
+            i++;
         }
+        block.addToBlockBody(new CodeStringDescriptor("default: return null;\n"));
+        block.setBlockFooter("}");
+        method.addToBlockBody(block);
+
         return method;
     }
     MethodDescriptor make_setParameter() {
@@ -154,25 +142,21 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addArgument("int","i");
         method.addArgument("Object","value");
         
-        if(getFn( ).getTypeAndNames("parameter").size() == 0) {
-            // no parameters
-            method.addToBlockBody(new CodeStringDescriptor(""));
-        } else {
-            // switch on parameters
-            CodeBlockDescriptor block = new CodeBlockDescriptor();
-            
-            block.setBlockHeader("switch(i) {");
-            int i=0;
-            for (TypeAndName parameter : getFn( ).getTypeAndNames("parameter")) {
-                block.addToBlockBody(new CodeStringDescriptor(
-                        "case "+i+": "+parameter.getName()+" = ("+parameter.getType()+") value; break;\n"
-                        ));
-                i++;
-            }
-            block.addToBlockBody(new CodeStringDescriptor("default: return null;\n }"));
-            block.setBlockFooter("}");
-            method.addToBlockBody(block);
+        // switch on parameters
+        CodeBlockDescriptor block = new CodeBlockDescriptor();
+
+        block.setBlockHeader("switch(i) {");
+        int i=0;
+        for (TypeAndName parameter : getFn().getTypeAndNames("parameter")) {
+            block.addToBlockBody(new CodeStringDescriptor(
+                    "case "+i+": "+parameter.getName()+" = ("+parameter.getType()+") value; break;\n"
+                    ));
+            i++;
         }
+        block.addToBlockBody(new CodeStringDescriptor("default: return null;\n"));
+        block.setBlockFooter("}");
+        method.addToBlockBody(block);
+
         return method;
     }
     
@@ -184,7 +168,7 @@ abstract public class FnNode /*implements Compilable*/ {
     CodeStringDescriptor make_parameterDeclarations() {
         StringBuffer sb = new StringBuffer();
         
-        for (TypeAndName parameter : getFn( ).getTypeAndNames("parameter")) {
+        for (TypeAndName parameter : getFn().getTypeAndNames("parameter")) {
             sb.append("private ");
             sb.append(parameter.getType().dumpTokens()+" ");
             sb.append(parameter.getName()+";");
@@ -193,13 +177,13 @@ abstract public class FnNode /*implements Compilable*/ {
     }
     
     MethodDescriptor make_constructor() {
-        MethodDescriptor constructor = new MethodDescriptor(getFn( ).getName());
+        MethodDescriptor constructor = new MethodDescriptor(getFn().getName());
         constructor.addModifier("public");
         
         constructor.addToBlockBody(make_metaInitializer());
         
-        if(getFn( ).getBlock("init") != null)
-            constructor.addToBlockBody(new CodeStringDescriptor(getFn( ).getBlock("init").dumpBlock()));
+        if(getFn().getBlock("init") != null)
+            constructor.addToBlockBody(new CodeStringDescriptor(getFn().getBlock("init").dumpBlock()));
         
         return constructor;
     }
@@ -209,8 +193,10 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addModifier("public");
         method.addModifier("void");
         
-        if(getFn( ).getBlock("setup") != null)
-            method.addToBlockBody(new CodeStringDescriptor(getFn( ).getBlock("init").dumpBlock()));
+        method.addToBlockBody(new CodeStringDescriptor("super.setup();"));
+        
+        if(getFn().getBlock("setup") != null)
+            method.addToBlockBody(new CodeStringDescriptor(getFn().getBlock("setup").dumpBlock()));
         
         return method;
     }
@@ -221,14 +207,14 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addModifier("Class");
         
         method.addToBlockBody(new CodeStringDescriptor(
-                "return "+getFn( ).getTypes("out").get(0)+".class;"
+                "return "+getFn().getTypes("fout").get(0)+".class;"
                 ));
         
         return method;
     }
     
     boolean hasInputs() {
-        return getFn( ).getTypeAndNames("input").size() > 0;
+        return getFn().getTypeAndNames("in").size() > 0;
     }
     
     MethodDescriptor make_getNumberInputs() {
@@ -236,7 +222,7 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addModifier("public");
         method.addModifier("int");
         
-        int numberParameters = getFn( ).getTypeAndNames("input").size();
+        int numberParameters = getFn().getTypeAndNames("in").size();
         method.addToBlockBody(new CodeStringDescriptor("return "+numberParameters+";"));
         return method;
     }
@@ -246,25 +232,21 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addModifier("String");
         method.addArgument("int","i");
         
-        if(getFn( ).getTypeAndNames("input").size() == 0) {
-            // no inputs
-            method.addToBlockBody(new CodeStringDescriptor("return null;"));
-        } else {
-            // switch on input
-            CodeBlockDescriptor block = new CodeBlockDescriptor();
-            
-            block.setBlockHeader("switch(i) {");
-            int i=0;
-            for (TypeAndName input : getFn( ).getTypeAndNames("input")) {
-                block.addToBlockBody(new CodeStringDescriptor(
-                        "case "+i+": return \""+input.getName()+"\";\n"
-                        ));
-                i++;
-            }
-            block.addToBlockBody(new CodeStringDescriptor("default: return null;\n }"));
-            block.setBlockFooter("}");
-            method.addToBlockBody(block);
+        // switch on input
+        CodeBlockDescriptor block = new CodeBlockDescriptor();
+
+        block.setBlockHeader("switch(i) {");
+        int i=0;
+        for (TypeAndName input : getFn().getTypeAndNames("in")) {
+            block.addToBlockBody(new CodeStringDescriptor(
+                    "case "+i+": return \""+input.getName()+"\";\n"
+                    ));
+            i++;
         }
+        block.addToBlockBody(new CodeStringDescriptor("default: return null;\n"));
+        block.setBlockFooter("}");
+        method.addToBlockBody(block);
+
         return method;
     }
     MethodDescriptor make_getInputType() {
@@ -273,40 +255,36 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addModifier("String");
         method.addArgument("int","i");
         
-        if(getFn( ).getTypeAndNames("input").size() == 0) {
-            // no parameters
-            method.addToBlockBody(new CodeStringDescriptor("return null;"));
-        } else {
-            // switch on parameters
-            CodeBlockDescriptor block = new CodeBlockDescriptor();
-            
-            block.setBlockHeader("switch(i) {");
-            int i=0;
-            for (TypeAndName input : getFn( ).getTypeAndNames("input")) {
-                block.addToBlockBody(new CodeStringDescriptor(
-                        "case "+i+": return \""+input.getType().dumpTokens()+"\";\n"
-                        ));
-                i++;
-            }
-            block.addToBlockBody(new CodeStringDescriptor("default: return null;\n }"));
-            block.setBlockFooter("}");
-            method.addToBlockBody(block);
+        // switch on parameters
+        CodeBlockDescriptor block = new CodeBlockDescriptor();
+
+        block.setBlockHeader("switch(i) {");
+        int i=0;
+        for (TypeAndName input : getFn().getTypeAndNames("in")) {
+            block.addToBlockBody(new CodeStringDescriptor(
+                    "case "+i+": return \""+input.getType().dumpTokens()+"\";\n"
+                    ));
+            i++;
         }
+        block.addToBlockBody(new CodeStringDescriptor("default: return null;\n"));
+        block.setBlockFooter("}");
+        method.addToBlockBody(block);
+
         return method;
     }
     
     MethodDescriptor make_eval() {
         MethodDescriptor method = new MethodDescriptor("evaluate");
         method.addModifier("public");
-        method.addModifier( getFn( ).getTypes("out").get(0).dumpTokens() );
+        method.addModifier( getFn().getTypes("fout").get(0).dumpTokens() );
         method.addArgument("Context", "context");
         method.addArgument("Object[]", "inputs");
 
         // we run the risk of dead assignments, but oh well.
-        method.addToBlockBody(make_localDeclarations());
+        method.addToBlockBody(make_inputDeclarations());
         
         // actual body for the evaluation
-        method.addToBlockBody(new CodeStringDescriptor(getFn( ).getBlock("eval").dumpBlock()));
+        method.addToBlockBody(new CodeStringDescriptor(getFn().getBlock("eval").dumpBlock()));
         
         return method;
     }
@@ -319,10 +297,10 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addArgument("Object[]", "inputs");
 
         // we run the risk of dead assignments, but oh well.
-        method.addToBlockBody(make_localDeclarations());
+        method.addToBlockBody(make_inputDeclarations());
         
         // actual body for the execution
-        method.addToBlockBody(new CodeStringDescriptor(getFn( ).getBlock("exec").dumpBlock()));
+        method.addToBlockBody(new CodeStringDescriptor(getFn().getBlock("exec").dumpBlock()));
         
         return method;
     }
@@ -330,8 +308,9 @@ abstract public class FnNode /*implements Compilable*/ {
     CodeStringDescriptor make_localDeclarations() {
         StringBuffer sb = new StringBuffer();
         
-        for(ASTLocalDeclaration local : getFn( ).getLocalDeclarations()) {
-            local.dump(sb, "");
+        for(ASTLocalDeclaration local : getFn().getLocalDeclarations()) {
+            //local.dump(sb, "");
+            sb.append(local.dumpTokens());
         }
         
         return new CodeStringDescriptor(sb.toString());
@@ -341,7 +320,7 @@ abstract public class FnNode /*implements Compilable*/ {
         StringBuffer sb = new StringBuffer();
         
         int i=0;
-        for (TypeAndName input : getFn( ).getTypeAndNames("input")) {
+        for (TypeAndName input : getFn().getTypeAndNames("in")) {
             sb.append(input.getType().dumpTokens()+" ");
             sb.append(input.getName()+" = input["+i+"];\n");
             i++;
@@ -357,12 +336,12 @@ abstract public class FnNode /*implements Compilable*/ {
      * @return
      */
     ClassDescriptor make_class() {
-        ClassDescriptor fnClass = new ClassDescriptor(getFn( ).getName(), getSuperclassName());
+        ClassDescriptor fnClass = new ClassDescriptor(getFn().getName(), getSuperclassName());
         fnClass.addClassModifier("public");
         fnClass.addClassModifier("static");
         fnClass.setIsNested(true);
         
-        for(ASTType iface : getFn( ).getTypes("interface"))
+        for(ASTType iface : getFn().getTypes("interface"))
             fnClass.addInterface(iface.dumpTokens());
         
         fnClass.addToBlockBody(make_localDeclarations());
@@ -381,8 +360,11 @@ abstract public class FnNode /*implements Compilable*/ {
             fnClass.addMethod(make_getInputType());
         }
         
-        fnClass.addMethod(make_setup());
-        fnClass.addMethod(make_constructor());
+        if(getFn().getBlock("setup") != null)
+            fnClass.addMethod(make_setup());
+        
+        if(getFn().getBlock("init") != null)
+            fnClass.addMethod(make_constructor());
         
         return fnClass;
     }

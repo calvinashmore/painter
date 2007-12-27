@@ -2,8 +2,6 @@
 
 package jd;
 
-import jd.JavaCodeDescriptor;
-
 public interface Compilable {
 
     public JavaCodeDescriptor compileToJava() throws CompileException;

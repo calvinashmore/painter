@@ -18,12 +18,15 @@ public class ASTFnTopLevel extends FnParseNode {
     //String fnDirectory = "src/genetic/expressions/functions";
     private String fnGroup;
     private String fnType;
+    private String fnPackage;
     
     void setGroup(String group) {this.fnGroup = group;}
     void setType(String type) {this.fnType = type;}
+    void setPackage(String p) {this.fnPackage = p;}
 
     public String getGroup() {return fnGroup;}
     public String getType() {return fnType;}
+    public String getPackage() {return fnPackage;}
     
     // Names of import packages. 
     /*private final static String[] importPackages = {
@@ -68,9 +71,14 @@ public class ASTFnTopLevel extends FnParseNode {
         }*/
     }
     
+    private List<ASTFnDefinition> allFn = new ArrayList<ASTFnDefinition>();
+    void addFn(ASTFnDefinition fn) {
+        allFn.add(fn);
+    } 
+    
     public List<ASTFnDefinition> getFnDefinitions() {
         
-        List<ASTFnDefinition> allFn = new ArrayList<ASTFnDefinition>();
+        /*List<ASTFnDefinition> allFn = new ArrayList<ASTFnDefinition>();
         
         for (int i = 0; i < jjtGetNumChildren(); i++) {
             // Loop through the children nodes, compiling functions
@@ -81,8 +89,8 @@ public class ASTFnTopLevel extends FnParseNode {
                 ASTFnDefinition fnDef = (ASTFnDefinition) n;
                 allFn.add(fnDef);
             }
-        }
-        return allFn;
+        }*/
+        return Collections.unmodifiableList(allFn);
     }
 
     /* Adds all user imports (packages and classes) to the

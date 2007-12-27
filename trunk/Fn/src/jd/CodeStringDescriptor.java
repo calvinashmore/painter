@@ -41,8 +41,12 @@ public class CodeStringDescriptor extends NestableCodeDescriptor {
         // return tempBuffer.toString();
 
         /* Return the code string, removing the last new line. */
-        return tempBuffer.getBuffer().substring(0, tempBuffer.getBuffer().length() -
-                System.getProperty("line.separator").length());
-
+        //return tempBuffer.getBuffer().substring(0, tempBuffer.getBuffer().length() -
+        //        System.getProperty("line.separator").length());
+        //return tempBuffer.getBuffer().toString();
+        String result = tempBuffer.getBuffer().toString();
+        if(result.endsWith(System.getProperty("line.separator")))
+            return result.substring(0, result.length()-System.getProperty("line.separator").length());
+        else return result;
     }
 }

@@ -3,13 +3,15 @@ package jd;
 
 import java.util.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class MethodDescriptor extends CodeBlockDescriptor {
 
-    private LinkedList methodModifiers = new LinkedList();
+    private List<String> methodModifiers = new LinkedList();
     private MethodArglistDescriptor methodArguments = new MethodArglistDescriptor();
-    private HashSet localVarNames = new HashSet();
+    private HashSet<String> localVarNames = new HashSet();
     private String methodName;
+    private List<String> methodThrows = new ArrayList<String>();
 
     public MethodDescriptor(String methodName) {
         this.methodName = methodName;
@@ -47,6 +49,11 @@ public class MethodDescriptor extends CodeBlockDescriptor {
         }
     }
 
+    public void addThrowsClause(String exception) {
+        methodThrows.add(exception);
+    }
+
+    @Override
     public String toString(int nestLevel) {
         blockHeader = methodSignatureString() + " {";
         blockFooter = "}";
@@ -67,6 +74,13 @@ public class MethodDescriptor extends CodeBlockDescriptor {
         //Output the arglist
         tempBuffer.write(methodArguments.toString());
 
+        if(methodThrows.size() > 0) {
+            tempBuffer.write(" throws ");
+            tempBuffer.write(methodThrows.get(0));
+            for(int i=1; i<methodThrows.size(); i++)
+                tempBuffer.write(", "+methodThrows.get(i));
+        }
+        
         return tempBuffer.toString();
     }
 

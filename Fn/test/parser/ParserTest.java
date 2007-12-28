@@ -10,7 +10,7 @@ import fn.parser.ASTFnTopLevel;
 import fn.parser.FnParser;
 import fn.parser.ParseException;
 import java.io.ByteArrayInputStream;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

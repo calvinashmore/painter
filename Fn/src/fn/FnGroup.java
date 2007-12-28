@@ -69,6 +69,8 @@ abstract public class FnGroup<NodeType extends FnNode> {
             descriptor.addNestedClass( getNode(fn).make_class() );
         }
         
+        descriptor.addMethod(make_allComponents());
+        
         return descriptor;
     }
     

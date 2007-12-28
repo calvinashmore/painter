@@ -28,6 +28,7 @@ public class ExpressionFnNode extends FnNode {
         ClassDescriptor c = super.make_class();
         
         c.addMethod(make_eval());
+        c.addMethod(make_getReturnType());
         
         return c;
     }

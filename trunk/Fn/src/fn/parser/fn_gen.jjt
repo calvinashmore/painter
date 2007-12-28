@@ -453,7 +453,7 @@ ASTFnTopLevel FnTopLevel() #FnTopLevel : {
         ASTType p;
 }{
 
-    ( <PACKAGE> p = FnTypeBody() { jjtThis.setPackage(p.dumpTokens()); } <SEMICOLON> )
+    [( <PACKAGE> p = FnTypeBody() { jjtThis.setPackage(p.dumpTokens()); } <SEMICOLON> )]
     ( <GROUP> t = <IDENTIFIER> { jjtThis.setGroup(t.image); } <SEMICOLON> )
     ( <TYPE> t = <IDENTIFIER> { jjtThis.setType(t.image); } <SEMICOLON> )
     

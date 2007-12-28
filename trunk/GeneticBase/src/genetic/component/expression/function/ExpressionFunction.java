@@ -62,8 +62,8 @@ abstract public class ExpressionFunction implements Evaluatable, Parameterized, 
     public void setup() throws BuildException {isSetup = true;}
     
     abstract public Object evaluate( Context context, Object inputs[]);
-    abstract public int getNumberInputs();
-    abstract public Class getInputType(int i);
+    public int getNumberInputs() {return 0;}
+    public Class getInputType(int i) {return null;}
     public String getInputName(int i) {return "input "+i;}
     
     // these should be overridden

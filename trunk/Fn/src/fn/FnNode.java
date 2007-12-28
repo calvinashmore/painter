@@ -148,16 +148,33 @@ abstract public class FnNode /*implements Compilable*/ {
         block.setBlockHeader("switch(i) {");
         int i=0;
         for (TypeAndName parameter : getFn().getTypeAndNames("parameter")) {
+            String parameterType = parameter.getType().dumpTokens();
+            parameterType = checkPrimitive(parameterType);
             block.addToBlockBody(new CodeStringDescriptor(
-                    "case "+i+": "+parameter.getName()+" = ("+parameter.getType()+") value; break;\n"
+                    "case "+i+": "+parameter.getName()+" = ("+parameterType+") value; return;\n"
                     ));
             i++;
         }
-        block.addToBlockBody(new CodeStringDescriptor("default: return null;\n"));
+        block.addToBlockBody(new CodeStringDescriptor("default: return;\n"));
         block.setBlockFooter("}");
         method.addToBlockBody(block);
 
         return method;
+    }
+    
+    /**
+     * if type is "int" or any other primitive type, checkPrimitive will return the
+     * boxed object so that this may be cast correctly when setting parameters.
+     * @param type
+     * @return
+     */
+    private String checkPrimitive(String type) {
+        if(type.equals("int")) return "Integer";
+        if(type.equals("short")) return "Short";
+        if(type.equals("long")) return "Long";
+        if(type.equals("float")) return "Float";
+        if(type.equals("double")) return "Double";
+        return type;
     }
     
     /**
@@ -190,8 +207,11 @@ abstract public class FnNode /*implements Compilable*/ {
     
     MethodDescriptor make_setup() {
         MethodDescriptor method = new MethodDescriptor("setup");
+        //method.addModifier("@Override");
         method.addModifier("public");
         method.addModifier("void");
+        
+        method.addThrowsClause("BuildException");
         
         method.addToBlockBody(new CodeStringDescriptor("super.setup();"));
         
@@ -207,7 +227,7 @@ abstract public class FnNode /*implements Compilable*/ {
         method.addModifier("Class");
         
         method.addToBlockBody(new CodeStringDescriptor(
-                "return "+getFn().getTypes("fout").get(0)+".class;"
+                "return "+getFn().getTypes("fout").get(0).dumpTokens()+".class;"
                 ));
         
         return method;
@@ -252,7 +272,7 @@ abstract public class FnNode /*implements Compilable*/ {
     MethodDescriptor make_getInputType() {
         MethodDescriptor method = new MethodDescriptor("getInputType");
         method.addModifier("public");
-        method.addModifier("String");
+        method.addModifier("Class");
         method.addArgument("int","i");
         
         // switch on parameters
@@ -262,7 +282,7 @@ abstract public class FnNode /*implements Compilable*/ {
         int i=0;
         for (TypeAndName input : getFn().getTypeAndNames("in")) {
             block.addToBlockBody(new CodeStringDescriptor(
-                    "case "+i+": return \""+input.getType().dumpTokens()+"\";\n"
+                    "case "+i+": return "+input.getType().dumpTokens()+".class;\n"
                     ));
             i++;
         }
@@ -322,7 +342,7 @@ abstract public class FnNode /*implements Compilable*/ {
         int i=0;
         for (TypeAndName input : getFn().getTypeAndNames("in")) {
             sb.append(input.getType().dumpTokens()+" ");
-            sb.append(input.getName()+" = input["+i+"];\n");
+            sb.append(input.getName()+" = ("+input.getType().dumpTokens()+")inputs["+i+"];\n");
             i++;
         }
         
@@ -347,6 +367,7 @@ abstract public class FnNode /*implements Compilable*/ {
         fnClass.addToBlockBody(make_localDeclarations());
         
         if(hasParameters()) {
+            fnClass.addToBlockBody(make_parameterDeclarations());
             fnClass.addMethod(make_getNumberParameters());
             fnClass.addMethod(make_getParameter());
             fnClass.addMethod(make_getParameterName());

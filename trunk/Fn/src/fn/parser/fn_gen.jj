@@ -460,7 +460,7 @@ ASTFnTopLevel FnTopLevel()             : {/*@bgen(jjtree) FnTopLevel */
     try {
 /*@egen*/
 
-    ( <PACKAGE> p = FnTypeBody() { jjtn000.setPackage(p.dumpTokens()); } <SEMICOLON> )
+    [( <PACKAGE> p = FnTypeBody() { jjtn000.setPackage(p.dumpTokens()); } <SEMICOLON> )]
     ( <GROUP> t = <IDENTIFIER> { jjtn000.setGroup(t.image); } <SEMICOLON> )
     ( <TYPE> t = <IDENTIFIER> { jjtn000.setType(t.image); } <SEMICOLON> )
     

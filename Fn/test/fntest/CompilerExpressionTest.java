@@ -8,14 +8,13 @@ package fntest;
 import genetic.AllComponents;
 import genetic.component.expression.function.ExpressionFunction;
 import junit.framework.Assert;
-import org.junit.After;
 import org.junit.Test;
 
 /**
  *
  * @author Calvin Ashmore
  */
-public class CompilerExpressionTest {
+public class CompilerExpressionTest extends CompilerTestBase {
 
     @Test
     public void testAddInt() throws Exception {
@@ -106,8 +105,4 @@ public class CompilerExpressionTest {
         Assert.assertEquals( 100f,  nf.evaluate(null, new Object[]{}) );
     }
     
-    @After
-    public void tearDown() {
-        CompileTool.tearDown();
-    }
 }

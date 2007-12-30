@@ -5,9 +5,13 @@
 
 package fn;
 
+import fn.parser.ASTBlock;
 import fn.parser.ASTFnDefinition;
 import fn.parser.ASTFnDefinition.TypeAndName;
 import fn.parser.ASTType;
+import fn.parser.Token;
+import java.util.ArrayList;
+import java.util.List;
 import jd.ClassDescriptor;
 import jd.CodeBlockDescriptor;
 import jd.CodeStringDescriptor;
@@ -119,31 +123,99 @@ public class StatementFnNode extends FnNode {
         int i=0;
         for (TypeAndName input : getFn().getTypeAndNames("exin")) {
             sb.append("Expression ");
-            sb.append(input.getName()+" = (Expression) input.get("+i+");\n");
+            sb.append(input.getName()+" = (Expression) inputs.get("+i+");\n");
             i++;
         }
         for (ASTType input : getFn().getTypes("slin")) {
             sb.append("StatementList ");
-            sb.append(input.dumpTokens()+" = (StatementList) input.get("+i+");\n");
+            sb.append(input.dumpTokens()+" = (StatementList) inputs.get("+i+");\n");
             i++;
         }
         
         return new CodeStringDescriptor(sb.toString());
     }
     
+    CodeStringDescriptor make_contextVariableDeclarations() {
+        StringBuffer sb = new StringBuffer();
+
+        for (TypeAndName cv : getFn().getTypeAndNames("cvar")) {
+            sb.append("String __"+cv.getName()+" = getContextVariableActualName(\""+cv.getName()+"\");\n");
+            sb.append(cv.getType().dumpTokens()+" "+cv.getName()+";\n");
+        }
+        
+        return new CodeStringDescriptor(sb.toString());
+    }
+    
+    String convertContextVariables(ASTBlock execBlock) {
+        
+        StringBuffer sb = new StringBuffer();
+        
+        List<String> cvNames = new ArrayList();
+        //List<TypeAndName> cvs = new ArrayList<TypeAndName>();
+        for (TypeAndName cv : getFn().getTypeAndNames("cvar"))
+            cvNames.add(cv.getName());
+            //cvs.add(cv)
+        
+	Token currentToken;
+        
+        // first to last exclusive, ignore "{" "}"
+	for(    currentToken = execBlock.firstToken.next;
+                currentToken.next != execBlock.lastToken;
+                currentToken = currentToken.next) {
+            
+            // see if the context variable is used.
+            if(cvNames.contains(currentToken.image)) {
+                if(currentToken.next.image.equals("=")) {
+                    // assignment
+                    String cvName = currentToken.image;
+                    
+                    // scan until we hit a ';'
+                    StringBuffer assignment = new StringBuffer();
+                    Token assignToken;
+                    for(
+                            assignToken = currentToken.next.next; 
+                            !assignToken.image.equals(";");
+                            assignToken=assignToken.next)
+                        assignment.append(assignToken.image);
+                    
+                    // assign currentToken to after the semicolon
+                    currentToken = assignToken;
+                    
+                    sb.append(cvName+" = "+assignment+"; ");
+                    sb.append("context.setVariable(" +
+                            "__"+cvName+", "+cvName+
+                            ");");
+                    
+                } else {
+                    // regular usage
+                    // ignore
+                    //sb.append("("++")");
+                    sb.append(currentToken.image);
+                }
+            } else {
+                sb.append(currentToken.image);
+            }
+            sb.append(" ");
+        }
+	sb.append(currentToken.image); // Add the last token to the image to return. 
+	return sb.toString();
+    }
+    
     @Override
     MethodDescriptor make_exec() {
-        MethodDescriptor method = new MethodDescriptor("exectue");
+        MethodDescriptor method = new MethodDescriptor("execute");
         method.addModifier("public");
         method.addModifier("void");
         method.addArgument("Context", "context");
         method.addArgument("List<GeneticComponent>", "inputs");
 
         // we run the risk of dead assignments, but oh well.
-        method.addToBlockBody(make_localDeclarations());
+        method.addToBlockBody(make_inputDeclarations());
+        method.addToBlockBody(make_contextVariableDeclarations());
         
         // actual body for the execution
-        method.addToBlockBody(new CodeStringDescriptor(getFn().getBlock("exec").dumpBlock()));
+        method.addToBlockBody(new CodeStringDescriptor(
+                convertContextVariables(getFn().getBlock("exec"))));
         
         return method;
     }

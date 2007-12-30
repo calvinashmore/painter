@@ -53,5 +53,5 @@ abstract public class Command implements Evaluatable, Parameterized, Metadata, S
         execute(context, inputs);
         return null;
     }
-    public abstract void execute(Context context, Object ... parameters);
+    public abstract void execute(Context context, Object[] parameters);
 }

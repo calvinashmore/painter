@@ -310,7 +310,7 @@ abstract public class FnNode /*implements Compilable*/ {
     }
     
     MethodDescriptor make_exec() {
-        MethodDescriptor method = new MethodDescriptor("exectue");
+        MethodDescriptor method = new MethodDescriptor("execute");
         method.addModifier("public");
         method.addModifier("void");
         method.addArgument("Context", "context");

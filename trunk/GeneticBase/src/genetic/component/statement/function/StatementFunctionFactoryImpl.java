@@ -75,7 +75,7 @@ public class StatementFunctionFactoryImpl extends AbstractFactory<StatementFunct
     @Override
     public StatementFunction build(Class<? extends StatementFunction> t, ContextModel cm) throws BuildException {
         StatementFunction sf = super.build(t, cm);
-        sf.setContextModel(cm);
+        sf.setContextModel(cm); // this is the parent context model, it may be reassigned to another context model on statement setup
         sf.setup();
         return sf;
     }

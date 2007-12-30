@@ -55,6 +55,6 @@ public class CommandStatementFunction extends StatementFunction {
             command.execute(context, objects);
         }
         else
-            command.execute(context);
+            command.execute(context,null);
     }
 }

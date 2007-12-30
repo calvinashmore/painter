@@ -113,13 +113,14 @@ public class StatementBuilderImpl implements StatementBuilder {
     protected StatementList makeStatementList(Statement statement) throws BuildException {
         StatementList statementList = new StatementList(statement);
 
-        StatementFunction function = statement.getFunction();
+        /*StatementFunction function = statement.getFunction();
         for (int i = 0; i < function.getNumberContextVariables(); i++) {
-            String contextVariableIntendedName = function.getContextVariableIntendedName(i);
-            Class contextVariableType = function.getContextVariableType(i);
+            String intendedName = function.getContextVariableIntendedName(i);
+            Class type = function.getContextVariableType(i);
 
-            statementList.getContextModel().declareVariable(contextVariableIntendedName, contextVariableType, true);
-        }
+            String actualName = statementList.getContextModel().declareVariable(intendedName, type, true);
+            function.setContextVariableActualName(intendedName, actualName);
+        }*/
 
         return statementList;
     }

@@ -9,14 +9,13 @@ import fn.FnCompiler;
 import fn.parser.ParseException;
 import java.io.ByteArrayInputStream;
 import jd.ClassDescriptor;
-import org.junit.After;
 import org.junit.Test;
 
 /**
  *
  * @author Calvin Ashmore
  */
-public class CompilerExecutionTest {
+public class CompilerExecutionTest extends CompilerTestBase {
     
     private String file = 
         //"package MyPackage;\n" +
@@ -67,9 +66,4 @@ public class CompilerExecutionTest {
         CompileTool.instantiate("MyGroup",result.toString());
     }
     
-    @After
-    public void tearDown() {
-        //System.out.println("running @After");
-        CompileTool.tearDown();
-    }
 }

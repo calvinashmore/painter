@@ -43,6 +43,14 @@ public class StatementList implements GeneticComponent {
         return isSetup;
     }
 
+    public void setStatements(Statement... newStatements) {
+        statements = new ArrayList<Statement>();
+        
+        for(Statement statement : newStatements) {
+            statements.add(statement);
+        }
+    }
+    
     public void setup() throws BuildException {
         
         if(statements == null) {

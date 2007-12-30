@@ -32,6 +32,8 @@ public class Statement implements GeneticComponent {
     private StatementFunction function;
     public StatementFunction getFunction() {return function;}
     
+    private ContextModel contextModel;
+    
     //private boolean isSetup;
     //public boolean isSetup() {return isSetup;}
     
@@ -46,6 +48,19 @@ public class Statement implements GeneticComponent {
         this.function = function;
         assert (parent instanceof StatementList);
         this.parent = (StatementList) parent;
+        
+        if(function.getNumberContextVariables() > 0) {
+            contextModel = new ContextModel(parent.getContextModel());
+            for(int i=0; i<function.getNumberContextVariables(); i++) {
+                
+                String intendedName = function.getContextVariableIntendedName(i);
+                Class type = function.getContextVariableType(i);
+
+                String actualName = contextModel.declareVariable(intendedName, type, true);
+                function.setContextVariableActualName(intendedName, actualName);
+            }
+        }
+        
         for(int i=0; i<function.getNumberInputs(); i++)
             children.add(null);
     }
@@ -65,6 +80,7 @@ public class Statement implements GeneticComponent {
     
     public void setup() throws BuildException {
         
+        function.setContextModel(getContextModel());
         function.setup();
         for(GeneticComponent child : children)
             child.setup();
@@ -100,6 +116,8 @@ public class Statement implements GeneticComponent {
     public void setInput(int i, GeneticComponent child) {children.set(i, child);}
     
     public ContextModel getContextModel() {
+        if(contextModel != null)
+            return contextModel;
         return parent.getContextModel();
     }
 

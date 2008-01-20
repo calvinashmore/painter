@@ -5,8 +5,8 @@
 
 package genetic.component.statement.function;
 
-import genetic.Context;
-import genetic.ContextModel;
+import genetic.component.context.Context;
+import genetic.component.context.ContextModel;
 import genetic.GeneticComponent;
 import genetic.Metadata;
 import genetic.Parameterized;

@@ -9,7 +9,7 @@
 
 package genetic.component.expression.function;
 
-import genetic.Context;
+import genetic.component.context.Context;
 
 /**
  *

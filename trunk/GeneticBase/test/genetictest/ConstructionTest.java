@@ -6,7 +6,7 @@ package genetictest;
 
 import genetic.AllComponents;
 import genetic.BuildException;
-import genetic.ContextModel;
+import genetic.component.context.ContextModel;
 import genetic.Foundation;
 import genetic.GeneticTopLevel;
 import genetic.TypeSystem;

@@ -11,7 +11,7 @@ package genetic.component.statement.function;
 
 import genetic.GeneticComponent;
 import genetic.component.statement.*;
-import genetic.Context;
+import genetic.component.context.Context;
 import genetic.Foundation;
 import genetic.component.command.Command;
 import genetic.component.expression.Expression;

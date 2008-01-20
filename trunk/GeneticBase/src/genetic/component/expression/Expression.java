@@ -9,6 +9,8 @@
  */
 package genetic.component.expression;
 
+import genetic.component.context.Context;
+import genetic.component.context.ContextModel;
 import genetic.GeneticComponent;
 import genetic.Parameterized;
 import genetic.component.expression.function.ExpressionFunction;

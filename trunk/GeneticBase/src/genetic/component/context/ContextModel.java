@@ -6,8 +6,9 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-package genetic;
+package genetic.component.context;
 
+import genetic.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;

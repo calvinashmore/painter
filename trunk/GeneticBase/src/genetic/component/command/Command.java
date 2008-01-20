@@ -9,7 +9,7 @@
 
 package genetic.component.command;
 
-import genetic.Context;
+import genetic.component.context.Context;
 import genetic.Metadata;
 import genetic.Parameterized;
 import genetic.Evaluatable;

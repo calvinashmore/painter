@@ -5,6 +5,7 @@
 
 package genetic;
 
+import genetic.component.context.ContextModel;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 

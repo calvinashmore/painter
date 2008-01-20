@@ -10,7 +10,7 @@
 
 package genetic.component.expression.function;
 
-import genetic.ContextModel;
+import genetic.component.context.ContextModel;
 import genetic.AllComponents;
 import genetic.BuildException;
 import java.util.*;

@@ -8,7 +8,7 @@
  */
 package genetic.component.expression.function;
 
-import genetic.ContextModel;
+import genetic.component.context.ContextModel;
 import genetic.Foundation;
 import genetic.component.accessor.Accessor;
 import genetic.BuildException;

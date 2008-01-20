@@ -5,7 +5,7 @@
 
 package genetic.component.expression.function;
 
-import genetic.ContextModel;
+import genetic.component.context.ContextModel;
 import genetic.Foundation;
 import java.util.ArrayList;
 import java.util.List;

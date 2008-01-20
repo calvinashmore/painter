@@ -8,6 +8,7 @@
  */
 package genetic.component.expression.function;
 
+import genetic.component.context.Context;
 import genetic.component.accessor.Accessor;
 import genetic.*;
 

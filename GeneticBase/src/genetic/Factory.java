@@ -9,6 +9,8 @@
 
 package genetic;
 
+import genetic.component.context.ContextModel;
+
 /**
  * <p>A Factory builds an object of a type that belongs to a certain class.
  * Factories are responsible for creating ExpressionFunction objects and the like.

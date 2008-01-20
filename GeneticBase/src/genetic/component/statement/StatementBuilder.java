@@ -5,7 +5,7 @@
 
 package genetic.component.statement;
 
-import genetic.ContextModel;
+import genetic.component.context.ContextModel;
 import genetic.GeneticComponent;
 import genetic.BuildException;
 import genetic.Builder;

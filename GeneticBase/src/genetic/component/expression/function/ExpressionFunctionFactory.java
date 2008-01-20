@@ -5,7 +5,7 @@
 
 package genetic.component.expression.function;
 
-import genetic.ContextModel;
+import genetic.component.context.ContextModel;
 import genetic.BuildException;
 import genetic.Factory;
 import genetic.component.accessor.Accessor;

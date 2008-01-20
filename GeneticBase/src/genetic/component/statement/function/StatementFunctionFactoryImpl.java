@@ -8,6 +8,7 @@
  */
 package genetic.component.statement.function;
 
+import genetic.component.context.ContextModel;
 import genetic.component.statement.*;
 import genetic.*;
 import genetic.AbstractFactory;

@@ -5,7 +5,7 @@
 
 package genetic.component.expression.mutator;
 
-import genetic.ContextModel;
+import genetic.component.context.ContextModel;
 import genetic.Foundation;
 import genetic.component.expression.Expression;
 import genetic.component.expression.ExpressionUtils;

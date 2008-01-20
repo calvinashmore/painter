@@ -4,7 +4,7 @@
  */
 package genetic.component.statement;
 
-import genetic.ContextModel;
+import genetic.component.context.ContextModel;
 import genetic.Foundation;
 import genetic.GeneticComponent;
 import genetic.GeneticTopLevel;

@@ -5,7 +5,7 @@
 
 package genetictest;
 
-import genetic.Context;
+import genetic.component.context.Context;
 import genetic.component.accessor.Accessor;
 
 /**

@@ -10,7 +10,7 @@
 package genetic.component.statement.function;
 
 import genetic.component.statement.*;
-import genetic.ContextModel;
+import genetic.component.context.ContextModel;
 import genetic.AllComponents;
 import java.util.ArrayList;
 import java.util.List;

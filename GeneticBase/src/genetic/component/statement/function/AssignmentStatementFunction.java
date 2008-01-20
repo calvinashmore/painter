@@ -11,8 +11,8 @@ package genetic.component.statement.function;
 
 import genetic.GeneticComponent;
 import genetic.component.statement.*;
-import genetic.Context;
-import genetic.ContextModel;
+import genetic.component.context.Context;
+import genetic.component.context.ContextModel;
 import genetic.Foundation;
 import genetic.component.expression.Expression;
 import genetic.BuildException;

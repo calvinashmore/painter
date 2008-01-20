@@ -1,6 +1,6 @@
 package genetictest;
 
-import genetic.Context;
+import genetic.component.context.Context;
 import genetic.GeneticComponent;
 import genetic.component.statement.function.StatementFunction;
 import java.util.List;

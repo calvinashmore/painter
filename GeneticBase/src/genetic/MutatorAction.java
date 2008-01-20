@@ -9,6 +9,8 @@
 
 package genetic;
 
+import genetic.component.context.ContextModel;
+
 /**
  *
  * @author Calvin Ashmore

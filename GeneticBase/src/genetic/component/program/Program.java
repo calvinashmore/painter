@@ -9,6 +9,8 @@
 
 package genetic.component.program;
 
+import genetic.component.context.Context;
+import genetic.component.context.ContextModel;
 import genetic.GeneticTopLevel;
 import genetic.GeneticComponent;
 import genetic.*;

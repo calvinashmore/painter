@@ -26,9 +26,6 @@ import java.util.List;
  */
 public class StatementList implements GeneticComponent {
     
-    private static final int numberBaseStatements = 1;
-    private static final int numberFlexStatements = 3;
-    
     private ContextModel contextModel;
     private List<Statement> statements;
     private GeneticComponent parent;
@@ -60,7 +57,8 @@ public class StatementList implements GeneticComponent {
     public void setup() throws BuildException {
         
         if(statements == null) {
-            statements = new ArrayList<Statement>();
+            statements = Foundation.getInstance().getStatementListBuilder().buildChildren(this);
+            /*statements = new ArrayList<Statement>();
 
             StatementBuilder builder = Foundation.getInstance().getStatementBuilder();
 
@@ -73,7 +71,7 @@ public class StatementList implements GeneticComponent {
                 //Statement statementTemplate = factory.select(contextModel, false);
                 //Statement statement = factory.build(statementTemplate.getClass(), contextModel);
                 //statements.add(statement);
-            }
+            }*/
         }
         
         for(Statement statement : statements)

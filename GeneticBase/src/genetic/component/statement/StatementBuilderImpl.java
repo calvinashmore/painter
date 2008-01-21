@@ -40,8 +40,9 @@ public class StatementBuilderImpl implements StatementBuilder {
         for (Map.Entry<String, Method> entry : methods.entrySet()) {
             // entry.getValue() == method
             // entry.getKey() == name
-            if(entry.getValue() == myMethod)
+            if (entry.getValue() == myMethod) {
                 myMethodName = entry.getKey();
+            }
         }
 
         List<String> methodNames = new ArrayList<String>();
@@ -52,8 +53,9 @@ public class StatementBuilderImpl implements StatementBuilder {
             // this method does not use myMethod, so it is safe.
             // entry.getValue() == method
             // entry.getKey() == name
-            if(!entry.getValue().hasMethod(myMethodName))
+            if (!entry.getValue().hasMethod(myMethodName)) {
                 methodNames.add(entry.getKey());
+            }
         }
 
         return methodNames;
@@ -86,12 +88,12 @@ public class StatementBuilderImpl implements StatementBuilder {
 
                 Statement statement = buildStatement(function, parent);
                 return statement;
-                
+
             } catch (BuildException ex) {
                 lastException = ex;
             }
         }
-        throw new BuildException("Failed to construct Statement",lastException);
+        throw new BuildException("Failed to construct Statement", lastException);
     }
 
     protected Expression makeExpression(Statement statement, StatementFunction.ExpressionInputSignature signature)
@@ -105,12 +107,18 @@ public class StatementBuilderImpl implements StatementBuilder {
         return statementList;
     }
 
+    public Statement buildEmptyStatement(StatementFunction function, GeneticComponent parent) throws BuildException {
+
+        Statement statement = new Statement(function, parent);
+        return statement;
+    }
+
     public Statement buildStatement(StatementFunction function, GeneticComponent parent) throws BuildException {
-        
+
         BuildException lastException = null;
         for (int attempt = 0; attempt < ATTEMPTS; attempt++) {
             try {
-                Statement statement = new Statement(function, parent);
+                Statement statement = buildEmptyStatement(function, parent);
                 for (int i = 0; i < function.getNumberInputs(); i++) {
 
                     StatementFunction.InputSignature inputSignature = function.getInputSignature(i);
@@ -123,12 +131,12 @@ public class StatementBuilderImpl implements StatementBuilder {
                         throw new BuildException("StatementFunction " + function + " has invalid input signature: " + inputSignature);
                     }
                 }
-                
+
                 return statement;
             } catch (BuildException ex) {
                 lastException = ex;
             }
         }
-        throw new BuildException("Failed to construct Statement",lastException);
+        throw new BuildException("Failed to construct Statement", lastException);
     }
 }

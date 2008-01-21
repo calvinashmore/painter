@@ -59,13 +59,15 @@ public class StatementBuilderImpl implements StatementBuilder {
         return methodNames;
     }
 
-    public Statement buildStatement(ContextModel cm, GeneticComponent parent) throws BuildException {
-        return buildStatement(cm, parent, false);
+    //public Statement buildStatement(ContextModel cm, GeneticComponent parent) throws BuildException {
+    public Statement buildStatement(GeneticComponent parent) throws BuildException {
+        return buildStatement(parent, false);
     }
     private static final int ATTEMPTS = 10;
 
-    public Statement buildStatement(ContextModel cm, GeneticComponent parent, boolean seekTerminal) throws BuildException {
+    public Statement buildStatement(GeneticComponent parent, boolean seekTerminal) throws BuildException {
 
+        ContextModel cm = parent.getContextModel();
         BuildException lastException = null;
         for (int attempt = 0; attempt < ATTEMPTS; attempt++) {
             try {
@@ -82,21 +84,9 @@ public class StatementBuilderImpl implements StatementBuilder {
                     methodFunction.setMethodName(method);
                 }
 
-                Statement statement = new Statement(function, parent);
-                for (int i = 0; i < function.getNumberInputs(); i++) {
-
-                    StatementFunction.InputSignature inputSignature = function.getInputSignature(i);
-
-                    if (inputSignature instanceof StatementFunction.ExpressionInputSignature) {
-                        statement.setInput(i, makeExpression(statement, (StatementFunction.ExpressionInputSignature) inputSignature));
-                    } else if (inputSignature instanceof StatementFunction.StatementListInputSignature) {
-                        statement.setInput(i, makeStatementList(statement));
-                    } else {
-                        throw new BuildException("StatementFunction " + function + " has invalid input signature: " + inputSignature);
-                    }
-                }
-
+                Statement statement = buildStatement(function, parent);
                 return statement;
+                
             } catch (BuildException ex) {
                 lastException = ex;
             }
@@ -112,16 +102,33 @@ public class StatementBuilderImpl implements StatementBuilder {
 
     protected StatementList makeStatementList(Statement statement) throws BuildException {
         StatementList statementList = new StatementList(statement);
-
-        /*StatementFunction function = statement.getFunction();
-        for (int i = 0; i < function.getNumberContextVariables(); i++) {
-            String intendedName = function.getContextVariableIntendedName(i);
-            Class type = function.getContextVariableType(i);
-
-            String actualName = statementList.getContextModel().declareVariable(intendedName, type, true);
-            function.setContextVariableActualName(intendedName, actualName);
-        }*/
-
         return statementList;
+    }
+
+    public Statement buildStatement(StatementFunction function, GeneticComponent parent) throws BuildException {
+        
+        BuildException lastException = null;
+        for (int attempt = 0; attempt < ATTEMPTS; attempt++) {
+            try {
+                Statement statement = new Statement(function, parent);
+                for (int i = 0; i < function.getNumberInputs(); i++) {
+
+                    StatementFunction.InputSignature inputSignature = function.getInputSignature(i);
+
+                    if (inputSignature instanceof StatementFunction.ExpressionInputSignature) {
+                        statement.setInput(i, makeExpression(statement, (StatementFunction.ExpressionInputSignature) inputSignature));
+                    } else if (inputSignature instanceof StatementFunction.StatementListInputSignature) {
+                        statement.setInput(i, makeStatementList(statement));
+                    } else {
+                        throw new BuildException("StatementFunction " + function + " has invalid input signature: " + inputSignature);
+                    }
+                }
+                
+                return statement;
+            } catch (BuildException ex) {
+                lastException = ex;
+            }
+        }
+        throw new BuildException("Failed to construct Statement",lastException);
     }
 }

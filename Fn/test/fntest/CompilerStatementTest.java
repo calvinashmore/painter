@@ -6,8 +6,8 @@
 package fntest;
 
 import genetic.AllComponents;
-import genetic.Context;
-import genetic.ContextModel;
+import genetic.component.context.Context;
+import genetic.component.context.ContextModel;
 import genetic.Foundation;
 import genetic.GeneticComponent;
 import genetic.GeneticTopLevel;
@@ -59,7 +59,6 @@ public class CompilerStatementTest {
             @Override public ContextModel getContextModel() {
                 return new ContextModel((GeneticTopLevel)null);
             }
-        
         };
         
         Expression trueExpression = new Expression(new ExpressionFunction() {
@@ -119,5 +118,7 @@ public class CompilerStatementTest {
                 "  }\n" + // eval
                 "}"
                 );
+        
+        
     }
 }

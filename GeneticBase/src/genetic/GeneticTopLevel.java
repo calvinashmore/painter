@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface GeneticTopLevel extends GeneticComponent {
     
-    public void createMethod(String name, Class... parameters);
+    public Method createMethod(String name, Class... parameters);
     public void callMethod(String name, Object... parameters);
     public Map<String, Method> getMethods();
     

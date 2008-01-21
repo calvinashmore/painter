@@ -9,7 +9,7 @@
 
 package app01;
 
-import genetic.Context;
+import genetic.component.context.Context;
 import genetic.component.command.Command;
 import painter.PainterProgram;
 

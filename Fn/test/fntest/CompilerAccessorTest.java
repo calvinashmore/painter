@@ -6,7 +6,7 @@
 package fntest;
 
 import genetic.AllComponents;
-import genetic.Context;
+import genetic.component.context.Context;
 import genetic.component.accessor.Accessor;
 import junit.framework.Assert;
 import org.junit.Test;

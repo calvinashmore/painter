@@ -53,6 +53,10 @@ public class StatementList implements GeneticComponent {
         }
     }
     
+    /**
+     * Setup will build the list of statements for this StatementList if they are null.
+     * @throws genetic.BuildException
+     */
     public void setup() throws BuildException {
         
         if(statements == null) {
@@ -64,7 +68,7 @@ public class StatementList implements GeneticComponent {
                     nextInt(numberFlexStatements) + numberBaseStatements;
 
             for(int i=0;i<numberStatements;i++) {
-                Statement statement = builder.buildStatement(contextModel, this);
+                Statement statement = builder.buildStatement(this);
                 statements.add(statement);
                 //Statement statementTemplate = factory.select(contextModel, false);
                 //Statement statement = factory.build(statementTemplate.getClass(), contextModel);

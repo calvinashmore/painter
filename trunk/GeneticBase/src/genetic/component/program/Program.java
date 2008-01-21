@@ -17,6 +17,7 @@ import genetic.*;
 import genetic.component.method.Method;
 import genetic.BuildException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
@@ -71,14 +72,16 @@ public class Program implements GeneticTopLevel {
             method.setup();
     }
     
-    public void createMethod(String name, Class... parameters) {
+    public Method createMethod(String name, Class... parameters) {
         
-        List<Class> lparams = new ArrayList<Class>();
-        for(Class parameter : parameters)
-            lparams.add(parameter);
-        
-        Method eventFunction = Foundation.getInstance().getMethodBuilder().build(name, this, lparams); //new Method(name, this, lparams);
-        methods.put(name, eventFunction);
+        Method method = buildMethod(Arrays.asList(parameters), name);
+        methods.put(name, method);
+        return method;
+    }
+    
+    protected Method buildMethod(List<Class> lparams, String name) {
+        Method method = Foundation.getInstance().getMethodBuilder().build(name, this, lparams);
+        return method;
     }
     
     public void callMethod(String name, Object... parameters) {
@@ -231,4 +234,5 @@ public class Program implements GeneticTopLevel {
     public boolean hasMethod(String name) {
         return methods.containsKey(name);
     }
+
 }

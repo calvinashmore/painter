@@ -54,6 +54,8 @@ public class Method implements GeneticComponent {
         body = Foundation.getInstance().getStatementListBuilder().build(this);
                 // = new StatementList( this );
     }
+
+    public StatementList getBody() {return body;}
     
     public int getNumberArguments() {return argumentTypes.size();}
     public Class getArgumentType(int i) {return argumentTypes.get(i);}

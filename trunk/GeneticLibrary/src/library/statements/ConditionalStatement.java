@@ -10,7 +10,7 @@
 package library.statements;
 
 import genetic.component.statement.*;
-import genetic.Context;
+import genetic.component.context.Context;
 import genetic.component.expression.Expression;
 import genetic.component.expression.function.ExpressionFunctionFactoryImpl;
 import genetic.GeneticComponent;

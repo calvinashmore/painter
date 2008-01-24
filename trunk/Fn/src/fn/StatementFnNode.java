@@ -158,6 +158,9 @@ public class StatementFnNode extends FnNode {
         
 	Token currentToken;
         
+        if(execBlock.firstToken.next == execBlock.lastToken)
+            return "";
+        
         // first to last exclusive, ignore "{" "}"
 	for(    currentToken = execBlock.firstToken.next;
                 currentToken.next != execBlock.lastToken;

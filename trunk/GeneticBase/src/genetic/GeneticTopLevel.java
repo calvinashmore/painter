@@ -5,6 +5,7 @@
 
 package genetic;
 
+import genetic.component.context.Context;
 import genetic.component.method.Method;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ public interface GeneticTopLevel extends GeneticComponent {
     public Method createMethod(String name, Class... parameters);
     public void callMethod(String name, Object... parameters);
     public Map<String, Method> getMethods();
+
+    public Context getContext();
     
     /*public void createCommand(String name, Command command);
     public void createAccessor(String name, Accessor accessor);

@@ -25,13 +25,13 @@ public class Context {
 
     public Context(ContextModel model) {
         this.model = model;
-        variables = new Hashtable<String, Object>();
+        variables = new HashMap<String, Object>();
     }
 
     public Context(Context parent, ContextModel model) {
         this.parent = parent;
         this.model = model;
-        variables = new Hashtable<String, Object>();
+        variables = new HashMap<String, Object>();
     }
     
     public ContextModel getModel() {return model;}

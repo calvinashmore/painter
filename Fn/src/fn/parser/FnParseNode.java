@@ -55,7 +55,11 @@ public class FnParseNode extends SimpleNode {
 	StringBuffer image = new StringBuffer(); 
 	Token currentToken;
         // first to last exclusive, ignore "{" "}"
-	for(currentToken = firstToken.next; currentToken.next != lastToken; currentToken = currentToken.next) {
+        if(firstToken.next == lastToken)
+            return "";
+	for(    currentToken = firstToken.next; 
+                currentToken.next != lastToken; 
+                currentToken = currentToken.next) {
             image.append(currentToken.image);
             image.append(" ");
         }

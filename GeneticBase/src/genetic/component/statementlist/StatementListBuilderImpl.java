@@ -34,7 +34,7 @@ public class StatementListBuilderImpl implements StatementListBuilder {
                 nextInt(numberFlexStatements) + numberBaseStatements;
 
         for (int i = 0; i < numberStatements; i++) {
-            Statement statement = builder.buildStatement(list.getContextModel(), list);
+            Statement statement = builder.buildStatement(list);
             statements.add(statement);
         //Statement statementTemplate = factory.select(contextModel, false);
         //Statement statement = factory.build(statementTemplate.getClass(), contextModel);

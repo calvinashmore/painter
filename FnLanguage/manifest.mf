@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: com.icosilune.fnlanguage
+OpenIDE-Module-Layer: com/icosilune/fnlanguage/layer.xml
+OpenIDE-Module-Localizing-Bundle: com/icosilune/fnlanguage/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

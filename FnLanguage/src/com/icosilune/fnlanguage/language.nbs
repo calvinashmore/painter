@@ -2,8 +2,8 @@
 # and open the template in the editor.
 
 # definition of tokens
-TOKEN:keyword:( "while" | "if" | "else")
-TOKEN:operator:( "{" | "}" | "(" | ")" )
+TOKEN:keyword:( "package" | "while" | "if" | "else" | "group" | "type" | "import")
+TOKEN:operator:( "{" | "}" | "(" | ")" | ";")
 TOKEN:identifier:( ["a"-"z"] ["a"-"z" "0"-"9"]* )
 TOKEN:whitespace:( [" " "\t" "\n" "\r"]+ )
 
@@ -11,13 +11,24 @@ TOKEN:whitespace:( [" " "\t" "\n" "\r"]+ )
 SKIP:whitespace
 
 # definition of grammar
+#S =  PackageStatement GroupStatement TypeStatement (ImportStatement)* (FnDefinition)*;
 S = (Statement)*;
+
+PackageStatement = "package" Name ";";
+GroupStatement = "group" Name ";";
+TypeStatement = "type" Name ";";
+
+ImportStatement = "import" Name ";";
+
+FnDefinition = "fn" <identifier> "{" (Statement)* "}";
+
+Name = <identifier> ("." <identifier>)*;
 Statement = WhileStatement | IfStatement | ExpressionStatement;
 WhileStatement = "while" "(" ConditionalExpression ")" Block;
 IfStatement = "if" "(" ConditionalExpression ")" Block ["else" Block];
 Block = "{" (Statement)* "}";
 ConditionalExpression = <identifier>;
-ExpressionStatement = <identifier>;
+ExpressionStatement = <identifier> ";";
 
 # code folding
 FOLD:Block
@@ -30,14 +41,17 @@ NAVIGATOR:WhileStatement: {
 # brace completion
 COMPLETE "{:}"
 COMPLETE "(:)"
+COMPLETE "[:]"
 
 # brace matching
 BRACE "{:}"
 BRACE "(:)"
+BRACE "[:]"
 
 # indentation support
 INDENT "{:}"
 INDENT "(:)"
+INDENT "[:]"
 INDENT "\\s*(((if|while)\\s*\\(|else\\s*|else\\s+if\\s*\\(|for\\s*\\(.*\\))[^{;]*)"
 
 # error highlighting

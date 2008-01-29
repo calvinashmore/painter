@@ -1,6 +1,25 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
+#<DEFAULT>:
+
+
+TOKEN:comment: ( "#" [^"\n" "\r"]* ["\n" "\r"]+ )
+TOKEN:comment: ( "/#" - "#/")
+
+TOKEN:string: (
+    "\"" ([^ "\\" "\""] |
+          ("\\" (. |
+                 (["0"-"7"]) |
+                 (["0"-"7"] ["0"-"7"]) | 
+                 (["0"-"7"] ["0"-"7"] ["0"-"7"])
+                 ("^" ["@" "A"-"Z" "["-"_"])
+                )
+          )
+         )* 
+    "\""
+)
+
 # definition of tokens
 TOKEN:keyword:( "package" | "while" | "if" | "else" | "group" | "type" | "import")
 TOKEN:operator:( "{" | "}" | "(" | ")" | ";")
@@ -9,6 +28,7 @@ TOKEN:whitespace:( [" " "\t" "\n" "\r"]+ )
 
 # parser should ignore whitespaces
 SKIP:whitespace
+SKIP:comment
 
 # definition of grammar
 #S =  PackageStatement GroupStatement TypeStatement (ImportStatement)* (FnDefinition)*;

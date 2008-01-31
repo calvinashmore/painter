@@ -4,8 +4,8 @@
 #<DEFAULT>:
 
 
-TOKEN:comment: ( "#" [^"\n" "\r"]* ["\n" "\r"]+ )
-TOKEN:comment: ( "/#" - "#/")
+TOKEN:comment: ( "//" [^"\n" "\r"]* ["\n" "\r"]+ )
+TOKEN:comment: ( "/*" - "*/")
 
 TOKEN:string: (
     "\"" ([^ "\\" "\""] |
@@ -21,8 +21,34 @@ TOKEN:string: (
 )
 
 # definition of tokens
-TOKEN:keyword:( "package" | "while" | "if" | "else" | "group" | "type" | "import")
-TOKEN:operator:( "{" | "}" | "(" | ")" | ";")
+#TOKEN:keyword:( "package" | "while" | "if" | "else" | "group" | "type" | "import")
+TOKEN:java_keyword:( "abstract" | "continue" | "for" | "new" | "switch" |
+                     "assert" | "default" | "goto" | "package" | "synchronized" |
+                     "boolean" | "do" | "if" | "private" | "this" |
+                     "break" | "double" | "implements" | "protected" | "throw" |
+                     "byte" | "else" | "import" | "public" | "throws" |
+                     "case" | "enum" | "instanceof" | "return" | "transient" |
+                     "catch" | "extends" | "int" | "short" | "try" |
+                     "char" | "final" | "interface" | "static" | "void" |
+                     "class" | "finally" | "long" | "strictfp" | "volatile" |
+                     "const" | "float" | "native" | "super" | "while" )
+
+TOKEN:fn_keyword:( "fn" | "group" | "type" | "in" |
+                   "fout" | "eval" | "exec" | "init" |
+                   "parameter" | "setup" | "meta" |
+                   "slin" | "exin" | "cvar")
+
+TOKEN:operator:( "{" | "}" | "(" | ")" |
+                 "+" | "-" | "/" | "%" | "*" |
+                 "++" | "--" | "~" | "^" | "|" | "&" | "!" |
+                 "&&" | "||" | "<<" | ">>" | ">>>" | "<" | ">" |
+                 "<=" | ">=" | "instanceof" | "?" | ":" |
+                 "=" | "==" | "!=" | "=+" | "=*" | "=/" | "=%" |
+                 "&=" | "^=" | "|=" | "<<=" | ">>=" | ">>>=" |
+                 ";" | ".")
+
+TOKEN:fn_type:("Expression" | "Statement" | "Command" | "Accessor")
+
 TOKEN:identifier:( ["a"-"z"] ["a"-"z" "0"-"9"]* )
 TOKEN:whitespace:( [" " "\t" "\n" "\r"]+ )
 
@@ -31,14 +57,14 @@ SKIP:whitespace
 SKIP:comment
 
 # definition of grammar
-#S =  PackageStatement GroupStatement TypeStatement (ImportStatement)* (FnDefinition)*;
-S = (Statement)*;
+S =  PackageStatement GroupStatement TypeStatement (ImportStatement)* (FnDefinition)*;
+#S = (Statement)*;
 
 PackageStatement = "package" Name ";";
 GroupStatement = "group" Name ";";
-TypeStatement = "type" Name ";";
+TypeStatement = "type" ("Expression" | "Statement" | "Command" | "Accessor") ";";
 
-ImportStatement = "import" Name ";";
+ImportStatement = "import" Name ["." "*"] ";";
 
 FnDefinition = "fn" <identifier> "{" (Statement)* "}";
 

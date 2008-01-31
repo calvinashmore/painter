@@ -1,15 +1,11 @@
 
-while (foo) {
-    if(thing) {
-        
-    } else {
-        dfs;
-        sfjldsf;
-    }
-}
-
-package foo;
+package foo.bar;
 group toast;
-type myType;
+type Expression;
 
-import toast.toast.*;
+
+import toast.toast;
+
+mjklj;
+
+

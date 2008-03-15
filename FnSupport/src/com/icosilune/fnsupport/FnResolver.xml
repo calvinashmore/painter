@@ -7,6 +7,6 @@ and open the template in the editor.
 <MIME-resolver>
     <file>
         <ext name="fn"/>
-        <resolver mime="text/fn"/>
+        <resolver mime="text/x-fn"/>
     </file>
 </MIME-resolver>

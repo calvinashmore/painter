@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.1//EN" "http://www.netbeans.org/dtds/filesystem-1_1.dtd">
+<filesystem>
+    <folder name="Loaders">
+        <folder name="text">
+            <folder name="x-fn">
+                <folder name="Actions">
+                    <file name="org-openide-actions-CopyAction.instance">
+                        <attr name="position" intvalue="500"/>
+                    </file>
+                    <file name="org-openide-actions-CutAction.instance">
+                        <attr name="position" intvalue="400"/>
+                    </file>
+                    <file name="org-openide-actions-DeleteAction.instance">
+                        <attr name="position" intvalue="700"/>
+                    </file>
+                    <file name="org-openide-actions-FileSystemAction.instance">
+                        <attr name="position" intvalue="200"/>
+                    </file>
+                    <file name="org-openide-actions-OpenAction.instance">
+                        <attr name="position" intvalue="100"/>
+                    </file>
+                    <file name="org-openide-actions-PropertiesAction.instance">
+                        <attr name="position" intvalue="1300"/>
+                    </file>
+                    <file name="org-openide-actions-RenameAction.instance">
+                        <attr name="position" intvalue="800"/>
+                    </file>
+                    <file name="org-openide-actions-SaveAsTemplateAction.instance">
+                        <attr name="position" intvalue="1000"/>
+                    </file>
+                    <file name="org-openide-actions-ToolsAction.instance">
+                        <attr name="position" intvalue="1200"/>
+                    </file>
+                    <file name="sep-1.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="300"/>
+                    </file>
+                    <file name="sep-2.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="600"/>
+                    </file>
+                    <file name="sep-3.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="900"/>
+                    </file>
+                    <file name="sep-4.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="1100"/>
+                    </file>
+                </folder>
+            </folder>
+        </folder>
+    </folder>
+    
+    <folder name="Editors">
+        <folder name="text">
+            <folder name="x-fn">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.resources.Bundle"/>
+                
+                <!--<folder name="FoldManager">
+                    <file name="org-netbeans-modules-languages-features-LanguagesFoldManager$Factory.instance"/>
+                </folder>
+                
+                <folder name="CompletionProviders">
+                    <file name="org-netbeans-modules-editor-java-JavaCompletionProvider.instance"/>
+                </folder>
+                
+                <folder name="HyperlinkProviders">
+                    <file name="JavaHyperlinkProvider.instance">
+                        <attr name="instanceClass" stringvalue="org.netbeans.modules.java.editor.hyperlink.JavaHyperlinkProvider"/>
+                        <attr name="instanceOf" stringvalue="org.netbeans.lib.editor.hyperlink.spi.HyperlinkProviderExt"/>
+                    </file>
+                </folder>
+                
+                <folder name="UpToDateStatusProvider">
+                    <file name="org-netbeans-modules-java-editor-semantic-OccurrencesMarkProviderCreator.instance">
+                    </file>
+                </folder>
+
+                <folder name="CodeTemplateProcessorFactories">
+                    <file name="org-netbeans-modules-editor-java-JavaCodeTemplateProcessor$Factory.instance"/>
+                </folder>                
+                
+                <folder name="CodeTemplateFilterFactories">
+                    <file name="org-netbeans-modules-editor-java-JavaCodeTemplateFilter$Factory.instance"/>
+                </folder>-->
+                
+                <folder name="FontsColors">
+                    <folder name="NetBeans">
+                        <folder name="Defaults">
+                            <file name="com-icosilune-fnsupport-token-colorings.xml" url="resources/fontsColors.xml">
+                                <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.resources.Bundle"/>
+                            </file>
+                        </folder>
+                    </folder>
+                </folder>
+                
+                <!--<attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.Bundle"/>
+                <folder name="NetBeans">
+                    <folder name="Defaults">
+                        <file name="coloring.xml" url="resources/NetBeans-Manifest-fontsColors.xml">
+                            <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.Bundle"/>
+                        </file>
+                    </folder>
+                </folder> 
+                <folder name="CityLights">
+                    <folder name="Defaults">
+                        <file name="coloring.xml" url="resources/CityLights-Properties-fontsColors.xml">
+                            <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.Bundle"/>
+                        </file>
+                    </folder>
+                </folder>-->
+                                
+                <file name="language.instance">
+                    <attr name="instanceCreate" methodvalue="com.icosilune.fnsupport.lexer.FnTokenId.language"/>
+                    <attr name="instanceOf" stringvalue="org.netbeans.api.lexer.Language"/>
+                </file>
+                <file name="EditorKit.instance">
+                    <attr name="instanceCreate" methodvalue="org.netbeans.modules.lexer.editorbridge.LexerEditorKit.create"/>
+                    <attr name="instanceClass" stringvalue="org.netbeans.modules.lexer.editorbridge.LexerEditorKit"/>
+                    <!--<attr name="instanceClass" stringvalue="com.icosilune.fnsupport.editor.FnEditorKit"/>-->
+                </file>
+                
+            </folder>
+            
+            <!--<folder name="Popup">
+                <folder name="goto">
+                    <attr name="position" intvalue="100"/>
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.java.editor.Bundle"/>
+                    <file name="goto-source">
+                        <attr name="position" intvalue="100"/>
+                    </file>
+                    <file name="goto-declaration">
+                        <attr name="position" intvalue="200"/>
+                    </file>
+                    <file name="goto-super-implementation">
+                        <attr name="position" intvalue="300"/>
+                    </file>  
+                </folder>
+                
+                <file name="goto-help">
+                    <attr name="position" intvalue="1200"/>
+                </file>
+                
+                <file name="SeparatorAfterGoToHelp.instance">
+                    <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                    <attr name="position" intvalue="1240"/>
+                </file>
+                
+                <file name="format">
+                    <attr name="position" intvalue="1480"/>
+                </file>                    
+                
+                
+                <file name="fix-imports">
+                    <attr name="position" intvalue="1520"/>
+                </file>
+                <file name="generate-code">
+                    <attr name="position" intvalue="1560"/>
+                </file>
+                
+                <file name="SeparatorBeforeCut.instance">
+                    <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                    <attr name="position" intvalue="1960"/>
+                </file>
+                
+                <file name="SeparatorAfterPaste.instance">
+                    <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                    <attr name="position" intvalue="4100"/>
+                </file>
+                
+                <file name="generate-fold-popup">
+                    <attr name="position" intvalue="4200"/>
+                </file>
+                
+            </folder>
+            
+            <folder name="CompletionProviders">
+                <file name="org-netbeans-modules-editor-java-JavaCompletionProvider.instance"/>
+            </folder>-->
+        </folder>
+    </folder>
+    
+    <folder name="OptionsDialog">
+        <folder name="PreviewExamples">
+            <folder name="text">
+                <file name="x-fn" url="resources/FnExample.fn"/>
+            </folder>
+        </folder>
+    </folder> 
+    
+    <folder name="Services">
+        <folder name="MIMEResolver">
+            <file name="FnResolver.xml" url="FnResolver.xml">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.Bundle"/>
+            </file>
+        </folder>
+        <!--<folder name="IndentEngine">
+            <file name="org-netbeans-modules-editor-java-JavaIndentEngine.settings" url="JavaIndentEngine.settings">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.editor.Bundle"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/editor/resources/indentEngine.gif"/>
+                <attr name="hidden" boolvalue="true"/>
+            </file>
+        </folder>-->
+    </folder>
+    
+    <folder name="Templates">
+        <folder name="Other">
+            <file name="FnTemplate.fn" url="FnTemplate.fn">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.Bundle"/>
+                <attr name="template" boolvalue="true"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>

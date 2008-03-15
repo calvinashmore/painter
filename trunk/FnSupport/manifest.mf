@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+OpenIDE-Module: com.icosilune.fnsupport
+OpenIDE-Module-Layer: com/icosilune/fnsupport/layer.xml
+OpenIDE-Module-Localizing-Bundle: com/icosilune/fnsupport/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
+Name: com/icosilune/fnsupport/datatype/FnDataLoader.class
+OpenIDE-Module-Class: Loader
+

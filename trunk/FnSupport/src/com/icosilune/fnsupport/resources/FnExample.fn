@@ -1,0 +1,16 @@
+package org.mypackage;
+group Arithmetic;
+type Expression;
+
+import other.package.*;
+import other.SomeClass;
+
+fn Add {
+    in float x;
+    in float y;
+    fout float;
+
+    eval {
+        return x+y;
+    }
+}

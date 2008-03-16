@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: fn
+OpenIDE-Module-Localizing-Bundle: fn/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

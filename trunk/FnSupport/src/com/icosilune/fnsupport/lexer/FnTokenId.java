@@ -68,12 +68,12 @@ public enum FnTokenId implements TokenId {
     private static final Language<FnTokenId> language = new LanguageHierarchy<FnTokenId>() {
 
         @Override
-        protected Collection createTokenIds() {
+        protected Collection<FnTokenId> createTokenIds() {
             return EnumSet.allOf(FnTokenId.class);
         }
 
         @Override
-        protected Lexer createLexer(LexerRestartInfo info) {
+        protected Lexer<FnTokenId> createLexer(LexerRestartInfo info) {
             return new FnLexer(info);
         }
 

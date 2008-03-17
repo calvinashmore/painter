@@ -11,15 +11,25 @@ import org.openide.loaders.MultiDataObject;
 import org.openide.nodes.CookieSet;
 import org.openide.nodes.Node;
 import org.openide.util.Lookup;
-import org.openide.text.DataEditorSupport;
+import org.openide.util.lookup.AbstractLookup;
+import org.openide.util.lookup.InstanceContent;
 
 public class FnDataObject extends MultiDataObject {
 
+    final InstanceContent ic;
+    private AbstractLookup lookup;
+    
     public FnDataObject(FileObject pf, FnDataLoader loader) throws DataObjectExistsException, IOException {
         super(pf, loader);
         CookieSet cookies = getCookieSet();
-        cookies.add((Node.Cookie) DataEditorSupport.create(this, getPrimaryEntry(), cookies));
+        //cookies.add((Node.Cookie) DataEditorSupport.create(this, getPrimaryEntry(), cookies));
         //cookies.add((Node.Cookie) FnOpenSupport.create(this, getPrimaryEntry()));
+        
+        ic = new InstanceContent();
+        lookup = new AbstractLookup(ic);
+        ic.add(FnEditor.create(this));
+        //ic.add(FnOpenSupport.create(this, getPrimaryEntry());
+        ic.add(this);
     }
 
     @Override
@@ -29,6 +39,12 @@ public class FnDataObject extends MultiDataObject {
 
     @Override
     public Lookup getLookup() {
-        return getCookieSet().getLookup();
+        return lookup;
+    }
+    
+    @Override
+    public Node.Cookie getCookie(Class type) {
+        Object o = lookup.lookup(type);
+        return o instanceof Node.Cookie ? (Node.Cookie)o : null;
     }
 }

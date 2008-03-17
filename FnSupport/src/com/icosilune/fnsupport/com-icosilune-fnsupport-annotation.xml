@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : com-icosilune-fnsupport-annotation.xml.xml
+    Created on : March 17, 2008, 4:17 AM
+    Author     : Calvin Ashmore
+    Description:
+        Purpose of the document follows.
+-->
+
+<!DOCTYPE type PUBLIC
+"-//NetBeans//DTD annotation type 1.1//EN"
+"http://www.netbeans.org/dtds/annotation-type-1_1.dtd">
+<type name="com-icosilune-fnsupport-annotation"
+      description_key="LAB_Error"
+      localizing_bundle="com.icosilune.fnsupport.annotation.Bundle"
+      visible="true" 
+      glyph="nbresloc:/com/icosilune/fnsupport/annotation/resources/error-glyph.gif"
+      waveunderline="#ff0000"
+      type="line"
+      browseable="false"
+      severity="warning"
+/>

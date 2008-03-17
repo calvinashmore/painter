@@ -10,15 +10,6 @@ fn Wombat {
     in foo fooey;
     fout toast;
     eval {
-        toast toast toast toast
-        private static final void thingy() {}
-        public static void moo() {
-            thingy();
-            import java.io.*;
-           private class monkey {<< >> 1_a__}
-            return Character.isWhitespace(x);
-        }
-        "a \" \\ string"
         int moo;
     }
 
@@ -34,10 +25,12 @@ fn Wombat {
 
 fn mice {
     exec {
-        sdfdsfd
-        asdfs
-        asdf
+        
     }
 }
 
-fn zog {}
+fn zog {
+    eval {
+        
+    }
+}

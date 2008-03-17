@@ -54,6 +54,12 @@
     </folder>
     
     <folder name="Editors">
+        
+        <folder name="AnnotationTypes">
+            <file name="com-icosilune-fnsupport-annotation.xml" 
+                  url="com-icosilune-fnsupport-annotation.xml"/>
+        </folder>
+        
         <folder name="text">
             <folder name="x-fn">
                 <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.resources.Bundle"/>

@@ -18,6 +18,8 @@
       glyph="nbresloc:/com/icosilune/fnsupport/annotation/resources/error-glyph.gif"
       waveunderline="#ff0000"
       type="line"
-      browseable="false"
-      severity="warning"
+      use_custom_sidebar_color="true"
+      custom_sidebar_color="#ff0000"
+      browseable="true"
+      severity="error"
 />

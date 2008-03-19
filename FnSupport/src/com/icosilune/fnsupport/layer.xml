@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.1//EN" "http://www.netbeans.org/dtds/filesystem-1_1.dtd">
 <filesystem>
+    <folder name="Actions">
+        <folder name="Window">
+            <file name="com-icosilune-fnsupport-navigator-FnNavigatorAction.instance"/>
+        </folder>
+    </folder>
     <folder name="Loaders">
         <folder name="text">
             <folder name="x-fn">
@@ -56,8 +61,7 @@
     <folder name="Editors">
         
         <folder name="AnnotationTypes">
-            <file name="com-icosilune-fnsupport-annotation.xml" 
-                  url="com-icosilune-fnsupport-annotation.xml"/>
+            <file name="com-icosilune-fnsupport-annotation.xml" url="com-icosilune-fnsupport-annotation.xml"/>
         </folder>
         
         <folder name="text">
@@ -188,6 +192,13 @@
         </folder>
     </folder>
     
+    <folder name="Menu">
+        <folder name="Window">
+            <file name="FnNavigatorAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/com-icosilune-fnsupport-navigator-FnNavigatorAction.instance"/>
+            </file>
+        </folder>
+    </folder>
     <folder name="OptionsDialog">
         <folder name="PreviewExamples">
             <folder name="text">
@@ -217,6 +228,16 @@
                 <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.Bundle"/>
                 <attr name="template" boolvalue="true"/>
             </file>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="FnNavigatorTopComponent.settings" url="FnNavigatorTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="navigator">
+                <file name="FnNavigatorTopComponent.wstcref" url="FnNavigatorTopComponentWstcref.xml"/>
+            </folder>
         </folder>
     </folder>
 </filesystem>

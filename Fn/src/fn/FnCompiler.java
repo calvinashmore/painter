@@ -32,6 +32,13 @@ public class FnCompiler {
         }
     }
 
+    public ClassDescriptor compile(ASTFnTopLevel n) {
+        FnGroup group = makeGroup(n);
+        ClassDescriptor c = group.make_class();
+
+        return c;
+    }
+
     public ClassDescriptor compile(InputStream input) throws ParseException {
         FnParser parser = new FnParser(input);
 

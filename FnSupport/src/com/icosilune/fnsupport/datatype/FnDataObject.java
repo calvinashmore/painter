@@ -18,15 +18,17 @@ public class FnDataObject extends MultiDataObject {
 
     final InstanceContent ic;
     private AbstractLookup lookup;
-    
+
     public FnDataObject(FileObject pf, FnDataLoader loader) throws DataObjectExistsException, IOException {
         super(pf, loader);
-        CookieSet cookies = getCookieSet();
+        //CookieSet cookies = getCookieSet();
         //cookies.add((Node.Cookie) DataEditorSupport.create(this, getPrimaryEntry(), cookies));
         //cookies.add((Node.Cookie) FnOpenSupport.create(this, getPrimaryEntry()));
-        
+
         ic = new InstanceContent();
         lookup = new AbstractLookup(ic);
+        ic.add(new FnProviderImpl(this));
+        ic.add(new CheckTask(this));
         ic.add(FnEditor.create(this));
         //ic.add(FnOpenSupport.create(this, getPrimaryEntry());
         ic.add(this);
@@ -34,17 +36,19 @@ public class FnDataObject extends MultiDataObject {
 
     @Override
     protected Node createNodeDelegate() {
-        return new FnDataNode(this, getLookup());
+        Node dataNode = new FnDataNode(this, getLookup());
+        ic.add(dataNode); // is this a terrible idea?
+        return dataNode;
     }
 
     @Override
     public Lookup getLookup() {
         return lookup;
     }
-    
+
     @Override
     public Node.Cookie getCookie(Class type) {
         Object o = lookup.lookup(type);
-        return o instanceof Node.Cookie ? (Node.Cookie)o : null;
+        return o instanceof Node.Cookie ? (Node.Cookie) o : null;
     }
 }

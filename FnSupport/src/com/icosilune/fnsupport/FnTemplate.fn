@@ -1,16 +1,16 @@
 package foo.toast;
 group Mice;
-type Statement;
+type Expression;
 
 import toast.mice.stuff.*;
 import toast.mice.Things;
 
 // the wombat function has mystical wombat powers.
-fn Wombat {
+fn Wombat  {
     in foo fooey;
     fout toast;
     eval {
-        int moo;
+        return null;
     }
 
     private int stuff;
@@ -19,18 +19,6 @@ fn Wombat {
     }
 
     init {
-        
-    }
-}
-
-fn mice {
-    exec {
-        
-    }
-}
-
-fn zog {
-    eval {
         
     }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.1//EN" "http://www.netbeans.org/dtds/filesystem-1_1.dtd">
 <filesystem>
-    <folder name="Actions">
+    <!--<folder name="Actions">
         <folder name="Window">
             <file name="com-icosilune-fnsupport-navigator-FnNavigatorAction.instance"/>
         </folder>
-    </folder>
+    </folder>-->
     <folder name="Loaders">
         <folder name="text">
             <folder name="x-fn">
@@ -192,13 +192,23 @@
         </folder>
     </folder>
     
-    <folder name="Menu">
+    <folder name="Navigator">
+        <folder name="Panels">
+            <folder name="text">
+                <folder name="x-fn">
+                    <file name="com-icosilune-fnsupport-navigator-FnNavigator.instance"/>
+                </folder>
+            </folder>
+        </folder>
+    </folder>
+    
+    <!--<folder name="Menu">
         <folder name="Window">
             <file name="FnNavigatorAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/com-icosilune-fnsupport-navigator-FnNavigatorAction.instance"/>
             </file>
         </folder>
-    </folder>
+    </folder>-->
     <folder name="OptionsDialog">
         <folder name="PreviewExamples">
             <folder name="text">
@@ -230,7 +240,7 @@
             </file>
         </folder>
     </folder>
-    <folder name="Windows2">
+    <!--<folder name="Windows2">
         <folder name="Components">
             <file name="FnNavigatorTopComponent.settings" url="FnNavigatorTopComponentSettings.xml"/>
         </folder>
@@ -239,5 +249,6 @@
                 <file name="FnNavigatorTopComponent.wstcref" url="FnNavigatorTopComponentWstcref.xml"/>
             </folder>
         </folder>
-    </folder>
-</filesystem>
+        </folder>-->
+    </filesystem>
+    

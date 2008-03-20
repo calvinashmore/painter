@@ -285,7 +285,9 @@ public class FnLexer implements Lexer<FnTokenId> {
                 
                 // check one and two argument elements
                 // just call these phrases, and let the Java Lexer handle the rest.
-                if (readString("in")) {
+                if (readString("interface")) {
+                    token = FnTokenId.INTERFACE;
+                } else if (readString("in")) {
                     token = FnTokenId.IN;
                 } else if (readString("parameter")) {
                     token = FnTokenId.PARAMETER;
@@ -295,8 +297,6 @@ public class FnLexer implements Lexer<FnTokenId> {
                     token = FnTokenId.CVAR;
                 } else if (readString("fout")) {
                     token = FnTokenId.OUT;
-                } else if (readString("interface")) {
-                    token = FnTokenId.INTERFACE;
                 } else if (readString("slin")) {
                     token = FnTokenId.SLIN;
                 } else if (readString("meta")) {
@@ -305,11 +305,19 @@ public class FnLexer implements Lexer<FnTokenId> {
 
                 // check to see if we've found our token yet
                 if (token != null) {
+                    // do a peek to make sure there's nothing after this.
+                    //c = input.read();
+                    //if(!Character.isWhitespace(c))
+                    //    return finishError(c, state);
+                    
+                    // no error character
+                    //input.backup(1);
+                    
                     state = ISA_FN_PHRASE_KEYWORD_1;
                     return token(token);
                 }
 
-                // if nothing else has been satisfied, return an error
+                // if nothing else has been satisfied, assume local java
                 //return finishError(ISI_FN_BODY);
                 return finishLocalJava();
             }

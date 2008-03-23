@@ -20,4 +20,5 @@ public interface FnDataResult {
     public String getJavaCode();
     
     public ParseException getParseException();
+    public Exception getOtherException();
 }

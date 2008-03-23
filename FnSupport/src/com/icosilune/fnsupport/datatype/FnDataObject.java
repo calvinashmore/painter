@@ -4,6 +4,7 @@
  */
 package com.icosilune.fnsupport.datatype;
 
+import com.icosilune.fnsupport.api.FnResultListener;
 import java.io.IOException;
 import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataObjectExistsException;
@@ -32,6 +33,13 @@ public class FnDataObject extends MultiDataObject {
         ic.add(FnEditor.create(this));
         //ic.add(FnOpenSupport.create(this, getPrimaryEntry());
         ic.add(this);
+    }
+    
+    public void addResultListener(FnResultListener fnListener) {
+        ic.add(fnListener);
+    }
+    public void removeResultListener(FnResultListener fnListener) {
+        ic.remove(fnListener);
     }
 
     @Override

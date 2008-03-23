@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.icosilune.fnsupport.datatype;
+package com.icosilune.fnsupport.api;
 
 import com.icosilune.fnsupport.api.FnDataResult;
 

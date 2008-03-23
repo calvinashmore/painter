@@ -5,8 +5,6 @@
 
 package com.icosilune.fnsupport.api;
 
-import fn.parser.ASTFnTopLevel;
-import fn.parser.ParseException;
 import org.openide.nodes.Node;
 
 /**

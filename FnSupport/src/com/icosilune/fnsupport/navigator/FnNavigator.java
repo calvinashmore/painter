@@ -5,6 +5,9 @@
 
 package com.icosilune.fnsupport.navigator;
 
+import com.icosilune.fnsupport.api.FnDataResult;
+import com.icosilune.fnsupport.api.FnResultListener;
+import com.icosilune.fnsupport.datatype.FnDataObject;
 import java.util.Collection;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -17,17 +20,21 @@ import org.openide.util.LookupListener;
  *
  * @author Calvin Ashmore
  */
-public class FnNavigator implements NavigatorPanel {
+public class FnNavigator implements NavigatorPanel, FnResultListener {
 
     /** holds UI of this panel */
-    private JComponent panelUI;
+    //private JComponent panelUI;
     /** template for finding data in given context.
      * Object used as example, replace with your own data source, for example JavaDataObject etc */
-    private static final Lookup.Template MY_DATA = new Lookup.Template(Object.class);
+    private static final Lookup.Template MY_DATA = new Lookup.Template(FnDataObject.class);
     /** current context to work on */
     private Lookup.Result curContext;
     /** listener to context changes */
     private LookupListener contextL;
+    
+    private FnDataObject obj;
+    
+    private JLabel myLabel;
     
     /** public no arg constructor needed for system to instantiate provider well */
     public FnNavigator() {
@@ -42,11 +49,11 @@ public class FnNavigator implements NavigatorPanel {
     }
 
     public JComponent getComponent() {
-        if (panelUI == null) {
-            panelUI = new JLabel("Dummy label");
+        if (myLabel == null) {
+            myLabel = new JLabel("Dummy label");
             // You can override requestFocusInWindow() on the component if desired.
         }
-        return panelUI;
+        return myLabel;
     }
 
     public void panelActivated(Lookup context) {
@@ -59,6 +66,11 @@ public class FnNavigator implements NavigatorPanel {
     }
 
     public void panelDeactivated() {
+        if(obj != null) {
+            obj.removeResultListener(this);
+            obj = null;
+        }
+        
         curContext.removeLookupListener(getContextListener());
         curContext = null;
     }
@@ -67,15 +79,38 @@ public class FnNavigator implements NavigatorPanel {
         // go with default activated Node strategy
         return null;
     }
+
+    public void onResult(FnDataResult result) {
+        myLabel.setText("Got result: "+result.isValid()+" \n "+result.getParseException() + " \n "+ result.getOtherException());
+    }
     
     /************* non - public part ************/
     
-    private void setNewContent (Collection newData) {
+    private void setNewContent (Collection<FnDataObject> newData) {
         // put your code here that grabs information you need from given
         // collection of data, recompute UI of your panel and show it.
         // Note - be sure to compute the content OUTSIDE event dispatch thread,
         // just final repainting of UI should be done in event dispatch thread.
         // Please use RequestProcessor and Swing.invokeLater to achieve this.
+        
+        if(newData.isEmpty() && obj != null) {
+            // dispose obj
+            obj.removeResultListener(this);
+            obj = null;
+            return;
+        }
+        
+        FnDataObject newObj = newData.iterator().next();
+        if(newObj != obj) {
+            
+            if(obj != null) {
+                // dispose old obj
+                obj.removeResultListener(this);
+            }
+            
+            obj = newObj;
+            obj.addResultListener(this);
+        }
     }
     
     /** Accessor for listener to context */
@@ -90,7 +125,7 @@ public class FnNavigator implements NavigatorPanel {
     private class ContextListener implements LookupListener {
         
         public void resultChanged(LookupEvent ev) {
-            Collection data = ((Lookup.Result)ev.getSource()).allInstances();
+            Collection<FnDataObject> data = ((Lookup.Result)ev.getSource()).allInstances();
             setNewContent(data);
         }
         

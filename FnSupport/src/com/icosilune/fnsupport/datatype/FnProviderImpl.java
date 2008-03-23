@@ -49,10 +49,11 @@ class FnProviderImpl implements FnProvider {
             result.valid = true;
         } catch (ParseException ex) {
             result.parseException = ex;
+            result.valid = false;
         } catch (Exception ex) {
             result.otherException = ex;
+            result.valid = false;
         }
-        result.valid = false;
 
         return result;
     }

@@ -1,11 +1,13 @@
 package com.icosilune.fnsupport.datatype;
 
+import com.icosilune.fnsupport.editor.FnEditor;
 import com.icosilune.fnsupport.api.FnDataResult;
 import com.icosilune.fnsupport.api.FnProvider;
 import fn.FnCompiler;
 import fn.parser.ASTFnTopLevel;
 import fn.parser.FnParser;
 import fn.parser.ParseException;
+import fn.parser.TokenMgrError;
 import java.awt.EventQueue;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -49,6 +51,9 @@ class FnProviderImpl implements FnProvider {
             result.valid = true;
         } catch (ParseException ex) {
             result.parseException = ex;
+            result.valid = false;
+        } catch (TokenMgrError ex) {
+            result.otherException = new Exception(ex);
             result.valid = false;
         } catch (Exception ex) {
             result.otherException = ex;

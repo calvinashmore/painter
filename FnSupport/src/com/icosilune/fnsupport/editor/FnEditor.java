@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.icosilune.fnsupport.datatype;
+package com.icosilune.fnsupport.editor;
 
+import com.icosilune.fnsupport.datatype.*;
 import com.icosilune.fnsupport.api.FnResultListener;
 import com.icosilune.fnsupport.api.FnDataResult;
 import fn.parser.ParseException;
@@ -53,7 +54,7 @@ public class FnEditor extends DataEditorSupport
         retValue = super.notifyModified();
         if (retValue) {
             FnDataObject obj = (FnDataObject) getDataObject();
-            obj.ic.add(env);
+            obj.addEnv(env);
         }
 
         getDocument().addDocumentListener(this);
@@ -69,7 +70,7 @@ public class FnEditor extends DataEditorSupport
         super.notifyUnmodified();
 
         FnDataObject obj = (FnDataObject) getDataObject();
-        obj.ic.remove(env);
+        obj.removeEnv(env);
     }
 
     @Override

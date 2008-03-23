@@ -4,6 +4,7 @@
  */
 package com.icosilune.fnsupport.datatype;
 
+import com.icosilune.fnsupport.api.FnResultListener;
 import com.icosilune.fnsupport.api.FnDataResult;
 import com.icosilune.fnsupport.api.FnProvider;
 import org.openide.util.RequestProcessor;

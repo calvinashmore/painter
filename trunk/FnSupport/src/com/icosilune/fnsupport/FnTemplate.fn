@@ -17,8 +17,4 @@ fn Wombat  {
     class myClass extends Monkey {
         protected float banana;
     }
-
-    init {
-        
-    }
 }

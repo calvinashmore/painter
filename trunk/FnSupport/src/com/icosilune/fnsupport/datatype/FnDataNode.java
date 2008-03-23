@@ -4,6 +4,7 @@
  */
 package com.icosilune.fnsupport.datatype;
 
+import com.icosilune.fnsupport.api.FnResultListener;
 import com.icosilune.fnsupport.api.FnDataResult;
 import java.awt.Image;
 import java.beans.PropertyChangeEvent;

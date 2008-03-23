@@ -10,7 +10,8 @@ import com.icosilune.fnsupport.api.FnResultListener;
 import com.icosilune.fnsupport.datatype.FnDataObject;
 import java.util.Collection;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import org.netbeans.spi.navigator.NavigatorPanel;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
@@ -34,14 +35,15 @@ public class FnNavigator implements NavigatorPanel, FnResultListener {
     
     private FnDataObject obj;
     
-    private JLabel myLabel;
+    private JTextArea myLabel;
+    private JScrollPane myScrollPane;
     
     /** public no arg constructor needed for system to instantiate provider well */
     public FnNavigator() {
     }
 
     public String getDisplayHint() {
-        return "Basic dummy implementation of NavigatorPanel interface";
+        return "Navigator for Fn data.";
     }
 
     public String getDisplayName() {
@@ -50,10 +52,11 @@ public class FnNavigator implements NavigatorPanel, FnResultListener {
 
     public JComponent getComponent() {
         if (myLabel == null) {
-            myLabel = new JLabel("Dummy label");
+            myLabel = new JTextArea();//("Dummy label");
+            myScrollPane = new JScrollPane(myLabel);
             // You can override requestFocusInWindow() on the component if desired.
         }
-        return myLabel;
+        return myScrollPane;//myLabel;
     }
 
     public void panelActivated(Lookup context) {
@@ -81,7 +84,27 @@ public class FnNavigator implements NavigatorPanel, FnResultListener {
     }
 
     public void onResult(FnDataResult result) {
-        myLabel.setText("Got result: "+result.isValid()+" \n "+result.getParseException() + " \n "+ result.getOtherException());
+        StringBuffer sb = new StringBuffer();
+        
+        if(result.getParseException() != null) {
+            sb.append("Parse Exception:\n");
+            sb.append(result.getParseException());
+        } else if(result.getOtherException() != null) {
+            sb.append("Got Exception:\n");
+            sb.append(result.getOtherException()+"\n");
+            sb.append("Caused by:\n");
+            for(StackTraceElement trace : result.getOtherException().getStackTrace())
+                sb.append(trace+"\n");
+        } else if(!result.isValid()) {
+            sb.append("Invalid, but no exceptions?");
+        } else {
+            // result.isValid() == true
+            sb.append("Fn is OK!\n");
+            sb.append(result.getJavaCode());
+        }
+        
+        myLabel.setText(sb.toString());
+        //myLabel.setText("Parses OK: "+result.isValid()+" \n "+result.getParseException() + " \n "+ result.getOtherException());
     }
     
     /************* non - public part ************/

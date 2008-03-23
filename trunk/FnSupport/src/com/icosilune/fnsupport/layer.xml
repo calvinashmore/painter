@@ -68,6 +68,8 @@
             <folder name="x-fn">
                 <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.resources.Bundle"/>
                 
+                <file name="Settings.settings" url="FnOptions.settings"/>
+                
                 <!--<folder name="FoldManager">
                     <file name="org-netbeans-modules-languages-features-LanguagesFoldManager$Factory.instance"/>
                 </folder>
@@ -127,9 +129,9 @@
                     <attr name="instanceOf" stringvalue="org.netbeans.api.lexer.Language"/>
                 </file>
                 <file name="EditorKit.instance">
-                    <attr name="instanceCreate" methodvalue="org.netbeans.modules.lexer.editorbridge.LexerEditorKit.create"/>
-                    <attr name="instanceClass" stringvalue="org.netbeans.modules.lexer.editorbridge.LexerEditorKit"/>
-                    <!--<attr name="instanceClass" stringvalue="com.icosilune.fnsupport.editor.FnEditorKit"/>-->
+                    <!--<attr name="instanceCreate" methodvalue="org.netbeans.modules.lexer.editorbridge.LexerEditorKit.create"/>
+                    <attr name="instanceClass" stringvalue="org.netbeans.modules.lexer.editorbridge.LexerEditorKit"/>-->
+                    <attr name="instanceClass" stringvalue="com.icosilune.fnsupport.editor.FnEditorKit"/>
                 </file>
                 
             </folder>
@@ -223,13 +225,14 @@
                 <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.Bundle"/>
             </file>
         </folder>
-        <!--<folder name="IndentEngine">
-            <file name="org-netbeans-modules-editor-java-JavaIndentEngine.settings" url="JavaIndentEngine.settings">
-                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.editor.Bundle"/>
+        
+        <folder name="IndentEngine">
+            <file name="com-icosilune-fnsupport-editor-FnIndentEngine.settings" url="FnIndentEngine.settings">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="com.icosilune.fnsupport.editor.Bundle"/>
                 <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/editor/resources/indentEngine.gif"/>
-                <attr name="hidden" boolvalue="true"/>
+                <!--<attr name="hidden" boolvalue="true"/>-->
             </file>
-        </folder>-->
+        </folder>
     </folder>
     
     <folder name="Templates">

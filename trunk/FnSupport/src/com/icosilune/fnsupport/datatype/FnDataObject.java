@@ -4,6 +4,7 @@
  */
 package com.icosilune.fnsupport.datatype;
 
+import com.icosilune.fnsupport.editor.FnEditor;
 import com.icosilune.fnsupport.api.FnResultListener;
 import java.io.IOException;
 import org.openide.filesystems.FileObject;
@@ -14,6 +15,7 @@ import org.openide.nodes.Node;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
+import org.openide.windows.CloneableOpenSupport.Env;
 
 public class FnDataObject extends MultiDataObject {
 
@@ -59,4 +61,12 @@ public class FnDataObject extends MultiDataObject {
         Object o = lookup.lookup(type);
         return o instanceof Node.Cookie ? (Node.Cookie) o : null;
     }
+
+    public void addEnv(Env env) {
+        ic.add(env);
+    }
+    public void removeEnv(Env env) {
+        ic.remove(env);
+    }
+    
 }

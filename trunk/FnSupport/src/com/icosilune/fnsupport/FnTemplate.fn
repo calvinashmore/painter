@@ -9,10 +9,11 @@ import toast.mice.Things;
 fn Wombat  {
     in foo fooey;
     fout toast;
+
     eval {
         return null;
     }
-
+    
     private int stuff;
     class myClass extends Monkey {
         protected float banana;

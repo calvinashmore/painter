@@ -5,6 +5,23 @@
 <project name="GeneticLibrary" default="default" basedir=".">
     <description>Builds, tests, and runs the project GeneticLibrary.</description>
     <import file="nbproject/build-impl.xml"/>
+    
+    <target name="-pre-compile" depends="run-fn"/>
+    
+    <target name="run-fn">
+        
+        <echo> *** running Fn </echo>
+        <java
+            classname="fn.FnCompiler"
+            classpath="../Fn/dist/Fn.jar"
+            dir="."
+            fork="true">
+                <arg value="src/library/expressions/functions/src"/>
+                <arg value="src/library/expressions/functions"/>
+        </java>
+        <echo> *** completed Fn! </echo>
+    </target>
+    
     <!--
 
     There exist several targets which are by default empty and which can be 

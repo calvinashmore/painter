@@ -25,16 +25,24 @@ public class ClassDescriptor extends CodeBlockDescriptor {
     public ClassDescriptor(String className) {
         this.className = className;
     }
-    
+
     public ClassDescriptor(String className, String extendsClass) {
         this.className = className;
         this.extendsClass = extendsClass;
+    }
+    
+    public String getClassName() {
+        return className;
     }
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
     }
     
+    public String getPackageName() {
+        return packageName;
+    }
+
     public void setIsNested(boolean isNested) {
         this.isNested = isNested;
         if (isNested) {
@@ -97,6 +105,14 @@ public class ClassDescriptor extends CodeBlockDescriptor {
 
     public void addInterface(String s) {
         interfaces.add(s);
+    }
+
+    public int getNumberInterfaces() {
+        return interfaces.size();
+    }
+
+    public String getInterface(int i) {
+        return interfaces.get(i);
     }
 
     public void addStaticBlock(CodeStringDescriptor desc) {

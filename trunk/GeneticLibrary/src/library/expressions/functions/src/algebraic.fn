@@ -1,5 +1,10 @@
 
+package library.expressions.functions;
 group Algebraic;
+type Expression;
+
+import java.util.*;
+import utils.linear.*;
 
 // alegebraic functions
 
@@ -15,12 +20,6 @@ fn avg_d {
     eval {
         return new LDouble((x.val+y.val)/2);
     }
-
-    estimate {
-        return new Estimate_d(
-                (x.getMinimum() + y.getMinimum())/2, (x.getMaximum() + y.getMaximum())/2
-                );
-    }
 }
 
 fn avg_c {
@@ -30,13 +29,6 @@ fn avg_c {
 
     eval {
         return new Complex(x.x+y.x, x.y+y.y);
-    }
-
-    estimate {
-        return new Estimate_c(
-                (x.getXMinimum() + y.getXMinimum())/2, (x.getXMaximum() + y.getXMaximum())/2, 
-                (x.getYMinimum() + y.getYMinimum())/2, (x.getYMaximum() + y.getYMaximum())/2
-                );
     }
 }
 
@@ -48,13 +40,6 @@ fn avg_v2 {
     eval {
         return new LVect2d(x.x+y.x, x.y+y.y);
     }
-
-    estimate {
-        return new Estimate_v2(
-                (x.getXMinimum() + y.getXMinimum())/2, (x.getXMaximum() + y.getXMaximum())/2, 
-                (x.getYMinimum() + y.getYMinimum())/2, (x.getYMaximum() + y.getYMaximum())/2
-                );
-    }
 }
 
 fn avg_v3 {
@@ -64,14 +49,6 @@ fn avg_v3 {
 
     eval {
         return new LVect3d((x.x+y.x)/2, (x.y+y.y)/2, (x.z+y.z)/2);
-    }
-
-    estimate {
-        return new Estimate_v3(
-                (x.getXMinimum() + y.getXMinimum())/2, (x.getXMaximum() + y.getXMaximum())/2, 
-                (x.getYMinimum() + y.getYMinimum())/2, (x.getYMaximum() + y.getYMaximum())/2,
-                (x.getZMinimum() + y.getZMinimum())/2, (x.getZMaximum() + y.getZMaximum())/2
-                );
     }
 }
 
@@ -87,14 +64,6 @@ fn add_col {
     eval {
         return new Color(x.r+y.r, x.g+y.g, x.b+y.b);
     }
-
-    estimate {
-        return new Estimate_col(
-                x.getRMinimum() + y.getRMinimum(), x.getRMaximum() + y.getRMaximum(), 
-                x.getGMinimum() + y.getGMinimum(), x.getGMaximum() + y.getGMaximum(), 
-                x.getBMinimum() + y.getBMinimum(), x.getBMaximum() + y.getBMaximum()
-                );
-    }
 }
 
 fn add_d {
@@ -104,12 +73,6 @@ fn add_d {
 
     eval {
         return new LDouble(x.val+y.val);
-    }
-
-    estimate {
-        return new Estimate_d(
-                x.getMinimum() + y.getMinimum(), x.getMaximum() + y.getMaximum()
-                );
     }
 }
 
@@ -121,13 +84,6 @@ fn add_c {
     eval {
         return new Complex(x.x+y.x, x.y+y.y);
     }
-
-    estimate {
-        return new Estimate_c(
-                x.getXMinimum() + y.getXMinimum(), x.getXMaximum() + y.getXMaximum(), 
-                x.getYMinimum() + y.getYMinimum(), x.getYMaximum() + y.getYMaximum()
-                );
-    }
 }
 
 fn add_v2 {
@@ -138,13 +94,6 @@ fn add_v2 {
     eval {
         return new LVect2d(x.x+y.x, x.y+y.y);
     }
-
-    estimate {
-        return new Estimate_v2(
-                x.getXMinimum() + y.getXMinimum(), x.getXMaximum() + y.getXMaximum(), 
-                x.getYMinimum() + y.getYMinimum(), x.getYMaximum() + y.getYMaximum()
-                );
-    }
 }
 
 fn add_v3 {
@@ -154,14 +103,6 @@ fn add_v3 {
 
     eval {
         return new LVect3d(x.x+y.x, x.y+y.y, x.z+y.z);
-    }
-
-    estimate {
-        return new Estimate_v3(
-                x.getXMinimum() + y.getXMinimum(), x.getXMaximum() + y.getXMaximum(), 
-                x.getYMinimum() + y.getYMinimum(), x.getYMaximum() + y.getYMaximum(),
-                x.getZMinimum() + y.getZMinimum(), x.getZMaximum() + y.getZMaximum()
-                );
     }
 }
 
@@ -177,32 +118,6 @@ fn sub_col {
     eval {
         return new Color(x.r-y.r, x.g-y.g, x.b-y.b);
     }
-
-    estimate {
-        double ax = x.getRMaximum() - y.getRMaximum();
-        double bx = x.getRMaximum() - y.getRMinimum();
-        double cx = x.getRMinimum() - y.getRMaximum();
-        double dx = x.getRMinimum() - y.getRMinimum();
-        double ay = x.getGMaximum() - y.getGMaximum();
-        double by = x.getGMaximum() - y.getGMinimum();
-        double cy = x.getGMinimum() - y.getGMaximum();
-        double dy = x.getGMinimum() - y.getGMinimum();
-        double az = x.getBMaximum() - y.getBMaximum();
-        double bz = x.getBMaximum() - y.getBMinimum();
-        double cz = x.getBMinimum() - y.getBMaximum();
-        double dz = x.getBMinimum() - y.getBMinimum();
-        
-        return new Estimate_col(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) ),
-                
-                Math.min( Math.min(az,bz) , Math.min(cz,dz) ),
-                Math.max( Math.max(az,bz) , Math.max(cz,dz) )
-                );
-    }
 }
 
 fn sub_c {
@@ -212,25 +127,6 @@ fn sub_c {
 
     eval {
         return new Complex(x.x-y.x, x.y-y.y);
-    }
-
-    estimate {
-        double ax = x.getXMaximum() - y.getXMaximum();
-        double bx = x.getXMaximum() - y.getXMinimum();
-        double cx = x.getXMinimum() - y.getXMaximum();
-        double dx = x.getXMinimum() - y.getXMinimum();
-        double ay = x.getYMaximum() - y.getYMaximum();
-        double by = x.getYMaximum() - y.getYMinimum();
-        double cy = x.getYMinimum() - y.getYMaximum();
-        double dy = x.getYMinimum() - y.getYMinimum();
-        
-        return new Estimate_c(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) )
-                );
     }
 }
 
@@ -242,18 +138,6 @@ fn sub_d {
     eval {
         return new LDouble(x.val-y.val);
     }
-
-    estimate {
-        double ax = x.getMaximum() - y.getMaximum();
-        double bx = x.getMaximum() - y.getMinimum();
-        double cx = x.getMinimum() - y.getMaximum();
-        double dx = x.getMinimum() - y.getMinimum();
-        
-        return new Estimate_d(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) )
-                );
-    }
 }
 
 fn sub_v2 {
@@ -264,25 +148,6 @@ fn sub_v2 {
     eval {
         return new LVect2d(x.x-y.x, x.y-y.y);
     }
-
-    estimate {
-        double ax = x.getXMaximum() - y.getXMaximum();
-        double bx = x.getXMaximum() - y.getXMinimum();
-        double cx = x.getXMinimum() - y.getXMaximum();
-        double dx = x.getXMinimum() - y.getXMinimum();
-        double ay = x.getYMaximum() - y.getYMaximum();
-        double by = x.getYMaximum() - y.getYMinimum();
-        double cy = x.getYMinimum() - y.getYMaximum();
-        double dy = x.getYMinimum() - y.getYMinimum();
-        
-        return new Estimate_v2(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) )
-                );
-    }
 }
 
 fn sub_v3 {
@@ -292,32 +157,6 @@ fn sub_v3 {
 
     eval {
         return new LVect3d(x.x-y.x, x.y-y.y, x.z-y.z);
-    }
-
-    estimate {
-        double ax = x.getXMaximum() - y.getXMaximum();
-        double bx = x.getXMaximum() - y.getXMinimum();
-        double cx = x.getXMinimum() - y.getXMaximum();
-        double dx = x.getXMinimum() - y.getXMinimum();
-        double ay = x.getYMaximum() - y.getYMaximum();
-        double by = x.getYMaximum() - y.getYMinimum();
-        double cy = x.getYMinimum() - y.getYMaximum();
-        double dy = x.getYMinimum() - y.getYMinimum();
-        double az = x.getZMaximum() - y.getZMaximum();
-        double bz = x.getZMaximum() - y.getZMinimum();
-        double cz = x.getZMinimum() - y.getZMaximum();
-        double dz = x.getZMinimum() - y.getZMinimum();
-        
-        return new Estimate_v3(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) ),
-                
-                Math.min( Math.min(az,bz) , Math.min(cz,dz) ),
-                Math.max( Math.max(az,bz) , Math.max(cz,dz) )
-                );
     }
 }
 
@@ -333,32 +172,6 @@ fn mult_col {
     eval {
         return new Color(x.r*y.val, x.g*y.val, x.b*y.val);
     }
-
-    estimate {
-        double ax = x.getRMaximum() * y.getMaximum();
-        double bx = x.getRMaximum() * y.getMinimum();
-        double cx = x.getRMinimum() * y.getMaximum();
-        double dx = x.getRMinimum() * y.getMinimum();
-        double ay = x.getGMaximum() * y.getMaximum();
-        double by = x.getGMaximum() * y.getMinimum();
-        double cy = x.getGMinimum() * y.getMaximum();
-        double dy = x.getGMinimum() * y.getMinimum();
-        double az = x.getBMaximum() * y.getMaximum();
-        double bz = x.getBMaximum() * y.getMinimum();
-        double cz = x.getBMinimum() * y.getMaximum();
-        double dz = x.getBMinimum() * y.getMinimum();
-        
-        return new Estimate_col(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) ),
-                
-                Math.min( Math.min(az,bz) , Math.min(cz,dz) ),
-                Math.max( Math.max(az,bz) , Math.max(cz,dz) )
-                );
-    }
 }
 
 fn mult_d {
@@ -368,18 +181,6 @@ fn mult_d {
 
     eval {
         return new LDouble(x.val*y.val);
-    }
-
-    estimate {
-        double a = x.getMaximum() * y.getMaximum();
-        double b = x.getMaximum() * y.getMinimum();
-        double c = x.getMinimum() * y.getMaximum();
-        double d = x.getMinimum() * y.getMinimum();
-        
-        return new Estimate_d(
-                Math.min( Math.min(a,b) , Math.min(c,d) ),
-                Math.max( Math.max(a,b) , Math.max(c,d) )
-                );
     }
 }
 
@@ -391,25 +192,6 @@ fn mult_c {
     eval {
         return new Complex(x.x*y.val, x.y*y.val);
     }
-
-    estimate {
-        double ax = x.getXMaximum() * y.getMaximum();
-        double bx = x.getXMaximum() * y.getMinimum();
-        double cx = x.getXMinimum() * y.getMaximum();
-        double dx = x.getXMinimum() * y.getMinimum();
-        double ay = x.getYMaximum() * y.getMaximum();
-        double by = x.getYMaximum() * y.getMinimum();
-        double cy = x.getYMinimum() * y.getMaximum();
-        double dy = x.getYMinimum() * y.getMinimum();
-        
-        return new Estimate_c(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) )
-                );
-    }
 }
 
 fn mult_c_c {
@@ -419,25 +201,6 @@ fn mult_c_c {
 
     eval {
         return new Complex(x.x*y.x, x.y*y.y);
-    }
-
-    estimate {
-        double ax = x.getXMaximum() * y.getXMaximum();
-        double bx = x.getXMaximum() * y.getXMinimum();
-        double cx = x.getXMinimum() * y.getXMaximum();
-        double dx = x.getXMinimum() * y.getXMinimum();
-        double ay = x.getYMaximum() * y.getYMaximum();
-        double by = x.getYMaximum() * y.getYMinimum();
-        double cy = x.getYMinimum() * y.getYMaximum();
-        double dy = x.getYMinimum() * y.getYMinimum();
-        
-        return new Estimate_c(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) )
-                );
     }
 }
 
@@ -449,25 +212,6 @@ fn mult_v2 {
     eval {
         return new LVect2d(x.x*y.val, x.y*y.val);
     }
-
-    estimate {
-        double ax = x.getXMaximum() * y.getMaximum();
-        double bx = x.getXMaximum() * y.getMinimum();
-        double cx = x.getXMinimum() * y.getMaximum();
-        double dx = x.getXMinimum() * y.getMinimum();
-        double ay = x.getYMaximum() * y.getMaximum();
-        double by = x.getYMaximum() * y.getMinimum();
-        double cy = x.getYMinimum() * y.getMaximum();
-        double dy = x.getYMinimum() * y.getMinimum();
-        
-        return new Estimate_v2(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) )
-                );
-    }
 }
 
 fn mult_v2_v2 {
@@ -477,25 +221,6 @@ fn mult_v2_v2 {
 
     eval {
         return new LVect2d(x.x*y.x, x.y*y.y);
-    }
-
-    estimate {
-        double ax = x.getXMaximum() * y.getXMaximum();
-        double bx = x.getXMaximum() * y.getXMinimum();
-        double cx = x.getXMinimum() * y.getXMaximum();
-        double dx = x.getXMinimum() * y.getXMinimum();
-        double ay = x.getYMaximum() * y.getYMaximum();
-        double by = x.getYMaximum() * y.getYMinimum();
-        double cy = x.getYMinimum() * y.getYMaximum();
-        double dy = x.getYMinimum() * y.getYMinimum();
-        
-        return new Estimate_v2(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) )
-                );
     }
 }
 
@@ -507,32 +232,6 @@ fn mult_v3 {
     eval {
         return new LVect3d(x.x*y.val, x.y*y.val, x.z*y.val);
     }
-
-    estimate {
-        double ax = x.getXMaximum() * y.getMaximum();
-        double bx = x.getXMaximum() * y.getMinimum();
-        double cx = x.getXMinimum() * y.getMaximum();
-        double dx = x.getXMinimum() * y.getMinimum();
-        double ay = x.getYMaximum() * y.getMaximum();
-        double by = x.getYMaximum() * y.getMinimum();
-        double cy = x.getYMinimum() * y.getMaximum();
-        double dy = x.getYMinimum() * y.getMinimum();
-        double az = x.getZMaximum() * y.getMaximum();
-        double bz = x.getZMaximum() * y.getMinimum();
-        double cz = x.getZMinimum() * y.getMaximum();
-        double dz = x.getZMinimum() * y.getMinimum();
-        
-        return new Estimate_v3(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) ),
-                
-                Math.min( Math.min(az,bz) , Math.min(cz,dz) ),
-                Math.max( Math.max(az,bz) , Math.max(cz,dz) )
-                );
-    }
 }
 
 fn mult_v3_v3 {
@@ -542,32 +241,6 @@ fn mult_v3_v3 {
 
     eval {
         return new LVect3d(x.x*y.x, x.y*y.y, x.z*y.z);
-    }
-
-    estimate {
-        double ax = x.getXMaximum() * y.getXMaximum();
-        double bx = x.getXMaximum() * y.getXMinimum();
-        double cx = x.getXMinimum() * y.getXMaximum();
-        double dx = x.getXMinimum() * y.getXMinimum();
-        double ay = x.getYMaximum() * y.getYMaximum();
-        double by = x.getYMaximum() * y.getYMinimum();
-        double cy = x.getYMinimum() * y.getYMaximum();
-        double dy = x.getYMinimum() * y.getYMinimum();
-        double az = x.getZMaximum() * y.getZMaximum();
-        double bz = x.getZMaximum() * y.getZMinimum();
-        double cz = x.getZMinimum() * y.getZMaximum();
-        double dz = x.getZMinimum() * y.getZMinimum();
-        
-        return new Estimate_v3(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) ),
-                
-                Math.min( Math.min(az,bz) , Math.min(cz,dz) ),
-                Math.max( Math.max(az,bz) , Math.max(cz,dz) )
-                );
     }
 }
 
@@ -583,32 +256,6 @@ fn pow_col {
     eval {
         return new Color(Math.pow(x.r,y.val), Math.pow(x.g,y.val), Math.pow(x.b,y.val));
     }
-
-    estimate {
-        double ax = Math.pow(x.getRMaximum() , y.getMaximum());
-        double bx = Math.pow(x.getRMaximum() , y.getMinimum());
-        double cx = Math.pow(x.getRMinimum() , y.getMaximum());
-        double dx = Math.pow(x.getRMinimum() , y.getMinimum());
-        double ay = Math.pow(x.getGMaximum() , y.getMaximum());
-        double by = Math.pow(x.getGMaximum() , y.getMinimum());
-        double cy = Math.pow(x.getGMinimum() , y.getMaximum());
-        double dy = Math.pow(x.getGMinimum() , y.getMinimum());
-        double az = Math.pow(x.getBMaximum() , y.getMaximum());
-        double bz = Math.pow(x.getBMaximum() , y.getMinimum());
-        double cz = Math.pow(x.getBMinimum() , y.getMaximum());
-        double dz = Math.pow(x.getBMinimum() , y.getMinimum());
-        
-        return new Estimate_col(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) ),
-                
-                Math.min( Math.min(az,bz) , Math.min(cz,dz) ),
-                Math.max( Math.max(az,bz) , Math.max(cz,dz) )
-                );
-    }
 }
 
 fn pow_col_col {
@@ -618,32 +265,6 @@ fn pow_col_col {
 
     eval {
         return new Color(Math.pow(x.r,y.r), Math.pow(x.g,y.g), Math.pow(x.b,y.b));
-    }
-
-    estimate {
-        double ax = Math.pow(x.getRMaximum() , y.getRMaximum());
-        double bx = Math.pow(x.getRMaximum() , y.getRMinimum());
-        double cx = Math.pow(x.getRMinimum() , y.getRMaximum());
-        double dx = Math.pow(x.getRMinimum() , y.getRMinimum());
-        double ay = Math.pow(x.getGMaximum() , y.getGMaximum());
-        double by = Math.pow(x.getGMaximum() , y.getGMinimum());
-        double cy = Math.pow(x.getGMinimum() , y.getGMaximum());
-        double dy = Math.pow(x.getGMinimum() , y.getGMinimum());
-        double az = Math.pow(x.getBMaximum() , y.getBMaximum());
-        double bz = Math.pow(x.getBMaximum() , y.getBMinimum());
-        double cz = Math.pow(x.getBMinimum() , y.getBMaximum());
-        double dz = Math.pow(x.getBMinimum() , y.getBMinimum());
-        
-        return new Estimate_col(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) ),
-                
-                Math.min( Math.min(az,bz) , Math.min(cz,dz) ),
-                Math.max( Math.max(az,bz) , Math.max(cz,dz) )
-                );
     }
 }
 
@@ -655,18 +276,6 @@ fn pow_d {
     eval {
         return new LDouble(Math.pow(x.val,y.val));
     }
-
-    estimate {
-        double a = Math.pow(x.getMaximum() , y.getMaximum());
-        double b = Math.pow(x.getMaximum() , y.getMinimum());
-        double c = Math.pow(x.getMinimum() , y.getMaximum());
-        double d = Math.pow(x.getMinimum() , y.getMinimum());
-        
-        return new Estimate_d(
-                Math.min( Math.min(a,b) , Math.min(c,d) ),
-                Math.max( Math.max(a,b) , Math.max(c,d) )
-                );
-    }
 }
 
 fn pow_v2 {
@@ -676,25 +285,6 @@ fn pow_v2 {
 
     eval {
         return new LVect2d(Math.pow(x.x,y.val), Math.pow(x.y,y.val));
-    }
-
-    estimate {
-        double ax = Math.pow(x.getXMaximum() , y.getMaximum());
-        double bx = Math.pow(x.getXMaximum() , y.getMinimum());
-        double cx = Math.pow(x.getXMinimum() , y.getMaximum());
-        double dx = Math.pow(x.getXMinimum() , y.getMinimum());
-        double ay = Math.pow(x.getYMaximum() , y.getMaximum());
-        double by = Math.pow(x.getYMaximum() , y.getMinimum());
-        double cy = Math.pow(x.getYMinimum() , y.getMaximum());
-        double dy = Math.pow(x.getYMinimum() , y.getMinimum());
-        
-        return new Estimate_v2(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) )
-                );
     }
 }
 
@@ -706,25 +296,6 @@ fn pow_v2_v2 {
     eval {
         return new LVect2d(Math.pow(x.x,y.x), Math.pow(x.y,y.y));
     }
-
-    estimate {
-        double ax = Math.pow(x.getXMaximum() , y.getXMaximum());
-        double bx = Math.pow(x.getXMaximum() , y.getXMinimum());
-        double cx = Math.pow(x.getXMinimum() , y.getXMaximum());
-        double dx = Math.pow(x.getXMinimum() , y.getXMinimum());
-        double ay = Math.pow(x.getYMaximum() , y.getYMaximum());
-        double by = Math.pow(x.getYMaximum() , y.getYMinimum());
-        double cy = Math.pow(x.getYMinimum() , y.getYMaximum());
-        double dy = Math.pow(x.getYMinimum() , y.getYMinimum());
-        
-        return new Estimate_v2(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) )
-                );
-    }
 }
 
 fn pow_v3 {
@@ -735,32 +306,6 @@ fn pow_v3 {
     eval {
         return new LVect3d(Math.pow(x.x,y.val), Math.pow(x.y,y.val), Math.pow(x.z,y.val));
     }
-
-    estimate {
-        double ax = Math.pow(x.getXMaximum() , y.getMaximum());
-        double bx = Math.pow(x.getXMaximum() , y.getMinimum());
-        double cx = Math.pow(x.getXMinimum() , y.getMaximum());
-        double dx = Math.pow(x.getXMinimum() , y.getMinimum());
-        double ay = Math.pow(x.getYMaximum() , y.getMaximum());
-        double by = Math.pow(x.getYMaximum() , y.getMinimum());
-        double cy = Math.pow(x.getYMinimum() , y.getMaximum());
-        double dy = Math.pow(x.getYMinimum() , y.getMinimum());
-        double az = Math.pow(x.getZMaximum() , y.getMaximum());
-        double bz = Math.pow(x.getZMaximum() , y.getMinimum());
-        double cz = Math.pow(x.getZMinimum() , y.getMaximum());
-        double dz = Math.pow(x.getZMinimum() , y.getMinimum());
-        
-        return new Estimate_v3(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) ),
-                
-                Math.min( Math.min(az,bz) , Math.min(cz,dz) ),
-                Math.max( Math.max(az,bz) , Math.max(cz,dz) )
-                );
-    }
 }
 
 fn pow_v3_v3 {
@@ -770,32 +315,6 @@ fn pow_v3_v3 {
 
     eval {
         return new LVect3d(Math.pow(x.x,y.x), Math.pow(x.y,y.y), Math.pow(x.z,y.z));
-    }
-
-    estimate {
-        double ax = Math.pow(x.getXMaximum() , y.getXMaximum());
-        double bx = Math.pow(x.getXMaximum() , y.getXMinimum());
-        double cx = Math.pow(x.getXMinimum() , y.getXMaximum());
-        double dx = Math.pow(x.getXMinimum() , y.getXMinimum());
-        double ay = Math.pow(x.getYMaximum() , y.getYMaximum());
-        double by = Math.pow(x.getYMaximum() , y.getYMinimum());
-        double cy = Math.pow(x.getYMinimum() , y.getYMaximum());
-        double dy = Math.pow(x.getYMinimum() , y.getYMinimum());
-        double az = Math.pow(x.getZMaximum() , y.getZMaximum());
-        double bz = Math.pow(x.getZMaximum() , y.getZMinimum());
-        double cz = Math.pow(x.getZMinimum() , y.getZMaximum());
-        double dz = Math.pow(x.getZMinimum() , y.getZMinimum());
-        
-        return new Estimate_v3(
-                Math.min( Math.min(ax,bx) , Math.min(cx,dx) ),
-                Math.max( Math.max(ax,bx) , Math.max(cx,dx) ),
-                
-                Math.min( Math.min(ay,by) , Math.min(cy,dy) ),
-                Math.max( Math.max(ay,by) , Math.max(cy,dy) ),
-                
-                Math.min( Math.min(az,bz) , Math.min(cz,dz) ),
-                Math.max( Math.max(az,bz) , Math.max(cz,dz) )
-                );
     }
 }
 
@@ -819,14 +338,6 @@ fn offset_col {
     eval {
         return offset.add(x);
     }
-
-    estimate {
-        return new Estimate_col(
-            x.getRMinimum()+offset.r, x.getRMaximum()+offset.r, 
-            x.getGMinimum()+offset.g, x.getGMaximum()+offset.g, 
-            x.getBMinimum()+offset.b, x.getBMaximum()+offset.b
-            );
-    }
 }
 
 fn offset_d {
@@ -841,12 +352,6 @@ fn offset_d {
 
     eval {
         return new LDouble(x.val+offset);
-    }
-
-    estimate {
-        return new Estimate_d(
-            x.getMinimum()+offset, x.getMaximum()+offset
-            );
     }
 }
 
@@ -865,13 +370,6 @@ fn offset_c {
     eval {
         return offset.add(x);
     }
-
-    estimate {
-        return new Estimate_c(
-            x.getXMinimum()+offset.x, x.getXMaximum()+offset.x, 
-            x.getYMinimum()+offset.y, x.getYMaximum()+offset.y
-            );
-    }
 }
 
 fn offset_v2 {
@@ -888,13 +386,6 @@ fn offset_v2 {
 
     eval {
         return offset.add(x);
-    }
-
-    estimate {
-        return new Estimate_v2(
-            x.getXMinimum()+offset.x, x.getXMaximum()+offset.x, 
-            x.getYMinimum()+offset.y, x.getYMaximum()+offset.y
-            );
     }
 }
 
@@ -913,14 +404,6 @@ fn offset_v3 {
 
     eval {
         return offset.add(x);
-    }
-
-    estimate {
-        return new Estimate_v3(
-            x.getXMinimum()+offset.x, x.getXMaximum()+offset.x, 
-            x.getYMinimum()+offset.y, x.getYMaximum()+offset.y,
-            x.getZMinimum()+offset.z, x.getZMaximum()+offset.z
-            );
     }
 }
 
@@ -941,10 +424,6 @@ fn scale_d {
     eval {
         return x.mult(scale);
     }
-
-    estimate {
-        return new Estimate_d(x.getMinimum()*scale, x.getMaximum()*scale);
-    }
 }
 
 fn scale_c {
@@ -959,13 +438,6 @@ fn scale_c {
 
     eval {
         return x.mult(scale);
-    }
-
-    estimate {
-        return new Estimate_c(
-            x.getXMinimum()*scale, x.getXMaximum()*scale,
-            x.getYMinimum()*scale, x.getYMaximum()*scale
-            );
     }
 }
 
@@ -982,13 +454,6 @@ fn scale_v2 {
     eval {
         return x.mult(scale);
     }
-
-    estimate {
-        return new Estimate_v2(
-            x.getXMinimum()*scale, x.getXMaximum()*scale,
-            x.getYMinimum()*scale, x.getYMaximum()*scale
-            );
-    }
 }
 
 fn scale_v3 {
@@ -1003,14 +468,6 @@ fn scale_v3 {
 
     eval {
         return x.mult(scale);
-    }
-
-    estimate {
-        return new Estimate_v3(
-            x.getXMinimum()*scale, x.getXMaximum()*scale,
-            x.getYMinimum()*scale, x.getYMaximum()*scale,
-            x.getZMinimum()*scale, x.getZMaximum()*scale
-            );
     }
 }
 
@@ -1027,14 +484,6 @@ fn scale_col {
     eval {
         return x.mult(scale);
     }
-
-    estimate {
-        return new Estimate_col(
-            x.getRMinimum()*scale, x.getRMaximum()*scale,
-            x.getGMinimum()*scale, x.getGMaximum()*scale,
-            x.getBMinimum()*scale, x.getBMaximum()*scale
-            );
-    }
 }
 
 // ***********
@@ -1048,10 +497,6 @@ fn mod_d {
     eval {
         return new LDouble( x.val - Math.floor(x.val) );
     }
-
-    estimate {
-        return new Estimate_d(0,1);
-    }
 }
 
 fn mod_v2 {
@@ -1063,10 +508,6 @@ fn mod_v2 {
             x.x - Math.floor(x.x),
             x.y - Math.floor(x.y)
             );
-    }
-
-    estimate {
-        return new Estimate_v2(0,1,0,1);
     }
 }
 
@@ -1080,9 +521,5 @@ fn mod_v3 {
             x.y - Math.floor(x.y),
             x.z - Math.floor(x.z)
             );
-    }
-
-    estimate {
-        return new Estimate_v3(0,1,0,1,0,1);
     }
 }

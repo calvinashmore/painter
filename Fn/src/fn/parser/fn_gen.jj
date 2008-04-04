@@ -267,6 +267,7 @@ TOKEN :
 | < SLIN: "slin"> // statement list in
 | < EXIN: "exin"> // expression in
 | < CVAR: "cvar"> // context variable
+| < DESCRIPTION: "description"> 
 }
 
 /* LITERALS */
@@ -463,10 +464,12 @@ ASTFnTopLevel FnTopLevel()             : {/*@bgen(jjtree) FnTopLevel */
     [( <PACKAGE> p = FnTypeBody() { jjtn000.setPackage(p.dumpTokens()); } <SEMICOLON> )]
     ( <GROUP> t = <IDENTIFIER> { jjtn000.setGroup(t.image); } <SEMICOLON> )
     ( <TYPE> t = <IDENTIFIER> { jjtn000.setType(t.image); } <SEMICOLON> )
-    
+
     ( 
        ( s = ImportDeclaration() { jjtn000.addUserImport(s); } )
     )*
+
+    [ FnDescriptionTop(jjtn000) ]
     
     ( fn = FnDefinition() { jjtn000.addFn(fn); } )*
     <EOF>/*@bgen(jjtree)*/
@@ -551,6 +554,7 @@ void FnField(ASTFnDefinition fn) : {
 |   LOOKAHEAD(3) FnType(fn)
 |   FnMeta(fn)
 |   FnLocalDeclaration(fn)
+|   FnDescription(fn)
 }
 
 
@@ -600,13 +604,38 @@ void FnType(ASTFnDefinition fn) : {
     ASTType type;
 }{
     ( (t = <OUT>)
-|   (t = <INTERFACE>) // this
-|   (t = <SLIN>) )    // and this are kind of cheap, they are not strictly types.
+|   (t = <INTERFACE>)
+|   (t = <SLIN>) )        // and this are kind of cheap, they are not strictly types.
     
     type = FnTypeBody() 
     <SEMICOLON>
 
     {fn.addType(t.image, type);}
+}
+
+void FnDescription(ASTFnDefinition fn) : {
+    Token t;
+    ASTExpression expression;
+}{
+    (t = <DESCRIPTION>)
+
+    expression = FnExpressionBody()
+    <SEMICOLON>
+
+    {fn.addExpression(t.image, expression);}
+}
+
+
+void FnDescriptionTop(ASTFnTopLevel top) : {
+    Token t;
+    ASTExpression expression;
+}{
+    (t = <DESCRIPTION>)
+
+    expression = FnExpressionBody()
+    <SEMICOLON>
+
+    {top.addExpression(t.image, expression);}
 }
 
 void FnLocalDeclaration(ASTFnDefinition fn)                   : {/*@bgen(jjtree) LocalDeclaration */

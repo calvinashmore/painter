@@ -16,6 +16,7 @@ import genetic.Metadata;
 import genetic.Parameterized;
 import genetic.SetupComponent;
 import genetic.BuildException;
+import genetic.Described;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -23,7 +24,8 @@ import java.util.Map;
  *
  * @author gtg126z
  */
-abstract public class ExpressionFunction implements Evaluatable, Parameterized, Metadata, SetupComponent, Cloneable {
+abstract public class ExpressionFunction implements
+        Evaluatable, Parameterized, Metadata, SetupComponent, Cloneable, Described {
     
     private boolean parametersChanged = true;
     public void setParametersChanged(boolean changed) {parametersChanged=changed;}

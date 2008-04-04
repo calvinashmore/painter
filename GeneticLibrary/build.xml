@@ -18,6 +18,8 @@
             fork="true">
                 <arg value="src/library/expressions/functions/src"/>
                 <arg value="src/library/expressions/functions"/>
+                <arg value="src/library/statements/src"/>
+                <arg value="src/library/statements"/>
         </java>
         <echo> *** completed Fn! </echo>
     </target>

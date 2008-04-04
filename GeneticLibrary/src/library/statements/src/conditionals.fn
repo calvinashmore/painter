@@ -1,0 +1,50 @@
+package library.statements;
+group Conditionals;
+type Statement;
+
+import utils.linear.*;
+
+fn boolean_if_else {
+    exin Boolean condition;
+    slin result_true;
+    slin result_false;
+
+    exec {
+        boolean result = (Boolean) condition.evaluate(context);
+        if(result) {
+            result_true.execute(context);
+        } else {
+            result_false.execute(context);
+        }
+    }
+}
+
+fn boolean_if {
+    exin Boolean condition;
+    slin result_true;
+
+    exec {
+        boolean result = (Boolean) condition.evaluate(context);
+        if(result) {
+            result_true.execute(context);
+        }
+    }
+}
+
+fn less_than_property_d {
+    // executes result_true if value < property, which is initialized between 0 and 1.
+    exin LDouble value;
+    slin result_true;
+    parameter LDouble property;
+    description "about";
+    
+    init {
+        property = new LDouble(Math.random());
+    }
+    
+    exec {
+        LDouble dValue = (LDouble)value.evaluate(context);
+        if(dValue.val < property.val)
+            result_true.execute(context);
+    }
+}

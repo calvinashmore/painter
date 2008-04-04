@@ -5,11 +5,16 @@ type Expression;
 import toast.mice.stuff.*;
 import toast.mice.Things;
 
+
+description "mydesc";
+
 // the wombat function has mystical wombat powers.
 fn Wombat  {
     in foo fooey;
     fout toast;
 
+    description "mydesc";
+    
     eval {
         return null;
     }

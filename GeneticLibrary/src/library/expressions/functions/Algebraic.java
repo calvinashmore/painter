@@ -1,5 +1,6 @@
 package library . expressions . functions;
 
+import java.util.*;
 import genetic.*;
 import genetic.component.accessor.*;
 import genetic.component.command.*;
@@ -11,7 +12,6 @@ import genetic.component.program.*;
 import genetic.component.statement.*;
 import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
-import java.util.*;
 import utils.linear.*;
 
 public final class Algebraic implements AllComponents<ExpressionFunction> {
@@ -1120,7 +1120,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction> {
 
       public offset_col() {
 
-         offset = new Color ( ) ; offset . r = 2 * Math . random ( ) - 1 ; offset . g = 2 * Math . random ( ) - 1 ; offset . b = 2 * Math . random ( ) - 1 ;
+         offset = new Color ( ) ;
+         offset . r = 2 * Math . random ( ) - 1 ;
+         offset . g = 2 * Math . random ( ) - 1 ;
+         offset . b = 2 * Math . random ( ) - 1 ;
       }
 
       public Color evaluate(Context context, Object[] inputs) {
@@ -1270,7 +1273,9 @@ public final class Algebraic implements AllComponents<ExpressionFunction> {
 
       public offset_c() {
 
-         offset = new Complex ( ) ; offset . x = 2 * Math . random ( ) - 1 ; offset . y = 2 * Math . random ( ) - 1 ;
+         offset = new Complex ( ) ;
+         offset . x = 2 * Math . random ( ) - 1 ;
+         offset . y = 2 * Math . random ( ) - 1 ;
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
@@ -1345,7 +1350,9 @@ public final class Algebraic implements AllComponents<ExpressionFunction> {
 
       public offset_v2() {
 
-         offset = new LVect2d ( ) ; offset . x = 2 * Math . random ( ) - 1 ; offset . y = 2 * Math . random ( ) - 1 ;
+         offset = new LVect2d ( ) ;
+         offset . x = 2 * Math . random ( ) - 1 ;
+         offset . y = 2 * Math . random ( ) - 1 ;
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
@@ -1420,7 +1427,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction> {
 
       public offset_v3() {
 
-         offset = new LVect3d ( ) ; offset . x = 2 * Math . random ( ) - 1 ; offset . y = 2 * Math . random ( ) - 1 ; offset . z = 2 * Math . random ( ) - 1 ;
+         offset = new LVect3d ( ) ;
+         offset . x = 2 * Math . random ( ) - 1 ;
+         offset . y = 2 * Math . random ( ) - 1 ;
+         offset . z = 2 * Math . random ( ) - 1 ;
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {

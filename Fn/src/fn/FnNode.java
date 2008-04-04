@@ -349,6 +349,17 @@ abstract public class FnNode /*implements Compilable*/ {
         return new CodeStringDescriptor(sb.toString());
     }
     
+    MethodDescriptor make_getDescription() {
+        MethodDescriptor method = new MethodDescriptor("getDescription");
+        method.addModifier("public");
+        method.addModifier("String");
+        
+        String contents = "return "+getFn().getExpressions("description").get(0).dumpTokens()+";";
+        method.addToBlockBody(new CodeStringDescriptor(contents));
+        
+        return method;
+    }
+    
     /**
      * This method declares the class and adds general boilerplate code.
      * It does not do several things, namely: parameters, inputs, locals, setup, and constructor.
@@ -386,6 +397,9 @@ abstract public class FnNode /*implements Compilable*/ {
         
         if(getFn().getBlock("init") != null)
             fnClass.addMethod(make_constructor());
+        
+        if(!getFn().getExpressions("description").isEmpty())
+            fnClass.addMethod(make_getDescription());
         
         return fnClass;
     }

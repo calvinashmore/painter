@@ -5,10 +5,12 @@ package fn.parser;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 
 // fixme: for now I'm not including the machinery for variable definitions (scope maintainence). 
+import java.util.Map;
 // If I want to add this, extend BeatScopeMaintainer.
 public class ASTFnTopLevel extends FnParseNode {
 
@@ -27,6 +29,21 @@ public class ASTFnTopLevel extends FnParseNode {
     public String getGroup() {return fnGroup;}
     public String getType() {return fnType;}
     public String getPackage() {return fnPackage;}
+    
+    private Map<String, List<ASTExpression>> expressions = new HashMap<String, List<ASTExpression>>();
+    void addExpression(String id, ASTExpression expression) {
+        List<ASTExpression> expressionList = expressions.get(id);
+        if(expressionList == null) {
+            expressionList = new ArrayList<ASTExpression>();
+            expressions.put(id, expressionList);
+        }
+        expressionList.add(expression);
+    }
+    public List<ASTExpression> getExpressions(String id) {
+        if(expressions.get(id) == null)
+            return Collections.<ASTExpression>emptyList();
+        return Collections.unmodifiableList(expressions.get(id));
+    }
     
     // Names of import packages. 
     /*private final static String[] importPackages = {

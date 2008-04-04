@@ -1,0 +1,15 @@
+package library.statements;
+group Loops;
+type Statement;
+
+import utils.linear.*;
+
+description "Statements that use some looping structure.";
+
+// the wombat function has mystical wombat powers.
+fn Wombat  {
+    description "toast";
+
+    exec {
+    }
+}

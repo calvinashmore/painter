@@ -31,6 +31,8 @@ public class FnLexer implements Lexer<FnTokenId> {
     private static final int ISI_TOP = 250;
     private static final int ISA_IMPORT_1 = 251; // after "import"
     private static final int ISA_IMPORT_2 = 252; // after "import import.name"
+    private static final int ISA_DESCRIPTION_1 = 261; // after "description"
+    private static final int ISA_DESCRIPTION_2 = 262; // after "description "..""
     private static final int ISA_FN = 301;
     private static final int ISA_FN_NAME = 302;
     private static final int ISI_FN_BODY = 304;
@@ -193,7 +195,9 @@ public class FnLexer implements Lexer<FnTokenId> {
                 if (readString("fn")) {
                     return keywordOrError(FnTokenId.FN, ISA_FN);
                 } else if (readString("import")) {
-                    return keywordOrError(FnTokenId.FN, ISA_IMPORT_1);
+                    return keywordOrError(FnTokenId.IMPORT, ISA_IMPORT_1);
+                } else if (readString("description")) {
+                    return keywordOrError(FnTokenId.DESCRIPTION, ISA_DESCRIPTION_1);
                 } else {
                     return finishError(ISI_TOP);
                 }
@@ -212,6 +216,26 @@ public class FnLexer implements Lexer<FnTokenId> {
                 if (c == '*') {
                     return token(FnTokenId.SYMBOL);
                 } else if (c == ';') {
+                    state = ISI_TOP;
+                    return token(FnTokenId.SYMBOL);
+                } else {
+                    return token(FnTokenId.ERROR);
+                }
+            }
+
+            case ISA_DESCRIPTION_1: {
+                if (c == ';') {
+                    state = ISI_TOP;
+                    return token(FnTokenId.SYMBOL);
+                } else {
+                    input.backup(1);
+                    state = ISA_DESCRIPTION_2;
+                    return finishJavaPhrase(c, ISA_DESCRIPTION_2, ISI_TOP);
+                }
+            }
+            
+            case ISA_DESCRIPTION_2: {
+                if (c == ';') {
                     state = ISI_TOP;
                     return token(FnTokenId.SYMBOL);
                 } else {
@@ -282,7 +306,7 @@ public class FnLexer implements Lexer<FnTokenId> {
                     state = ISA_FN_BLOCK_KEYWORD_1;
                     return token(token);
                 }
-                
+
                 // check one and two argument elements
                 // just call these phrases, and let the Java Lexer handle the rest.
                 if (readString("interface")) {
@@ -301,6 +325,8 @@ public class FnLexer implements Lexer<FnTokenId> {
                     token = FnTokenId.SLIN;
                 } else if (readString("meta")) {
                     token = FnTokenId.META;
+                } else if (readString("description")) {
+                    token = FnTokenId.DESCRIPTION;
                 }
 
                 // check to see if we've found our token yet
@@ -309,10 +335,10 @@ public class FnLexer implements Lexer<FnTokenId> {
                     //c = input.read();
                     //if(!Character.isWhitespace(c))
                     //    return finishError(c, state);
-                    
+
                     // no error character
                     //input.backup(1);
-                    
+
                     state = ISA_FN_PHRASE_KEYWORD_1;
                     return token(token);
                 }
@@ -345,7 +371,7 @@ public class FnLexer implements Lexer<FnTokenId> {
                     return token(FnTokenId.ERROR);
                 }
             }
-            
+
             case ISA_FN_PHRASE_KEYWORD_1: {
                 return finishJavaPhrase(c, ISA_FN_PHRASE_KEYWORD_2, ISI_FN_BODY);
             }
@@ -409,8 +435,8 @@ public class FnLexer implements Lexer<FnTokenId> {
      */
     private Token<FnTokenId> finishJavaPhrase(int c, int stateAfter, int stateOnClose) {
         while (true) {
-            if(c == ';') {
-                if(input.readLength() > 1) {
+            if (c == ';') {
+                if (input.readLength() > 1) {
                     input.backup(1);
                     state = stateAfter;
                     return token(FnTokenId.JAVA_PHRASE);
@@ -427,12 +453,12 @@ public class FnLexer implements Lexer<FnTokenId> {
             c = input.read();
         }
     }
-    
+
     private Token<FnTokenId> finishLocalJava() {
         int braceCount1 = 0; // {
         int braceCount2 = 0; // [
         int braceCount3 = 0; // (
-        
+
         while (true) {
             int c = input.read();
             if (c == '{') {
@@ -442,26 +468,28 @@ public class FnLexer implements Lexer<FnTokenId> {
             } else if (c == '(') {
                 braceCount3++;
             }
-            
+
             boolean potentialEndFound = false;
-            if( c == '}') {
+            if (c == '}') {
                 potentialEndFound = true;
                 braceCount1--;
-            } else if( c == ']') {
+            } else if (c == ']') {
                 braceCount2--;
-            } if( c == ')') {
+            }
+            if (c == ')') {
                 braceCount3--;
-            } if( c == ';') {
+            }
+            if (c == ';') {
                 potentialEndFound = true;
-            } 
-            
-            if(potentialEndFound) {
-                if(braceCount1 == 0 && braceCount2 == 0 && braceCount3 == 0) {
+            }
+
+            if (potentialEndFound) {
+                if (braceCount1 == 0 && braceCount2 == 0 && braceCount3 == 0) {
                     // braces are done, we should be in the clear.
                     return token(FnTokenId.JAVA_LOCAL);
                 }
             }
-            
+
             if (c == EOF) {
                 input.backup(1);
                 return token(FnTokenId.JAVA_LOCAL);

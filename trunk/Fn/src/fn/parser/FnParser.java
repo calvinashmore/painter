@@ -146,6 +146,14 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         s = ImportDeclaration();
                                    jjtn000.addUserImport(s);
       }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case DESCRIPTION:
+        FnDescriptionTop(jjtn000);
+        break;
+      default:
+        jj_la1[2] = jj_gen;
+        ;
+      }
       label_2:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -153,7 +161,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           ;
           break;
         default:
-          jj_la1[2] = jj_gen;
+          jj_la1[3] = jj_gen;
           break label_2;
         }
         fn = FnDefinition();
@@ -235,13 +243,14 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         case SLIN:
         case EXIN:
         case CVAR:
+        case DESCRIPTION:
         case IDENTIFIER:
         case AT:
         case LT:
           ;
           break;
         default:
-          jj_la1[3] = jj_gen;
+          jj_la1[4] = jj_gen;
           break label_3;
         }
       }
@@ -288,7 +297,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       FnTypeAndName(fn);
       break;
     default:
-      jj_la1[4] = jj_gen;
+      jj_la1[5] = jj_gen;
       if (jj_2_1(3)) {
         FnType(fn);
       } else {
@@ -323,8 +332,11 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         case LT:
           FnLocalDeclaration(fn);
           break;
+        case DESCRIPTION:
+          FnDescription(fn);
+          break;
         default:
-          jj_la1[5] = jj_gen;
+          jj_la1[6] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -359,7 +371,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       t = jj_consume_token(INIT);
       break;
     default:
-      jj_la1[6] = jj_gen;
+      jj_la1[7] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -385,7 +397,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       t = jj_consume_token(CVAR);
       break;
     default:
-      jj_la1[7] = jj_gen;
+      jj_la1[8] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -409,7 +421,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       t = jj_consume_token(SLIN);
       break;
     default:
-      jj_la1[8] = jj_gen;
+      jj_la1[9] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -418,6 +430,24 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         type = FnTypeBody();
     jj_consume_token(SEMICOLON);
      fn.addType(t.image, type);
+  }
+
+  final public void FnDescription(ASTFnDefinition fn) throws ParseException {
+    Token t;
+    ASTExpression expression;
+    t = jj_consume_token(DESCRIPTION);
+    expression = FnExpressionBody();
+    jj_consume_token(SEMICOLON);
+     fn.addExpression(t.image, expression);
+  }
+
+  final public void FnDescriptionTop(ASTFnTopLevel top) throws ParseException {
+    Token t;
+    ASTExpression expression;
+    t = jj_consume_token(DESCRIPTION);
+    expression = FnExpressionBody();
+    jj_consume_token(SEMICOLON);
+     top.addExpression(t.image, expression);
   }
 
   final public void FnLocalDeclaration(ASTFnDefinition fn) throws ParseException {
@@ -434,7 +464,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ClassOrInterfaceDeclaration(modifiers);
         break;
       default:
-        jj_la1[9] = jj_gen;
+        jj_la1[10] = jj_gen;
         if (jj_2_2(2147483647)) {
           FieldDeclaration(modifiers);
         } else {
@@ -453,7 +483,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
             MethodDeclaration(modifiers);
             break;
           default:
-            jj_la1[10] = jj_gen;
+            jj_la1[11] = jj_gen;
             jj_consume_token(-1);
             throw new ParseException();
           }
@@ -603,7 +633,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       PackageDeclaration();
       break;
     default:
-      jj_la1[11] = jj_gen;
+      jj_la1[12] = jj_gen;
       ;
     }
     label_4:
@@ -613,7 +643,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[12] = jj_gen;
+        jj_la1[13] = jj_gen;
         break label_4;
       }
       ImportDeclaration();
@@ -640,7 +670,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[13] = jj_gen;
+        jj_la1[14] = jj_gen;
         break label_5;
       }
       TypeDeclaration();
@@ -669,7 +699,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(STAR);
         break;
       default:
-        jj_la1[14] = jj_gen;
+        jj_la1[15] = jj_gen;
         ;
       }
       jj_consume_token(SEMICOLON);
@@ -763,7 +793,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         Annotation();
         break;
       default:
-        jj_la1[15] = jj_gen;
+        jj_la1[16] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -809,13 +839,13 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         AnnotationTypeDeclaration(modifiers);
         break;
       default:
-        jj_la1[16] = jj_gen;
+        jj_la1[17] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
       break;
     default:
-      jj_la1[17] = jj_gen;
+      jj_la1[18] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -832,7 +862,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
                             isInterface = true;
       break;
     default:
-      jj_la1[18] = jj_gen;
+      jj_la1[19] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -842,7 +872,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       TypeParameters();
       break;
     default:
-      jj_la1[19] = jj_gen;
+      jj_la1[20] = jj_gen;
       ;
     }
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -850,7 +880,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       ExtendsList(isInterface);
       break;
     default:
-      jj_la1[20] = jj_gen;
+      jj_la1[21] = jj_gen;
       ;
     }
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -858,7 +888,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       ImplementsList(isInterface);
       break;
     default:
-      jj_la1[21] = jj_gen;
+      jj_la1[22] = jj_gen;
       ;
     }
     ClassOrInterfaceBody(isInterface);
@@ -875,7 +905,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[22] = jj_gen;
+        jj_la1[23] = jj_gen;
         break label_7;
       }
       jj_consume_token(COMMA);
@@ -896,7 +926,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[23] = jj_gen;
+        jj_la1[24] = jj_gen;
         break label_8;
       }
       jj_consume_token(COMMA);
@@ -914,7 +944,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       ImplementsList(false);
       break;
     default:
-      jj_la1[24] = jj_gen;
+      jj_la1[25] = jj_gen;
       ;
     }
     EnumBody();
@@ -930,7 +960,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[25] = jj_gen;
+        jj_la1[26] = jj_gen;
         break label_9;
       }
       jj_consume_token(COMMA);
@@ -973,14 +1003,14 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           ;
           break;
         default:
-          jj_la1[26] = jj_gen;
+          jj_la1[27] = jj_gen;
           break label_10;
         }
         ClassOrInterfaceBodyDeclaration(false);
       }
       break;
     default:
-      jj_la1[27] = jj_gen;
+      jj_la1[28] = jj_gen;
       ;
     }
     jj_consume_token(RBRACE);
@@ -993,7 +1023,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       Arguments();
       break;
     default:
-      jj_la1[28] = jj_gen;
+      jj_la1[29] = jj_gen;
       ;
     }
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -1001,7 +1031,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       ClassOrInterfaceBody(false);
       break;
     default:
-      jj_la1[29] = jj_gen;
+      jj_la1[30] = jj_gen;
       ;
     }
   }
@@ -1016,7 +1046,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[30] = jj_gen;
+        jj_la1[31] = jj_gen;
         break label_11;
       }
       jj_consume_token(COMMA);
@@ -1032,7 +1062,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       TypeBound();
       break;
     default:
-      jj_la1[31] = jj_gen;
+      jj_la1[32] = jj_gen;
       ;
     }
   }
@@ -1047,7 +1077,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[32] = jj_gen;
+        jj_la1[33] = jj_gen;
         break label_12;
       }
       jj_consume_token(BIT_AND);
@@ -1091,7 +1121,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[33] = jj_gen;
+        jj_la1[34] = jj_gen;
         break label_13;
       }
       ClassOrInterfaceBodyDeclaration(isInterface);
@@ -1144,7 +1174,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           EnumDeclaration(modifiers);
           break;
         default:
-          jj_la1[34] = jj_gen;
+          jj_la1[35] = jj_gen;
           if (jj_2_4(2147483647)) {
             ConstructorDeclaration();
           } else if (jj_2_5(2147483647)) {
@@ -1165,7 +1195,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
               MethodDeclaration(modifiers);
               break;
             default:
-              jj_la1[35] = jj_gen;
+              jj_la1[36] = jj_gen;
               jj_consume_token(-1);
               throw new ParseException();
             }
@@ -1176,7 +1206,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(SEMICOLON);
         break;
       default:
-        jj_la1[36] = jj_gen;
+        jj_la1[37] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1193,7 +1223,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[37] = jj_gen;
+        jj_la1[38] = jj_gen;
         break label_14;
       }
       jj_consume_token(COMMA);
@@ -1210,7 +1240,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       VariableInitializer();
       break;
     default:
-      jj_la1[38] = jj_gen;
+      jj_la1[39] = jj_gen;
       ;
     }
   }
@@ -1224,7 +1254,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[39] = jj_gen;
+        jj_la1[40] = jj_gen;
         break label_15;
       }
       jj_consume_token(LBRACKET);
@@ -1267,7 +1297,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       Expression();
       break;
     default:
-      jj_la1[40] = jj_gen;
+      jj_la1[41] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -1317,7 +1347,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       }
       break;
     default:
-      jj_la1[41] = jj_gen;
+      jj_la1[42] = jj_gen;
       ;
     }
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -1325,7 +1355,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(COMMA);
       break;
     default:
-      jj_la1[42] = jj_gen;
+      jj_la1[43] = jj_gen;
       ;
     }
     jj_consume_token(RBRACE);
@@ -1337,7 +1367,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       TypeParameters();
       break;
     default:
-      jj_la1[43] = jj_gen;
+      jj_la1[44] = jj_gen;
       ;
     }
     ResultType();
@@ -1348,7 +1378,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       NameList();
       break;
     default:
-      jj_la1[44] = jj_gen;
+      jj_la1[45] = jj_gen;
       ;
     }
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -1359,7 +1389,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(SEMICOLON);
       break;
     default:
-      jj_la1[45] = jj_gen;
+      jj_la1[46] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -1375,7 +1405,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[46] = jj_gen;
+        jj_la1[47] = jj_gen;
         break label_17;
       }
       jj_consume_token(LBRACKET);
@@ -1404,7 +1434,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           ;
           break;
         default:
-          jj_la1[47] = jj_gen;
+          jj_la1[48] = jj_gen;
           break label_18;
         }
         jj_consume_token(COMMA);
@@ -1412,7 +1442,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       }
       break;
     default:
-      jj_la1[48] = jj_gen;
+      jj_la1[49] = jj_gen;
       ;
     }
     jj_consume_token(RPAREN);
@@ -1424,7 +1454,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(FINAL);
       break;
     default:
-      jj_la1[49] = jj_gen;
+      jj_la1[50] = jj_gen;
       ;
     }
     Type();
@@ -1433,7 +1463,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(ELLIPSIS);
       break;
     default:
-      jj_la1[50] = jj_gen;
+      jj_la1[51] = jj_gen;
       ;
     }
     VariableDeclaratorId();
@@ -1445,7 +1475,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       TypeParameters();
       break;
     default:
-      jj_la1[51] = jj_gen;
+      jj_la1[52] = jj_gen;
       ;
     }
     jj_consume_token(IDENTIFIER);
@@ -1456,7 +1486,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       NameList();
       break;
     default:
-      jj_la1[52] = jj_gen;
+      jj_la1[53] = jj_gen;
       ;
     }
     jj_consume_token(LBRACE);
@@ -1511,7 +1541,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[53] = jj_gen;
+        jj_la1[54] = jj_gen;
         break label_19;
       }
       BlockStatement();
@@ -1558,7 +1588,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(SEMICOLON);
         break;
       default:
-        jj_la1[54] = jj_gen;
+        jj_la1[55] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1571,7 +1601,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(STATIC);
       break;
     default:
-      jj_la1[55] = jj_gen;
+      jj_la1[56] = jj_gen;
       ;
     }
     Block();
@@ -1596,7 +1626,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         PrimitiveType();
         break;
       default:
-        jj_la1[56] = jj_gen;
+        jj_la1[57] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1639,7 +1669,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       }
       break;
     default:
-      jj_la1[57] = jj_gen;
+      jj_la1[58] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -1679,7 +1709,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[58] = jj_gen;
+        jj_la1[59] = jj_gen;
         break label_23;
       }
       jj_consume_token(COMMA);
@@ -1709,12 +1739,12 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         WildcardBounds();
         break;
       default:
-        jj_la1[59] = jj_gen;
+        jj_la1[60] = jj_gen;
         ;
       }
       break;
     default:
-      jj_la1[60] = jj_gen;
+      jj_la1[61] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -1731,7 +1761,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       ReferenceType();
       break;
     default:
-      jj_la1[61] = jj_gen;
+      jj_la1[62] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -1764,7 +1794,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(DOUBLE);
       break;
     default:
-      jj_la1[62] = jj_gen;
+      jj_la1[63] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -1787,7 +1817,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       Type();
       break;
     default:
-      jj_la1[63] = jj_gen;
+      jj_la1[64] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -1816,7 +1846,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[64] = jj_gen;
+        jj_la1[65] = jj_gen;
         break label_25;
       }
       jj_consume_token(COMMA);
@@ -1876,7 +1906,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(ORASSIGN);
       break;
     default:
-      jj_la1[65] = jj_gen;
+      jj_la1[66] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -1892,7 +1922,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       Expression();
       break;
     default:
-      jj_la1[66] = jj_gen;
+      jj_la1[67] = jj_gen;
       ;
     }
   }
@@ -1906,7 +1936,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[67] = jj_gen;
+        jj_la1[68] = jj_gen;
         break label_26;
       }
       jj_consume_token(SC_OR);
@@ -1923,7 +1953,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[68] = jj_gen;
+        jj_la1[69] = jj_gen;
         break label_27;
       }
       jj_consume_token(SC_AND);
@@ -1940,7 +1970,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[69] = jj_gen;
+        jj_la1[70] = jj_gen;
         break label_28;
       }
       jj_consume_token(BIT_OR);
@@ -1957,7 +1987,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[70] = jj_gen;
+        jj_la1[71] = jj_gen;
         break label_29;
       }
       jj_consume_token(XOR);
@@ -1974,7 +2004,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[71] = jj_gen;
+        jj_la1[72] = jj_gen;
         break label_30;
       }
       jj_consume_token(BIT_AND);
@@ -1992,7 +2022,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[72] = jj_gen;
+        jj_la1[73] = jj_gen;
         break label_31;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -2003,7 +2033,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(NE);
         break;
       default:
-        jj_la1[73] = jj_gen;
+        jj_la1[74] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2019,7 +2049,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       Type();
       break;
     default:
-      jj_la1[74] = jj_gen;
+      jj_la1[75] = jj_gen;
       ;
     }
   }
@@ -2036,7 +2066,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[75] = jj_gen;
+        jj_la1[76] = jj_gen;
         break label_32;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -2053,7 +2083,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(GE);
         break;
       default:
-        jj_la1[76] = jj_gen;
+        jj_la1[77] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2075,7 +2105,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(LSHIFT);
         break;
       default:
-        jj_la1[77] = jj_gen;
+        jj_la1[78] = jj_gen;
         if (jj_2_20(1)) {
           RSIGNEDSHIFT();
         } else if (jj_2_21(1)) {
@@ -2099,7 +2129,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[78] = jj_gen;
+        jj_la1[79] = jj_gen;
         break label_34;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -2110,7 +2140,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(MINUS);
         break;
       default:
-        jj_la1[79] = jj_gen;
+        jj_la1[80] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2129,7 +2159,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[80] = jj_gen;
+        jj_la1[81] = jj_gen;
         break label_35;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -2143,7 +2173,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(REM);
         break;
       default:
-        jj_la1[81] = jj_gen;
+        jj_la1[82] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2163,7 +2193,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(MINUS);
         break;
       default:
-        jj_la1[82] = jj_gen;
+        jj_la1[83] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2201,7 +2231,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       UnaryExpressionNotPlusMinus();
       break;
     default:
-      jj_la1[83] = jj_gen;
+      jj_la1[84] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -2229,14 +2259,14 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(BANG);
         break;
       default:
-        jj_la1[84] = jj_gen;
+        jj_la1[85] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
       UnaryExpression();
       break;
     default:
-      jj_la1[85] = jj_gen;
+      jj_la1[86] = jj_gen;
       if (jj_2_22(2147483647)) {
         CastExpression();
       } else {
@@ -2265,7 +2295,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           PostfixExpression();
           break;
         default:
-          jj_la1[86] = jj_gen;
+          jj_la1[87] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -2323,13 +2353,13 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           Literal();
           break;
         default:
-          jj_la1[87] = jj_gen;
+          jj_la1[88] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
         break;
       default:
-        jj_la1[88] = jj_gen;
+        jj_la1[89] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2349,13 +2379,13 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         jj_consume_token(DECR);
         break;
       default:
-        jj_la1[89] = jj_gen;
+        jj_la1[90] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
       break;
     default:
-      jj_la1[90] = jj_gen;
+      jj_la1[91] = jj_gen;
       ;
     }
   }
@@ -2375,7 +2405,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         UnaryExpressionNotPlusMinus();
         break;
       default:
-        jj_la1[91] = jj_gen;
+        jj_la1[92] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2429,7 +2459,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       AllocationExpression();
       break;
     default:
-      jj_la1[92] = jj_gen;
+      jj_la1[93] = jj_gen;
       if (jj_2_27(2147483647)) {
         ResultType();
         jj_consume_token(DOT);
@@ -2440,7 +2470,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           Name();
           break;
         default:
-          jj_la1[93] = jj_gen;
+          jj_la1[94] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -2472,7 +2502,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         Arguments();
         break;
       default:
-        jj_la1[94] = jj_gen;
+        jj_la1[95] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2501,7 +2531,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       NullLiteral();
       break;
     default:
-      jj_la1[95] = jj_gen;
+      jj_la1[96] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -2516,7 +2546,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(FALSE);
       break;
     default:
-      jj_la1[96] = jj_gen;
+      jj_la1[97] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -2559,7 +2589,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       ArgumentList();
       break;
     default:
-      jj_la1[97] = jj_gen;
+      jj_la1[98] = jj_gen;
       ;
     }
     jj_consume_token(RPAREN);
@@ -2574,7 +2604,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[98] = jj_gen;
+        jj_la1[99] = jj_gen;
         break label_37;
       }
       jj_consume_token(COMMA);
@@ -2597,7 +2627,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           TypeArguments();
           break;
         default:
-          jj_la1[99] = jj_gen;
+          jj_la1[100] = jj_gen;
           ;
         }
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -2611,18 +2641,18 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
             ClassOrInterfaceBody(false);
             break;
           default:
-            jj_la1[100] = jj_gen;
+            jj_la1[101] = jj_gen;
             ;
           }
           break;
         default:
-          jj_la1[101] = jj_gen;
+          jj_la1[102] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
         break;
       default:
-        jj_la1[102] = jj_gen;
+        jj_la1[103] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2668,14 +2698,14 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
             ;
             break;
           default:
-            jj_la1[103] = jj_gen;
+            jj_la1[104] = jj_gen;
             break label_40;
           }
         }
         ArrayInitializer();
         break;
       default:
-        jj_la1[104] = jj_gen;
+        jj_la1[105] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2759,7 +2789,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         TryStatement();
         break;
       default:
-        jj_la1[105] = jj_gen;
+        jj_la1[106] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2775,7 +2805,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       Expression();
       break;
     default:
-      jj_la1[106] = jj_gen;
+      jj_la1[107] = jj_gen;
       ;
     }
     jj_consume_token(SEMICOLON);
@@ -2835,7 +2865,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[107] = jj_gen;
+        jj_la1[108] = jj_gen;
         break label_41;
       }
       BlockStatement();
@@ -2893,7 +2923,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ClassOrInterfaceDeclaration(0);
         break;
       default:
-        jj_la1[108] = jj_gen;
+        jj_la1[109] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -2906,7 +2936,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(FINAL);
       break;
     default:
-      jj_la1[109] = jj_gen;
+      jj_la1[110] = jj_gen;
       ;
     }
     Type();
@@ -2918,7 +2948,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[110] = jj_gen;
+        jj_la1[111] = jj_gen;
         break label_42;
       }
       jj_consume_token(COMMA);
@@ -2998,18 +3028,18 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           Expression();
           break;
         default:
-          jj_la1[111] = jj_gen;
+          jj_la1[112] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
         break;
       default:
-        jj_la1[112] = jj_gen;
+        jj_la1[113] = jj_gen;
         ;
       }
       break;
     default:
-      jj_la1[113] = jj_gen;
+      jj_la1[114] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -3029,7 +3059,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[114] = jj_gen;
+        jj_la1[115] = jj_gen;
         break label_43;
       }
       SwitchLabel();
@@ -3079,7 +3109,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           ;
           break;
         default:
-          jj_la1[115] = jj_gen;
+          jj_la1[116] = jj_gen;
           break label_44;
         }
         BlockStatement();
@@ -3100,7 +3130,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(COLON);
       break;
     default:
-      jj_la1[116] = jj_gen;
+      jj_la1[117] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -3118,7 +3148,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       Statement();
       break;
     default:
-      jj_la1[117] = jj_gen;
+      jj_la1[118] = jj_gen;
       ;
     }
   }
@@ -3204,7 +3234,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           ForInit();
           break;
         default:
-          jj_la1[118] = jj_gen;
+          jj_la1[119] = jj_gen;
           ;
         }
         jj_consume_token(SEMICOLON);
@@ -3239,7 +3269,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           Expression();
           break;
         default:
-          jj_la1[119] = jj_gen;
+          jj_la1[120] = jj_gen;
           ;
         }
         jj_consume_token(SEMICOLON);
@@ -3270,12 +3300,12 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           ForUpdate();
           break;
         default:
-          jj_la1[120] = jj_gen;
+          jj_la1[121] = jj_gen;
           ;
         }
         break;
       default:
-        jj_la1[121] = jj_gen;
+        jj_la1[122] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -3315,7 +3345,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         StatementExpressionList();
         break;
       default:
-        jj_la1[122] = jj_gen;
+        jj_la1[123] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -3331,7 +3361,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[123] = jj_gen;
+        jj_la1[124] = jj_gen;
         break label_45;
       }
       jj_consume_token(COMMA);
@@ -3350,7 +3380,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(IDENTIFIER);
       break;
     default:
-      jj_la1[124] = jj_gen;
+      jj_la1[125] = jj_gen;
       ;
     }
     jj_consume_token(SEMICOLON);
@@ -3363,7 +3393,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(IDENTIFIER);
       break;
     default:
-      jj_la1[125] = jj_gen;
+      jj_la1[126] = jj_gen;
       ;
     }
     jj_consume_token(SEMICOLON);
@@ -3402,7 +3432,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       Expression();
       break;
     default:
-      jj_la1[126] = jj_gen;
+      jj_la1[127] = jj_gen;
       ;
     }
     jj_consume_token(SEMICOLON);
@@ -3432,7 +3462,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[127] = jj_gen;
+        jj_la1[128] = jj_gen;
         break label_46;
       }
       jj_consume_token(CATCH);
@@ -3447,7 +3477,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       Block();
       break;
     default:
-      jj_la1[128] = jj_gen;
+      jj_la1[129] = jj_gen;
       ;
     }
   }
@@ -3492,7 +3522,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         MarkerAnnotation();
         break;
       default:
-        jj_la1[129] = jj_gen;
+        jj_la1[130] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -3508,7 +3538,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       MemberValuePairs();
       break;
     default:
-      jj_la1[130] = jj_gen;
+      jj_la1[131] = jj_gen;
       ;
     }
     jj_consume_token(RPAREN);
@@ -3536,7 +3566,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[131] = jj_gen;
+        jj_la1[132] = jj_gen;
         break label_47;
       }
       jj_consume_token(COMMA);
@@ -3588,7 +3618,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       ConditionalExpression();
       break;
     default:
-      jj_la1[132] = jj_gen;
+      jj_la1[133] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -3612,7 +3642,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(COMMA);
       break;
     default:
-      jj_la1[133] = jj_gen;
+      jj_la1[134] = jj_gen;
       ;
     }
     jj_consume_token(RBRACE);
@@ -3659,7 +3689,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         ;
         break;
       default:
-        jj_la1[134] = jj_gen;
+        jj_la1[135] = jj_gen;
         break label_49;
       }
       AnnotationTypeMemberDeclaration();
@@ -3705,7 +3735,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           DefaultValue();
           break;
         default:
-          jj_la1[135] = jj_gen;
+          jj_la1[136] = jj_gen;
           ;
         }
         jj_consume_token(SEMICOLON);
@@ -3733,7 +3763,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
           FieldDeclaration(modifiers);
           break;
         default:
-          jj_la1[136] = jj_gen;
+          jj_la1[137] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -3743,7 +3773,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_consume_token(SEMICOLON);
       break;
     default:
-      jj_la1[137] = jj_gen;
+      jj_la1[138] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -4048,164 +4078,6 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     finally { jj_save(41, xla); }
   }
 
-  final private boolean jj_3R_283() {
-    if (jj_3R_293()) return true;
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_294()) { jj_scanpos = xsp; break; }
-    }
-    return false;
-  }
-
-  final private boolean jj_3R_282() {
-    if (jj_3R_283()) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_86() {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    if (jj_scan_token(ASSIGN)) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_219() {
-    if (jj_3R_222()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_223()) {
-    jj_scanpos = xsp;
-    if (jj_3R_224()) {
-    jj_scanpos = xsp;
-    if (jj_3R_225()) {
-    jj_scanpos = xsp;
-    if (jj_3R_226()) {
-    jj_scanpos = xsp;
-    if (jj_3R_227()) return true;
-    }
-    }
-    }
-    }
-    return false;
-  }
-
-  final private boolean jj_3R_136() {
-    if (jj_scan_token(AT)) return true;
-    if (jj_3R_85()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_87()) return true;
-    if (jj_scan_token(RPAREN)) return true;
-    return false;
-  }
-
-  final private boolean jj_3_6() {
-    if (jj_3R_67()) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_216() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_6()) {
-    jj_scanpos = xsp;
-    if (jj_3R_219()) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(97)) return true;
-    }
-    }
-    return false;
-  }
-
-  final private boolean jj_3R_273() {
-    if (jj_3R_207()) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_213() {
-    if (jj_3R_216()) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_137() {
-    if (jj_scan_token(AT)) return true;
-    if (jj_3R_85()) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_119() {
-    if (jj_scan_token(COMMA)) return true;
-    if (jj_3R_118()) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_138() {
-    if (jj_3R_143()) return true;
-    return false;
-  }
-
-  final private boolean jj_3_40() {
-    if (jj_scan_token(AT)) return true;
-    if (jj_3R_85()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_135() {
-    if (jj_scan_token(AT)) return true;
-    if (jj_3R_85()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_282()) jj_scanpos = xsp;
-    if (jj_scan_token(RPAREN)) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_207() {
-    if (jj_scan_token(LBRACE)) return true;
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_213()) { jj_scanpos = xsp; break; }
-    }
-    if (jj_scan_token(RBRACE)) return true;
-    return false;
-  }
-
-  final private boolean jj_3_39() {
-    if (jj_scan_token(AT)) return true;
-    if (jj_3R_85()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_86()) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(92)) return true;
-    }
-    return false;
-  }
-
-  final private boolean jj_3R_143() {
-    if (jj_scan_token(EXTENDS)) return true;
-    if (jj_3R_129()) return true;
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_149()) { jj_scanpos = xsp; break; }
-    }
-    return false;
-  }
-
-  final private boolean jj_3R_117() {
-    if (jj_3R_137()) return true;
-    return false;
-  }
-
-  final private boolean jj_3R_116() {
-    if (jj_3R_136()) return true;
-    return false;
-  }
-
   final private boolean jj_3R_272() {
     if (jj_3R_71()) return true;
     return false;
@@ -4471,7 +4343,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     if (jj_scan_token(CONTINUE)) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(88)) jj_scanpos = xsp;
+    if (jj_scan_token(89)) jj_scanpos = xsp;
     if (jj_scan_token(SEMICOLON)) return true;
     return false;
   }
@@ -4498,7 +4370,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     if (jj_scan_token(BREAK)) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(88)) jj_scanpos = xsp;
+    if (jj_scan_token(89)) jj_scanpos = xsp;
     if (jj_scan_token(SEMICOLON)) return true;
     return false;
   }
@@ -4820,9 +4692,9 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3R_295() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(113)) {
-    jj_scanpos = xsp;
     if (jj_scan_token(114)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(115)) {
     jj_scanpos = xsp;
     if (jj_3R_301()) return true;
     }
@@ -4875,11 +4747,11 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       if (jj_3R_52()) { jj_scanpos = xsp; break; }
     }
     xsp = jj_scanpos;
-    if (jj_scan_token(98)) {
+    if (jj_scan_token(99)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(101)) {
+    if (jj_scan_token(102)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(97)) return true;
+    if (jj_scan_token(98)) return true;
     }
     }
     return false;
@@ -4965,21 +4837,6 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     return false;
   }
 
-  final private boolean jj_3R_50() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(70)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(41)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(77)) return true;
-    }
-    }
-    if (jj_3R_88()) return true;
-    if (jj_scan_token(SEMICOLON)) return true;
-    return false;
-  }
-
   final private boolean jj_3R_174() {
     if (jj_scan_token(ASSERT)) return true;
     if (jj_3R_75()) return true;
@@ -5028,6 +4885,21 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
 
   final private boolean jj_3R_163() {
     if (jj_3R_180()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_50() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(70)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(41)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(77)) return true;
+    }
+    }
+    if (jj_3R_88()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
     return false;
   }
 
@@ -5086,7 +4958,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     jj_scanpos = xsp;
     if (jj_3R_157()) {
     jj_scanpos = xsp;
-    if (jj_scan_token(97)) {
+    if (jj_scan_token(98)) {
     jj_scanpos = xsp;
     if (jj_3R_158()) {
     jj_scanpos = xsp;
@@ -5131,11 +5003,6 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
 
   final private boolean jj_3R_202() {
     if (jj_3R_207()) return true;
-    return false;
-  }
-
-  final private boolean jj_3_1() {
-    if (jj_3R_50()) return true;
     return false;
   }
 
@@ -5237,6 +5104,11 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     return false;
   }
 
+  final private boolean jj_3_1() {
+    if (jj_3R_50()) return true;
+    return false;
+  }
+
   final private boolean jj_3R_128() {
     if (jj_3R_75()) return true;
     Token xsp;
@@ -5284,13 +5156,13 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3R_140() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(80)) {
+    if (jj_scan_token(81)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(84)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(86)) {
+    if (jj_scan_token(85)) {
     jj_scanpos = xsp;
     if (jj_scan_token(87)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(88)) {
     jj_scanpos = xsp;
     if (jj_3R_147()) {
     jj_scanpos = xsp;
@@ -5436,9 +5308,9 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3R_284() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(113)) {
+    if (jj_scan_token(114)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(114)) return true;
+    if (jj_scan_token(115)) return true;
     }
     return false;
   }
@@ -5513,13 +5385,13 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     if (jj_scan_token(RPAREN)) return true;
     Token xsp;
     xsp = jj_scanpos;
+    if (jj_scan_token(105)) {
+    jj_scanpos = xsp;
     if (jj_scan_token(104)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(103)) {
+    if (jj_scan_token(92)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(91)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(88)) {
+    if (jj_scan_token(89)) {
     jj_scanpos = xsp;
     if (jj_scan_token(57)) {
     jj_scanpos = xsp;
@@ -5601,9 +5473,9 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3R_255() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(104)) {
+    if (jj_scan_token(105)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(103)) return true;
+    if (jj_scan_token(104)) return true;
     }
     if (jj_3R_221()) return true;
     return false;
@@ -5618,9 +5490,9 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3R_236() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(115)) {
+    if (jj_scan_token(116)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(116)) return true;
+    if (jj_scan_token(117)) return true;
     }
     if (jj_3R_218()) return true;
     return false;
@@ -5634,11 +5506,11 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3R_254() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(117)) {
-    jj_scanpos = xsp;
     if (jj_scan_token(118)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(122)) return true;
+    if (jj_scan_token(119)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(123)) return true;
     }
     }
     if (jj_3R_221()) return true;
@@ -5659,7 +5531,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3_19() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(123)) {
+    if (jj_scan_token(124)) {
     jj_scanpos = xsp;
     if (jj_3_20()) {
     jj_scanpos = xsp;
@@ -5699,9 +5571,9 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3R_228() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(115)) {
+    if (jj_scan_token(116)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(116)) return true;
+    if (jj_scan_token(117)) return true;
     }
     if (jj_3R_221()) return true;
     return false;
@@ -5710,13 +5582,13 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3R_220() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(102)) {
+    if (jj_scan_token(103)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(138)) {
+    if (jj_scan_token(139)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(108)) {
+    if (jj_scan_token(109)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(109)) return true;
+    if (jj_scan_token(110)) return true;
     }
     }
     }
@@ -5743,9 +5615,9 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3R_214() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(107)) {
+    if (jj_scan_token(108)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(110)) return true;
+    if (jj_scan_token(111)) return true;
     }
     if (jj_3R_197()) return true;
     return false;
@@ -5898,29 +5770,29 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   final private boolean jj_3R_74() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(101)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(126)) {
+    if (jj_scan_token(102)) {
     jj_scanpos = xsp;
     if (jj_scan_token(127)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(131)) {
+    if (jj_scan_token(128)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(124)) {
+    if (jj_scan_token(132)) {
     jj_scanpos = xsp;
     if (jj_scan_token(125)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(132)) {
+    if (jj_scan_token(126)) {
     jj_scanpos = xsp;
     if (jj_scan_token(133)) {
     jj_scanpos = xsp;
     if (jj_scan_token(134)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(128)) {
+    if (jj_scan_token(135)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(130)) {
+    if (jj_scan_token(129)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(129)) return true;
+    if (jj_scan_token(131)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(130)) return true;
     }
     }
     }
@@ -6309,7 +6181,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     if (jj_scan_token(31)) jj_scanpos = xsp;
     if (jj_3R_51()) return true;
     xsp = jj_scanpos;
-    if (jj_scan_token(135)) jj_scanpos = xsp;
+    if (jj_scan_token(136)) jj_scanpos = xsp;
     if (jj_3R_265()) return true;
     return false;
   }
@@ -6372,7 +6244,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     xsp = jj_scanpos;
     if (jj_3R_253()) {
     jj_scanpos = xsp;
-    if (jj_scan_token(97)) return true;
+    if (jj_scan_token(98)) return true;
     }
     return false;
   }
@@ -6411,7 +6283,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     xsp = jj_scanpos;
     if (jj_3R_212()) jj_scanpos = xsp;
     xsp = jj_scanpos;
-    if (jj_scan_token(98)) jj_scanpos = xsp;
+    if (jj_scan_token(99)) jj_scanpos = xsp;
     if (jj_scan_token(RBRACE)) return true;
     return false;
   }
@@ -6475,11 +6347,11 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       if (jj_3R_66()) { jj_scanpos = xsp; break; }
     }
     xsp = jj_scanpos;
-    if (jj_scan_token(98)) {
+    if (jj_scan_token(99)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(101)) {
+    if (jj_scan_token(102)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(97)) return true;
+    if (jj_scan_token(98)) return true;
     }
     }
     return false;
@@ -6499,7 +6371,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       if (jj_3_41()) { jj_scanpos = xsp; break; }
     }
     xsp = jj_scanpos;
-    if (jj_scan_token(98)) jj_scanpos = xsp;
+    if (jj_scan_token(99)) jj_scanpos = xsp;
     if (jj_scan_token(RBRACE)) return true;
     return false;
   }
@@ -6597,6 +6469,164 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     return false;
   }
 
+  final private boolean jj_3R_283() {
+    if (jj_3R_293()) return true;
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_294()) { jj_scanpos = xsp; break; }
+    }
+    return false;
+  }
+
+  final private boolean jj_3R_282() {
+    if (jj_3R_283()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_86() {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_scan_token(ASSIGN)) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_219() {
+    if (jj_3R_222()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_223()) {
+    jj_scanpos = xsp;
+    if (jj_3R_224()) {
+    jj_scanpos = xsp;
+    if (jj_3R_225()) {
+    jj_scanpos = xsp;
+    if (jj_3R_226()) {
+    jj_scanpos = xsp;
+    if (jj_3R_227()) return true;
+    }
+    }
+    }
+    }
+    return false;
+  }
+
+  final private boolean jj_3R_136() {
+    if (jj_scan_token(AT)) return true;
+    if (jj_3R_85()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_87()) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  final private boolean jj_3_6() {
+    if (jj_3R_67()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_216() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_6()) {
+    jj_scanpos = xsp;
+    if (jj_3R_219()) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(98)) return true;
+    }
+    }
+    return false;
+  }
+
+  final private boolean jj_3R_273() {
+    if (jj_3R_207()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_213() {
+    if (jj_3R_216()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_137() {
+    if (jj_scan_token(AT)) return true;
+    if (jj_3R_85()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_119() {
+    if (jj_scan_token(COMMA)) return true;
+    if (jj_3R_118()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_138() {
+    if (jj_3R_143()) return true;
+    return false;
+  }
+
+  final private boolean jj_3_40() {
+    if (jj_scan_token(AT)) return true;
+    if (jj_3R_85()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_135() {
+    if (jj_scan_token(AT)) return true;
+    if (jj_3R_85()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_282()) jj_scanpos = xsp;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_207() {
+    if (jj_scan_token(LBRACE)) return true;
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_213()) { jj_scanpos = xsp; break; }
+    }
+    if (jj_scan_token(RBRACE)) return true;
+    return false;
+  }
+
+  final private boolean jj_3_39() {
+    if (jj_scan_token(AT)) return true;
+    if (jj_3R_85()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_86()) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(93)) return true;
+    }
+    return false;
+  }
+
+  final private boolean jj_3R_143() {
+    if (jj_scan_token(EXTENDS)) return true;
+    if (jj_3R_129()) return true;
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_149()) { jj_scanpos = xsp; break; }
+    }
+    return false;
+  }
+
+  final private boolean jj_3R_117() {
+    if (jj_3R_137()) return true;
+    return false;
+  }
+
+  final private boolean jj_3R_116() {
+    if (jj_3R_136()) return true;
+    return false;
+  }
+
   public FnParserTokenManager token_source;
   JavaCharStream jj_input_stream;
   public Token token, jj_nt;
@@ -6606,7 +6636,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
   public boolean lookingAhead = false;
   private boolean jj_semLA;
   private int jj_gen;
-  final private int[] jj_la1 = new int[138];
+  final private int[] jj_la1 = new int[139];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static private int[] jj_la1_2;
@@ -6620,19 +6650,19 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
       jj_la1_4();
    }
    private static void jj_la1_0() {
-      jj_la1_0 = new int[] {0x0,0x0,0x0,0x8432a000,0x0,0x8432a000,0x0,0x0,0x0,0x200000,0x4128000,0x0,0x0,0x90202000,0x0,0x80002000,0x10200000,0x90202000,0x200000,0x0,0x20000000,0x0,0x0,0x0,0x0,0x0,0x9432a000,0x0,0x0,0x0,0x0,0x20000000,0x0,0x9432a000,0x10200000,0x4128000,0x9432a000,0x0,0x0,0x0,0x44128000,0x44128000,0x0,0x0,0x0,0x0,0x0,0x0,0x84128000,0x80000000,0x0,0x0,0x0,0xc6b3c000,0x44128000,0x0,0x4128000,0x4128000,0x0,0x20000000,0x4128000,0x20000000,0x4128000,0x4128000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x44128000,0x0,0x0,0x44128000,0x40000000,0x0,0x0,0x0,0x0,0x40000000,0x0,0x0,0x40000000,0x40000000,0x44128000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4693c000,0x0,0xc6b3c000,0x46b3c000,0x80000000,0x0,0x0,0x0,0x44128000,0x1040000,0xc6b3c000,0x1040000,0x8000000,0xc4128000,0x44128000,0x44128000,0xc4128000,0x44128000,0x0,0x0,0x0,0x44128000,0x80000,0x0,0x0,0x0,0x0,0x44128000,0x0,0x9432a000,0x1000000,0x14328000,0x9432a000,};
+      jj_la1_0 = new int[] {0x0,0x0,0x0,0x0,0x8432a000,0x0,0x8432a000,0x0,0x0,0x0,0x200000,0x4128000,0x0,0x0,0x90202000,0x0,0x80002000,0x10200000,0x90202000,0x200000,0x0,0x20000000,0x0,0x0,0x0,0x0,0x0,0x9432a000,0x0,0x0,0x0,0x0,0x20000000,0x0,0x9432a000,0x10200000,0x4128000,0x9432a000,0x0,0x0,0x0,0x44128000,0x44128000,0x0,0x0,0x0,0x0,0x0,0x0,0x84128000,0x80000000,0x0,0x0,0x0,0xc6b3c000,0x44128000,0x0,0x4128000,0x4128000,0x0,0x20000000,0x4128000,0x20000000,0x4128000,0x4128000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x44128000,0x0,0x0,0x44128000,0x40000000,0x0,0x0,0x0,0x0,0x40000000,0x0,0x0,0x40000000,0x40000000,0x44128000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4693c000,0x0,0xc6b3c000,0x46b3c000,0x80000000,0x0,0x0,0x0,0x44128000,0x1040000,0xc6b3c000,0x1040000,0x8000000,0xc4128000,0x44128000,0x44128000,0xc4128000,0x44128000,0x0,0x0,0x0,0x44128000,0x80000,0x0,0x0,0x0,0x0,0x44128000,0x0,0x9432a000,0x1000000,0x14328000,0x9432a000,};
    }
    private static void jj_la1_1() {
-      jj_la1_1 = new int[] {0x4000,0x40,0x0,0x913b8f02,0x0,0x913b8f02,0x0,0x0,0x200,0x200,0x80080502,0x4000,0x40,0x11338a00,0x0,0x11338800,0x200,0x11338a00,0x200,0x0,0x0,0x20,0x0,0x0,0x20,0x0,0x913b8f02,0x0,0x0,0x0,0x0,0x0,0x0,0x913b8f02,0x200,0x80080502,0x913b8f02,0x0,0x0,0x0,0xa2483502,0xa2483502,0x0,0x0,0x8000000,0x0,0x0,0x0,0x80502,0x0,0x0,0x0,0x8000000,0xe7cc3716,0xa2483502,0x100000,0x80502,0x80502,0x0,0x400000,0x80502,0x400000,0x80502,0x80080502,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa2483502,0x0,0x0,0xa2483502,0x22403000,0x0,0x0,0x0,0x0,0x22403000,0x0,0x0,0x20002000,0x20000000,0xa2483502,0x0,0x0,0x0,0x0,0x1000,0x0,0x0,0xe7cc3516,0x0,0xe7cc3716,0xe7cc3716,0x0,0x0,0x0,0x0,0xa2483502,0x0,0xe7cc3716,0x0,0x0,0xa2483502,0xa2483502,0xa2483502,0xa2483502,0xa2483502,0x0,0x0,0x0,0xa2483502,0x0,0x1,0x0,0x0,0x0,0xa2483502,0x0,0x113b8f02,0x0,0x80702,0x113b8f02,};
+      jj_la1_1 = new int[] {0x4000,0x40,0x0,0x0,0x913b8f02,0x0,0x913b8f02,0x0,0x0,0x200,0x200,0x80080502,0x4000,0x40,0x11338a00,0x0,0x11338800,0x200,0x11338a00,0x200,0x0,0x0,0x20,0x0,0x0,0x20,0x0,0x913b8f02,0x0,0x0,0x0,0x0,0x0,0x0,0x913b8f02,0x200,0x80080502,0x913b8f02,0x0,0x0,0x0,0xa2483502,0xa2483502,0x0,0x0,0x8000000,0x0,0x0,0x0,0x80502,0x0,0x0,0x0,0x8000000,0xe7cc3716,0xa2483502,0x100000,0x80502,0x80502,0x0,0x400000,0x80502,0x400000,0x80502,0x80080502,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xa2483502,0x0,0x0,0xa2483502,0x22403000,0x0,0x0,0x0,0x0,0x22403000,0x0,0x0,0x20002000,0x20000000,0xa2483502,0x0,0x0,0x0,0x0,0x1000,0x0,0x0,0xe7cc3516,0x0,0xe7cc3716,0xe7cc3716,0x0,0x0,0x0,0x0,0xa2483502,0x0,0xe7cc3716,0x0,0x0,0xa2483502,0xa2483502,0xa2483502,0xa2483502,0xa2483502,0x0,0x0,0x0,0xa2483502,0x0,0x1,0x0,0x0,0x0,0xa2483502,0x0,0x113b8f02,0x0,0x80702,0x113b8f02,};
    }
    private static void jj_la1_2() {
-      jj_la1_2 = new int[] {0x0,0x0,0x4,0x100ffe1,0xcfa0,0x1001001,0xb80,0xc420,0x2040,0x0,0x1000000,0x0,0x0,0x1,0x0,0x1,0x0,0x1,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x21000001,0x0,0x8000000,0x20000000,0x0,0x0,0x0,0x21000001,0x0,0x1000000,0x1000001,0x0,0x0,0x80000000,0x29d10000,0x29d10000,0x0,0x0,0x0,0x20000000,0x80000000,0x0,0x1000000,0x0,0x0,0x0,0x0,0x29d10002,0x9d10000,0x0,0x0,0x1000000,0x0,0x0,0x1000000,0x0,0x0,0x1000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x9d10000,0x0,0x0,0x9d10000,0x9d10000,0x8000000,0x0,0x0,0x8000000,0x8d10000,0x1000000,0x88000000,0xd10000,0x0,0x9d10000,0x0,0x0,0x20000000,0x88000000,0x0,0x80000000,0x80000000,0x29d10002,0x0,0x29d10002,0x29d10002,0x0,0x0,0x0,0x0,0x9d10000,0x0,0x29d10002,0x0,0x0,0x9d10000,0x9d10000,0x9d10000,0x9d10000,0x9d10000,0x0,0x1000000,0x1000000,0x9d10000,0x0,0x0,0x0,0x1000000,0x0,0x29d10000,0x0,0x1000001,0x0,0x1000000,0x1000001,};
+      jj_la1_2 = new int[] {0x0,0x0,0x10000,0x4,0x201ffe1,0xcfa0,0x2011001,0xb80,0xc420,0x2040,0x0,0x2000000,0x0,0x0,0x1,0x0,0x1,0x0,0x1,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x42000001,0x0,0x10000000,0x40000000,0x0,0x0,0x0,0x42000001,0x0,0x2000000,0x2000001,0x0,0x0,0x0,0x53a20000,0x53a20000,0x0,0x0,0x0,0x40000000,0x0,0x0,0x2000000,0x0,0x0,0x0,0x0,0x53a20002,0x13a20000,0x0,0x0,0x2000000,0x0,0x0,0x2000000,0x0,0x0,0x2000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x13a20000,0x0,0x0,0x13a20000,0x13a20000,0x10000000,0x0,0x0,0x10000000,0x11a20000,0x2000000,0x10000000,0x1a20000,0x0,0x13a20000,0x0,0x0,0x40000000,0x10000000,0x0,0x0,0x0,0x53a20002,0x0,0x53a20002,0x53a20002,0x0,0x0,0x0,0x0,0x13a20000,0x0,0x53a20002,0x0,0x0,0x13a20000,0x13a20000,0x13a20000,0x13a20000,0x13a20000,0x0,0x2000000,0x2000000,0x13a20000,0x0,0x0,0x0,0x2000000,0x0,0x53a20000,0x0,0x2000001,0x0,0x2000000,0x2000001,};
    }
    private static void jj_la1_3() {
-      jj_la1_3 = new int[] {0x0,0x0,0x0,0x50,0x0,0x50,0x0,0x0,0x0,0x0,0x40,0x0,0x0,0x12,0x8,0x10,0x10,0x12,0x0,0x40,0x0,0x0,0x4,0x4,0x0,0x4,0x52,0x2,0x0,0x0,0x4,0x0,0x800000,0x52,0x0,0x40,0x52,0x4,0x20,0x0,0x1e0180,0x1e0180,0x4,0x40,0x0,0x2,0x0,0x4,0x0,0x0,0x0,0x40,0x0,0x60002,0x0,0x0,0x0,0x0,0x4,0x0,0x200,0x0,0x0,0x0,0x4,0xf0000020,0x200,0x8000,0x10000,0x1000000,0x2000000,0x800000,0x4800,0x4800,0x0,0x3040,0x3040,0x8000000,0x180000,0x180000,0x4600000,0x4600000,0x180000,0x1e0180,0x180,0x180,0x0,0x180,0x0,0x60000,0x60000,0x0,0x0,0x0,0x8,0x0,0x0,0x1e0180,0x4,0x40,0x0,0x0,0x0,0x0,0x0,0x60002,0x400,0x60002,0x60002,0x0,0x4,0xf0060020,0xf0060020,0x60000,0x0,0x60002,0x0,0x0,0x60000,0x1e0180,0x60000,0x60002,0x60000,0x4,0x0,0x0,0x1e0180,0x0,0x0,0x10,0x0,0x4,0x1e0190,0x4,0x12,0x0,0x10,0x12,};
+      jj_la1_3 = new int[] {0x0,0x0,0x0,0x0,0xa0,0x0,0xa0,0x0,0x0,0x0,0x0,0x80,0x0,0x0,0x24,0x10,0x20,0x20,0x24,0x0,0x80,0x0,0x0,0x8,0x8,0x0,0x8,0xa4,0x4,0x0,0x0,0x8,0x0,0x1000000,0xa4,0x0,0x80,0xa4,0x8,0x40,0x1,0x3c0300,0x3c0300,0x8,0x80,0x0,0x4,0x1,0x8,0x0,0x0,0x0,0x80,0x0,0xc0004,0x0,0x0,0x0,0x0,0x8,0x0,0x400,0x0,0x0,0x0,0x8,0xe0000040,0x400,0x10000,0x20000,0x2000000,0x4000000,0x1000000,0x9000,0x9000,0x0,0x6080,0x6080,0x10000000,0x300000,0x300000,0x8c00000,0x8c00000,0x300000,0x3c0300,0x300,0x300,0x0,0x300,0x0,0xc0000,0xc0000,0x0,0x0,0x0,0x11,0x0,0x0,0x3c0300,0x8,0x80,0x0,0x1,0x0,0x1,0x1,0xc0004,0x800,0xc0004,0xc0004,0x0,0x8,0xe00c0040,0xe00c0040,0xc0000,0x0,0xc0004,0x0,0x0,0xc0000,0x3c0300,0xc0000,0xc0004,0xc0000,0x8,0x0,0x0,0x3c0300,0x0,0x0,0x20,0x0,0x8,0x3c0320,0x8,0x24,0x0,0x20,0x24,};
    }
    private static void jj_la1_4() {
-      jj_la1_4 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x80,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7f,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x400,0x400,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x7f,0x7f,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+      jj_la1_4 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x100,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xff,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x800,0x800,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0xff,0xff,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
   final private JJCalls[] jj_2_rtns = new JJCalls[42];
   private boolean jj_rescan = false;
@@ -6647,7 +6677,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 138; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 139; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -6661,7 +6691,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 138; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 139; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -6671,7 +6701,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 138; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 139; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -6682,7 +6712,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 138; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 139; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -6691,7 +6721,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 138; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 139; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -6701,7 +6731,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 138; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 139; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -6812,15 +6842,15 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
 
   public ParseException generateParseException() {
     jj_expentries.removeAllElements();
-    boolean[] la1tokens = new boolean[139];
-    for (int i = 0; i < 139; i++) {
+    boolean[] la1tokens = new boolean[140];
+    for (int i = 0; i < 140; i++) {
       la1tokens[i] = false;
     }
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 138; i++) {
+    for (int i = 0; i < 139; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -6841,7 +6871,7 @@ public class FnParser/*@bgen(jjtree)*/implements FnParserTreeConstants, FnParser
         }
       }
     }
-    for (int i = 0; i < 139; i++) {
+    for (int i = 0; i < 140; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

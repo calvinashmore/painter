@@ -198,7 +198,14 @@ public class StatementFnNode extends FnNode {
             } else {
                 sb.append(currentToken.image);
             }
-            sb.append(" ");
+            
+            if (currentToken.image.equals(";") ||
+                    currentToken.image.equals("{") ||
+                    currentToken.image.equals("}")) {
+                sb.append("\n");
+            } else {
+                sb.append(" ");
+            }
         }
 	sb.append(currentToken.image); // Add the last token to the image to return. 
 	return sb.toString();

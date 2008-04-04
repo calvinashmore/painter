@@ -3,7 +3,6 @@ package library.expressions.functions;
 group Algebraic;
 type Expression;
 
-import java.util.*;
 import utils.linear.*;
 
 // alegebraic functions

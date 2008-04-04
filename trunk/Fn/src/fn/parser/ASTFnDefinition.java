@@ -41,6 +41,22 @@ public class ASTFnDefinition extends FnParseNode {
     void addMeta(String name, ASTExpression expression) {meta.put(name, expression);}
     public Map<String, ASTExpression> getMeta() {return Collections.unmodifiableMap(meta);}
     
+    
+    private Map<String, List<ASTExpression>> expressions = new HashMap<String, List<ASTExpression>>();
+    void addExpression(String id, ASTExpression expression) {
+        List<ASTExpression> expressionList = expressions.get(id);
+        if(expressionList == null) {
+            expressionList = new ArrayList<ASTExpression>();
+            expressions.put(id, expressionList);
+        }
+        expressionList.add(expression);
+    }
+    public List<ASTExpression> getExpressions(String id) {
+        if(expressions.get(id) == null)
+            return Collections.<ASTExpression>emptyList();
+        return Collections.unmodifiableList(expressions.get(id));
+    }
+    
     private Map<String, List<ASTType>> types = new HashMap<String, List<ASTType>>();
     void addType(String id, ASTType type) {
         List<ASTType> typeList = types.get(id);

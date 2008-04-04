@@ -67,8 +67,8 @@ public class ParserTest {
         Assert.assertEquals( "Clonable",     fn.getTypes("interface").get(1).dumpTokens() );
         Assert.assertEquals( "Integer",      fn.getTypes("fout").get(0).dumpTokens() );
         Assert.assertEquals( "return 1 ;",   fn.getBlock("eval").dumpBlock() );
-        Assert.assertEquals( "spoon = 3 ;" +
-                " toast = \"howdy\" ;",      fn.getBlock("init").dumpBlock() );
+        Assert.assertEquals( "spoon = 3 ;\n" +
+                "toast = \"howdy\" ;",      fn.getBlock("init").dumpBlock() );
     }
     
     @Test
@@ -79,10 +79,12 @@ public class ParserTest {
                 "group MyGroup;\n" +
                 "type Expression;\n" +
                 "import java.util.*;\n" +
+                "description \"my package description\";\n" +
                 "// a line comment\n" +
                 "/* a block comment\n" +
                 "   extends lines */\n" +
                 "fn MyFn {\n" +
+                "  description \"my fn description\";\n" +
                 "  fout Integer;\n" +
                 "  in Integer x;\n" +
                 "  in Integer y;\n" +
@@ -100,5 +102,7 @@ public class ParserTest {
         Assert.assertEquals("java.util.*",  top.getUserImports().get(0));
         Assert.assertEquals("MyFn",         top.getFnDefinitions().get(0).getName());
         Assert.assertEquals("Integer",      top.getFnDefinitions().get(0).getTypes("fout").get(0).dumpTokens());
+        Assert.assertEquals("\"my fn description\"",      top.getFnDefinitions().get(0).getExpressions("description").get(0).dumpTokens());
+        Assert.assertEquals("\"my package description\"", top.getExpressions("description").get(0).dumpTokens());
     }
 }

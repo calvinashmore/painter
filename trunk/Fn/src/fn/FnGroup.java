@@ -22,6 +22,7 @@ abstract public class FnGroup<NodeType extends FnNode> {
     public FnGroup(ASTFnTopLevel top) {
         this.top = top;
         
+        addImport("java.util.*");
         addImport("genetic.*");
         addImport("genetic.component.accessor.*");
         addImport("genetic.component.command.*");
@@ -70,9 +71,26 @@ abstract public class FnGroup<NodeType extends FnNode> {
             descriptor.addNestedClass( getNode(fn).make_class() );
         }
         
+        if(!top.getExpressions("description").isEmpty()) {
+            descriptor.addInterface("Described");
+            descriptor.addMethod(make_getDescription());
+        }
+        
         descriptor.addMethod(make_allComponents());
         
         return descriptor;
+    }
+    
+    
+    MethodDescriptor make_getDescription() {
+        MethodDescriptor method = new MethodDescriptor("getDescription");
+        method.addModifier("public");
+        method.addModifier("String");
+        
+        String contents = "return "+top.getExpressions("description").get(0).dumpTokens()+";";
+        method.addToBlockBody(new CodeStringDescriptor(contents));
+        
+        return method;
     }
     
     MethodDescriptor make_allComponents() {

@@ -24,7 +24,8 @@ import java.util.Map;
  * 
  * @author Calvin Ashmore
  */
-abstract public class Accessor implements Evaluatable, Parameterized, Metadata, Serializable {
+abstract public class Accessor implements
+        Evaluatable, Parameterized, Metadata, Serializable, Described {
     
     /*private List<Class> inputs;
     protected void setInputs(Class ... inputs) {
@@ -50,4 +51,7 @@ abstract public class Accessor implements Evaluatable, Parameterized, Metadata, 
     
     abstract public Class getReturnType();
     
+    public String getDescription() {
+        return "No description.";
+    }
 }

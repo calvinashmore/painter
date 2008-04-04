@@ -42,6 +42,7 @@ public enum FnTokenId implements TokenId {
     SLIN("fnkeyword"),
     EXIN("fnkeyword"),
     CVAR("fnkeyword"),
+    DESCRIPTION("fnkeyword"),
     LBRACE("symbol"), // {
     RBRACE("symbol"), // }
     SYMBOL("symbol"),

@@ -14,6 +14,7 @@ import genetic.SetupComponent;
 import genetic.component.expression.Expression;
 import genetic.component.statementlist.StatementList;
 import genetic.BuildException;
+import genetic.Described;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -23,7 +24,8 @@ import java.util.Map;
  *
  * @author Calvin Ashmore
  */
-abstract public class StatementFunction implements Parameterized, Metadata, SetupComponent, Cloneable {
+abstract public class StatementFunction implements
+        Parameterized, Metadata, SetupComponent, Cloneable, Described {
 
     abstract public static class InputSignature {
         // package protected so cannot be overridden
@@ -136,4 +138,7 @@ abstract public class StatementFunction implements Parameterized, Metadata, Setu
     public boolean isSetup() {return isSetup;}
     public void setup() throws BuildException {isSetup = true;}
 
+    public String getDescription() {
+        return "No description.";
+    }
 }

@@ -9,6 +9,7 @@
 
 package genetic.component.command;
 
+import genetic.Described;
 import genetic.component.context.Context;
 import genetic.Metadata;
 import genetic.Parameterized;
@@ -21,7 +22,8 @@ import java.util.Map;
  *
  * @author Calvin Ashmore
  */
-abstract public class Command implements Evaluatable, Parameterized, Metadata, Serializable {
+abstract public class Command implements
+        Evaluatable, Parameterized, Metadata, Serializable, Described {
     
     /*private List<Class> inputs;
     protected void setInputs(Class ... inputs) {
@@ -54,4 +56,8 @@ abstract public class Command implements Evaluatable, Parameterized, Metadata, S
         return null;
     }
     public abstract void execute(Context context, Object[] parameters);
+    
+    public String getDescription() {
+        return "No description.";
+    }
 }

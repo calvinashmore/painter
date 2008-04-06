@@ -1,0 +1,30 @@
+
+Some notes on how to manage Painter:
+
+I have been looking at source code for the GIMP, and have been trying to figure
+out exactly how the brush and painting mechanics should come together. My
+thoughts are looking at a system like this....
+
+class Stroke {
+    class StrokePoint {
+        LVect2d position;
+        LDouble pressure;
+        // etc?
+    }
+
+    List<StrokePoint> points;
+
+    public LVect2d getPosition(double t);
+    public double getPressure(double t);
+    public double getAngle(double t);
+}
+
+class PointStroke extends Stroke {}
+
+class Brush {
+    public void draw(Stroke stroke);
+    // also info for color, can take various parameters, things?
+}
+
+// brush can be extended to many specialized kinds of brushes
+class SpecialBrush extends Brush;

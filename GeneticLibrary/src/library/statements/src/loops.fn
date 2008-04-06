@@ -7,9 +7,40 @@ import utils.linear.*;
 description "Statements that use some looping structure.";
 
 // the wombat function has mystical wombat powers.
-fn Wombat  {
-    description "toast";
+fn loop_parameter {
+    description "Loops n times. The parameter n is initialized to a value between 10 and 20.";
 
+    parameter Integer n;
+    cvar Integer i;
+    slin body;
+    
+    init {
+        n = 10+new Random().nextInt(10);
+    }
+    
     exec {
+        i = 0;
+        while(i < n) {
+            body.execute(context);
+            i = i+1;
+        }
+    }
+}
+
+fn loop_input {
+    description "Loops n times, where n is an input value.";
+    
+    cvar Integer i;
+    slin body;
+    exin Integer n;
+    
+    exec {
+        int nValue = (Integer) n.evaluate(context);
+        
+        i = 0;
+        while(i < nValue) {
+            body.execute(context);
+            i = i+1;
+        }
     }
 }

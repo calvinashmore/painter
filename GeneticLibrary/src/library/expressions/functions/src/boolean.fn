@@ -1,0 +1,45 @@
+package library.expressions.functions;
+group BooleanOperations;
+type Expression;
+
+
+description "Boolean operations, such as logical operators and comparisons.";
+
+fn or {
+    in Boolean x;
+    in Boolean y;
+    fout Boolean;
+    
+    eval {
+        return x || y;
+    }
+}
+
+fn and {
+    in Boolean x;
+    in Boolean y;
+    fout Boolean;
+    
+    eval {
+        return x && y;
+    }
+}
+
+fn xor {
+    in Boolean x;
+    in Boolean y;
+    fout Boolean;
+    
+    eval {
+        return x ^ y;
+    }
+}
+
+fn not {
+    in Boolean x;
+    fout Boolean;
+    
+    eval {
+        return !x;
+    }
+}

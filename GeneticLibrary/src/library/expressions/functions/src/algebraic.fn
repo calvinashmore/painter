@@ -5,7 +5,7 @@ type Expression;
 
 import utils.linear.*;
 
-// alegebraic functions
+description "alegebraic functions";
 
 // ************
 // *** AVERAGES
@@ -18,6 +18,16 @@ fn avg_d {
 
     eval {
         return new LDouble((x.val+y.val)/2);
+    }
+}
+
+fn avg_i {
+    in Integer x;
+    in Integer y;
+    fout Integer;
+    
+    eval {
+        return (x+y)/2;
     }
 }
 
@@ -72,6 +82,16 @@ fn add_d {
 
     eval {
         return new LDouble(x.val+y.val);
+    }
+}
+
+fn add_i {
+    in Integer x;
+    in Integer y;
+    fout Integer;
+    
+    eval {
+        return x+y;
     }
 }
 
@@ -139,6 +159,16 @@ fn sub_d {
     }
 }
 
+fn sub_i {
+    in Integer x;
+    in Integer y;
+    fout Integer;
+    
+    eval {
+        return x-y;
+    }
+}
+
 fn sub_v2 {
     in LVect2d x;
     in LVect2d y;
@@ -180,6 +210,26 @@ fn mult_d {
 
     eval {
         return new LDouble(x.val*y.val);
+    }
+}
+
+fn mult_i {
+    in Integer x;
+    in Integer y;
+    fout Integer;
+    
+    eval {
+        return x*y;
+    }
+}
+
+fn mult_i_d {
+    in Integer x;
+    in LDouble y;
+    fout LDouble;
+    
+    eval {
+        return new LDouble(x*y.val);
     }
 }
 
@@ -244,7 +294,7 @@ fn mult_v3_v3 {
 }
 
 // *******************
-// *** MULITIPLICATION
+// *** POWERS
 // *******************
 
 fn pow_col {

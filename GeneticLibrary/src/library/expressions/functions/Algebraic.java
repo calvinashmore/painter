@@ -14,7 +14,7 @@ import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
 import utils.linear.*;
 
-public final class Algebraic implements AllComponents<ExpressionFunction> {
+public final class Algebraic implements AllComponents<ExpressionFunction>, Described {
    public static class avg_d extends ExpressionFunction {
 
       public int getNumberInputs() {
@@ -47,6 +47,42 @@ public final class Algebraic implements AllComponents<ExpressionFunction> {
 
       public Class getReturnType() {
          return LDouble.class;
+      }
+
+   }
+
+   public static class avg_i extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            case 1: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public Integer evaluate(Context context, Object[] inputs) {
+         Integer x = (Integer)inputs[0];
+         Integer y = (Integer)inputs[1];
+         return ( x + y ) / 2 ;
+      }
+
+      public Class getReturnType() {
+         return Integer.class;
       }
 
    }
@@ -227,6 +263,42 @@ public final class Algebraic implements AllComponents<ExpressionFunction> {
 
       public Class getReturnType() {
          return LDouble.class;
+      }
+
+   }
+
+   public static class add_i extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            case 1: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public Integer evaluate(Context context, Object[] inputs) {
+         Integer x = (Integer)inputs[0];
+         Integer y = (Integer)inputs[1];
+         return x + y ;
+      }
+
+      public Class getReturnType() {
+         return Integer.class;
       }
 
    }
@@ -447,6 +519,42 @@ public final class Algebraic implements AllComponents<ExpressionFunction> {
 
    }
 
+   public static class sub_i extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            case 1: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public Integer evaluate(Context context, Object[] inputs) {
+         Integer x = (Integer)inputs[0];
+         Integer y = (Integer)inputs[1];
+         return x - y ;
+      }
+
+      public Class getReturnType() {
+         return Integer.class;
+      }
+
+   }
+
    public static class sub_v2 extends ExpressionFunction {
 
       public int getNumberInputs() {
@@ -583,6 +691,78 @@ public final class Algebraic implements AllComponents<ExpressionFunction> {
          LDouble x = (LDouble)inputs[0];
          LDouble y = (LDouble)inputs[1];
          return new LDouble ( x . val * y . val ) ;
+      }
+
+      public Class getReturnType() {
+         return LDouble.class;
+      }
+
+   }
+
+   public static class mult_i extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            case 1: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public Integer evaluate(Context context, Object[] inputs) {
+         Integer x = (Integer)inputs[0];
+         Integer y = (Integer)inputs[1];
+         return x * y ;
+      }
+
+      public Class getReturnType() {
+         return Integer.class;
+      }
+
+   }
+
+   public static class mult_i_d extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            case 1: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public LDouble evaluate(Context context, Object[] inputs) {
+         Integer x = (Integer)inputs[0];
+         LDouble y = (LDouble)inputs[1];
+         return new LDouble ( x * y . val ) ;
       }
 
       public Class getReturnType() {
@@ -1918,24 +2098,33 @@ public final class Algebraic implements AllComponents<ExpressionFunction> {
 
    }
 
+   public String getDescription() {
+      return "alegebraic functions";
+   }
+
    public List<ExpressionFunction> allInstances(ContextModel cm) {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
       r.add(new avg_d());
+      r.add(new avg_i());
       r.add(new avg_c());
       r.add(new avg_v2());
       r.add(new avg_v3());
       r.add(new add_col());
       r.add(new add_d());
+      r.add(new add_i());
       r.add(new add_c());
       r.add(new add_v2());
       r.add(new add_v3());
       r.add(new sub_col());
       r.add(new sub_c());
       r.add(new sub_d());
+      r.add(new sub_i());
       r.add(new sub_v2());
       r.add(new sub_v3());
       r.add(new mult_col());
       r.add(new mult_d());
+      r.add(new mult_i());
+      r.add(new mult_i_d());
       r.add(new mult_c());
       r.add(new mult_c_c());
       r.add(new mult_v2());

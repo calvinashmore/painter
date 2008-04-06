@@ -1,0 +1,223 @@
+
+package library.expressions.functions;
+group VectorSwitch;
+type Expression;
+
+import utils.linear.*;
+
+description "vector switching functions";
+
+fn d_to_i {
+    in LDouble x;
+    fout Integer;
+    eval {
+        return (int)x.val;
+    }
+}
+
+fn i_to_d {
+    in Integer x;
+    fout LDouble;
+    eval {
+        return new LDouble(x);
+    }
+}
+
+fn C_v2 {
+    in Complex x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d(x.x,x.y);
+    }
+}
+
+fn C_x {
+    in Complex x;
+    fout LDouble;
+
+    eval {
+        return new LDouble(x.x);
+    }
+}
+
+fn C_y {
+    in Complex x;
+    fout LDouble;
+
+    eval {
+        return new LDouble(x.y);
+    }
+}
+
+fn V2_c {
+    in LVect2d x;
+    fout Complex;
+
+    eval {
+        return new Complex(x.x,x.y);
+    }
+}
+
+fn V2_x {
+    in LVect2d x;
+    fout LDouble;
+
+    eval {
+        return new LDouble(x.x);
+    }
+}
+
+fn V2_y {
+    in LVect2d x;
+    fout LDouble;
+
+    eval {
+        return new LDouble(x.y);
+    }
+}
+
+fn V2_swap {
+    in LVect2d x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d(x.y,x.x);
+    }
+}
+
+fn V2_to_magTheta {
+    in LVect2d x;
+    fout LVect2d;
+
+    eval {
+        double r = Math.sqrt(x.x*x.x + x.y*x.y);
+        double theta = Math.atan2(x.y, x.x);
+        
+        return new LVect2d(r,theta);
+    }
+}
+
+fn MagTheta_to_v2 {
+    in LVect2d x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d(x.x*Math.cos(x.y), x.x*Math.sin(x.y));
+    }
+}
+
+fn Color_r {
+    in Color x;
+    fout LDouble;
+
+    eval {
+        return new LDouble(x.r);
+    }
+}
+
+fn Color_g {
+    in Color x;
+    fout LDouble;
+
+    eval {
+        return new LDouble(x.g);
+    }
+}
+
+fn Color_b {
+    in Color x;
+    fout LDouble;
+
+    eval {
+        return new LDouble(x.b);
+    }
+}
+
+fn Color_hue {
+    in Color x;
+    fout LDouble;
+
+    eval {
+        return new LDouble(x.hsbvals()[0]);
+    }
+}
+
+fn Color_saturation {
+    in Color x;
+    fout LDouble;
+
+    eval {
+        return new LDouble(x.hsbvals()[1]);
+    }
+}
+
+fn Color_brightness {
+    in Color x;
+    fout LDouble;
+
+    eval {
+        return new LDouble(x.hsbvals()[2]);
+    }
+}
+
+fn New_c {
+    in LDouble x;
+    in LDouble y;
+    fout Complex;
+
+    eval {
+        return new Complex(x.val, y.val);
+    }
+}
+
+fn New_v2 {
+    in LDouble x;
+    in LDouble y;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d(x.val, y.val);
+    }
+}
+
+fn New_v3 {
+    in LDouble x;
+    in LDouble y;
+    in LDouble z;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d(x.val, y.val, z.val);
+    }
+}
+
+fn New_dv2_v3 {
+    in LDouble x;
+    in LVect2d yz;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d(x.val, yz.x, yz.y);
+    }
+}
+
+fn New_v2d_v3 {
+    in LVect2d xy;
+    in LDouble z;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d(xy.x, xy.y, z.val);
+    }
+}
+
+fn New_vdv_v3 {
+    in LVect2d xz;
+    in LDouble y;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d(xz.x, y.val, xz.y);
+    }
+}

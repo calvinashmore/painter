@@ -1,0 +1,17 @@
+package painter.functions.commands;
+group BrushCommands;
+type Command;
+
+import utils.linear.*;
+
+
+description "Brush commands";
+
+fn Plot_d2_col {
+    in LDouble x;
+    in LDouble y;
+    in Color color;
+    exec {
+        
+    }
+}

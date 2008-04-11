@@ -6,35 +6,20 @@
     <description>Builds, tests, and runs the project Painter01.</description>
     <import file="nbproject/build-impl.xml"/>
     
-    <target name="build-parser">
-        <jjtree
-            target="src/genetic/gen/fn_gen.jjt" 
-            outputdirectory="src/genetic/gen"
-            javacchome="lib" 
-            nodeusesparser="true"
-            nodepackage="gen"
-        />
-        <javacc 
-            target="src/genetic/gen/fn_gen.jj" 
-            outputdirectory="src/genetic/gen" 
-            javacchome="lib" 
-            buildparser="true"
-        />
-    </target>
-    
     <target name="-pre-compile" depends="run-fn"/>
     
     <target name="run-fn">
         
         <echo> *** running Fn </echo>
         <java
-            classname="genetic.gen.Fn"
-            classpath="build/classes"
+            classname="fn.FnCompiler"
+            classpath="../Fn/dist/Fn.jar"
             dir="."
-            fork="true"
-        />
+            fork="true">
+                <arg value="src/painter/functions/commands/src"/>
+                <arg value="src/painter/functions/commands"/>
+        </java>
         <echo> *** completed Fn! </echo>
-        
     </target>
     
     <!--

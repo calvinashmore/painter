@@ -18,4 +18,6 @@ public class Foundation extends GeneticFoundationImpl {
     public TypeSystem getTypeSystem() {
         return typeSystem;
     }
+    
+    // HOW DO I BUILD CONTEXT MODELS?
 }

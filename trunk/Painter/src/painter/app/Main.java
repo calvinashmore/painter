@@ -32,7 +32,7 @@ public class Main {
         System.out.println("Setting up...");
         program.setup();
         
-        Canvas canvas = new Canvas(100, 100);
+        Canvas canvas = new Canvas(200, 200);
         program.getContext().setVariable("canvas", canvas);
         
         System.out.println("Calling method...");
@@ -42,6 +42,8 @@ public class Main {
         JFrame frame = new JFrame("Painter test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(new JLabel(new ImageIcon(canvas.makeImage())));
+        frame.pack();
         frame.setVisible(true);
+        
     }
 }

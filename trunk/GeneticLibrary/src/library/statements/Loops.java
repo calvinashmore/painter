@@ -87,20 +87,24 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
          StatementList body = (StatementList) inputs.get(0);
          String __i = getContextVariableActualName("i");
          Integer i;
-         i = 0; context.setVariable(__i, i);
+         String __x = getContextVariableActualName("x");
+         LDouble x;
+         i = 0 ; context.setVariable(__i, i);
          while ( i < n ) {
+         x = new LDouble ( 1.0 * i / n ) ; context.setVariable(__x, x);
          body . execute ( context ) ;
-         i = i+1; context.setVariable(__i, i);
+         i = i + 1 ; context.setVariable(__i, i);
          }
       }
 
       public int getNumberContextVariables() {
-         return 1;
+         return 2;
       }
 
       public String getContextVariableIntendedName(int i) {
          switch(i) {
             case 0: return "i";
+            case 1: return "x";
             default: return null;
          }
 
@@ -109,6 +113,7 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
       public Class getContextVariableType(int i) {
          switch(i) {
             case 0: return Integer.class;
+            case 1: return LDouble.class;
             default: return null;
          }
 
@@ -149,21 +154,25 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
          StatementList body = (StatementList) inputs.get(1);
          String __i = getContextVariableActualName("i");
          Integer i;
+         String __x = getContextVariableActualName("x");
+         LDouble x;
          int nValue = ( Integer ) n . evaluate ( context ) ;
-         i = 0; context.setVariable(__i, i);
+         i = 0 ; context.setVariable(__i, i);
          while ( i < nValue ) {
+         x = new LDouble ( 1.0 * i / nValue ) ; context.setVariable(__x, x);
          body . execute ( context ) ;
-         i = i+1; context.setVariable(__i, i);
+         i = i + 1 ; context.setVariable(__i, i);
          }
       }
 
       public int getNumberContextVariables() {
-         return 1;
+         return 2;
       }
 
       public String getContextVariableIntendedName(int i) {
          switch(i) {
             case 0: return "i";
+            case 1: return "x";
             default: return null;
          }
 
@@ -172,6 +181,7 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
       public Class getContextVariableType(int i) {
          switch(i) {
             case 0: return Integer.class;
+            case 1: return LDouble.class;
             default: return null;
          }
 

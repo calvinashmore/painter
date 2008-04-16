@@ -10,6 +10,8 @@ import genetic.component.context.ContextModel;
 import genetic.component.expression.function.AllExpressionFunctions;
 import genetic.component.expression.function.AllExpressionFunctionsImpl;
 import genetic.component.expression.function.ExpressionFunction;
+import genetic.component.expression.function.ExpressionFunctionFactory;
+import genetic.component.expression.function.ExpressionFunctionFactoryImpl;
 import genetic.component.statement.function.AllStatementFunctions;
 import genetic.component.statement.function.CommandStatementFunction;
 import genetic.component.statement.function.StatementFunction;
@@ -70,10 +72,28 @@ public class Foundation extends GeneticFoundationImpl {
             @Override
             public float getStatementWeight(ContextModel cm, StatementFunction sf) {
                 if(sf instanceof CommandStatementFunction)
-                    return 10;
+                    return 15;
+                if(sf.getClass().getName().contains("Loop"))
+                    return 2;
                 return super.getStatementWeight(cm, sf);
             }
         };
     }
+
+    @Override
+    public ExpressionFunctionFactory getExpressionFunctionFactory() {
+        return new ExpressionFunctionFactoryImpl() {
+
+            @Override
+            public float getFunctionWeight(ContextModel cm, ExpressionFunction nf) {
+                if(nf.getClass().getName().contains("Variable"))
+                    return 3;
+                
+                return super.getFunctionWeight(cm, nf);
+            }
+            
+        };
+    }
+    
     
 }

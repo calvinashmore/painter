@@ -31,7 +31,7 @@ public class Expression implements Parameterized, GeneticComponent {
     private List<Expression> children;
     private Object[] cacheInputs;
     private ExpressionFunction function;
-    private transient Object cacheOutput = null;
+    //private transient Object cacheOutput = null;
     //private ContextModel cm;
     private GeneticComponent parent;
 
@@ -97,27 +97,29 @@ public class Expression implements Parameterized, GeneticComponent {
 
     public Object evaluate(Context context) {
 
-        if (cacheOutput != null) {
-            return cacheOutput;
-        }
+        //if (cacheOutput != null) {
+        //    return cacheOutput;
+        //}
 
+        Object output;
+        
         for (int i = 0; i < children.size(); i++) {
             Expression child = children.get(i);
             cacheInputs[i] = child.evaluate(context);
         }
 
         try {
-            cacheOutput = function.evaluate(context, cacheInputs);
-            cacheOutput = Foundation.getInstance().getTypeSystem().checkInvalid(cacheOutput);
+            output = function.evaluate(context, cacheInputs);
+            output = Foundation.getInstance().getTypeSystem().checkInvalid(output);
         } catch (ClassCastException e) {
             //debugPrint(e, context);
-            cacheOutput = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
+            output = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
         } catch (NullPointerException e) {
             //debugPrint(e, context);
-            cacheOutput = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
+            output = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
         }
 
-        return cacheOutput;
+        return output;
     }
 
     /*private void debugPrint(Exception e, Context context) {

@@ -4,7 +4,19 @@
  */
 package painter.foundation;
 
+import genetic.AllComponents;
+import genetic.component.command.Command;
+import genetic.component.context.ContextModel;
+import genetic.component.expression.function.AllExpressionFunctions;
+import genetic.component.expression.function.AllExpressionFunctionsImpl;
+import genetic.component.expression.function.ExpressionFunction;
+import genetic.component.statement.function.AllStatementFunctions;
+import genetic.component.statement.function.CommandStatementFunction;
+import genetic.component.statement.function.StatementFunction;
+import genetic.component.statement.function.StatementFunctionFactory;
+import genetic.component.statement.function.StatementFunctionFactoryImpl;
 import genetic.foundation.GeneticFoundationImpl;
+import java.util.List;
 
 /**
  *
@@ -18,6 +30,50 @@ public class Foundation extends GeneticFoundationImpl {
     public TypeSystem getTypeSystem() {
         return typeSystem;
     }
+
+    @Override
+    public AllComponents<Command> getAllCommands() {
+        return new painter.functions.commands.AllFn();
+    }
+    private AllComponents<ExpressionFunction> allExpressionFunctions = new library.expressions.functions.AllFn();
+
+    @Override
+    public AllExpressionFunctions getAllExpressionFunctions() {
+        return new AllExpressionFunctionsImpl() {
+
+            @Override
+            public List<ExpressionFunction> allInstances(ContextModel cm) {
+                List<ExpressionFunction> allInstances = super.allInstances(cm);
+                allInstances.addAll(allExpressionFunctions.allInstances(cm));
+                return allInstances;
+            }
+        };
+    }
+
+    @Override
+    public AllComponents<StatementFunction> getAllStatementFunctions() {
+        return new AllStatementFunctions() {
+
+            @Override
+            public List<StatementFunction> allInstances(ContextModel cm) {
+                List<StatementFunction> allInstances = super.allInstances(cm);
+                allInstances.addAll(new library.statements.AllFn().allInstances(cm));
+                return allInstances;
+            }
+        };
+    }
+
+    @Override
+    public StatementFunctionFactory getStatementFunctionFactory() {
+        return new StatementFunctionFactoryImpl() {
+
+            @Override
+            public float getStatementWeight(ContextModel cm, StatementFunction sf) {
+                if(sf instanceof CommandStatementFunction)
+                    return 10;
+                return super.getStatementWeight(cm, sf);
+            }
+        };
+    }
     
-    // HOW DO I BUILD CONTEXT MODELS?
 }

@@ -179,7 +179,7 @@ public class StatementFnNode extends FnNode {
                             assignToken = currentToken.next.next; 
                             !assignToken.image.equals(";");
                             assignToken=assignToken.next)
-                        assignment.append(assignToken.image);
+                        assignment.append(assignToken.image+" ");
                     
                     // assign currentToken to after the semicolon
                     currentToken = assignToken;

@@ -3,6 +3,8 @@ group BrushCommands;
 type Command;
 
 import utils.linear.*;
+import painter.tools.canvas.*;
+import painter.tools.brush.*;
 
 
 description "Brush commands";
@@ -12,6 +14,20 @@ fn Plot_d2_col {
     in LDouble y;
     in Color color;
     exec {
-        Todo: something here!
+        //Todo: something here!
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        //canvas.setColor(x.val,y.val,color);
+        new Brush().paint(x.val, y.val, .02, color, canvas);
+    }
+}
+
+fn Plot_v2_col {
+    in LVect2d x;
+    in Color color;
+    exec {
+        //Todo: something here!
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        //canvas.setColor(x.val,y.val,color);
+        new Brush().paint(x.x, x.y, .02, color, canvas);
     }
 }

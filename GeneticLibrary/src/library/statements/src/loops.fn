@@ -12,6 +12,7 @@ fn loop_parameter {
 
     parameter Integer n;
     cvar Integer i;
+    cvar LDouble x;
     slin body;
     
     init {
@@ -21,6 +22,7 @@ fn loop_parameter {
     exec {
         i = 0;
         while(i < n) {
+            x = new LDouble(1.0*i/n);
             body.execute(context);
             i = i+1;
         }
@@ -31,6 +33,7 @@ fn loop_input {
     description "Loops n times, where n is an input value.";
     
     cvar Integer i;
+    cvar LDouble x;
     slin body;
     exin Integer n;
     
@@ -39,6 +42,7 @@ fn loop_input {
         
         i = 0;
         while(i < nValue) {
+            x = new LDouble(1.0*i/nValue);
             body.execute(context);
             i = i+1;
         }

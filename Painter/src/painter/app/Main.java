@@ -9,14 +9,11 @@ import genetic.BuildException;
 import genetic.GeneticTopLevel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import painter.foundation.Foundation;
 import painter.tools.canvas.Canvas;
-import sun.swing.ImageIconUIResource;
 
 
 /**
@@ -63,7 +60,7 @@ public class Main {
         System.out.println("Setting up...");
         program.setup();
         
-        Canvas canvas = new Canvas(200, 200);
+        Canvas canvas = new Canvas(500, 500);
         program.getContext().setVariable("canvas", canvas);
         
         System.out.println("Calling method...");

@@ -68,7 +68,8 @@ public class DemoApplet extends JApplet {
         executor.shutdown();
         
         // bad practice, I know
-        calculateThread.stop();
+        if(isCalculating)
+            calculateThread.stop();
     }
 
     private class RefreshListener extends MouseAdapter {

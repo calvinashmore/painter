@@ -49,6 +49,12 @@ public class Brush {
     }
     
     public void paintLine(double x1, double y1, double x2, double y2, double radius1, double radius2, Color color, Canvas canvas) {
+        paintLine(x1, y1, x2, y2, radius1, radius2, color, color, canvas);
+    }
+    
+    public void paintLine(double x1, double y1, double x2, double y2,
+            double radius1, double radius2,
+            Color color1, Color color2, Canvas canvas) {
 
         //System.out.println("line: "+x1+", "+y1+", "+x2+", "+y2+" ("+radius1+", "+radius2+"): "+color);
         
@@ -72,6 +78,7 @@ public class Brush {
             double x = t*x2+(1-t)*x1;
             double y = t*y2+(1-t)*y1;
             double radius = t*radius2+(1-t)*radius1;
+            Color color = color2.mult(t).add(color1.mult(1-t));
             drawDab(x, y, radius, color, canvas);
         }
     }

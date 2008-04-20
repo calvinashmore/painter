@@ -32,6 +32,8 @@ fn loop_parameter {
 fn loop_input {
     description "Loops n times, where n is an input value.";
     
+    private static final int max = 100000;
+    
     cvar Integer i;
     cvar LDouble x;
     slin body;
@@ -39,11 +41,82 @@ fn loop_input {
     
     exec {
         int nValue = (Integer) n.evaluate(context);
+        nValue = Math.min(nValue, max);
         
         i = 0;
         while(i < nValue) {
             x = new LDouble(1.0*i/nValue);
             body.execute(context);
+            i = i+1;
+        }
+    }
+}
+
+fn loop_parameter_2d {
+    description "Loops n times in two dimensions. The parameter n is initialized to a value between 10 and 20.";
+
+    parameter Integer n;
+    cvar Integer i;
+    cvar Integer j;
+    cvar LDouble x;
+    cvar LDouble y;
+    cvar LVect2d v;
+    slin body;
+    
+    init {
+        n = 10+new Random().nextInt(10);
+    }
+    
+    exec {
+        i = 0;
+        j = 0;
+        while(i < n) {
+            x = new LDouble(1.0*i/n);
+            j = 0;
+            while(j < n) {
+                y = new LDouble(1.0*j/n);
+                v = new LVect2d(x.val, y.val);
+                body.execute(context);
+                j = j+1;
+            }
+            i = i+1;
+        }
+    }
+}
+
+fn loop_parameter_3d {
+    description "Loops n times in two dimensions. The parameter n is initialized to a value between 10 and 20.";
+
+    parameter Integer n;
+    cvar Integer i;
+    cvar Integer j;
+    cvar Integer k;
+    cvar LDouble x;
+    cvar LDouble y;
+    cvar LDouble z;
+    cvar LVect3d v;
+    slin body;
+    
+    init {
+        n = 10+new Random().nextInt(10);
+    }
+    
+    exec {
+        i = 0;
+        while(i < n) {
+            x = new LDouble(1.0*i/n);
+            j = 0;
+            while(j < n) {
+                y = new LDouble(1.0*j/n);
+                k = 0;
+                while(k < n) {
+                    z = new LDouble(1.0*k/n);
+                    v = new LVect3d(x.val, y.val, z.val);
+                    body.execute(context);
+                    k = k+1;
+                }
+                j = j+1;
+            }
             i = i+1;
         }
     }

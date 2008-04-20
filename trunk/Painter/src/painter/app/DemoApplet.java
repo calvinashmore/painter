@@ -85,9 +85,10 @@ public class DemoApplet extends JApplet {
 
             long beenCalculatingFor = System.currentTimeMillis() - calculationStart;
             
-            if(beenCalculatingFor < 3000) {
-                captionLabel.setText("Thinking...");
-            } else if(beenCalculatingFor < 10000) {
+            //if(beenCalculatingFor < 3000) {
+            //    captionLabel.setText("Thinking...");
+            //} else
+            if(beenCalculatingFor < 5000) {
                 int seconds = (int)(beenCalculatingFor/1000);
                 captionLabel.setText("Thinking... ("+seconds+")");
             } else {

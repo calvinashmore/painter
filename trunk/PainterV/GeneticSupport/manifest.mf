@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: com.icosilune.painter.geneticsupport
+OpenIDE-Module-Layer: com/icosilune/painter/geneticsupport/layer.xml
+OpenIDE-Module-Localizing-Bundle: com/icosilune/painter/geneticsupport/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

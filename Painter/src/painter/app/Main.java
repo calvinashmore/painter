@@ -21,7 +21,25 @@ import painter.tools.canvas.Canvas;
  * @author Calvin Ashmore
  */
 public class Main {
-    public static void main(String args[]) throws BuildException {
+
+    
+    public static void main(String args[]) {
+        
+        JFrame frame = new JFrame("Painter test");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        DemoApplet applet = new DemoApplet();
+        
+        frame.getContentPane().add(applet);
+        applet.init();
+        applet.start();
+        
+        frame.pack();
+        frame.setVisible(true);
+    }
+    
+    
+    /*public static void main(String args[]) throws BuildException {
         Foundation foundation = new Foundation();
         genetic.Foundation.setInstance(foundation);
 
@@ -68,5 +86,5 @@ public class Main {
         System.out.println("Done!");
         
         return canvas;
-    }
+    }*/
 }

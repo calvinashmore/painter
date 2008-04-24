@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.apisupport.project</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/nb-module-project/3">
+            <code-name-base>library</code-name-base>
+            <suite-component/>
+            <module-dependencies>
+                <dependency>
+                    <code-name-base>genetic</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>1.0</specification-version>
+                    </run-dependency>
+                </dependency>
+            </module-dependencies>
+            <public-packages>
+                <package>library.expressions.functions</package>
+                <package>library.statements</package>
+                <package>utils</package>
+                <package>utils.attractor</package>
+                <package>utils.cellular</package>
+                <package>utils.cellularautomata</package>
+                <package>utils.cfractal</package>
+                <package>utils.linear</package>
+                <package>utils.linear.grid</package>
+                <package>utils.lyapunov</package>
+                <package>utils.noise</package>
+                <package>utils.pointfield</package>
+                <package>utils.pointfield.attractor</package>
+            </public-packages>
+            <class-path-extension>
+                <runtime-relative-path>ext/Utils.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/Utils.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/GeneticLibrary.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/GeneticLibrary.jar</binary-origin>
+            </class-path-extension>
+        </data>
+    </configuration>
+</project>

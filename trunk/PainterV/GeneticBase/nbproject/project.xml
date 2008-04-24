@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.apisupport.project</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/nb-module-project/3">
+            <code-name-base>genetic</code-name-base>
+            <suite-component/>
+            <module-dependencies/>
+            <public-packages>
+                <package>genetic</package>
+                <package>genetic.component.accessor</package>
+                <package>genetic.component.command</package>
+                <package>genetic.component.context</package>
+                <package>genetic.component.expression</package>
+                <package>genetic.component.expression.breeder</package>
+                <package>genetic.component.expression.function</package>
+                <package>genetic.component.expression.mutator</package>
+                <package>genetic.component.method</package>
+                <package>genetic.component.method.breeder</package>
+                <package>genetic.component.method.mutator</package>
+                <package>genetic.component.program</package>
+                <package>genetic.component.program.breeder</package>
+                <package>genetic.component.program.mutator</package>
+                <package>genetic.component.statement</package>
+                <package>genetic.component.statement.breeder</package>
+                <package>genetic.component.statement.function</package>
+                <package>genetic.component.statement.mutator</package>
+                <package>genetic.component.statementlist</package>
+                <package>genetic.component.statementlist.breeder</package>
+                <package>genetic.component.statementlist.mutator</package>
+                <package>genetic.foundation</package>
+            </public-packages>
+            <class-path-extension>
+                <runtime-relative-path>ext/GeneticBase.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/GeneticBase.jar</binary-origin>
+            </class-path-extension>
+        </data>
+    </configuration>
+</project>

@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: painter.app
+OpenIDE-Module-Localizing-Bundle: painter/app/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

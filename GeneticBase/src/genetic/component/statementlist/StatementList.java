@@ -15,9 +15,9 @@ import genetic.GeneticComponent;
 import genetic.*;
 import genetic.component.statement.Statement;
 import genetic.Foundation;
-import genetic.component.statement.StatementBuilder;
 import genetic.BuildException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,6 +38,10 @@ public class StatementList implements GeneticComponent {
         contextModel = new ContextModel(parent.getContextModel());
     }
 
+    public List<Statement> getStatements() {
+        return Collections.unmodifiableList(statements);
+    }
+    
     public boolean isSetup() {
         return isSetup;
     }

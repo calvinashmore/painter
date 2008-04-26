@@ -29,4 +29,26 @@ public class Buffer_d extends Buffer<LDouble> {
     public void setValue(int x, int y, LDouble value) {
         data[x + xres*y] = value.val;
     }
+    
+    @Override
+    public LDouble pointAverage(int x, int y, int rx, int ry)
+    {
+        int count = 0;
+        //LDouble avg = getValue(0,0).zero();
+        double avg = 0;
+        for(int xt = x - rx; xt <= x + rx; xt++)
+        for(int yt = y - ry; yt <= y + ry; yt++)
+        {
+            if(xt < 0 || xt >= xres || yt < 0 || yt >= yres)
+                continue;
+            
+            avg += data[xt + xres*yt];
+            //avg.addv(getValue(xt,yt));
+            count++;
+        }
+        
+        //avg.multv(1.0/count);
+        avg *= 1.0/count;
+        return new LDouble(avg);
+    }
 }

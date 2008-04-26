@@ -5,4 +5,15 @@
 <project name="fn" default="netbeans" basedir=".">
     <description>Builds, tests, and runs the project fn.</description>
     <import file="nbproject/build-impl.xml"/>
+    
+    <target name="copy-externals">
+        <copy
+            file="../../Fn/dist/Fn.jar" 
+            overwrite="true"
+            todir="release/modules/ext/"
+            failonerror="true"
+        />
+    </target>
+    
+    <target name="build-init" depends="harness.build-init, copy-externals"/>
 </project>

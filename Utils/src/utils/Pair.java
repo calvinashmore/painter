@@ -29,4 +29,10 @@ public class Pair<A,B>
     
     public A getLeft() {return a;}
     public B getRight() {return b;}
+
+    @Override
+    public String toString() {
+        return "["+a.toString()+", "+b.toString()+"]";
+    }
+    
 }

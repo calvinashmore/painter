@@ -4,6 +4,8 @@
 <!-- If you delete this file and reopen the project it will be recreated. -->
 <project name="fn" default="netbeans" basedir=".">
     <description>Builds, tests, and runs the project fn.</description>
+
+    <echo message="*** FnWrapper basedir: ${basedir}"/>
     <import file="nbproject/build-impl.xml"/>
     
     <target name="copy-externals">

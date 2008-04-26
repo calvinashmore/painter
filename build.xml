@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PainterAll" default="build" basedir=".">
+    <description>Builds, tests, and runs the project BuildAll.</description>
+    
+    <target name="build">
+        <echo>Building: Utils</echo>
+        <subant buildpath="Utils/" target="jar"/>
+        
+        <echo>Building: GeneticBase</echo>
+        <subant buildpath="GeneticBase/" target="jar"/>
+        
+        <echo>Building: Fn</echo>
+        <subant buildpath="Fn/" target="jar"/>
+        
+        <echo>Building: Painter</echo>
+        <subant buildpath="Painter/" target="jar"/>
+        
+        <echo>Building: FnSupport</echo>
+        <subant buildpath="FnSupport Suite/" target="build" inheritall="false" inheritrefs="false"/>
+        
+        <echo>Building: PainterV</echo>
+        <subant buildpath="PainterV/" target="build" inheritall="false" inheritrefs="false"/>
+    </target>
+    
+</project>

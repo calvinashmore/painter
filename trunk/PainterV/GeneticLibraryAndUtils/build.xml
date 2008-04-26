@@ -5,4 +5,21 @@
 <project name="library" default="netbeans" basedir=".">
     <description>Builds, tests, and runs the project library.</description>
     <import file="nbproject/build-impl.xml"/>
+    
+    <target name="copy-externals">
+        <copy
+            file="../../GeneticLibrary/dist/GeneticLibrary.jar" 
+            overwrite="true"
+            todir="release/modules/ext/"
+            failonerror="true"
+        />
+        <copy
+            file="../../Utils/dist/Utils.jar" 
+            overwrite="true"
+            todir="release/modules/ext/"
+            failonerror="true"
+        />
+    </target>
+    
+    <target name="build-init" depends="harness.build-init, copy-externals"/>
 </project>

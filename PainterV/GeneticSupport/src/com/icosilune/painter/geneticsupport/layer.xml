@@ -4,6 +4,7 @@
     <folder name="Actions">
         <folder name="Window">
             <file name="com-icosilune-painter-geneticsupport-explorer-GeneticBrowserAction.instance"/>
+            <file name="com-icosilune-painter-geneticsupport-viewer-ViewerAction.instance"/>
         </folder>
     </folder>
     <folder name="Menu">
@@ -11,15 +12,22 @@
             <file name="GeneticBrowserAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/com-icosilune-painter-geneticsupport-explorer-GeneticBrowserAction.instance"/>
             </file>
+            <file name="ViewerAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/com-icosilune-painter-geneticsupport-viewer-ViewerAction.instance"/>
+            </file>
         </folder>
     </folder>
     <folder name="Windows2">
         <folder name="Components">
             <file name="GeneticBrowserTopComponent.settings" url="GeneticBrowserTopComponentSettings.xml"/>
+            <file name="ViewerTopComponent.settings" url="ViewerTopComponentSettings.xml"/>
         </folder>
         <folder name="Modes">
             <folder name="explorer">
                 <file name="GeneticBrowserTopComponent.wstcref" url="GeneticBrowserTopComponentWstcref.xml"/>
+            </folder>
+            <folder name="editor">
+                <file name="ViewerTopComponent.wstcref" url="ViewerTopComponentWstcref.xml"/>
             </folder>
         </folder>
     </folder>

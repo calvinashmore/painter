@@ -18,7 +18,7 @@ import utils.Pair;
  */
 public class ProgramNode extends GeneticNode<GeneticTopLevel> {
 
-    private static final String IMAGE_ICON_BASE = "com/icosilune/painter/geneticsupport/nodes/program.png";
+    private static final String IMAGE_ICON_BASE = "com/icosilune/painter/geneticsupport/nodes/icons/program.png";
     
     public ProgramNode(GeneticTopLevel object) {
         super(object);
@@ -26,6 +26,11 @@ public class ProgramNode extends GeneticNode<GeneticTopLevel> {
         setName("Program");
     }
 
+    @Override
+    public String getHtmlDisplayName() {
+        return "<b><i>Program</i></b>";
+    }
+    
     @Override
     protected Node createNode(Object obj) {
         Map.Entry<String, Method> methodSignature = (Map.Entry<String, Method>)obj;

@@ -19,13 +19,22 @@ import utils.Pair;
  */
 public class StatementNode extends GeneticNode<Statement> {
 
-    private static final String IMAGE_ICON_BASE = "com/icosilune/painter/geneticsupport/nodes/statement.png";
-
-    public StatementNode(Statement statement) {
+    private static final String IMAGE_ICON_BASE = "com/icosilune/painter/geneticsupport/nodes/icons/statement.png";
+    private int index;
+    
+    public StatementNode(Statement statement, int index) {
         super(statement);
         setIconBaseWithExtension(IMAGE_ICON_BASE);
+        this.index = index;
     }
 
+    @Override
+    public String getHtmlDisplayName() {
+        Statement statement = getLookup().lookup(Statement.class);
+        String name = statement.getFunction().getName();
+        return "[<b>"+index+"</b>] "+name.substring(name.lastIndexOf(".")+1);
+    }
+    
     private Node createNode(GeneticComponent component, String inputName) {
         if (component instanceof Expression) {
             return new ExpressionNode((Expression) component, inputName);

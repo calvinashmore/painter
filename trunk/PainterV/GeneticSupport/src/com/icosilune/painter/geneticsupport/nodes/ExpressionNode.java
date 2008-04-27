@@ -16,7 +16,7 @@ import utils.Pair;
  */
 public class ExpressionNode extends GeneticNode<Expression> {
 
-    private static final String IMAGE_ICON_BASE = "com/icosilune/painter/geneticsupport/nodes/expression.png";
+    private static final String IMAGE_ICON_BASE = "com/icosilune/painter/geneticsupport/nodes/icons/expression.png";
     private String name;
 
     public ExpressionNode(Expression expression, String name) {
@@ -24,8 +24,17 @@ public class ExpressionNode extends GeneticNode<Expression> {
         this.name = name;
 
         setIconBaseWithExtension(IMAGE_ICON_BASE);
+        setName(name);
     }
 
+    @Override
+    public String getHtmlDisplayName() {
+        Expression expression = getLookup().lookup(Expression.class);
+        String functionName = expression.getFunction().getClass().getName();
+        functionName = functionName.substring(functionName.lastIndexOf(".")+1);
+        return "<b>"+name+"</b> (<i>"+expression.getOutputType().getSimpleName()+"</i>) ["+functionName+"]";
+    }
+    
     @Override
     protected Node createNode(Object obj) {
         Pair<String, Expression> pair = (Pair<String, Expression>) obj;

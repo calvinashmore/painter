@@ -16,13 +16,29 @@ import org.openide.nodes.Node;
  */
 public class MethodNode extends GeneticNode<Method> {
 
-    private static final String IMAGE_ICON_BASE = "com/icosilune/painter/geneticsupport/nodes/method.png";
+    private static final String IMAGE_ICON_BASE = "com/icosilune/painter/geneticsupport/nodes/icons/method.png";
     private String methodName;
 
     public MethodNode(String methodName, Method component) {
         super(component);
         this.methodName = methodName;
         setIconBaseWithExtension(IMAGE_ICON_BASE);
+
+        setName(methodName);
+    }
+
+    @Override
+    public String getHtmlDisplayName() {
+        Method method = getLookup().lookup(Method.class);
+        String displayName = "<b>"+methodName + "</b>(";
+        for (int i = 0; i < method.getNumberArguments(); i++) {
+            if (i > 0) {
+                displayName += ", ";
+            }
+            displayName += method.getArgumentType(i).getSimpleName() + " " + method.getArgumentName(i);
+        }
+        displayName += ")";
+        return displayName;
     }
 
     @Override

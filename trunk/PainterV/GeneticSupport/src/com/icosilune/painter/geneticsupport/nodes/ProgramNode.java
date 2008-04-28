@@ -6,11 +6,14 @@ package com.icosilune.painter.geneticsupport.nodes;
 
 import genetic.GeneticTopLevel;
 import genetic.component.method.Method;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.openide.nodes.Node;
-import utils.Pair;
+import org.openide.nodes.PropertySupport.ReadOnly;
+import org.openide.nodes.Sheet;
+import org.openide.nodes.Sheet.Set;
 
 /**
  *
@@ -43,4 +46,22 @@ public class ProgramNode extends GeneticNode<GeneticTopLevel> {
                 new ArrayList<Map.Entry<String, Method>>(getComponent().getMethods().entrySet());
         return children;
     }
+
+    /*@Override
+    protected Sheet createSheet() {
+        Sheet sheet = new Sheet();
+        Set properties = Sheet.createPropertiesSet();
+        properties.put(new ReadOnly<Integer>("thingy", Integer.class, "A Thingy", "The Thingy Property") {
+            
+            @Override
+            public Integer getValue() throws IllegalAccessException, InvocationTargetException {
+                return 12345;
+            }
+        });
+        
+        sheet.put(properties);
+        return sheet;
+    }*/
+    
+    
 }

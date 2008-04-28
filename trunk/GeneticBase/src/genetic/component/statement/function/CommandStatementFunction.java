@@ -25,7 +25,6 @@ import java.util.List;
 public class CommandStatementFunction extends StatementFunction {
     
     private Command command;
-    //private List<Expression> expressions;
 
     @Override
     public void setup() throws BuildException {
@@ -37,14 +36,18 @@ public class CommandStatementFunction extends StatementFunction {
 
         super.setup();
     }
+
+    @Override
+    public String getName() {
+        return command.getClass().getName();
+    }
     
     @Override public int getNumberInputs() {return command.getNumberInputs();}
-    @Override public String getInputName(int i) {return "expression "+i;}
+    @Override public String getInputName(int i) {return command.getInputName(i);}
     @Override
     public InputSignature getInputSignature(int i) {
         return new ExpressionInputSignature(command.getInputType(i));
     }
-    
     
     @Override
     public void execute(Context context, List<GeneticComponent> inputs) {

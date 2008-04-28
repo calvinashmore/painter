@@ -44,19 +44,11 @@ abstract public class StatementFunction implements
     }
     
     final public static class StatementListInputSignature extends InputSignature {
-        //private String[] contextVariableNames;
-        //private Class[] contextVariableTypes;
         public StatementListInputSignature() {}
-        //StatementListInputSignature(String[] contextVariableNames, Class[] contextVariableTypes) {
-        //    this.contextVariableNames = contextVariableNames;
-        //    this.contextVariableTypes = contextVariableTypes;
-        //}
-        
         @Override public Class getInputClass() {return StatementList.class;}
-        //public int getNumberContextVariables() {return contextVariableNames.length;}
-        //public String getContextVariableName(int i) {return contextVariableNames[i];}
-        //public Class getContextVariableType(int i) {return contextVariableTypes[i];}
     }
+    
+    public String getName() {return getClass().getName();}
     
     private boolean parametersChanged = true;
     public void setParametersChanged(boolean changed) {parametersChanged=changed;}
@@ -111,28 +103,6 @@ abstract public class StatementFunction implements
     public String getContextVariableActualName(String intendedName) {
         return variableMap.get(intendedName);
     }
-    
-    // for each statement list input, maps an intended variable name to its actual value
-    // this is something of a awkward construct, but hopefully it can be hidden effectively
-    /*private Map<StatementListInputSignature, Map<String, String>> variableMaps = new HashMap();
-    
-    public void setStatementListInputVariableName(
-            int input, String intendedVariableName, String actualVariableName) {
-        StatementListInputSignature signature = (StatementListInputSignature) getInputSignature(input);
-        Map<String, String> variableMap = variableMaps.get(signature);
-        if(variableMap == null) {
-            variableMap = new HashMap<String, String>();
-            variableMaps.put(signature, variableMap);
-        }
-        
-        variableMap.put(intendedVariableName, actualVariableName);
-    }
-    
-    protected String getActualVariableName(int input, String name) {
-        StatementListInputSignature signature = (StatementListInputSignature) getInputSignature(input);
-        Map<String, String> variableMap = variableMaps.get(signature);
-        return variableMap.get(name);
-    }*/
     
     private boolean isSetup = false;
     public boolean isSetup() {return isSetup;}

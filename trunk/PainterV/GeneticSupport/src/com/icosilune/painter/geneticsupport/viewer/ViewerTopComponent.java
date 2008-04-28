@@ -4,13 +4,18 @@
  */
 package com.icosilune.painter.geneticsupport.viewer;
 
+import com.icosilune.painter.geneticsupport.app.ApplicationInstance;
+import genetic.BuildException;
+import genetic.GeneticTopLevel;
 import java.awt.BorderLayout;
 import java.io.Serializable;
 import java.util.logging.Logger;
-import org.openide.explorer.view.BeanTreeView;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
+import painter.app.DemoApplet;
+import painter.foundation.Foundation;
+import painter.tools.canvas.Canvas;
 
 /**
  *
@@ -30,8 +35,42 @@ public class ViewerTopComponent extends TopComponent {
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
 
         setLayout(new BorderLayout());
+
+        DemoApplet applet = new DemoApplet() {
+            protected Canvas makeCanvas() throws BuildException {
+
+                Foundation foundation = (Foundation) genetic.Foundation.getInstance();
+
+                if (foundation == null) {
+                    foundation = new Foundation();
+                    genetic.Foundation.setInstance(foundation);
+                }
+
+                GeneticTopLevel program = foundation.getProgramBuilder().build();
+                
+                ApplicationInstance.getInstance().setProgram(program);
+
+                program.getContextModel().declareVariable("canvas", Canvas.class, true);
+                program.createMethod("doStuff");
+
+                System.out.println("Setting up...");
+                program.setup();
+
+                Canvas canvas = new Canvas(500, 500);
+                program.getContext().setVariable("canvas", canvas);
+
+                System.out.println("Calling method...");
+                program.callMethod("doStuff");
+                System.out.println("Done!");
+
+                return canvas;
+            }
+        };
         
+        applet.init();
+        applet.start();
         
+        add(applet, BorderLayout.CENTER);
     }
 
     /**

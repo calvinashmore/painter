@@ -4,27 +4,28 @@
  */
 package com.icosilune.painter.geneticsupport.explorer;
 
+import com.icosilune.painter.geneticsupport.app.ApplicationInstance;
+import com.icosilune.painter.geneticsupport.app.ProgramListener;
 import com.icosilune.painter.geneticsupport.nodes.ProgramNode;
-import genetic.BuildException;
 import genetic.GeneticTopLevel;
 import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.io.Serializable;
 import java.util.logging.Logger;
 import javax.swing.ActionMap;
 import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.view.BeanTreeView;
+import org.openide.util.Lookup;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
-import painter.foundation.Foundation;
 
 /**
  *
  * @author Calvin Ashmore
  */
-public class GeneticBrowserTopComponent extends TopComponent implements ExplorerManager.Provider {
+public class GeneticBrowserTopComponent extends TopComponent
+        implements ExplorerManager.Provider, ProgramListener {
 
     private static GeneticBrowserTopComponent instance;
     /** path to the icon used by the component and its open action */
@@ -33,7 +34,8 @@ public class GeneticBrowserTopComponent extends TopComponent implements Explorer
     private final ExplorerManager manager = new ExplorerManager();
 
     public GeneticBrowserTopComponent() {
-
+        ApplicationInstance.getInstance().addProgramListener(this);
+        
         setName(NbBundle.getMessage(GeneticBrowserTopComponent.class, "CTL_GeneticBrowserTopComponent"));
         setToolTipText(NbBundle.getMessage(GeneticBrowserTopComponent.class, "HINT_GeneticBrowserTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
@@ -46,7 +48,7 @@ public class GeneticBrowserTopComponent extends TopComponent implements Explorer
         view.setRootVisible(true);
 
         // *************************
-        Foundation foundation = (Foundation) genetic.Foundation.getInstance();
+        /*Foundation foundation = (Foundation) genetic.Foundation.getInstance();
 
         if (foundation == null) {
             foundation = new Foundation();
@@ -62,10 +64,9 @@ public class GeneticBrowserTopComponent extends TopComponent implements Explorer
         try {
             program.setup();
         } catch (BuildException ex) {
-        }
+        }*/
         // *************************
 
-        manager.setRootContext( new ProgramNode(program) );
         add(view, BorderLayout.CENTER);
     }
 
@@ -137,5 +138,9 @@ public class GeneticBrowserTopComponent extends TopComponent implements Explorer
         public Object readResolve() {
             return GeneticBrowserTopComponent.getDefault();
         }
+    }
+
+    public void onProgramChange(GeneticTopLevel program) {
+        manager.setRootContext( new ProgramNode(program) );
     }
 }

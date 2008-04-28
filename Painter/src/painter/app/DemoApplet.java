@@ -32,7 +32,7 @@ public class DemoApplet extends JApplet {
     private long calculationStart;
     private ScheduledExecutorService executor;
     private Thread calculateThread;
-
+    
     @Override
     public void init() {
         super.init();
@@ -133,7 +133,7 @@ public class DemoApplet extends JApplet {
         isCalculating = false;
     }
 
-    private Canvas makeCanvas() throws BuildException {
+    protected Canvas makeCanvas() throws BuildException {
 
         Foundation foundation = (Foundation) genetic.Foundation.getInstance();
 

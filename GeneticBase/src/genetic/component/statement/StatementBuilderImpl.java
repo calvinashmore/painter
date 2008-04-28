@@ -63,7 +63,8 @@ public class StatementBuilderImpl implements StatementBuilder {
 
     //public Statement buildStatement(ContextModel cm, GeneticComponent parent) throws BuildException {
     public Statement buildStatement(GeneticComponent parent) throws BuildException {
-        return buildStatement(parent, false);
+        boolean seekTerminal = parent.getDepth()>=3;
+        return buildStatement(parent, seekTerminal);
     }
     private static final int ATTEMPTS = 10;
 

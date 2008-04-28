@@ -43,20 +43,15 @@ public class Program implements GeneticTopLevel {
     private Context context;
     
     private boolean isSetup;
-    
-    //private Map<String, Command> commands;
-    //private Map<String, Accessor> accessors;
+
+    public int getDepth() {
+        return 0;
+    }
     
     /** Creates a new instance of Program */
     public Program() {
         methods = new Hashtable<String, Method>();
-        //commands = new Hashtable<String, Command>();
-        //accessors = new Hashtable<String, Accessor>();
-        //internalFunctions = new Hashtable();
-        
         contextModel = new ContextModel(this);
-        // init vars again for goodly program variables
-        //.createNewVariables();
     }
 
     public boolean isSetup() {
@@ -97,37 +92,6 @@ public class Program implements GeneticTopLevel {
         return Collections.unmodifiableMap(methods);
     }
     
-    
-    /*public List<Integer> getFunctionNames() {
-        return new ArrayList(internalFunctions.keySet());
-    }
-    
-    public Function getFunction(int name) {
-        return internalFunctions.get(name);
-    }*/
-    /*
-    public void createCommand(String name, Command command) {
-        commands.put(name, command);
-    }
-    public void createAccessor(String name, Accessor accessor) {
-        accessors.put(name, accessor);
-    }
-    
-    public List<String> getCommands() {return new ArrayList<String>(commands.keySet());}
-    public List<String> getAccessors() {return new ArrayList<String>(accessors.keySet());}
-    
-    public List<String> getAccessorsByType(Class type) {
-        //return new ArrayList(accessors.keySet());
-        List<String> r = new ArrayList<String>();
-        for(String name : accessors.keySet())
-            if(accessors.get(name).getReturnType() == type)
-                r.add(name);
-        return r;
-    }
-    
-    public Command getCommand(String name) {return commands.get(name);}
-    public Accessor getAccessor(String name) {return accessors.get(name);}
-    */
     public GeneticComponent getParent() {
         return null;
     }
@@ -176,17 +140,12 @@ public class Program implements GeneticTopLevel {
         return null;
     }*/
     
-    //@Override
-    //public Program clone() {return clone(null);}
-    
     public Program clone(GeneticComponent newParent) throws BuildException {
         try {
             Program program = (Program) getClass().newInstance();
             program.contextModel = contextModel.copy();
             program.contextModel.setTopLevel(program);
-            //program.commands = new Hashtable<String, Command>(commands);
-            //program.accessors = new Hashtable<String, Accessor>(accessors);
-
+            
             for (String i : methods.keySet()) {
                 Method newFunction = methods.get(i).clone(program);
                 program.methods.put(i, newFunction);
@@ -196,11 +155,6 @@ public class Program implements GeneticTopLevel {
             
             program.isSetup = true;
             
-
-            /*for(Integer i : internalFunctions.keySet()) {
-            Function newFunction = internalFunctions.get(i).clone(program);
-            program.internalFunctions.put( i, newFunction );
-            }*/
             return program;
             
         } catch (InstantiationException ex) {

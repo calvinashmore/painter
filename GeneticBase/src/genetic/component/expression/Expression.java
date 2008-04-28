@@ -31,19 +31,21 @@ public class Expression implements Parameterized, GeneticComponent {
     private List<Expression> children;
     private Object[] cacheInputs;
     private ExpressionFunction function;
-    //private transient Object cacheOutput = null;
-    //private ContextModel cm;
     private GeneticComponent parent;
+    private int depth;
 
     private void setParent(Expression parent) {
         this.parent = parent;
     }
-    
-    public Expression(ExpressionFunction function, /*ContextModel cm,*/ GeneticComponent parent) {
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public Expression(ExpressionFunction function, GeneticComponent parent) {
 
         this.parent = parent;
-        //this.cm = cm;
-        
+
         children = new ArrayList<Expression>(function.getNumberInputs());
         cacheInputs = new Object[function.getNumberInputs()];
 
@@ -52,6 +54,7 @@ public class Expression implements Parameterized, GeneticComponent {
         }
 
         this.function = function;
+        this.depth = parent.getDepth()+1;
     }
 
     public Class getOutputType() {
@@ -61,16 +64,17 @@ public class Expression implements Parameterized, GeneticComponent {
     public boolean assignChild(int index, Expression child) {
 
         if (index >= function.getNumberInputs() || index < 0) {
-            throw new IllegalArgumentException("Assigning child index of "+index+" where number is: "+function.getNumberInputs());
+            throw new IllegalArgumentException("Assigning child index of " + index + " where number is: " + function.getNumberInputs());
         }
-        
-        if(child == null)
+
+        if (child == null) {
             throw new IllegalArgumentException("Attempting to assign null child!");
+        }
 
         // allowing child to be null here
         // for sake of use in editor
         if (child.getOutputType() != function.getInputType(index)) {
-            throw new IllegalArgumentException("Child output type "+child.getOutputType()+" does not match function type "+function.getInputType(index));
+            throw new IllegalArgumentException("Child output type " + child.getOutputType() + " does not match function type " + function.getInputType(index));
         }
 
         child.setParent(this);
@@ -97,12 +101,8 @@ public class Expression implements Parameterized, GeneticComponent {
 
     public Object evaluate(Context context) {
 
-        //if (cacheOutput != null) {
-        //    return cacheOutput;
-        //}
-
         Object output;
-        
+
         for (int i = 0; i < children.size(); i++) {
             Expression child = children.get(i);
             cacheInputs[i] = child.evaluate(context);
@@ -112,36 +112,13 @@ public class Expression implements Parameterized, GeneticComponent {
             output = function.evaluate(context, cacheInputs);
             output = Foundation.getInstance().getTypeSystem().checkInvalid(output);
         } catch (ClassCastException e) {
-            //debugPrint(e, context);
             output = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
         } catch (NullPointerException e) {
-            //debugPrint(e, context);
             output = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
         }
 
         return output;
     }
-
-    /*private void debugPrint(Exception e, Context context) {
-        synchronized (System.err) {
-            System.err.println(function);
-            System.err.println("inputs: ");
-            for (int i = 0; i < children.size(); i++) {
-                System.err.println("    " + children.get(i).getFunction() + " (" + children.get(i).getOutputType() + ") -> " + cacheInputs[i]);
-            }
-
-            System.err.println("context: ");
-            for (String var : context.allVariables()) {
-                System.out.println("    var." + var + ": " + context.getVariable(var));
-            }
-
-            e.printStackTrace(System.err);
-        }
-        //throw e;
-        throw new RuntimeException();
-    }*/
-    // this sets up the node and makes it ready for evaluation
-    //private transient boolean isSetup;
 
     public void setup() throws BuildException {
 
@@ -153,15 +130,18 @@ public class Expression implements Parameterized, GeneticComponent {
             }
         }
     }
-    
+
     public boolean isSetup() {
         //return isSetup;
-        if(!function.isSetup())
+        if (!function.isSetup()) {
             return false;
-        
-        for(Expression child : children)
-            if(!child.isSetup())
+        }
+
+        for (Expression child : children) {
+            if (!child.isSetup()) {
                 return false;
+            }
+        }
         return true;
     }
 
@@ -188,16 +168,6 @@ public class Expression implements Parameterized, GeneticComponent {
     public Class getReturnType() {
         return function.getReturnType();
     }
-    
-
-    /*@Deprecated
-    public List<Expression> getInputs() {
-        List<Expression> r = new ArrayList<Expression>(getNumberInputs());
-        for (int i = 0; i < getNumberInputs(); i++) {
-            r.add(getInput(i));
-        }
-        return r;
-    }*/
 
     public Expression getInput(int i) {
         return children.get(i);
@@ -227,16 +197,6 @@ public class Expression implements Parameterized, GeneticComponent {
         function.setParameter(i, value);
     }
 
-    /*@Override
-    public String toString() {
-
-        String args[] = new String[getNumberInputs()];
-        for (int i = 0; i < getNumberInputs(); i++) {
-            args[i] = children.get(i).toString();
-        }
-        return function.toString(args);
-    }*/
-
     public GeneticComponent getParent() {
         return parent;
     }
@@ -250,40 +210,39 @@ public class Expression implements Parameterized, GeneticComponent {
     }
 
     public Expression clone(GeneticComponent newParent) throws BuildException {
-        
+
         Expression clone = new Expression(function.cloneFunction(), newParent);
-        
+
         // clone children
-        for(int i=0; i<getNumberInputs(); i++) {
+        for (int i = 0; i < getNumberInputs(); i++) {
             clone.setInput(i, getInput(i).clone(clone));
         }
-        
+
         return clone;
     }
-
+    
     public void removeVariable(String name) {
-        if(function instanceof VariableExpressionFunction) {
+        if (function instanceof VariableExpressionFunction) {
             VariableExpressionFunction variableFunction = (VariableExpressionFunction) function;
-            if(variableFunction.getVariableName().equals(name)) {
+            if (variableFunction.getVariableName().equals(name)) {
                 try {
                     // now we need to replace the function.
-                    // this 
                     Class returnType = variableFunction.getReturnType();
                     ExpressionFunction constantFunction = Foundation.getInstance().getAllExpressionFunctions().getConstantFunction(returnType);
                     function = constantFunction;
-                    
+
                 } catch (BuildException ex) {
-                    // Supress an exception here, it should never occur.
+                // Supress an exception here, it should never occur.
                 }
             }
         }
-        // otherwise do nothing, we're okay.
+    // otherwise do nothing, we're okay.
     }
 
     public boolean hasVariable(String name) {
-        if(function instanceof VariableExpressionFunction) {
+        if (function instanceof VariableExpressionFunction) {
             VariableExpressionFunction variableFunction = (VariableExpressionFunction) function;
-            if(variableFunction.getVariableName().equals(name)) {
+            if (variableFunction.getVariableName().equals(name)) {
                 return true;
             }
         }

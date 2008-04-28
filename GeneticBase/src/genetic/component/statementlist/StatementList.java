@@ -19,6 +19,8 @@ import genetic.BuildException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,11 +31,17 @@ public class StatementList implements GeneticComponent {
     private ContextModel contextModel;
     private List<Statement> statements;
     private GeneticComponent parent;
+    private int depth;
+    
+    public int getDepth() {
+        return depth;
+    }
     
     private boolean isSetup;
     
     public StatementList(GeneticComponent parent) {
         this.parent = parent;
+        this.depth = parent.getDepth();
 
         contextModel = new ContextModel(parent.getContextModel());
     }
@@ -62,20 +70,6 @@ public class StatementList implements GeneticComponent {
         
         if(statements == null) {
             statements = Foundation.getInstance().getStatementListBuilder().buildChildren(this);
-            /*statements = new ArrayList<Statement>();
-
-            StatementBuilder builder = Foundation.getInstance().getStatementBuilder();
-
-            int numberStatements = Foundation.getInstance().getBuilderRandom().
-                    nextInt(numberFlexStatements) + numberBaseStatements;
-
-            for(int i=0;i<numberStatements;i++) {
-                Statement statement = builder.buildStatement(this);
-                statements.add(statement);
-                //Statement statementTemplate = factory.select(contextModel, false);
-                //Statement statement = factory.build(statementTemplate.getClass(), contextModel);
-                //statements.add(statement);
-            }*/
         }
         
         for(Statement statement : statements)
@@ -125,13 +119,11 @@ public class StatementList implements GeneticComponent {
     }
     
     private void handleExecutionException(RuntimeException e, Statement statement, Context context) {
-        System.out.flush();
-        System.err.flush();
-
-        System.err.println(statement);
+        Logger.getLogger("GeneticBase").severe("Encountered exception in statement: "+statement);
         for(String var : contextModel.getVariables()) {
-            System.err.println("    "+contextModel.getType(var)+": var."+var+" = "+context.getVariable(var));
+            Logger.getLogger("GeneticBase").severe("    "+contextModel.getType(var)+": var."+var+" = "+context.getVariable(var));
         }
+        Logger.getLogger("GeneticBase").logp(Level.SEVERE, "Statement.java", "execute", "", e);
         throw e;
     }
 

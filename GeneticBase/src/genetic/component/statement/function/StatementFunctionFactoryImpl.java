@@ -34,10 +34,9 @@ public class StatementFunctionFactoryImpl extends AbstractFactory<StatementFunct
         if (seekTerminal) {
             matches = new ArrayList<StatementFunction>();
             for (StatementFunction statement : allStatements) {
-                if (statement.getNumberInputs() > 0) {
-                    continue;
+                if (statement instanceof CommandStatementFunction) {
+                    matches.add(statement);
                 }
-                matches.add(statement);
             }
         } else {
             matches = allStatements;
@@ -52,13 +51,13 @@ public class StatementFunctionFactoryImpl extends AbstractFactory<StatementFunct
             // select from this list, using weights
             double weightTotal = 0;
             for (StatementFunction match : matches) {
-                weightTotal += getStatementWeight(cm,match);
+                weightTotal += getStatementWeight(cm, match);
             }
 
             double target = Foundation.getInstance().getBuilderRandom().nextFloat() * weightTotal;
             int index = 0;
             for (StatementFunction match : matches) {
-                target -= getStatementWeight(cm,match);
+                target -= getStatementWeight(cm, match);
                 if (target < 0) {
                     break;
                 }
@@ -68,7 +67,9 @@ public class StatementFunctionFactoryImpl extends AbstractFactory<StatementFunct
             try {
                 StatementFunction result = build(matches.get(index).getClass(), cm);
                 return result;
-            } catch(BuildException ex) {lastException = ex;}
+            } catch (BuildException ex) {
+                lastException = ex;
+            }
         }
         throw new BuildException("Could not construct suitable statement!", lastException);
     }

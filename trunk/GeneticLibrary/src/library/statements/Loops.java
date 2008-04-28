@@ -376,11 +376,11 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
 
       public loop_parameter_3d() {
 
-         n = 10 + new Random ( ) . nextInt ( 10 ) ;
+         n = 5 + new Random ( ) . nextInt ( 5 ) ;
       }
 
       public String getDescription() {
-         return "Loops n times in two dimensions. The parameter n is initialized to a value between 10 and 20.";
+         return "Loops n times in three dimensions. The parameter n is initialized to a value between 5 and 10.";
       }
 
       public void execute(Context context, List<GeneticComponent> inputs) {

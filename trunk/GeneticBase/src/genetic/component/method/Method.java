@@ -34,6 +34,10 @@ public class Method implements GeneticComponent {
     private StatementList body;
     private ContextModel contextModel;
     private GeneticTopLevel parent;
+
+    public int getDepth() {
+        return 0;
+    }
     
     /** Creates a new instance of Function */
     protected Method() {}
@@ -52,7 +56,6 @@ public class Method implements GeneticComponent {
             argumentNames.add(contextModel.declareVariable(type, true));
         
         body = Foundation.getInstance().getStatementListBuilder().build(this);
-                // = new StatementList( this );
     }
 
     public StatementList getBody() {return body;}

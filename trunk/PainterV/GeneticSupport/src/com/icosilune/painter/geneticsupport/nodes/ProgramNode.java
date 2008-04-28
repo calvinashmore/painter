@@ -62,6 +62,4 @@ public class ProgramNode extends GeneticNode<GeneticTopLevel> {
         sheet.put(properties);
         return sheet;
     }*/
-    
-    
 }

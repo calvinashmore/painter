@@ -26,4 +26,6 @@ public interface GeneticComponent extends SetupComponent {
     public void removeVariable(String name);
     public boolean hasVariable(String name);
     public boolean hasMethod(String name);
+    
+    public int getDepth();
 }

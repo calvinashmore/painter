@@ -37,15 +37,11 @@ abstract public class ExpressionFunction implements
     
     /** Creates a new instance of NodeFunction */
     public ExpressionFunction() {
-        //meta = new Hashtable();
     }
     
     public ExpressionFunction cloneFunction() throws BuildException {
         try {
             ExpressionFunction clone = (ExpressionFunction) clone();
-            //clone.isSetup = false;
-            //clone.parametersChanged = false;
-            //clone.meta = meta; // referential copy
             
             for(int i=0; i<getNumberParameters(); i++)
                 clone.setParameter(i, getParameter(i));
@@ -60,10 +56,9 @@ abstract public class ExpressionFunction implements
     
     private transient boolean isSetup;
     public boolean isSetup() {return isSetup;}
-    //public void setIsSetup(boolean v) {isSetup = v;}
     public void setup() throws BuildException {isSetup = true;}
     
-    abstract public Object evaluate( Context context, Object inputs[]);
+    abstract public Object evaluate(Context context, Object inputs[]);
     public int getNumberInputs() {return 0;}
     public Class getInputType(int i) {return null;}
     public String getInputName(int i) {return "input "+i;}
@@ -78,18 +73,4 @@ abstract public class ExpressionFunction implements
     public String getDescription() {
         return "No description.";
     }
-    
-    //abstract public String toString(String... args);
-    /*public String toString(String... args) {
-        String r = getClass().getName()+"(";
-        
-        for(int i=0; i<args.length; i++) {
-            if(i>0)
-                r += ", ";
-            r += args[i];
-        }
-        
-        r += ")";
-        return r;
-    }*/
 }

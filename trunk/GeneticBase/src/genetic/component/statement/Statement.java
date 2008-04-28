@@ -36,20 +36,20 @@ public class Statement implements GeneticComponent {
     
     private ContextModel contextModel;
     
-    //private boolean isSetup;
-    //public boolean isSetup() {return isSetup;}
+    private int depth;
+
+    public int getDepth() {
+        return depth;
+    }
     
     private List<GeneticComponent> children = new ArrayList<GeneticComponent>();
-    
-    public Statement() {
-        // ??
-    }
     
     /** Creates a new instance of Statement */
     public Statement(StatementFunction function, GeneticComponent parent) {
         this.function = function;
         assert (parent instanceof StatementList);
         this.parent = (StatementList) parent;
+        this.depth = parent.getDepth()+1;
         
         if(function.getNumberContextVariables() > 0) {
             contextModel = new ContextModel(parent.getContextModel());
@@ -108,12 +108,6 @@ public class Statement implements GeneticComponent {
      */
     public boolean isNestingStatement() {return true;}
     
-    //protected void addChild(GeneticComponent child) {children.add(child);}
-    //public List<GeneticComponent> getInputs() {return children;}
-    
-    //public int getNumberInputs() {return function.getNumberInputs();}
-    //public Class getInputType(int i) {return function.getInputType(i);}
-    //public String getInputName(int i) {return function.getInputName(i);}
     public GeneticComponent getInput(int i) {return children.get(i);}
     public void setInput(int i, GeneticComponent child) {children.set(i, child);}
     
@@ -122,8 +116,6 @@ public class Statement implements GeneticComponent {
             return contextModel;
         return parent.getContextModel();
     }
-
-    //public String printout(String indent);
 
     public void setParent(GeneticComponent newParent) {
         assert(newParent instanceof StatementList) : "Attempt to assign "+newParent+" as parent of "+this;

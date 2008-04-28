@@ -66,9 +66,6 @@ abstract public class StatementFunction implements
         try {
             StatementFunction clone = (StatementFunction) clone();
             clone.setContextModel(newModel);
-            //clone.isSetup = false;
-            //clone.parametersChanged = false;
-            //clone.meta = meta; // referential copy
             
             clone.setup();
             

@@ -48,6 +48,16 @@ public class CommandStatementFunction extends StatementFunction {
     public InputSignature getInputSignature(int i) {
         return new ExpressionInputSignature(command.getInputType(i));
     }
+
+    @Override
+    public Object getMeta(String key) {
+        return command.getMeta(key);
+    }
+
+    @Override
+    public String getDescription() {
+        return command.getDescription();
+    }
     
     @Override
     public void execute(Context context, List<GeneticComponent> inputs) {

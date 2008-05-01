@@ -198,8 +198,12 @@ public class FnLexer implements Lexer<FnTokenId> {
                     return keywordOrError(FnTokenId.IMPORT, ISA_IMPORT_1);
                 } else if (readString("description")) {
                     return keywordOrError(FnTokenId.DESCRIPTION, ISA_DESCRIPTION_1);
+                } else if (readString("meta")) {
+                    return keywordOrError(FnTokenId.META, ISA_DESCRIPTION_1);
                 } else {
-                    return finishError(ISI_TOP);
+                    // if nothing else has been satisfied, assume local java
+                    //return finishError(ISI_FN_BODY);
+                    return finishLocalJava();
                 }
             }
 

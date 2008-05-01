@@ -1,26 +1,17 @@
-package foo.toast;
-group Mice;
+package my.pkg;
+group Group;
 type Expression;
 
-import toast.mice.stuff.*;
-import toast.mice.Things;
-
-
-description "mydesc";
+description "Group Description";
 
 // the wombat function has mystical wombat powers.
-fn Wombat  {
-    in foo fooey;
-    fout toast;
+fn MyFunction {
+    in Integer myInput;
+    fout Integer;
 
-    description "mydesc";
+    description "Fn Description";
     
     eval {
-        return null;
-    }
-    
-    private int stuff;
-    class myClass extends Monkey {
-        protected float banana;
+        return 123;
     }
 }

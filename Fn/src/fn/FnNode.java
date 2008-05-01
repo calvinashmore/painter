@@ -396,8 +396,8 @@ abstract public class FnNode /*implements Compilable*/ {
         if(getFn().getBlock("setup") != null)
             fnClass.addMethod(make_setup());
         
-        if(getFn().getBlock("init") != null)
-            fnClass.addMethod(make_constructor());
+        //if(getFn().getBlock("init") != null)
+        fnClass.addMethod(make_constructor());
         
         if(!getFn().getExpressions("description").isEmpty())
             fnClass.addMethod(make_getDescription());

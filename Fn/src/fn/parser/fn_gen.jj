@@ -471,7 +471,10 @@ ASTFnTopLevel FnTopLevel()             : {/*@bgen(jjtree) FnTopLevel */
 
     [ FnDescriptionTop(jjtn000) ]
     
-    ( fn = FnDefinition() { jjtn000.addFn(fn); } )*
+    ( fn = FnDefinition() { jjtn000.addFn(fn); } 
+|     FnMeta(jjtn000)
+|     FnLocalDeclaration(jjtn000)
+    )*
     <EOF>/*@bgen(jjtree)*/
     {
       jjtree.closeNodeScope(jjtn000, true);
@@ -558,7 +561,7 @@ void FnField(ASTFnDefinition fn) : {
 }
 
 
-void FnMeta(ASTFnDefinition fn) : {
+void FnMeta(ASTFnParent fn) : {
     Token t;
     ASTExpression expression;
 }{
@@ -638,7 +641,7 @@ void FnDescriptionTop(ASTFnTopLevel top) : {
     {top.addExpression(t.image, expression);}
 }
 
-void FnLocalDeclaration(ASTFnDefinition fn)                   : {/*@bgen(jjtree) LocalDeclaration */
+void FnLocalDeclaration(ASTFnParent fn)                   : {/*@bgen(jjtree) LocalDeclaration */
     ASTLocalDeclaration jjtn000 = new ASTLocalDeclaration(this, JJTLOCALDECLARATION);
     boolean jjtc000 = true;
     jjtree.openNodeScope(jjtn000);

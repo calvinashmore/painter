@@ -97,6 +97,8 @@ fn loop_parameter_3d {
     cvar LVect3d v;
     slin body;
     
+    meta complexity 3;
+    
     init {
         n = 5+new Random().nextInt(5);
     }

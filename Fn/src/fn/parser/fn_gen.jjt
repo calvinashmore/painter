@@ -464,7 +464,10 @@ ASTFnTopLevel FnTopLevel() #FnTopLevel : {
 
     [ FnDescriptionTop(jjtThis) ]
     
-    ( fn = FnDefinition() { jjtThis.addFn(fn); } )*
+    ( fn = FnDefinition() { jjtThis.addFn(fn); } 
+|     FnMeta(jjtThis)
+|     FnLocalDeclaration(jjtThis)
+    )*
     <EOF>
     { return jjtThis; }
 }
@@ -490,7 +493,7 @@ void FnField(ASTFnDefinition fn) : {
 }
 
 
-void FnMeta(ASTFnDefinition fn) : {
+void FnMeta(ASTFnParent fn) : {
     Token t;
     ASTExpression expression;
 }{
@@ -570,7 +573,7 @@ void FnDescriptionTop(ASTFnTopLevel top) : {
     {top.addExpression(t.image, expression);}
 }
 
-void FnLocalDeclaration(ASTFnDefinition fn) #LocalDeclaration : {
+void FnLocalDeclaration(ASTFnParent fn) #LocalDeclaration : {
     int modifiers;
 }{
     modifiers = Modifiers()

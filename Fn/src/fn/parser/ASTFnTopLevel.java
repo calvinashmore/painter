@@ -7,17 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
-
-// fixme: for now I'm not including the machinery for variable definitions (scope maintainence). 
 import java.util.Map;
-// If I want to add this, extend BeatScopeMaintainer.
-public class ASTFnTopLevel extends FnParseNode {
 
-    // name of the package within which the beat(s) should be defined
-    //String fnPackage = null;
-    //String fnPackage = "genetic.expressions.functions";
-    //String fnDirectory = "src/genetic/expressions/functions";
+public class ASTFnTopLevel extends ASTFnParent {
+
     private String fnGroup;
     private String fnType;
     private String fnPackage;
@@ -45,19 +38,6 @@ public class ASTFnTopLevel extends FnParseNode {
         return Collections.unmodifiableList(expressions.get(id));
     }
     
-    // Names of import packages. 
-    /*private final static String[] importPackages = {
-        "utils.*",
-        "utils.estimates.*",
-        "utils.linear.*",
-        "utils.linear.grid.*",
-        "utils.noise.*",
-        "utils.cellular.*",
-        "utils.cfractal.*",
-        "java.util.*",
-        "genetic.*",
-        "genetic.expressions.*",};   */
-         
     private List<String> userImports = new ArrayList();
 
     // root node of the parse tree
@@ -76,16 +56,6 @@ public class ASTFnTopLevel extends FnParseNode {
     // Set accessor for user imports. 
     void addUserImport(String importName) {
         userImports.add(importName);
-	/*if (importName.endsWith("*")) {
-            / The import name ends with a "*"; trim off the ".*"
-            suffix and add the resulting package name to
-            userImportPackages. /
-            userImports.add(importName.substring(0, importName.length() - 2));
-        } else {
-            / The import name doesn't end in "*"; it is an import of
-            a specific class. /
-            userImportClasses.add(importName);
-        }*/
     }
     
     private List<ASTFnDefinition> allFn = new ArrayList<ASTFnDefinition>();
@@ -94,38 +64,9 @@ public class ASTFnTopLevel extends FnParseNode {
     } 
     
     public List<ASTFnDefinition> getFnDefinitions() {
-        
-        /*List<ASTFnDefinition> allFn = new ArrayList<ASTFnDefinition>();
-        
-        for (int i = 0; i < jjtGetNumChildren(); i++) {
-            // Loop through the children nodes, compiling functions
-
-            SimpleNode n = (SimpleNode) jjtGetChild(i);
-            if ((FnParserTreeConstants.jjtNodeName[n.id].equals("FnDefinition"))) {
-
-                ASTFnDefinition fnDef = (ASTFnDefinition) n;
-                allFn.add(fnDef);
-            }
-        }*/
         return Collections.unmodifiableList(allFn);
     }
 
-    /* Adds all user imports (packages and classes) to the
-    ClassDescriptor. */
-    /*public void addUserImports(ClassDescriptor c) {
-        ListIterator packageIter = userImports.listIterator();
-        while (packageIter.hasNext()) {
-            c.addImport((String) packageIter.next() + ".*");
-        }
-
-        ListIterator classIter = userImportClasses.listIterator();
-        while (classIter.hasNext()) {
-            c.addImport((String) classIter.next());
-        }
-    }*/
-
-    /* Get accessor for user package imports. Returns a ListIterator
-    for the package imports. */
     public List<String> getUserImports() {
         return Collections.unmodifiableList(userImports);
     }
@@ -139,101 +80,4 @@ public class ASTFnTopLevel extends FnParseNode {
         return fnTopLevel;
     }
 
-/*    public ClassDescriptor compileToJava() throws CompileException {
-        
-        SimpleNode n;
-
-        ClassDescriptor functionGroup = new ClassDescriptor();
-
-        functionGroup.className = fnGroup;
-        functionGroup.packageName = fnPackage;
-        functionGroup.addClassModifier("public");
-        functionGroup.addInterface("FunctionGroup");
-        functionGroup.addInterface("java.io.Serializable");
-
-        // Add imports
-        for (int i = 0; i < importPackages.length; i++) {
-            functionGroup.addPackageImport(importPackages[i]);
-        }
-        addUserImports(functionGroup);
-
-        MethodDescriptor getFunctionsMeth = new MethodDescriptor();
-        getFunctionsMeth.methodName = "getFunctions";
-        getFunctionsMeth.addModifier("public");
-        getFunctionsMeth.addModifier("List<ExpressionFunction>");
-        getFunctionsMeth.addToBlockBody(new CodeStringDescriptor(
-                "List<ExpressionFunction> functions = new LinkedList();"));
-        for (int i = 0; i < jjtGetNumChildren(); i++) {
-            n = (SimpleNode) jjtGetChild(i);
-            if ((FnParserTreeConstants.jjtNodeName[n.id].equals("FnDefinition"))) {
-
-                ASTFnDefinition fnDef = (ASTFnDefinition) n;
-
-                if (fnDef.isNodeBase()) {
-                    continue;
-                }
-
-                getFunctionsMeth.addToBlockBody(new CodeStringDescriptor(
-                        "functions.add( new " + fnDef.getFnName() + "() );"));
-            }
-        }
-        getFunctionsMeth.addToBlockBody(new CodeStringDescriptor(
-                "return functions;"));
-        functionGroup.addMethod(getFunctionsMeth);
-
-        MethodDescriptor buildMeth = new MethodDescriptor();
-        buildMeth.methodName = "build";
-        buildMeth.addModifier("public");
-        buildMeth.addModifier("ExpressionFunction");
-        buildMeth.addArgument("Class<? extends ExpressionFunction>", "nfClass");
-        buildMeth.addArgument("ExpressionFactory", "nff");
-
-        // go through sub groups and test this
-        buildMeth.addToBlockBody(new CodeStringDescriptor(
-                "ExpressionFunction r;"));
-        for (int i = 0; i < jjtGetNumChildren(); i++) {
-            n = (SimpleNode) jjtGetChild(i);
-            if ((FnParserTreeConstants.jjtNodeName[n.id].equals("FnDefinition"))) {
-                ASTFnDefinition fnDef = (ASTFnDefinition) n;
-
-                //if (fnDef.isNodeBase()) {
-                //    continue;
-                //}
-
-                buildMeth.addToBlockBody(new CodeStringDescriptor(
-                        "if(nfClass == " + fnDef.getFnName() + ".class)"));
-                if (fnDef.isNodeBase()) {
-                    buildMeth.addToBlockBody(new CodeStringDescriptor(
-                            "    if(nff == null) return new " + fnDef.getFnName() + "(); else return new " + fnDef.getFnName() + "(nff);"));
-                } else {
-                    buildMeth.addToBlockBody(new CodeStringDescriptor(
-                            "    return new " + fnDef.getFnName() + "();"));
-                }
-            }
-        }
-        buildMeth.addToBlockBody(new CodeStringDescriptor(
-                "return null;"));
-
-        functionGroup.addMethod(buildMeth);
-
-        //Vector allFunctions = new Vector();
-
-        for (int i = 0; i < jjtGetNumChildren(); i++) {
-            // Loop through the children nodes, compiling functions
-
-            n = (SimpleNode) jjtGetChild(i);
-            if ((FnParserTreeConstants.jjtNodeName[n.id].equals("FnDefinition"))) {
-
-                ASTFnDefinition fnDef = (ASTFnDefinition) n;
-                ClassDescriptor function = fnDef.compileToJava();
-                if (function != null) {
-                    functionGroup.addNestedClass(function);
-                }
-            }
-        }
-
-        return functionGroup;
-    }*/
 }
-
-

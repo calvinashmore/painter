@@ -375,7 +375,7 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
       }
 
       public loop_parameter_3d() {
-
+         addMeta("complexity", 3);
          n = 5 + new Random ( ) . nextInt ( 5 ) ;
       }
 

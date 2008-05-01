@@ -5,10 +5,13 @@
 
 package fn;
 
+import fn.parser.ASTExpression;
 import fn.parser.ASTFnDefinition;
 import fn.parser.ASTFnTopLevel;
+import fn.parser.ASTLocalDeclaration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import jd.ClassDescriptor;
 import jd.CodeStringDescriptor;
 import jd.MethodDescriptor;
@@ -35,12 +38,7 @@ abstract public class FnGroup<NodeType extends FnNode> {
         addImport("genetic.component.statementlist.*");
         addImport("genetic.component.statement.function.*");
     }
-    //private List<NodeType> myNodes = new ArrayList<NodeType>();
-
-    //private String packageName;
-    //public void setPackageName(String packageName) {
-    //    this.packageName = packageName;
-    //}
+    
     
     private List<String> imports = new ArrayList<String>();
     
@@ -77,10 +75,41 @@ abstract public class FnGroup<NodeType extends FnNode> {
         }
         
         descriptor.addMethod(make_allComponents());
+        descriptor.addMethod(make_addGroupMeta());
+        
+        descriptor.addToBlockBody(make_localDeclarations());
         
         return descriptor;
     }
     
+    MethodDescriptor make_addGroupMeta() {
+        MethodDescriptor method = new MethodDescriptor("addGroupMeta");
+        method.addModifier("private");
+        method.addModifier("void");
+        method.addArgument("Metadata", "item");
+        
+        StringBuffer sb = new StringBuffer();
+        Map<String, ASTExpression> meta = top.getMeta();
+        for (Map.Entry<String, ASTExpression> entry : meta.entrySet()) {
+            sb.append("item.addMeta(");
+            sb.append(  "\""+entry.getKey()+"\", ");
+            sb.append(  entry.getValue().dumpTokens());
+            sb.append(");\n");
+        }
+        method.addToBlockBody(new CodeStringDescriptor(sb.toString()));
+        return method;
+    }
+    
+    CodeStringDescriptor make_localDeclarations() {
+        StringBuffer sb = new StringBuffer();
+        
+        for(ASTLocalDeclaration local : top.getLocalDeclarations()) {
+            //local.dump(sb, "");
+            sb.append(local.dumpTokens());
+        }
+        
+        return new CodeStringDescriptor(sb.toString());
+    }
     
     MethodDescriptor make_getDescription() {
         MethodDescriptor method = new MethodDescriptor("getDescription");

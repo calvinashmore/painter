@@ -7,22 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ASTFnDefinition extends FnParseNode {
+public class ASTFnDefinition extends ASTFnParent {
 
     private String fnName;
-    /*private ASTBlock eval;
-    private ASTBlock init;
-    private ASTBlock setup;
-    private ASTName output;*/
-    //private Map<String, List<ASTTypeAndName>> inputs = new HashMap();
-    //private List<ASTName> interfaces = new LinkedList();
-    //private List<ASTTypeAndName> parameters = new LinkedList();
-    private List<ASTLocalDeclaration> localDeclarations = new ArrayList<ASTLocalDeclaration>();
-
-    public void addLocalDeclaration(ASTLocalDeclaration local) {
-        localDeclarations.add(local);
-    }
-    public List<ASTLocalDeclaration> getLocalDeclarations() {return Collections.unmodifiableList(localDeclarations);}
     
     void setName(String fnName) {
         this.fnName = fnName;
@@ -36,11 +23,6 @@ public class ASTFnDefinition extends FnParseNode {
         blocks.put(id, block);
     }
     public ASTBlock getBlock(String id) {return blocks.get(id);}
-
-    private Map<String, ASTExpression> meta = new HashMap<String, ASTExpression>();
-    void addMeta(String name, ASTExpression expression) {meta.put(name, expression);}
-    public Map<String, ASTExpression> getMeta() {return Collections.unmodifiableMap(meta);}
-    
     
     private Map<String, List<ASTExpression>> expressions = new HashMap<String, List<ASTExpression>>();
     void addExpression(String id, ASTExpression expression) {
@@ -98,29 +80,6 @@ public class ASTFnDefinition extends FnParseNode {
         return Collections.unmodifiableList(typesAndNames.get(id));
     }
     
-    /*public void setEval(ASTBlock eval) {
-    this.eval = eval;
-    }
-    public void setInit(ASTBlock init) {
-    this.init = init;
-    }*/
-
-    /*public void setSetup(ASTBlock setup) {
-    this.setup = setup;
-    }
-    public void setOut(ASTName out) {
-    this.output = out;
-    }
-    public void addIn(ASTTypeAndName in) {
-    this.inputs.add(in);
-    }
-    public void addInterface(ASTName intf) {
-    this.interfaces.add(intf);
-    }
-    public void addParameter(ASTTypeAndName in) {
-    this.parameters.add(in);
-    }*/
-
     public ASTFnDefinition(int id) {
         super(id);
     }
@@ -128,166 +87,4 @@ public class ASTFnDefinition extends FnParseNode {
     public ASTFnDefinition(FnParser p, int id) {
         super(p, id);
     }
-    /*public ClassDescriptor compileToJava() throws CompileException {
-    ClassDescriptor thisClass = new ClassDescriptor();
-    thisClass.addClassModifier("static");
-    thisClass.className = fnName;
-    //if (nbInputs.isEmpty()) {
-    thisClass.extendsClass = "ExpressionFunction";
-    for (ASTName intf : interfaces) {
-    thisClass.addInterface(intf.getType());
-    }
-    for (ASTLocalDeclaration local : localDeclarations) {
-    String localBlock = local.dumpBlock();
-    localBlock = localBlock.replaceAll(">> >", ">>");
-    thisClass.addToBlockBody(new CodeStringDescriptor(localBlock));
-    }
-    // parameter variable declarations
-    for (ASTTypeAndName parameter : parameters) {
-    FieldDescriptor parameterField = new FieldDescriptor();
-    parameterField.fieldType = parameter.getType();
-    parameterField.addFieldName(parameter.getName());
-    parameterField.addFieldModifier("private");
-    thisClass.addField(parameterField);
-    }
-    // init (constructor)
-    if (init != null) {
-    MethodDescriptor initMeth = new MethodDescriptor();
-    initMeth.addModifier("public");
-    initMeth.methodName = fnName;
-    initMeth.addToBlockBody(new CodeStringDescriptor(init.dumpBlock()));
-    //if (meta != null) {
-    //    for (int i = 0; i < meta.getNumber(); i++) {
-    //        initMeth.addToBlockBody(new CodeStringDescriptor("addMeta(\"" + meta.getName(i) + "\", " + meta.getValue(i) + ");"));
-    //    }
-    //}
-    thisClass.addMethod(initMeth);
-    } 
-    // getReturnClass
-    MethodDescriptor getReturnClassMeth = new MethodDescriptor();
-    getReturnClassMeth.addModifier("public");
-    getReturnClassMeth.addModifier("Class");
-    getReturnClassMeth.methodName = "getReturnClass";
-    getReturnClassMeth.addToBlockBody(new CodeStringDescriptor(
-    "return " + output.getType() + ".class;"));
-    thisClass.addMethod(getReturnClassMeth);
-    // getInputClasses
-    MethodDescriptor getInputClassesMeth = new MethodDescriptor();
-    getInputClassesMeth.addModifier("public");
-    getInputClassesMeth.addModifier("Class[]");
-    getInputClassesMeth.methodName = "getInputClasses";
-    if (inputs.isEmpty()) {
-    getInputClassesMeth.addToBlockBody(new CodeStringDescriptor(
-    "return null;"));
-    } else {
-    String inputClasses = inputs.get(0).getType() + ".class";
-    for (int i = 1; i < inputs.size(); i++) {
-    inputClasses += ", " + inputs.get(i).getType() + ".class";
-    }
-    getInputClassesMeth.addToBlockBody(new CodeStringDescriptor(
-    "Class inputClasses[] = {" + inputClasses + "};"));
-    getInputClassesMeth.addToBlockBody(new CodeStringDescriptor(
-    "return inputClasses;"));
-    }
-    thisClass.addMethod(getInputClassesMeth);
-    MethodDescriptor getInputName = new MethodDescriptor();
-    getInputName.addModifier("public");
-    getInputName.addModifier("String");
-    getInputName.methodName = "getInputName";
-    getInputName.addArgument("int", "i");
-    for (int i = 0; i < inputs.size(); i++) {
-    getInputName.addToBlockBody(new CodeStringDescriptor(
-    "if(i == " + i + ") return \"" + inputs.get(i).getName() + "\";"));
-    }
-    getInputName.addToBlockBody(new CodeStringDescriptor("return null;"));
-    thisClass.addMethod(getInputName);
-    // evaluate
-    MethodDescriptor evalMeth = new MethodDescriptor();
-    evalMeth.addModifier("public");
-    evalMeth.addModifier("Object"); // return type
-    evalMeth.addArgument("Object", "inputs[]");
-    evalMeth.addArgument("Context", "context");
-    evalMeth.methodName = "evaluate";
-    for (int i = 0; i < inputs.size(); i++) {
-    ASTTypeAndName input = inputs.get(i);
-    evalMeth.addToBlockBody(new CodeStringDescriptor(
-    input.getType() + " " + input.getName() + " = (" + input.getType() + ")inputs[" + i + "]; "));
-    }
-    String evalBlock = eval.dumpBlock();
-    evalMeth.addToBlockBody(new CodeStringDescriptor(evalBlock));
-    thisClass.addMethod(evalMeth);
-    if (setup != null) {
-    MethodDescriptor setupMeth = new MethodDescriptor();
-    setupMeth.addModifier("public");
-    setupMeth.addModifier("void"); // return type
-    setupMeth.methodName = "setup";
-    String setupBlock = setup.dumpBlock();
-    setupMeth.addToBlockBody(new CodeStringDescriptor(setupBlock));
-    thisClass.addMethod(setupMeth);
-    }
-    // parameters
-    if (parameters.size() > 0) {
-    MethodDescriptor numberParameters = new MethodDescriptor();
-    numberParameters.addModifier("public");
-    numberParameters.addModifier("int");
-    numberParameters.methodName = "getNumberParameters";
-    numberParameters.addToBlockBody(new CodeStringDescriptor("return " + parameters.size() + ";"));
-    thisClass.addMethod(numberParameters);
-    MethodDescriptor getParameter = new MethodDescriptor();
-    getParameter.addModifier("public");
-    getParameter.addModifier("Object");
-    getParameter.methodName = "getParameter";
-    getParameter.addArgument("int", "i");
-    for (int i = 0; i < parameters.size(); i++) {
-    getParameter.addToBlockBody(new CodeStringDescriptor(
-    "if(i == " + i + ") return " + parameters.get(i).getName() + ";"));
-    }
-    getParameter.addToBlockBody(new CodeStringDescriptor("return null;"));
-    thisClass.addMethod(getParameter);
-    MethodDescriptor setParameter = new MethodDescriptor();
-    setParameter.addModifier("public");
-    setParameter.addModifier("void");
-    setParameter.methodName = "setParameter";
-    setParameter.addArgument("int", "i");
-    setParameter.addArgument("Object", "param");
-    for (int i = 0; i < parameters.size(); i++) {
-    if (parameters.get(i).getType().equals("int")) {
-    setParameter.addToBlockBody(new CodeStringDescriptor(
-    "if(i == " + i + ") " + parameters.get(i).getName() + " = (Integer)param;"));
-    } else if (parameters.get(i).getType().equals("double")) {
-    setParameter.addToBlockBody(new CodeStringDescriptor(
-    "if(i == " + i + ") " + parameters.get(i).getName() + " = (Double)param;"));
-    } else {
-    setParameter.addToBlockBody(new CodeStringDescriptor(
-    "if(i == " + i + ") " + parameters.get(i).getName() + " = (" +
-    parameters.get(i).getType() + ")param;"));
-    }
-    }
-    //setParameter.addToBlockBody(new CodeStringDescriptor("return null;"));
-    thisClass.addMethod(setParameter);
-    MethodDescriptor getParameterName = new MethodDescriptor();
-    getParameterName.addModifier("public");
-    getParameterName.addModifier("String");
-    getParameterName.methodName = "getParameterName";
-    getParameterName.addArgument("int", "i");
-    for (int i = 0; i < parameters.size(); i++) {
-    getParameterName.addToBlockBody(new CodeStringDescriptor(
-    "if(i == " + i + ") return \"" + parameters.get(i).getName() + "\";"));
-    }
-    getParameterName.addToBlockBody(new CodeStringDescriptor("return null;"));
-    thisClass.addMethod(getParameterName);
-    MethodDescriptor getParameterType = new MethodDescriptor();
-    getParameterType.addModifier("public");
-    getParameterType.addModifier("Class");
-    getParameterType.methodName = "getParameterType";
-    getParameterType.addArgument("int", "i");
-    for (int i = 0; i < parameters.size(); i++) {
-    getParameterType.addToBlockBody(new CodeStringDescriptor(
-    "if(i == " + i + ") return " + parameters.get(i).getType() + ".class;"));
-    }
-    getParameterType.addToBlockBody(new CodeStringDescriptor("return null;"));
-    thisClass.addMethod(getParameterType);
-    }
-    return thisClass;
-    }*/
 }

@@ -38,6 +38,7 @@ abstract public class FnNode /*implements Compilable*/ {
     CodeStringDescriptor make_metaInitializer() {
         StringBuffer sb = new StringBuffer();
 
+        sb.append("addGroupMeta(this);\n");
         Map<String, ASTExpression> meta = getFn().getMeta();
         for (Map.Entry<String, ASTExpression> entry : meta.entrySet()) {
             sb.append("addMeta(");

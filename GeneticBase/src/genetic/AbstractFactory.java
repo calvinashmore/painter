@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package genetic;
 
 import genetic.component.context.ContextModel;
@@ -25,13 +24,29 @@ public class AbstractFactory<T> implements Factory<T> {
 
             return t.newInstance();
         } catch (IllegalAccessException e) {
-            throw new BuildException("Failed to instantiate class: " + t.getName(),e);
+            throw new BuildException("Failed to instantiate class: " + t.getName(), e);
         } catch (InstantiationException e) {
-            throw new BuildException("Failed to instantiate class: " + t.getName(),e);
+            throw new BuildException("Failed to instantiate class: " + t.getName(), e);
         } catch (InvocationTargetException e) {
-            throw new BuildException("Failed to instantiate class: " + t.getName(),e);
+            throw new BuildException("Failed to instantiate class: " + t.getName(), e);
         }
-
     }
 
+    public double getWeight(ContextModel context, T instance) {
+
+        if (instance instanceof Metadata) {
+            Object weight = ((Metadata) instance).getMeta("probability");
+            if (weight != null) {
+                if (weight instanceof Double) {
+                    return (Double) weight;
+                } else if (weight instanceof Float) {
+                    return (Float) weight;
+                } else if (weight instanceof Integer) {
+                    return (Integer) weight;
+                }
+            }
+        }
+
+        return 1.0f;
+    }
 }

@@ -15,6 +15,7 @@ import genetic.component.statement.function.*;
 import utils.linear.*;
 
 public final class VectorSwitch implements AllComponents<ExpressionFunction>, Described {
+
    public static class d_to_i extends ExpressionFunction {
 
       public int getNumberInputs() {
@@ -35,6 +36,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public d_to_i() {
+         addGroupMeta(this);
       }
 
       public Integer evaluate(Context context, Object[] inputs) {
@@ -70,6 +75,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public i_to_d() {
+         addGroupMeta(this);
+      }
+
       public LDouble evaluate(Context context, Object[] inputs) {
          Integer x = (Integer)inputs[0];
          return new LDouble ( x ) ;
@@ -101,6 +110,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public C_v2() {
+         addGroupMeta(this);
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
@@ -136,6 +149,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public C_x() {
+         addGroupMeta(this);
+      }
+
       public LDouble evaluate(Context context, Object[] inputs) {
          Complex x = (Complex)inputs[0];
          return new LDouble ( x . x ) ;
@@ -167,6 +184,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public C_y() {
+         addGroupMeta(this);
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
@@ -202,6 +223,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public V2_c() {
+         addGroupMeta(this);
+      }
+
       public Complex evaluate(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          return new Complex ( x . x , x . y ) ;
@@ -233,6 +258,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public V2_x() {
+         addGroupMeta(this);
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
@@ -268,6 +297,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public V2_y() {
+         addGroupMeta(this);
+      }
+
       public LDouble evaluate(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          return new LDouble ( x . y ) ;
@@ -301,6 +334,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public V2_swap() {
+         addGroupMeta(this);
+      }
+
       public LVect2d evaluate(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          return new LVect2d ( x . y , x . x ) ;
@@ -332,6 +369,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public V2_to_magTheta() {
+         addGroupMeta(this);
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
@@ -369,6 +410,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public MagTheta_to_v2() {
+         addGroupMeta(this);
+      }
+
       public LVect2d evaluate(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          return new LVect2d ( x . x * Math . cos ( x . y ) , x . x * Math . sin ( x . y ) ) ;
@@ -400,6 +445,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public Color_r() {
+         addGroupMeta(this);
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
@@ -435,6 +484,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public Color_g() {
+         addGroupMeta(this);
+      }
+
       public LDouble evaluate(Context context, Object[] inputs) {
          Color x = (Color)inputs[0];
          return new LDouble ( x . g ) ;
@@ -466,6 +519,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public Color_b() {
+         addGroupMeta(this);
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
@@ -501,6 +558,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public Color_hue() {
+         addGroupMeta(this);
+      }
+
       public LDouble evaluate(Context context, Object[] inputs) {
          Color x = (Color)inputs[0];
          return new LDouble ( x . hsbvals ( ) [ 0 ] ) ;
@@ -534,6 +595,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public Color_saturation() {
+         addGroupMeta(this);
+      }
+
       public LDouble evaluate(Context context, Object[] inputs) {
          Color x = (Color)inputs[0];
          return new LDouble ( x . hsbvals ( ) [ 1 ] ) ;
@@ -565,6 +630,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public Color_brightness() {
+         addGroupMeta(this);
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
@@ -602,6 +671,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public New_c() {
+         addGroupMeta(this);
+      }
+
       public Complex evaluate(Context context, Object[] inputs) {
          LDouble x = (LDouble)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -636,6 +709,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public New_v2() {
+         addGroupMeta(this);
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
@@ -676,6 +753,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public New_v3() {
+         addGroupMeta(this);
+      }
+
       public LVect3d evaluate(Context context, Object[] inputs) {
          LDouble x = (LDouble)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -711,6 +792,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public New_dv2_v3() {
+         addGroupMeta(this);
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
@@ -749,6 +834,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
 
       }
 
+      public New_v2d_v3() {
+         addGroupMeta(this);
+      }
+
       public LVect3d evaluate(Context context, Object[] inputs) {
          LVect2d xy = (LVect2d)inputs[0];
          LDouble z = (LDouble)inputs[1];
@@ -783,6 +872,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
             default: return null;
          }
 
+      }
+
+      public New_vdv_v3() {
+         addGroupMeta(this);
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
@@ -827,6 +920,10 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       r.add(new New_v2d_v3());
       r.add(new New_vdv_v3());
       return r;
+   }
+
+   private static void addGroupMeta(Metadata item) {
+
    }
 
 }

@@ -22,9 +22,6 @@ import java.util.List;
  */
 public class StatementFunctionFactoryImpl extends AbstractFactory<StatementFunction> implements StatementFunctionFactory {
 
-    public float getStatementWeight(ContextModel cm, StatementFunction sf) {
-        return 1.0f;
-    }
     private static final int SELECT_ATTEMPTS = 10;
 
     public StatementFunction select(ContextModel cm, boolean seekTerminal) throws BuildException {
@@ -51,13 +48,13 @@ public class StatementFunctionFactoryImpl extends AbstractFactory<StatementFunct
             // select from this list, using weights
             double weightTotal = 0;
             for (StatementFunction match : matches) {
-                weightTotal += getStatementWeight(cm, match);
+                weightTotal += getWeight(cm, match);
             }
 
             double target = Foundation.getInstance().getBuilderRandom().nextFloat() * weightTotal;
             int index = 0;
             for (StatementFunction match : matches) {
-                target -= getStatementWeight(cm, match);
+                target -= getWeight(cm, match);
                 if (target < 0) {
                     break;
                 }

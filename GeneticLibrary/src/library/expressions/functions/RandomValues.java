@@ -15,6 +15,7 @@ import genetic.component.statement.function.*;
 import utils.linear.*;
 
 public final class RandomValues implements AllComponents<ExpressionFunction>, Described {
+
    public static class rand_i extends ExpressionFunction {
 
       private int [ ] a;
@@ -75,7 +76,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public rand_i() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new int [ 5 + rand . nextInt ( 5 ) ] ;
          for ( int i = 0 ;
@@ -160,7 +161,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public permutation_i() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new int [ 5 + rand . nextInt ( 5 ) ] ;
          boolean chosen [ ] = new boolean [ a . length ] ;
@@ -252,7 +253,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_d_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          for ( int i = 0 ;
@@ -333,7 +334,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_d_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          for ( int i = 0 ;
@@ -416,7 +417,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_d_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          for ( int i = 0 ;
@@ -507,7 +508,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_v2_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          b = new double [ a . length ] ;
@@ -596,7 +597,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_v2_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          b = new double [ a . length ] ;
@@ -687,7 +688,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_v2_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          b = new double [ a . length ] ;
@@ -790,7 +791,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_v3_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          b = new double [ a . length ] ;
@@ -885,7 +886,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_v3_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          b = new double [ a . length ] ;
@@ -982,7 +983,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_v3_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          b = new double [ a . length ] ;
@@ -1091,7 +1092,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_col_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          b = new double [ a . length ] ;
@@ -1186,7 +1187,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_col_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          b = new double [ a . length ] ;
@@ -1283,7 +1284,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_d_col_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 5 + rand . nextInt ( 5 ) ] ;
          b = new double [ a . length ] ;
@@ -1384,7 +1385,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_d_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          for ( int i = 0 ;
@@ -1469,7 +1470,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_d_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          for ( int i = 0 ;
@@ -1558,7 +1559,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_d_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          int size = 3 + rand . nextInt ( 3 ) ;
          a = new double [ size ] [ size ] ;
@@ -1656,7 +1657,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_v2_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] ;
@@ -1749,7 +1750,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_v2_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] ;
@@ -1846,7 +1847,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_v2_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          int size = 3 + rand . nextInt ( 3 ) ;
          a = new double [ size ] [ size ] ;
@@ -1957,7 +1958,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_v3_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] ;
@@ -2056,7 +2057,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_v3_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] ;
@@ -2159,7 +2160,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_v3_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          int size = 3 + rand . nextInt ( 3 ) ;
          a = new double [ size ] [ size ] ;
@@ -2274,7 +2275,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_col_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] ;
@@ -2373,7 +2374,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_col_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] ;
@@ -2476,7 +2477,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v2_col_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          int size = 3 + rand . nextInt ( 3 ) ;
          a = new double [ size ] [ size ] ;
@@ -2583,7 +2584,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_d_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          for ( int i = 0 ;
@@ -2672,7 +2673,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_d_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          for ( int i = 0 ;
@@ -2767,7 +2768,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_d_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          int size = 3 + rand . nextInt ( 3 ) ;
          a = new double [ size ] [ size ] [ size ] ;
@@ -2872,7 +2873,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_v2_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] [ a [ 0 ] [ 0 ] . length ] ;
@@ -2969,7 +2970,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_v2_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] [ a [ 0 ] [ 0 ] . length ] ;
@@ -3072,7 +3073,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_v2_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          int size = 3 + rand . nextInt ( 3 ) ;
          a = new double [ size ] [ size ] [ size ] ;
@@ -3190,7 +3191,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_v3_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] [ a [ 0 ] [ 0 ] . length ] ;
@@ -3293,7 +3294,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_v3_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] [ a [ 0 ] [ 0 ] . length ] ;
@@ -3402,7 +3403,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_v3_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          int size = 3 + rand . nextInt ( 3 ) ;
          a = new double [ size ] [ size ] [ size ] ;
@@ -3524,7 +3525,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_col_const() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] [ a [ 0 ] [ 0 ] . length ] ;
@@ -3627,7 +3628,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_col_linear() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          a = new double [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] [ 3 + rand . nextInt ( 3 ) ] ;
          b = new double [ a . length ] [ a [ 0 ] . length ] [ a [ 0 ] [ 0 ] . length ] ;
@@ -3736,7 +3737,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public random_v3_col_spline() {
-
+         addGroupMeta(this);
          Random rand = new Random ( ) ;
          int size = 3 + rand . nextInt ( 3 ) ;
          a = new double [ size ] [ size ] [ size ] ;
@@ -3835,6 +3836,10 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       r.add(new random_v3_col_linear());
       r.add(new random_v3_col_spline());
       return r;
+   }
+
+   private static void addGroupMeta(Metadata item) {
+
    }
 
 }

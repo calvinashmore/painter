@@ -6,7 +6,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package genetic;
 
 import genetic.component.context.ContextModel;
@@ -23,6 +22,7 @@ import genetic.component.context.ContextModel;
  * @author Calvin Ashmore
  */
 public interface Factory<T> {
+
     /**
      * This constructs a new instance of the object in question. It does not
      * run the object's setup function (if it has one), and does not initialize it,
@@ -36,5 +36,6 @@ public interface Factory<T> {
      * @throws genetic.util.BuildException
      */
     public T build(Class<? extends T> t, ContextModel cm) throws BuildException;
-    
+
+    public double getWeight(ContextModel context, T instance);
 }

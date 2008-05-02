@@ -14,6 +14,7 @@ import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
 
 public final class BooleanOperations implements AllComponents<ExpressionFunction>, Described {
+
    public static class or extends ExpressionFunction {
 
       public int getNumberInputs() {
@@ -36,6 +37,10 @@ public final class BooleanOperations implements AllComponents<ExpressionFunction
             default: return null;
          }
 
+      }
+
+      public or() {
+         addGroupMeta(this);
       }
 
       public Boolean evaluate(Context context, Object[] inputs) {
@@ -74,6 +79,10 @@ public final class BooleanOperations implements AllComponents<ExpressionFunction
 
       }
 
+      public and() {
+         addGroupMeta(this);
+      }
+
       public Boolean evaluate(Context context, Object[] inputs) {
          Boolean x = (Boolean)inputs[0];
          Boolean y = (Boolean)inputs[1];
@@ -110,6 +119,10 @@ public final class BooleanOperations implements AllComponents<ExpressionFunction
 
       }
 
+      public xor() {
+         addGroupMeta(this);
+      }
+
       public Boolean evaluate(Context context, Object[] inputs) {
          Boolean x = (Boolean)inputs[0];
          Boolean y = (Boolean)inputs[1];
@@ -144,6 +157,10 @@ public final class BooleanOperations implements AllComponents<ExpressionFunction
 
       }
 
+      public not() {
+         addGroupMeta(this);
+      }
+
       public Boolean evaluate(Context context, Object[] inputs) {
          Boolean x = (Boolean)inputs[0];
          return ! x ;
@@ -166,6 +183,10 @@ public final class BooleanOperations implements AllComponents<ExpressionFunction
       r.add(new xor());
       r.add(new not());
       return r;
+   }
+
+   private static void addGroupMeta(Metadata item) {
+
    }
 
 }

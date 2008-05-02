@@ -26,10 +26,6 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
 
     public ExpressionFunctionFactoryImpl() {
     }
-
-    public float getFunctionWeight(ContextModel cm, ExpressionFunction nf) {
-        return 1.0f;
-    }
     private static final int SELECT_ATTEMPTS = 10;
 
     public ExpressionFunction selectByOutput(Class outputClass, ContextModel cm, boolean seekTerminal) throws BuildException {
@@ -52,7 +48,6 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
             }
         }
 
-
         if (matches.size() == 0) {
             //System.out.println("Cannot match output class " + outputClass.getName());
             throw new BuildException("Cannot match output class " + outputClass.getName());
@@ -60,17 +55,17 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
 
         BuildException lastException = null;
         for (int attempt = 0; attempt < SELECT_ATTEMPTS; attempt++) {
-            
+
             // select from this list, using weights
             double weightTotal = 0;
             for (ExpressionFunction nfc : matches) {
-                weightTotal += getFunctionWeight(cm,nfc);
+                weightTotal += getWeight(cm, nfc);
             }
 
             double target = Foundation.getInstance().getBuilderRandom().nextFloat() * weightTotal;
             int index = 0;
             for (ExpressionFunction nfc : matches) {
-                target -= getFunctionWeight(cm,nfc);
+                target -= getWeight(cm, nfc);
                 if (target < 0) {
                     break;
                 }
@@ -79,16 +74,19 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
 
             try {
                 ExpressionFunction template = matches.get(index);
-                
-                if(template instanceof ConstantExpressionFunction)
-                    return buildConstant(((ConstantExpressionFunction)template).getReturnType(), cm);
-                
-                if(template instanceof VariableExpressionFunction)
-                    return buildVariable(((VariableExpressionFunction)template).getReturnType(), cm);
-                
-                if(template instanceof AccessorFunction)
-                    return buildAccessor(((AccessorFunction)template).getAccessor(), cm);
-                
+
+                if (template instanceof ConstantExpressionFunction) {
+                    return buildConstant(((ConstantExpressionFunction) template).getReturnType(), cm);
+                }
+
+                if (template instanceof VariableExpressionFunction) {
+                    return buildVariable(((VariableExpressionFunction) template).getReturnType(), cm);
+                }
+
+                if (template instanceof AccessorFunction) {
+                    return buildAccessor(((AccessorFunction) template).getAccessor(), cm);
+                }
+
                 ExpressionFunction nf = build(template.getClass(), cm);
                 return nf;
             } catch (BuildException ex) {
@@ -104,19 +102,18 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
     }
 
     public VariableExpressionFunction buildVariable(Class type, ContextModel cm) throws BuildException {
-        VariableExpressionFunction nf = Foundation.getInstance().getAllExpressionFunctions().getVariableFunction(type,cm);
+        VariableExpressionFunction nf = Foundation.getInstance().getAllExpressionFunctions().getVariableFunction(type, cm);
         return nf;
     }
 
     public AccessorFunction buildAccessor(Accessor accessor, ContextModel cm) throws BuildException {
         return new AccessorFunction(accessor);
     }
-    
+
     @Override
     public ExpressionFunction build(Class<? extends ExpressionFunction> t, ContextModel cm) throws BuildException {
         ExpressionFunction nf = super.build(t, cm);
         nf.setup();
         return nf;
     }
-    
 }

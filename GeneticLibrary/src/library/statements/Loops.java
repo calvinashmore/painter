@@ -15,6 +15,7 @@ import genetic.component.statement.function.*;
 import utils.linear.*;
 
 public final class Loops implements AllComponents<StatementFunction>, Described {
+
    public static class loop_parameter extends StatementFunction {
 
       private Integer n;
@@ -75,7 +76,7 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
       }
 
       public loop_parameter() {
-
+         addGroupMeta(this);
          n = 10 + new Random ( ) . nextInt ( 10 ) ;
       }
 
@@ -143,6 +144,10 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
             default: return null;
          }
 
+      }
+
+      public loop_input() {
+         addGroupMeta(this);
       }
 
       public String getDescription() {
@@ -250,7 +255,8 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
       }
 
       public loop_parameter_2d() {
-
+         addGroupMeta(this);
+         addMeta("probability", .2);
          n = 10 + new Random ( ) . nextInt ( 10 ) ;
       }
 
@@ -375,7 +381,8 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
       }
 
       public loop_parameter_3d() {
-         addMeta("complexity", 3);
+         addGroupMeta(this);
+         addMeta("probability", .1);
          n = 5 + new Random ( ) . nextInt ( 5 ) ;
       }
 
@@ -463,6 +470,10 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
       r.add(new loop_parameter_2d());
       r.add(new loop_parameter_3d());
       return r;
+   }
+
+   private static void addGroupMeta(Metadata item) {
+
    }
 
 }

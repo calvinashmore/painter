@@ -15,6 +15,7 @@ import genetic.component.statement.function.*;
 import utils.linear.*;
 
 public final class Algebraic implements AllComponents<ExpressionFunction>, Described {
+
    public static class avg_d extends ExpressionFunction {
 
       public int getNumberInputs() {
@@ -37,6 +38,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public avg_d() {
+         addGroupMeta(this);
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
@@ -75,6 +80,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public avg_i() {
+         addGroupMeta(this);
+      }
+
       public Integer evaluate(Context context, Object[] inputs) {
          Integer x = (Integer)inputs[0];
          Integer y = (Integer)inputs[1];
@@ -109,6 +118,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public avg_c() {
+         addGroupMeta(this);
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
@@ -147,6 +160,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public avg_v2() {
+         addGroupMeta(this);
+      }
+
       public LVect2d evaluate(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          LVect2d y = (LVect2d)inputs[1];
@@ -181,6 +198,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public avg_v3() {
+         addGroupMeta(this);
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
@@ -219,6 +240,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public add_col() {
+         addGroupMeta(this);
+      }
+
       public Color evaluate(Context context, Object[] inputs) {
          Color x = (Color)inputs[0];
          Color y = (Color)inputs[1];
@@ -253,6 +278,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public add_d() {
+         addGroupMeta(this);
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
@@ -291,6 +320,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public add_i() {
+         addGroupMeta(this);
+      }
+
       public Integer evaluate(Context context, Object[] inputs) {
          Integer x = (Integer)inputs[0];
          Integer y = (Integer)inputs[1];
@@ -325,6 +358,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public add_c() {
+         addGroupMeta(this);
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
@@ -363,6 +400,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public add_v2() {
+         addGroupMeta(this);
+      }
+
       public LVect2d evaluate(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          LVect2d y = (LVect2d)inputs[1];
@@ -397,6 +438,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public add_v3() {
+         addGroupMeta(this);
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
@@ -435,6 +480,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public sub_col() {
+         addGroupMeta(this);
+      }
+
       public Color evaluate(Context context, Object[] inputs) {
          Color x = (Color)inputs[0];
          Color y = (Color)inputs[1];
@@ -469,6 +518,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public sub_c() {
+         addGroupMeta(this);
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
@@ -507,6 +560,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public sub_d() {
+         addGroupMeta(this);
+      }
+
       public LDouble evaluate(Context context, Object[] inputs) {
          LDouble x = (LDouble)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -541,6 +598,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public sub_i() {
+         addGroupMeta(this);
       }
 
       public Integer evaluate(Context context, Object[] inputs) {
@@ -579,6 +640,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public sub_v2() {
+         addGroupMeta(this);
+      }
+
       public LVect2d evaluate(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          LVect2d y = (LVect2d)inputs[1];
@@ -613,6 +678,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public sub_v3() {
+         addGroupMeta(this);
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
@@ -651,6 +720,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public mult_col() {
+         addGroupMeta(this);
+      }
+
       public Color evaluate(Context context, Object[] inputs) {
          Color x = (Color)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -685,6 +758,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public mult_d() {
+         addGroupMeta(this);
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
@@ -723,6 +800,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public mult_i() {
+         addGroupMeta(this);
+      }
+
       public Integer evaluate(Context context, Object[] inputs) {
          Integer x = (Integer)inputs[0];
          Integer y = (Integer)inputs[1];
@@ -757,6 +838,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public mult_i_d() {
+         addGroupMeta(this);
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
@@ -795,6 +880,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public mult_c() {
+         addGroupMeta(this);
+      }
+
       public Complex evaluate(Context context, Object[] inputs) {
          Complex x = (Complex)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -829,6 +918,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public mult_c_c() {
+         addGroupMeta(this);
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
@@ -867,6 +960,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public mult_v2() {
+         addGroupMeta(this);
+      }
+
       public LVect2d evaluate(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -901,6 +998,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public mult_v2_v2() {
+         addGroupMeta(this);
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
@@ -939,6 +1040,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public mult_v3() {
+         addGroupMeta(this);
+      }
+
       public LVect3d evaluate(Context context, Object[] inputs) {
          LVect3d x = (LVect3d)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -973,6 +1078,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public mult_v3_v3() {
+         addGroupMeta(this);
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
@@ -1011,6 +1120,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public pow_col() {
+         addGroupMeta(this);
+      }
+
       public Color evaluate(Context context, Object[] inputs) {
          Color x = (Color)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -1045,6 +1158,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public pow_col_col() {
+         addGroupMeta(this);
       }
 
       public Color evaluate(Context context, Object[] inputs) {
@@ -1083,6 +1200,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public pow_d() {
+         addGroupMeta(this);
+      }
+
       public LDouble evaluate(Context context, Object[] inputs) {
          LDouble x = (LDouble)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -1117,6 +1238,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public pow_v2() {
+         addGroupMeta(this);
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
@@ -1155,6 +1280,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public pow_v2_v2() {
+         addGroupMeta(this);
+      }
+
       public LVect2d evaluate(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          LVect2d y = (LVect2d)inputs[1];
@@ -1191,6 +1320,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public pow_v3() {
+         addGroupMeta(this);
+      }
+
       public LVect3d evaluate(Context context, Object[] inputs) {
          LVect3d x = (LVect3d)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -1225,6 +1358,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public pow_v3_v3() {
+         addGroupMeta(this);
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
@@ -1299,7 +1436,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public offset_col() {
-
+         addGroupMeta(this);
          offset = new Color ( ) ;
          offset . r = 2 * Math . random ( ) - 1 ;
          offset . g = 2 * Math . random ( ) - 1 ;
@@ -1377,7 +1514,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public offset_d() {
-
+         addGroupMeta(this);
          offset = 2 * Math . random ( ) - 1 ;
       }
 
@@ -1452,7 +1589,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public offset_c() {
-
+         addGroupMeta(this);
          offset = new Complex ( ) ;
          offset . x = 2 * Math . random ( ) - 1 ;
          offset . y = 2 * Math . random ( ) - 1 ;
@@ -1529,7 +1666,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public offset_v2() {
-
+         addGroupMeta(this);
          offset = new LVect2d ( ) ;
          offset . x = 2 * Math . random ( ) - 1 ;
          offset . y = 2 * Math . random ( ) - 1 ;
@@ -1606,7 +1743,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public offset_v3() {
-
+         addGroupMeta(this);
          offset = new LVect3d ( ) ;
          offset . x = 2 * Math . random ( ) - 1 ;
          offset . y = 2 * Math . random ( ) - 1 ;
@@ -1684,7 +1821,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public scale_d() {
-
+         addGroupMeta(this);
          scale = 3 * Math . random ( ) ;
       }
 
@@ -1759,7 +1896,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public scale_c() {
-
+         addGroupMeta(this);
          scale = 3 * Math . random ( ) ;
       }
 
@@ -1834,7 +1971,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public scale_v2() {
-
+         addGroupMeta(this);
          scale = 3 * Math . random ( ) ;
       }
 
@@ -1909,7 +2046,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public scale_v3() {
-
+         addGroupMeta(this);
          scale = 3 * Math . random ( ) ;
       }
 
@@ -1984,7 +2121,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public scale_col() {
-
+         addGroupMeta(this);
          scale = 3 * Math . random ( ) ;
       }
 
@@ -2021,6 +2158,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public mod_d() {
+         addGroupMeta(this);
+      }
+
       public LDouble evaluate(Context context, Object[] inputs) {
          LDouble x = (LDouble)inputs[0];
          return new LDouble ( x . val - Math . floor ( x . val ) ) ;
@@ -2054,6 +2195,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
 
       }
 
+      public mod_v2() {
+         addGroupMeta(this);
+      }
+
       public LVect2d evaluate(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          return new LVect2d ( x . x - Math . floor ( x . x ) , x . y - Math . floor ( x . y ) ) ;
@@ -2085,6 +2230,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
             default: return null;
          }
 
+      }
+
+      public mod_v3() {
+         addGroupMeta(this);
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
@@ -2152,6 +2301,10 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       r.add(new mod_v2());
       r.add(new mod_v3());
       return r;
+   }
+
+   private static void addGroupMeta(Metadata item) {
+
    }
 
 }

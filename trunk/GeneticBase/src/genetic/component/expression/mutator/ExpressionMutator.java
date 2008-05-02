@@ -6,12 +6,10 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package genetic.component.expression.mutator;
 
-import genetic.component.expression.*;
-import genetic.*;
 import genetic.Mutator;
+import genetic.component.expression.Expression;
 
 /**
  *
@@ -27,5 +25,4 @@ public class ExpressionMutator extends Mutator<Expression> {
         getMutators().add(new RandomReplaceWithConstant());
         getMutators().add(new RandomReplaceWithVariable());
     }
-    
 }

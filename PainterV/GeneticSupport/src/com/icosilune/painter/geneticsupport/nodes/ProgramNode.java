@@ -6,14 +6,10 @@ package com.icosilune.painter.geneticsupport.nodes;
 
 import genetic.GeneticTopLevel;
 import genetic.component.method.Method;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.openide.nodes.Node;
-import org.openide.nodes.PropertySupport.ReadOnly;
-import org.openide.nodes.Sheet;
-import org.openide.nodes.Sheet.Set;
 
 /**
  *

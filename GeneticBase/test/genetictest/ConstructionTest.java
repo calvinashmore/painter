@@ -141,11 +141,11 @@ public class ConstructionTest {
                 return new ExpressionFunctionFactoryImpl() {
 
                     @Override
-                    public float getFunctionWeight(ContextModel cm, ExpressionFunction nf) {
+                    public double getWeight(ContextModel cm, ExpressionFunction nf) {
                         if (nf instanceof IntAdditionFunction) {
                             return 5;
                         }
-                        return super.getFunctionWeight(cm, nf);
+                        return super.getWeight(cm, nf);
                     }
                 };
             }

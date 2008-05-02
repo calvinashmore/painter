@@ -37,6 +37,8 @@ public class ViewerTopComponent extends TopComponent {
         setLayout(new BorderLayout());
 
         DemoApplet applet = new DemoApplet() {
+
+            @Override
             protected Canvas makeCanvas() throws BuildException {
 
                 Foundation foundation = (Foundation) genetic.Foundation.getInstance();
@@ -47,14 +49,14 @@ public class ViewerTopComponent extends TopComponent {
                 }
 
                 GeneticTopLevel program = foundation.getProgramBuilder().build();
-                
-                ApplicationInstance.getInstance().setProgram(program);
 
                 program.getContextModel().declareVariable("canvas", Canvas.class, true);
                 program.createMethod("doStuff");
 
                 System.out.println("Setting up...");
                 program.setup();
+
+                ApplicationInstance.getInstance().setProgram(program);
 
                 Canvas canvas = new Canvas(500, 500);
                 program.getContext().setVariable("canvas", canvas);
@@ -66,10 +68,10 @@ public class ViewerTopComponent extends TopComponent {
                 return canvas;
             }
         };
-        
+
         applet.init();
         applet.start();
-        
+
         add(applet, BorderLayout.CENTER);
     }
 
@@ -111,12 +113,12 @@ public class ViewerTopComponent extends TopComponent {
 
     @Override
     public void componentOpened() {
-    // TODO add custom code on component opening
+        // TODO add custom code on component opening
     }
 
     @Override
     public void componentClosed() {
-    // TODO add custom code on component closing
+        // TODO add custom code on component closing
     }
 
     /** replaces this in object stream */

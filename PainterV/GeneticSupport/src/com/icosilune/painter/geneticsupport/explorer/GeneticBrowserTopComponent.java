@@ -9,13 +9,15 @@ import com.icosilune.painter.geneticsupport.app.ProgramListener;
 import com.icosilune.painter.geneticsupport.nodes.ProgramNode;
 import genetic.GeneticTopLevel;
 import java.awt.BorderLayout;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 import java.util.logging.Logger;
 import javax.swing.ActionMap;
 import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.view.BeanTreeView;
-import org.openide.util.Lookup;
+import org.openide.nodes.Node;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
@@ -32,40 +34,26 @@ public class GeneticBrowserTopComponent extends TopComponent
 //    static final String ICON_PATH = "SET/PATH/TO/ICON/HERE";
     private static final String PREFERRED_ID = "GeneticBrowserTopComponent";
     private final ExplorerManager manager = new ExplorerManager();
+    private final BeanTreeView view;
 
     public GeneticBrowserTopComponent() {
         ApplicationInstance.getInstance().addProgramListener(this);
-        
+
         setName(NbBundle.getMessage(GeneticBrowserTopComponent.class, "CTL_GeneticBrowserTopComponent"));
         setToolTipText(NbBundle.getMessage(GeneticBrowserTopComponent.class, "HINT_GeneticBrowserTopComponent"));
-//        setIcon(Utilities.loadImage(ICON_PATH, true));
 
         ActionMap map = getActionMap();
         associateLookup(ExplorerUtils.createLookup(manager, map));
 
         setLayout(new BorderLayout());
-        BeanTreeView view = new BeanTreeView();
+        view = new BeanTreeView();
         view.setRootVisible(true);
-
-        // *************************
-        /*Foundation foundation = (Foundation) genetic.Foundation.getInstance();
-
-        if (foundation == null) {
-            foundation = new Foundation();
-            genetic.Foundation.setInstance(foundation);
-        }
-
-        GeneticTopLevel program = foundation.getProgramBuilder().build();
-
-        program.getContextModel().declareVariable("canvas", Canvas.class, true);
-        program.createMethod("doStuff");
-
-        System.out.println("Setting up...");
-        try {
-            program.setup();
-        } catch (BuildException ex) {
-        }*/
-        // *************************
+        
+        manager.addPropertyChangeListener(new PropertyChangeListener() {
+            public void propertyChange(PropertyChangeEvent evt) {
+                view.expandAll();
+            }
+        });
 
         add(view, BorderLayout.CENTER);
     }
@@ -112,12 +100,12 @@ public class GeneticBrowserTopComponent extends TopComponent
 
     @Override
     public void componentOpened() {
-    // TODO add custom code on component opening
+        // TODO add custom code on component opening
     }
 
     @Override
     public void componentClosed() {
-    // TODO add custom code on component closing
+        // TODO add custom code on component closing
     }
 
     /** replaces this in object stream */
@@ -141,6 +129,17 @@ public class GeneticBrowserTopComponent extends TopComponent
     }
 
     public void onProgramChange(GeneticTopLevel program) {
-        manager.setRootContext( new ProgramNode(program) );
+        
+        Node node = new ProgramNode(program);
+        manager.setRootContext(node);
+        //expandNode(node);
+        
+        //view.expandAll();
     }
+    
+    /*private void expandNode(Node node) {
+        view.expandNode(node);
+        for(Node child : node.getChildren().getNodes())
+            expandNode(child);
+    }*/
 }

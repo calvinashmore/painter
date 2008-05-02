@@ -11,15 +11,12 @@ package genetic.component.expression;
 
 import genetic.component.context.Context;
 import genetic.component.context.ContextModel;
-import genetic.GeneticComponent;
-import genetic.Parameterized;
 import genetic.component.expression.function.ExpressionFunction;
 import genetic.*;
 import genetic.Foundation;
 import genetic.component.expression.function.VariableExpressionFunction;
 import genetic.BuildException;
 import java.util.*;
-import java.io.*;
 import java.util.ArrayList;
 
 /**

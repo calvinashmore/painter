@@ -11,6 +11,13 @@
                 <action name="build">
                     <target>build</target>
                 </action>
+                <action name="clean">
+                    <target>clean</target>
+                </action>
+                <action name="rebuild">
+                    <target>clean</target>
+                    <target>build</target>
+                </action>
             </ide-actions>
             <view>
                 <items>
@@ -20,6 +27,8 @@
                 </items>
                 <context-menu>
                     <ide-action name="build"/>
+                    <ide-action name="rebuild"/>
+                    <ide-action name="clean"/>
                 </context-menu>
             </view>
             <subprojects/>

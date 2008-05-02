@@ -85,6 +85,7 @@ abstract public class FnGroup<NodeType extends FnNode> {
     MethodDescriptor make_addGroupMeta() {
         MethodDescriptor method = new MethodDescriptor("addGroupMeta");
         method.addModifier("private");
+        method.addModifier("static");
         method.addModifier("void");
         method.addArgument("Metadata", "item");
         

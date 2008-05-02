@@ -15,6 +15,7 @@ import genetic.component.statement.function.*;
 import utils.linear.*;
 
 public final class Conditionals implements AllComponents<StatementFunction> {
+
    public static class boolean_if_else extends StatementFunction {
 
       public int getNumberInputs() {
@@ -39,6 +40,10 @@ public final class Conditionals implements AllComponents<StatementFunction> {
             default: return null;
          }
 
+      }
+
+      public boolean_if_else() {
+         addGroupMeta(this);
       }
 
       public void execute(Context context, List<GeneticComponent> inputs) {
@@ -79,6 +84,10 @@ public final class Conditionals implements AllComponents<StatementFunction> {
             default: return null;
          }
 
+      }
+
+      public boolean_if() {
+         addGroupMeta(this);
       }
 
       public void execute(Context context, List<GeneticComponent> inputs) {
@@ -155,7 +164,7 @@ public final class Conditionals implements AllComponents<StatementFunction> {
       }
 
       public less_than_property_d() {
-
+         addGroupMeta(this);
          property = new LDouble ( Math . random ( ) ) ;
       }
 
@@ -179,6 +188,10 @@ public final class Conditionals implements AllComponents<StatementFunction> {
       r.add(new boolean_if());
       r.add(new less_than_property_d());
       return r;
+   }
+
+   private static void addGroupMeta(Metadata item) {
+
    }
 
 }

@@ -17,6 +17,7 @@ import painter.tools.canvas.*;
 import painter.tools.brush.*;
 
 public final class BrushCommands implements AllComponents<Command>, Described {
+
    public static class Plot_d2_col extends Command {
 
       public int getNumberInputs() {
@@ -41,6 +42,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
             default: return null;
          }
 
+      }
+
+      public Plot_d2_col() {
+         addGroupMeta(this);
       }
 
       public void execute(Context context, Object[] inputs) {
@@ -81,6 +86,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
 
       }
 
+      public Plot_d2_r_col() {
+         addGroupMeta(this);
+      }
+
       public void execute(Context context, Object[] inputs) {
          LDouble x = (LDouble)inputs[0];
          LDouble y = (LDouble)inputs[1];
@@ -116,6 +125,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
 
       }
 
+      public Plot_v2_col() {
+         addGroupMeta(this);
+      }
+
       public void execute(Context context, Object[] inputs) {
          LVect2d x = (LVect2d)inputs[0];
          Color color = (Color)inputs[1];
@@ -149,6 +162,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
             default: return null;
          }
 
+      }
+
+      public Plot_v2_r_col() {
+         addGroupMeta(this);
       }
 
       public void execute(Context context, Object[] inputs) {
@@ -189,6 +206,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
             default: return null;
          }
 
+      }
+
+      public Line_d4_col() {
+         addGroupMeta(this);
       }
 
       public void execute(Context context, Object[] inputs) {
@@ -235,6 +256,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
 
       }
 
+      public Line_d4_col2() {
+         addGroupMeta(this);
+      }
+
       public void execute(Context context, Object[] inputs) {
          LDouble x1 = (LDouble)inputs[0];
          LDouble y1 = (LDouble)inputs[1];
@@ -278,6 +303,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
             default: return null;
          }
 
+      }
+
+      public Line_d4_r_col() {
+         addGroupMeta(this);
       }
 
       public void execute(Context context, Object[] inputs) {
@@ -327,6 +356,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
 
       }
 
+      public Line_d4_r_col2() {
+         addGroupMeta(this);
+      }
+
       public void execute(Context context, Object[] inputs) {
          LDouble x1 = (LDouble)inputs[0];
          LDouble y1 = (LDouble)inputs[1];
@@ -367,6 +400,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
 
       }
 
+      public Line_v2_v2_col() {
+         addGroupMeta(this);
+      }
+
       public void execute(Context context, Object[] inputs) {
          LVect2d x1 = (LVect2d)inputs[0];
          LVect2d x2 = (LVect2d)inputs[1];
@@ -403,6 +440,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
             default: return null;
          }
 
+      }
+
+      public Line_v2_v2_col2() {
+         addGroupMeta(this);
       }
 
       public void execute(Context context, Object[] inputs) {
@@ -442,6 +483,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
             default: return null;
          }
 
+      }
+
+      public Line_v2_v2_r_col() {
+         addGroupMeta(this);
       }
 
       public void execute(Context context, Object[] inputs) {
@@ -485,6 +530,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
 
       }
 
+      public Line_v2_v2_r_col2() {
+         addGroupMeta(this);
+      }
+
       public void execute(Context context, Object[] inputs) {
          LVect2d x1 = (LVect2d)inputs[0];
          LVect2d x2 = (LVect2d)inputs[1];
@@ -525,6 +574,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
             default: return null;
          }
 
+      }
+
+      public Line_v2_v2_r2_col() {
+         addGroupMeta(this);
       }
 
       public void execute(Context context, Object[] inputs) {
@@ -571,6 +624,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
 
       }
 
+      public Line_v2_v2_r2_col2() {
+         addGroupMeta(this);
+      }
+
       public void execute(Context context, Object[] inputs) {
          LVect2d x1 = (LVect2d)inputs[0];
          LVect2d x2 = (LVect2d)inputs[1];
@@ -605,6 +662,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
       r.add(new Line_v2_v2_r2_col());
       r.add(new Line_v2_v2_r2_col2());
       return r;
+   }
+
+   private static void addGroupMeta(Metadata item) {
+
    }
 
 }

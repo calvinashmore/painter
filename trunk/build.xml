@@ -22,4 +22,24 @@
         <subant buildpath="PainterV/" target="build" inheritall="false" inheritrefs="false"/>
     </target>
     
+    <target name="clean">
+        <echo>Cleaning: Utils</echo>
+        <subant buildpath="Utils/" target="clean"/>
+        
+        <echo>Cleaning: GeneticBase</echo>
+        <subant buildpath="GeneticBase/" target="clean"/>
+        
+        <echo>Cleaning: Fn</echo>
+        <subant buildpath="Fn/" target="clean"/>
+        
+        <echo>Cleaning: Painter</echo>
+        <subant buildpath="Painter/" target="clean"/>
+        
+        <echo>Cleaning: FnSupport</echo>
+        <subant buildpath="FnSupport Suite/" target="clean" inheritall="false" inheritrefs="false"/>
+        
+        <echo>Cleaning: PainterV</echo>
+        <subant buildpath="PainterV/" target="clean" inheritall="false" inheritrefs="false"/>
+    </target>
+    
 </project>

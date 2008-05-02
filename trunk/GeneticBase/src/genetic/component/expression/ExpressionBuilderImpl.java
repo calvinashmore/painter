@@ -17,7 +17,9 @@ import genetic.BuildException;
 public class ExpressionBuilderImpl implements ExpressionBuilder {
 
     private ExpressionFunctionFactory nff;
-    private int targetDepth = 5;
+    //private int targetDepth = 5;
+    
+    protected int getTargetDepth() {return 5;}
 
     public ExpressionBuilderImpl() {
         this.nff = Foundation.getInstance().getExpressionFunctionFactory();
@@ -31,10 +33,10 @@ public class ExpressionBuilderImpl implements ExpressionBuilder {
         // would also want some space limiting parameters in here...
 
         // *** seek an appropriate function        
-        ExpressionFunction nf = nff.selectByOutput(outputClass, parent.getContextModel(), depth >= targetDepth);
+        ExpressionFunction nf = nff.selectByOutput(outputClass, parent.getContextModel(), depth >= getTargetDepth());
 
         // *** if we are in too deep, seek a terminal function
-        if ((depth >= targetDepth && nf != null && nf.getNumberInputs() != 0)) {
+        if ((depth >= getTargetDepth() && nf != null && nf.getNumberInputs() != 0)) {
             int check = 10;// + (int) Math.sqrt(numberNodes);
 
             for (int i = 0; i < check && nf != null && nf.getNumberInputs() != 0; i++) {
@@ -43,7 +45,7 @@ public class ExpressionBuilderImpl implements ExpressionBuilder {
         }
 
         if (nf == null) {
-            throw new BuildException("Cannot find builder with output: " + outputClass + " (" + depth + "/" + targetDepth + " deep)");
+            throw new BuildException("Cannot find builder with output: " + outputClass + " (" + depth + "/" + getTargetDepth() + " deep)");
         }
 
         // *** okay, we've found the nf we are looking for,

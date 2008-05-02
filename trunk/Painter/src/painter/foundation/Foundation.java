@@ -7,6 +7,8 @@ package painter.foundation;
 import genetic.AllComponents;
 import genetic.component.command.Command;
 import genetic.component.context.ContextModel;
+import genetic.component.expression.ExpressionBuilder;
+import genetic.component.expression.ExpressionBuilderImpl;
 import genetic.component.expression.function.AllExpressionFunctions;
 import genetic.component.expression.function.AllExpressionFunctionsImpl;
 import genetic.component.expression.function.ExpressionFunction;
@@ -70,12 +72,13 @@ public class Foundation extends GeneticFoundationImpl {
         return new StatementFunctionFactoryImpl() {
 
             @Override
-            public float getStatementWeight(ContextModel cm, StatementFunction sf) {
-                if(sf instanceof CommandStatementFunction)
+            public double getWeight(ContextModel cm, StatementFunction sf) {
+                if (sf instanceof CommandStatementFunction) {
                     return 15;
-                if(sf.getClass().getName().contains("Loop"))
-                    return 2;
-                return super.getStatementWeight(cm, sf);
+                //if(sf.getClass().getName().contains("Loop"))
+                //    return 2;
+                }
+                return super.getWeight(cm, sf);
             }
         };
     }
@@ -85,15 +88,23 @@ public class Foundation extends GeneticFoundationImpl {
         return new ExpressionFunctionFactoryImpl() {
 
             @Override
-            public float getFunctionWeight(ContextModel cm, ExpressionFunction nf) {
-                if(nf.getClass().getName().contains("Variable"))
+            public double getWeight(ContextModel cm, ExpressionFunction nf) {
+                if (nf.getClass().getName().contains("Variable")) {
                     return 3;
-                
-                return super.getFunctionWeight(cm, nf);
+                }
+                return super.getWeight(cm, nf);
             }
-            
         };
     }
-    
-    
+
+    @Override
+    public ExpressionBuilder getExpressionBuilder() {
+        return new ExpressionBuilderImpl() {
+
+            @Override
+            protected int getTargetDepth() {
+                return 1;
+            }
+        };
+    }
 }

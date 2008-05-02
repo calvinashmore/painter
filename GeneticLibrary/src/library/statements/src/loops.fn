@@ -63,7 +63,7 @@ fn loop_parameter_2d {
     cvar LVect2d v;
     slin body;
     
-    meta probability .2;
+    meta selectionWeight .2;
     
     init {
         n = 10+new Random().nextInt(10);
@@ -99,7 +99,7 @@ fn loop_parameter_3d {
     cvar LVect3d v;
     slin body;
     
-    meta probability .1;
+    meta selectionWeight .1;
     
     init {
         n = 5+new Random().nextInt(5);

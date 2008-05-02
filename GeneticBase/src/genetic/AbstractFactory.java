@@ -35,7 +35,7 @@ public class AbstractFactory<T> implements Factory<T> {
     public double getWeight(ContextModel context, T instance) {
 
         if (instance instanceof Metadata) {
-            Object weight = ((Metadata) instance).getMeta("probability");
+            Object weight = ((Metadata) instance).getMeta("selectionWeight");
             if (weight != null) {
                 if (weight instanceof Double) {
                     return (Double) weight;

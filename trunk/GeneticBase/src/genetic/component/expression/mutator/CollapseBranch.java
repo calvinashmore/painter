@@ -5,7 +5,6 @@
 
 package genetic.component.expression.mutator;
 
-import genetic.component.context.ContextModel;
 import genetic.Foundation;
 import genetic.component.expression.Expression;
 import genetic.component.expression.ExpressionUtils;
@@ -23,7 +22,7 @@ import java.util.Random;
 public class CollapseBranch extends MutatorAction<Expression> {
 
     @Override
-    public boolean mutate(ContextModel model, Expression target) throws BuildException {
+    public boolean mutate(Expression target) throws BuildException {
         
         List<Expression> allNodes = ExpressionUtils.gatherNodes(target);
         Random rand = Foundation.getInstance().getBuilderRandom();

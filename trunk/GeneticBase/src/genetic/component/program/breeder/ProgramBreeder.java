@@ -6,16 +6,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package genetic.component.program.breeder;
 
-import genetic.component.program.*;
 import genetic.Breeder;
+import genetic.GeneticTopLevel;
 
 /**
  *
  * @author Calvin Ashmore
  */
-public class ProgramBreeder extends Breeder<Program> {
-
+public class ProgramBreeder extends Breeder<GeneticTopLevel> {
 }

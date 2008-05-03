@@ -26,7 +26,7 @@ public class RandomReplace extends MutatorAction<Expression> {
     }
 
     @Override
-    public boolean mutate(ContextModel model, Expression target) throws BuildException {
+    public boolean mutate(Expression target) throws BuildException {
         List<Expression> allNodes = ExpressionUtils.gatherNodes(target);
 
         Random rand = Foundation.getInstance().getBuilderRandom();
@@ -34,7 +34,7 @@ public class RandomReplace extends MutatorAction<Expression> {
         Expression replaced = allNodes.get(rand.nextInt(allNodes.size()));
         Class returnClass = replaced.getOutputType();
 
-        Expression replacement = getReplacement(returnClass, model, replaced.getParent());
+        Expression replacement = getReplacement(returnClass, target.getContextModel(), replaced.getParent());
 
         ExpressionUtils.replaceExpression(target, replaced, replacement);
 

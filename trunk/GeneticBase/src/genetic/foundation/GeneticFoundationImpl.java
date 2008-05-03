@@ -46,6 +46,7 @@ import genetic.component.statementlist.mutator.StatementListMutator;
 import genetic.AllComponents;
 import genetic.Breeder;
 import genetic.Factory;
+import genetic.GeneticTopLevel;
 import genetic.Mutator;
 import genetic.TypeSystem;
 import genetic.component.method.MethodBuilder;
@@ -103,7 +104,7 @@ public class GeneticFoundationImpl implements GeneticFoundation {
     
     // MUTATORS!
     
-    public Mutator<Program> getProgramMutator() {return new ProgramMutator();}
+    public Mutator<GeneticTopLevel> getProgramMutator() {return new ProgramMutator();}
     public Mutator<Method> getMethodMutator() {return new MethodMutator();}
     public Mutator<Statement> getStatementMutator() {return new StatementMutator();}
     public Mutator<StatementList> getStatementListMutator() {return new StatementListMutator();}
@@ -112,7 +113,7 @@ public class GeneticFoundationImpl implements GeneticFoundation {
     
     // BREEDERS
     
-    public Breeder<Program> getProgramBreeder() {return new ProgramBreeder();}
+    public Breeder<GeneticTopLevel> getProgramBreeder() {return new ProgramBreeder();}
     public Breeder<Method> getMethodBreeder() {return new MethodBreeder();}
     public Breeder<Statement> getStatementBreeder() {return new StatementBreeder();}
     public Breeder<StatementList> getStatementListBreeder() {return new StatementListBreeder();}

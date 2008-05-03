@@ -4,7 +4,6 @@
  */
 package genetic.component.expression.mutator;
 
-import genetic.component.context.ContextModel;
 import genetic.Foundation;
 import genetic.component.expression.Expression;
 import genetic.component.expression.ExpressionBuilder;
@@ -24,7 +23,7 @@ import java.util.Random;
 public class MutateBranch extends MutatorAction<Expression> {
 
     @Override
-    public boolean mutate(ContextModel model, Expression target) throws BuildException {
+    public boolean mutate(Expression target) throws BuildException {
 
         List<Expression> allNodes = ExpressionUtils.gatherNodes(target);
         Random rand = Foundation.getInstance().getBuilderRandom();
@@ -36,13 +35,14 @@ public class MutateBranch extends MutatorAction<Expression> {
 
         for (int i = 0; i < 100; i++) {
             replaced = allNodes.get(rand.nextInt(allNodes.size()));
-            List<ExpressionFunction> insertables = ExpressionFunctionUtils.getOneToBranchFunctions(replaced.getOutputType(), model);
+            List<ExpressionFunction> insertables =
+                    ExpressionFunctionUtils.getOneToBranchFunctions(replaced.getOutputType(), target.getContextModel());
 
             if (insertables.size() == 0) {
                 continue;
             }
             Class<? extends ExpressionFunction> nfClass = insertables.get(rand.nextInt(insertables.size())).getClass();
-            ExpressionFunction insertNF = nff.build(nfClass, model);
+            ExpressionFunction insertNF = nff.build(nfClass, target.getContextModel());
 
             Expression inserted = nb.newNode(insertNF, replaced.getParent());
 

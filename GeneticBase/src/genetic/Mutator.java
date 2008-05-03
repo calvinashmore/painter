@@ -32,20 +32,19 @@ public class Mutator<T extends GeneticComponent> {
         return 5;
     }
 
-    public T mutate(GeneticComponent newParent, ContextModel model, T target) throws BuildException {
+    public boolean mutate(T target) throws BuildException {
 
         for (int i = 0; i < getNumberAttempts(); i++) {
             MutatorAction<T> action = selectAction();
             if (action == null) {
                 continue;
             }
-            T test = (T) target.clone(target.getParent());
-            if (action.mutate(model, test)) {
-                test.setParent(newParent);
-                return test;
+            //T test = (T) target.clone(target.getParent());
+            if (action.mutate(target)) {
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     protected double getWeight(MutatorAction action) {

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package genetic;
 
 import genetic.component.expression.Expression;
@@ -11,7 +10,6 @@ import genetic.component.accessor.Accessor;
 import genetic.component.expression.function.AllExpressionFunctions;
 import genetic.component.expression.function.ExpressionFunctionFactory;
 import genetic.component.method.Method;
-import genetic.component.program.Program;
 import genetic.component.statement.Statement;
 import genetic.component.statement.function.StatementFunctionFactory;
 import genetic.component.command.Command;
@@ -32,7 +30,7 @@ public interface GeneticFoundation {
     StatementListBuilder getStatementListBuilder();
 
     MethodBuilder getMethodBuilder();
-    
+
     ProgramBuilder getProgramBuilder();
 
     Factory<Accessor> getAccessorFactory();
@@ -61,12 +59,12 @@ public interface GeneticFoundation {
 
     Mutator<Method> getMethodMutator();
 
-    Breeder<Program> getProgramBreeder();
+    Breeder<GeneticTopLevel> getProgramBreeder();
 
-    Mutator<Program> getProgramMutator();
+    Mutator<GeneticTopLevel> getProgramMutator();
 
     Breeder<Statement> getStatementBreeder();
-    
+
     StatementBuilder getStatementBuilder();
 
     StatementFunctionFactory getStatementFunctionFactory();
@@ -78,5 +76,4 @@ public interface GeneticFoundation {
     Mutator<Statement> getStatementMutator();
 
     TypeSystem getTypeSystem();
-
 }

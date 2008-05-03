@@ -6,16 +6,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package genetic.component.program.mutator;
 
-import genetic.component.program.*;
+import genetic.GeneticTopLevel;
 import genetic.Mutator;
 
 /**
  *
  * @author Calvin Ashmore
  */
-public class ProgramMutator extends Mutator<Program> {
+public class ProgramMutator extends Mutator<GeneticTopLevel> {
 
+    public ProgramMutator() {
+        getMutators().add(new MutateMethod());
+    }
 }

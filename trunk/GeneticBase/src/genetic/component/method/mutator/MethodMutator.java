@@ -6,7 +6,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package genetic.component.method.mutator;
 
 import genetic.component.method.*;
@@ -18,4 +17,7 @@ import genetic.Mutator;
  */
 public class MethodMutator extends Mutator<Method> {
 
+    public MethodMutator() {
+        getMutators().add(new MutateBody());
+    }
 }

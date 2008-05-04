@@ -6,7 +6,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package genetic.component.statementlist.mutator;
 
 import genetic.component.statementlist.*;
@@ -18,4 +17,7 @@ import genetic.Mutator;
  */
 public class StatementListMutator extends Mutator<StatementList> {
 
+    public StatementListMutator() {
+        getMutators().add(new InjectStatement());
+    }
 }

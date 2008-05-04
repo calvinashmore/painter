@@ -14,7 +14,6 @@ import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import painter.app.DemoApplet;
-import painter.foundation.Foundation;
 import painter.tools.canvas.Canvas;
 
 /**
@@ -39,33 +38,10 @@ public class ViewerTopComponent extends TopComponent {
         DemoApplet applet = new DemoApplet() {
 
             @Override
-            protected Canvas makeCanvas() throws BuildException {
-
-                Foundation foundation = (Foundation) genetic.Foundation.getInstance();
-
-                if (foundation == null) {
-                    foundation = new Foundation();
-                    genetic.Foundation.setInstance(foundation);
-                }
-
-                GeneticTopLevel program = foundation.getProgramBuilder().build();
-
-                program.getContextModel().declareVariable("canvas", Canvas.class, true);
-                program.createMethod("doStuff");
-
-                System.out.println("Setting up...");
-                program.setup();
+            protected Canvas makeCanvas(GeneticTopLevel program) throws BuildException {
 
                 ApplicationInstance.getInstance().setProgram(program);
-
-                Canvas canvas = new Canvas(500, 500);
-                program.getContext().setVariable("canvas", canvas);
-
-                System.out.println("Calling method...");
-                program.callMethod("doStuff");
-                System.out.println("Done!");
-
-                return canvas;
+                return super.makeCanvas(program);
             }
         };
 

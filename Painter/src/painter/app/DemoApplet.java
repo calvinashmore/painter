@@ -8,6 +8,8 @@ import genetic.BuildException;
 import genetic.GeneticTopLevel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.concurrent.Executors;
@@ -15,7 +17,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
 import javax.swing.JApplet;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import painter.foundation.Foundation;
 import painter.tools.canvas.Canvas;
 
@@ -32,22 +36,34 @@ public class DemoApplet extends JApplet {
     private long calculationStart;
     private ScheduledExecutorService executor;
     private Thread calculateThread;
-    
+    private JButton mutateButton;
+    private GeneticTopLevel currentProgram;
+
     @Override
     public void init() {
         super.init();
-
 
         imageLabel = new JLabel();
         imageLabel.setPreferredSize(new Dimension(RESOLUTION, RESOLUTION));
         captionLabel = new JLabel("Loading...");
 
+        mutateButton = new JButton("mutate");
+        mutateButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                startCalculate(true);
+            }
+        });
+
+        JPanel controlPanel = new JPanel(new BorderLayout());
+        controlPanel.add(captionLabel, BorderLayout.CENTER);
+        controlPanel.add(mutateButton, BorderLayout.EAST);
+
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(imageLabel, BorderLayout.CENTER);
-        getContentPane().add(captionLabel, BorderLayout.SOUTH);
+        getContentPane().add(controlPanel, BorderLayout.SOUTH);
 
         imageLabel.addMouseListener(new RefreshListener());
-
     }
 
     @Override
@@ -66,17 +82,18 @@ public class DemoApplet extends JApplet {
     public void stop() {
         super.stop();
         executor.shutdown();
-        
+
         // bad practice, I know
-        if(isCalculating)
+        if (isCalculating) {
             calculateThread.stop();
+        }
     }
 
     private class RefreshListener extends MouseAdapter {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            startCalculate();
+            startCalculate(false);
         }
     }
 
@@ -84,13 +101,13 @@ public class DemoApplet extends JApplet {
         if (isCalculating) {
 
             long beenCalculatingFor = System.currentTimeMillis() - calculationStart;
-            
+
             //if(beenCalculatingFor < 3000) {
             //    captionLabel.setText("Thinking...");
             //} else
-            if(beenCalculatingFor < 5000) {
-                int seconds = (int)(beenCalculatingFor/1000);
-                captionLabel.setText("Thinking... ("+seconds+")");
+            if (beenCalculatingFor < 7000) {
+                int seconds = (int) (beenCalculatingFor / 1000);
+                captionLabel.setText("Thinking... (" + seconds + ")");
             } else {
                 // try to shut it down
                 captionLabel.setText("I'm confused!");
@@ -103,28 +120,33 @@ public class DemoApplet extends JApplet {
         }
     }
 
-    private void startCalculate() {
-        
+    private void startCalculate(final boolean mutate) {
+
         // don't start calculating if already calculating.
-        if(isCalculating)
+        if (isCalculating) {
             return;
-        
+        }
         calculateThread =
                 new Thread(new Runnable() {
 
             public void run() {
-                doCalculate();
+                doCalculate(mutate);
             }
         }, "Calculation Thread");
         calculateThread.start();
     }
 
-    private void doCalculate() {
+    private void doCalculate(boolean mutate) {
         isCalculating = true;
         calculationStart = System.currentTimeMillis();
 
         try {
-            Canvas canvas = makeCanvas();
+            if (mutate && currentProgram != null) {
+                currentProgram = mutate(currentProgram);
+            } else {
+                currentProgram = makeProgram();
+            }
+            Canvas canvas = makeCanvas(currentProgram);
             imageLabel.setIcon(new ImageIcon(canvas.makeImage()));
 
         } catch (BuildException ex) {
@@ -133,7 +155,17 @@ public class DemoApplet extends JApplet {
         isCalculating = false;
     }
 
-    protected Canvas makeCanvas() throws BuildException {
+    protected GeneticTopLevel mutate(GeneticTopLevel program) throws BuildException {
+        Foundation foundation = (Foundation) genetic.Foundation.getInstance();
+        foundation.getProgramMutator().mutate(program);
+
+        System.out.println("Setting up...");
+        program.setup();
+
+        return program;
+    }
+
+    protected GeneticTopLevel makeProgram() throws BuildException {
 
         Foundation foundation = (Foundation) genetic.Foundation.getInstance();
 
@@ -149,6 +181,11 @@ public class DemoApplet extends JApplet {
 
         System.out.println("Setting up...");
         program.setup();
+        return program;
+    }
+
+    protected Canvas makeCanvas(GeneticTopLevel program) throws BuildException {
+
 
         Canvas canvas = new Canvas(500, 500);
         program.getContext().setVariable("canvas", canvas);

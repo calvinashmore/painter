@@ -256,7 +256,7 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
 
       public loop_parameter_2d() {
          addGroupMeta(this);
-         addMeta("probability", .2);
+         addMeta("selectionWeight", .2);
          n = 10 + new Random ( ) . nextInt ( 10 ) ;
       }
 
@@ -382,7 +382,7 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
 
       public loop_parameter_3d() {
          addGroupMeta(this);
-         addMeta("probability", .1);
+         addMeta("selectionWeight", .1);
          n = 5 + new Random ( ) . nextInt ( 5 ) ;
       }
 

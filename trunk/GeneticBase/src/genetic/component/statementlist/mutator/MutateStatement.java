@@ -17,7 +17,7 @@ import java.util.List;
  * @author Calvin Ashmore
  */
 public class MutateStatement extends MutatorAction<StatementList> {
-
+    
     @Override
     public boolean mutate(StatementList target) throws BuildException {
         List<Statement> statements = target.getStatements();

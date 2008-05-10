@@ -12,6 +12,9 @@
         <echo>Building: Fn</echo>
         <subant buildpath="Fn/" target="jar"/>
         
+        <echo>Building: GeneticLibrary</echo>
+        <subant buildpath="GeneticLibrary/" target="jar"/>
+        
         <echo>Building: Painter</echo>
         <subant buildpath="Painter/" target="jar"/>
         
@@ -31,6 +34,9 @@
         
         <echo>Cleaning: Fn</echo>
         <subant buildpath="Fn/" target="clean"/>
+        
+        <echo>Cleaning: GeneticLibrary</echo>
+        <subant buildpath="GeneticLibrary/" target="clean"/>
         
         <echo>Cleaning: Painter</echo>
         <subant buildpath="Painter/" target="clean"/>

@@ -17,6 +17,10 @@ import java.util.List;
  * @author Calvin Ashmore
  */
 public class MutateStatement extends MutatorAction<StatementList> {
+
+    public MutateStatement() {
+        addMeta("selectionWeight", 3.0);
+    }
     
     @Override
     public boolean mutate(StatementList target) throws BuildException {

@@ -6,15 +6,27 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package genetic;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Calvin Ashmore
  */
-abstract public class MutatorAction<T extends GeneticComponent> {
-    
+abstract public class MutatorAction<T extends GeneticComponent> implements Metadata {
+
+    private Map<String, Object> metadata = new HashMap<String, Object>();
+
+    public Object getMeta(String key) {
+        return metadata.get(key);
+    }
+
+    public void addMeta(String key, Object value) {
+        metadata.put(key, value);
+    }
+
     /**
      * The contract of this method is to attempt to mutate the component.
      * If the mutation fails, the method should return false, and the state of 

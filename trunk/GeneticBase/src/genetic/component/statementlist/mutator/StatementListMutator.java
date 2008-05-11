@@ -21,5 +21,6 @@ public class StatementListMutator extends Mutator<StatementList> {
         getMutators().add(new InjectStatement());
         getMutators().add(new RemoveStatement());
         getMutators().add(new MutateStatement());
+        getMutators().add(new ExtractVariable());
     }
 }

@@ -23,7 +23,12 @@ import java.util.Random;
  */
 public class ExtractVariable extends MutatorAction<StatementList> {
 
-    private class Result {
+    public ExtractVariable() {
+        //addMeta("selectionWeight", 300.0);
+    }
+
+    
+    private static class Result {
 
         Expression expression;
         Statement statement;
@@ -52,6 +57,7 @@ public class ExtractVariable extends MutatorAction<StatementList> {
         AssignmentStatementFunction assignment = new AssignmentStatementFunction();
         assignment.setVariable(variableName, variableType);
         Statement declaration = new Statement(assignment, target);
+        declaration.setInput(0, expressionResult.expression);
         List<Statement> newStatements = new ArrayList(target.getStatements());
         newStatements.add(0, declaration);
         target.setStatements(newStatements.toArray(new Statement[newStatements.size()]));
@@ -66,7 +72,7 @@ public class ExtractVariable extends MutatorAction<StatementList> {
 
         return true;
     }
-    private int NUMBER_ATTEMPTS = 5;
+    private static int NUMBER_ATTEMPTS = 5;
 
     private Result findExpression(StatementList target) {
         for (int i = 0; i < NUMBER_ATTEMPTS; i++) {

@@ -10,7 +10,6 @@
 
 package utils.linear.grid;
 
-import java.awt.*;
 import java.awt.image.*;
 import utils.linear.Color;
 

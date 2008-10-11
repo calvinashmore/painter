@@ -230,6 +230,7 @@ public class Quaternion implements Linear<Quaternion> {
         return a.mult(-1).mult( mult(a).arctanh() );
     }
     
+    @Override
     public String toString() {
         return u + " + " + i + " i + " + j + " j + " + k + " k";
     }
@@ -244,5 +245,10 @@ public class Quaternion implements Linear<Quaternion> {
                 Double.parseDouble(sa[2]),
                 Double.parseDouble(sa[3])
                 );
+    }
+
+    @Override
+    public Quaternion clone() {
+        return new Quaternion(this);
     }
 }

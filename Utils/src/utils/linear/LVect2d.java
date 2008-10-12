@@ -5,13 +5,11 @@
  */
 package utils.linear;
 
-import java.util.StringTokenizer;
-
 /**
  *
  * @author Calvin Ashmore
  */
-public class LVect2d implements Linear<LVect2d> {
+public class LVect2d implements FiniteLinear<LVect2d> {
 
     public double x,  y;
 
@@ -96,5 +94,19 @@ public class LVect2d implements Linear<LVect2d> {
     @Override
     public LVect2d clone() {
         return new LVect2d(this);
+    }
+
+    public int dimensions() {
+        return 2;
+    }
+
+    public double get(int i) {
+        if (i == 0) {
+            return x;
+        }
+        if (i == 1) {
+            return y;
+        }
+        throw new ArrayIndexOutOfBoundsException(i);
     }
 }

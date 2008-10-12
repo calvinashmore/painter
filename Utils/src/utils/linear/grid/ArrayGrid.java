@@ -463,4 +463,13 @@ public class ArrayGrid<T extends Linear<T>>
     public Grid<T> clone() {
         return new ArrayGrid(this);
     }
+
+    public void setTo(Grid<T> a) {
+        assertSize(a);
+        for (int x = 0; x < xres; x++) {
+            for (int y = 0; y < yres; y++) {
+                setValue(x, y, a.getValue(x, y));
+            }
+        }
+    }
 }

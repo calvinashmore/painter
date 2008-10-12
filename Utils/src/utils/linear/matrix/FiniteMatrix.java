@@ -4,7 +4,7 @@
  */
 package utils.linear.matrix;
 
-import utils.Pair;
+import utils.linear.Complex;
 import utils.linear.FiniteLinear;
 
 /**
@@ -13,5 +13,13 @@ import utils.linear.FiniteLinear;
  */
 public interface FiniteMatrix<T, U extends FiniteLinear<U>> extends Matrix<T, U>, FiniteLinear<T>{
     public double get(int i, int j);
-    public Pair<double[], U[]> eigenDecomposition();
+    //public Pair<double[], U[]> eigenDecomposition();
+    public Complex[] eigenvalues();
+    
+    /**
+     * This SHOULD be a U where the members are Complexes instead of doubles,
+     * but that is not possible given the current implementation.
+     * @return
+     */
+    public Complex[] eigenvector(Complex eigenvalue);
 }

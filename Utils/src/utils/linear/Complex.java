@@ -133,4 +133,9 @@ public class Complex implements Linear<Complex> {
     public Complex clone() {
         return new Complex(this);
     }
+
+    public void setTo(Complex a) {
+        this.x = a.x;
+        this.y = a.y;
+    }
 }

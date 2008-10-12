@@ -246,4 +246,10 @@ public class Color implements Linear<Color> {
     public Color clone() {
         return new Color(this);
     }
+
+    public void setTo(Color a) {
+        this.r = a.r;
+        this.g = a.g;
+        this.b = a.b;
+    }
 }

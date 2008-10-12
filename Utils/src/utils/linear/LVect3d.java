@@ -108,4 +108,10 @@ public class LVect3d implements Linear<LVect3d> {
     public LVect3d clone() {
         return new LVect3d(this);
     }
+
+    public void setTo(LVect3d a) {
+        this.x = a.x;
+        this.y = a.y;
+        this.z = a.z;
+    }
 }

@@ -109,4 +109,9 @@ public class LVect2d implements FiniteLinear<LVect2d> {
         }
         throw new ArrayIndexOutOfBoundsException(i);
     }
+
+    public void setTo(LVect2d a) {
+        this.x = a.x;
+        this.y = a.y;
+    }
 }

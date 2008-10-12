@@ -32,6 +32,7 @@ public interface Linear<T> extends java.io.Serializable
     public double magnitude();
     
     public T clone();
+    public void setTo(T a);
     
     //T[] basis();
 }

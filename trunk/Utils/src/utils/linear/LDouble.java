@@ -74,5 +74,9 @@ public class LDouble implements Linear<LDouble> {
     public LDouble clone() {
         return new LDouble(this);
     }
+
+    public void setTo(LDouble a) {
+        this.val = a.val;
+    }
 }
 

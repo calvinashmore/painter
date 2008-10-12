@@ -4,7 +4,7 @@
  */
 package utils.linear.matrix;
 
-import utils.Pair;
+import utils.linear.Complex;
 import utils.linear.LVect2d;
 
 /**
@@ -147,7 +147,7 @@ public class LMatrix2d implements FiniteMatrix<LMatrix2d, LVect2d> {
         }
     }
 
-    public Pair<double[], LVect2d[]> eigenDecomposition() {
+    public Complex[] eigenvalues() {
         // first calculate characteristic polynomial
         // the eigenvalues are the values of lambda that satisfy the formula:
         // det(M - lambda*Identity) = 0
@@ -158,34 +158,83 @@ public class LMatrix2d implements FiniteMatrix<LMatrix2d, LVect2d> {
         // lambda2 = (m00+m11)/2 - sqrt((m00+m11)^2 -4(m00*m11-m10*m01))/2  <--- will always be smaller
         // if (m00+m11)^2 -4(m00*m11-m10*m01) < 0, then the eigenvalues are complex. We ignore these for now
         double eigenRoot = (m00 + m11) * (m00 + m11) - 4 * (m00 * m11 - m10 * m01);
+        Complex[] eigenvalues = new Complex[2];
+        double part1 = .5 * (m00 + m11);
+        double part2 = .5 * Math.sqrt(Math.abs(eigenRoot));
+
+        Complex eigenvalue1 = new Complex();
+        Complex eigenvalue2 = new Complex();
+
         if (eigenRoot < 0) {
-            return new Pair<double[], LVect2d[]>(new double[0], new LVect2d[0]);
+            eigenvalue1.x = part1;
+            eigenvalue1.y = part2;
+            eigenvalue2.x = part1;
+            eigenvalue2.y = -part2;
         } else {
-            double part1 = .5 * (m00 + m11);
-            double part2 = .5 * Math.sqrt(eigenRoot);
-            // we do not have a special test for when there might be a single eigenvalue, because the case is rare.
-            double eigenvalue1 = part1 + part2;
-            double eigenvalue2 = part1 - part2;
-
-            LVect2d eigenvector1, eigenvector2;
-            if (m10 != 0) {
-                // this should be the case with most matrices.
-                eigenvector1 = new LVect2d(1, m00 - eigenvalue1 / m10).normal();
-                eigenvector2 = new LVect2d(1, m00 - eigenvalue2 / m10).normal();
-            } else if (m01 != 0) {
-                // in this case, one non-diagonal corner of the matrix is zero, but the other is nonzero
-                eigenvector1 = new LVect2d(m11 - eigenvalue1 / m01, 1).normal();
-                eigenvector2 = new LVect2d(m11 - eigenvalue2 / m01, 1).normal();
-            } else {
-                // in this unusual case, the matrix is diagonal.
-                eigenvector1 = m00 > m11 ? new LVect2d(1, 0) : new LVect2d(0, 1);
-                eigenvector2 = m00 <= m11 ? new LVect2d(1, 0) : new LVect2d(0, 1);
-            }
-
-            return new Pair<double[], LVect2d[]>(
-                    new double[]{eigenvalue1, eigenvalue2},
-                    new LVect2d[]{eigenvector1, eigenvector2});
+            eigenvalue1.x = part1 + part2;
+            eigenvalue1.x = part1 - part2;
         }
+        double mag1 = eigenvalue1.magnitude();
+        double mag2 = eigenvalue2.magnitude();
+
+        if (mag1 > mag2) {
+            eigenvalues[0] = eigenvalue1;
+            eigenvalues[1] = eigenvalue2;
+        } else {
+            eigenvalues[0] = eigenvalue2;
+            eigenvalues[1] = eigenvalue1;
+        }
+        return eigenvalues;
+    /*
+    // we do not have a special test for when there might be a single eigenvalue, because the case is rare.
+    double eigenvalue1 = part1 + part2;
+    double eigenvalue2 = part1 - part2;
+    
+    LVect2d eigenvector1, eigenvector2;
+    if (m10 != 0) {
+    // this should be the case with most matrices.
+    eigenvector1 = new LVect2d(1, m00 - eigenvalue1 / m10).normal();
+    eigenvector2 = new LVect2d(1, m00 - eigenvalue2 / m10).normal();
+    } else if (m01 != 0) {
+    // in this case, one non-diagonal corner of the matrix is zero, but the other is nonzero
+    eigenvector1 = new LVect2d(m11 - eigenvalue1 / m01, 1).normal();
+    eigenvector2 = new LVect2d(m11 - eigenvalue2 / m01, 1).normal();
+    } else {
+    // in this unusual case, the matrix is diagonal.
+    eigenvector1 = m00 > m11 ? new LVect2d(1, 0) : new LVect2d(0, 1);
+    eigenvector2 = m00 <= m11 ? new LVect2d(1, 0) : new LVect2d(0, 1);
+    }
+    
+    return new Pair<double[], LVect2d[]>(
+    new double[]{eigenvalue1, eigenvalue2},
+    new LVect2d[]{eigenvector1, eigenvector2});*/
+    }
+
+    public Complex[] eigenvector(Complex eigenvalue) {
+        Complex[] eigenvector = new Complex[2];
+        if (m10 != 0) {
+            // this should be the case with most matrices.
+            eigenvector[0] = new Complex(1, 0);
+            eigenvector[1] = new Complex(m00 - eigenvalue.x, eigenvalue.y).mult(1 / m10);
+        } else if (m01 != 0) {
+            // in this case, one non-diagonal corner of the matrix is zero, but the other is nonzero
+            eigenvector[0] = new Complex(m11 - eigenvalue.x, eigenvalue.y).mult(1 / m01);
+            eigenvector[1] = new Complex(1, 0);
+        } else {
+            // in this unusual case, the matrix is diagonal.
+            // the eigenvalue is necessarily real in this case
+            if (eigenvalue.x == m00) {
+                eigenvector[0] = new Complex(1, 0);
+                eigenvector[1] = new Complex(0, 0);
+            } else {
+                eigenvector[0] = new Complex(0, 0);
+                eigenvector[1] = new Complex(1, 0);
+            }
+        }
+        double inverseMagnitude = Math.sqrt(1 + eigenvector[1].magnitude());
+        eigenvector[0].mult(inverseMagnitude);
+        eigenvector[1].mult(inverseMagnitude);
+        return eigenvector;
     }
 
     public int dimensions() {
@@ -193,6 +242,23 @@ public class LMatrix2d implements FiniteMatrix<LMatrix2d, LVect2d> {
     }
 
     public double get(int i) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (i == 0) {
+            return m00;
+        } else if (i == 1) {
+            return m10;
+        } else if (i == 2) {
+            return m01;
+        } else if (i == 3) {
+            return m11;
+        }
+
+        throw new ArrayIndexOutOfBoundsException(i);
+    }
+
+    public void setTo(LMatrix2d a) {
+        this.m00 = a.m00;
+        this.m01 = a.m01;
+        this.m10 = a.m10;
+        this.m11 = a.m11;
     }
 }

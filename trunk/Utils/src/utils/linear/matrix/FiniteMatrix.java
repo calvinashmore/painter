@@ -14,7 +14,7 @@ import utils.linear.FiniteLinear;
 public interface FiniteMatrix<T, U extends FiniteLinear<U>> extends Matrix<T, U>, FiniteLinear<T>{
     public double get(int i, int j);
     //public Pair<double[], U[]> eigenDecomposition();
-    public Complex[] eigenvalues();
+    public Complex[] eigenvalues(Complex[] target);
     
     /**
      * This SHOULD be a U where the members are Complexes instead of doubles,

@@ -147,7 +147,7 @@ public class LMatrix2d implements FiniteMatrix<LMatrix2d, LVect2d> {
         }
     }
 
-    public Complex[] eigenvalues() {
+    public Complex[] eigenvalues(Complex[] target) {
         // first calculate characteristic polynomial
         // the eigenvalues are the values of lambda that satisfy the formula:
         // det(M - lambda*Identity) = 0
@@ -158,12 +158,15 @@ public class LMatrix2d implements FiniteMatrix<LMatrix2d, LVect2d> {
         // lambda2 = (m00+m11)/2 - sqrt((m00+m11)^2 -4(m00*m11-m10*m01))/2  <--- will always be smaller
         // if (m00+m11)^2 -4(m00*m11-m10*m01) < 0, then the eigenvalues are complex. We ignore these for now
         double eigenRoot = (m00 + m11) * (m00 + m11) - 4 * (m00 * m11 - m10 * m01);
-        Complex[] eigenvalues = new Complex[2];
+        
+        // use the target if it is not null, otherwise create new
+        Complex[] eigenvalues = target == null ? new Complex[2] : target;
+
         double part1 = .5 * (m00 + m11);
         double part2 = .5 * Math.sqrt(Math.abs(eigenRoot));
 
-        Complex eigenvalue1 = new Complex();
-        Complex eigenvalue2 = new Complex();
+        Complex eigenvalue1 = eigenvalues[0] == null ? new Complex() : eigenvalues[0];
+        Complex eigenvalue2 = eigenvalues[1] == null ? new Complex() : eigenvalues[1];
 
         if (eigenRoot < 0) {
             eigenvalue1.x = part1;
@@ -185,29 +188,6 @@ public class LMatrix2d implements FiniteMatrix<LMatrix2d, LVect2d> {
             eigenvalues[1] = eigenvalue1;
         }
         return eigenvalues;
-    /*
-    // we do not have a special test for when there might be a single eigenvalue, because the case is rare.
-    double eigenvalue1 = part1 + part2;
-    double eigenvalue2 = part1 - part2;
-    
-    LVect2d eigenvector1, eigenvector2;
-    if (m10 != 0) {
-    // this should be the case with most matrices.
-    eigenvector1 = new LVect2d(1, m00 - eigenvalue1 / m10).normal();
-    eigenvector2 = new LVect2d(1, m00 - eigenvalue2 / m10).normal();
-    } else if (m01 != 0) {
-    // in this case, one non-diagonal corner of the matrix is zero, but the other is nonzero
-    eigenvector1 = new LVect2d(m11 - eigenvalue1 / m01, 1).normal();
-    eigenvector2 = new LVect2d(m11 - eigenvalue2 / m01, 1).normal();
-    } else {
-    // in this unusual case, the matrix is diagonal.
-    eigenvector1 = m00 > m11 ? new LVect2d(1, 0) : new LVect2d(0, 1);
-    eigenvector2 = m00 <= m11 ? new LVect2d(1, 0) : new LVect2d(0, 1);
-    }
-    
-    return new Pair<double[], LVect2d[]>(
-    new double[]{eigenvalue1, eigenvalue2},
-    new LVect2d[]{eigenvector1, eigenvector2});*/
     }
 
     public Complex[] eigenvector(Complex eigenvalue) {

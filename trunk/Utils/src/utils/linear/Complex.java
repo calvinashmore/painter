@@ -63,6 +63,14 @@ public class Complex implements Linear<Complex> {
         return new Complex(c.x * x - c.y * y, c.x * y + c.y * x);
     }
 
+    public void multv(Complex c) {
+        double newx = c.x * x - c.y * y;
+        double newy = c.x * y + c.y * x;
+
+        x = newx;
+        y = newy;
+    }
+
     public Complex normal() {
         double m = 1.0 / magnitude();
         return new Complex(m * x, m * y);

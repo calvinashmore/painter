@@ -146,4 +146,62 @@ public class Complex implements Linear<Complex> {
         this.x = a.x;
         this.y = a.y;
     }
+
+    public static Complex sin(Complex x) {
+        return new Complex( Math.sin(x.x)*Math.cosh(x.y), Math.cos(x.x)*Math.sinh(x.y) );
+    }
+    public static Complex cos(Complex x) {
+        return new Complex( Math.cos(x.x)*Math.cosh(x.y), -Math.sin(x.x)*Math.sinh(x.y) );
+    }
+    public static Complex tan(Complex x) {
+        return new Complex( Math.sinh(x.y)*Math.cosh(x.y), Math.sin(x.x)*Math.cos(x.x) ).mult(
+                1.0 /( Math.cos(x.x)*Math.cos(x.x) + Math.sinh(x.y)*Math.sinh(x.y) ) );
+    }
+
+    public static Complex sinh(Complex x) {
+        return new Complex( Math.sinh(x.x)*Math.cos(x.y), Math.cosh(x.x)*Math.sin(x.y) );
+    }
+    public static Complex cosh(Complex x) {
+        return new Complex( Math.cosh(x.x)*Math.cos(x.y), Math.sinh(x.x)*Math.sin(x.y) );
+    }
+    public static Complex tanh(Complex x) {
+        return new Complex( Math.sinh(x.x)*Math.cosh(x.x), Math.sin(x.y)*Math.cos(x.y) ).mult(
+                1.0 /( Math.cos(x.y)*Math.cos(x.y) + Math.sinh(x.x)*Math.sinh(x.x) ) );
+    }
+
+    public static Complex asin(Complex x) {
+        Complex r = new Complex(-x.y,x.x).add( new Complex(1-x.x*x.x+x.y*x.y,-2*x.x*x.y).pow(.5) ).log();
+        Complex p = new Complex(r.y,-r.x);
+
+        return p;
+    }
+    public static Complex acos(Complex x) {
+        Complex r = new Complex(-x.y,x.x).add( new Complex(1-x.x*x.x+x.y*x.y,-2*x.x*x.y).pow(.5) ).log();
+        Complex p = new Complex(Math.PI/2 - r.y, r.x);
+
+        return p;
+    }
+    public static Complex atan(Complex x) {
+        Complex r = new Complex(1+x.y,-x.x).log();
+        Complex s = new Complex(1-x.y, x.x).log();
+        Complex t = r.add(s);
+        Complex p = new Complex( -t.y/2, t.x/2 );
+
+        return p;
+    }
+
+    public static Complex pow(Complex x, Complex y) {
+        Complex xlog = new Complex( Math.log(x.magnitude()), x.theta() );
+        Complex ymul = new Complex( xlog.x * y.x - xlog.y * y.y, xlog.x * y.y + xlog.y * y.x );
+        Complex z = new Complex( Math.exp(ymul.x)*Math.cos(ymul.y), Math.exp(ymul.x)*Math.sin(ymul.y) );
+
+        return z;
+    }
+    public static Complex div(Complex x, Complex y) {
+        Complex z = new Complex();
+        z.x = x.x * y.x + x.y * y.y;
+        z.y = x.y * y.x - x.x * y.y;
+        double mag = x.magnitude() * y.magnitude();
+        return z.mult( 1.0/mag );
+    }
 }

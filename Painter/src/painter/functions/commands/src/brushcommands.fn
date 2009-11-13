@@ -15,7 +15,7 @@ fn Plot_d2_col {
     in Color color;
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paint(x.val, y.val, .02, color, canvas);
+        new SimpleBrush().paint(x.val, y.val,0,0, .02, color, canvas);
     }
 }
 
@@ -26,7 +26,7 @@ fn Plot_d2_r_col {
     in Color color;
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paint(x.val, y.val, r.val, color, canvas);
+        new SimpleBrush().paint(x.val, y.val,0,0, r.val, color, canvas);
     }
 }
 
@@ -35,7 +35,7 @@ fn Plot_v2_col {
     in Color color;
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paint(x.x, x.y, .02, color, canvas);
+        new SimpleBrush().paint(x.x, x.y,0,0, .02, color, canvas);
     }
 }
 
@@ -45,10 +45,11 @@ fn Plot_v2_r_col {
     in Color color;
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paint(x.x, x.y, r.val, color, canvas);
+        new SimpleBrush().paint(x.x, x.y,0,0, r.val, color, canvas);
     }
 }
 
+/*
 fn Line_d4_col {
     in LDouble x1;
     in LDouble y1;
@@ -169,3 +170,4 @@ fn Line_v2_v2_r2_col2 {
         new Brush().paintLine(x1.x, x1.y, x2.x, x2.y, r1.val, r2.val, color1, color2, canvas);
     }
 }
+*/

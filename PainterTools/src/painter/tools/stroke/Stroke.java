@@ -10,5 +10,5 @@ package painter.tools.stroke;
  * @author Calvin Ashmore
  */
 public class Stroke {
-
+    
 }

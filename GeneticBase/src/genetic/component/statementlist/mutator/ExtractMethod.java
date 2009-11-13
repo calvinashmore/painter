@@ -20,6 +20,7 @@ public class ExtractMethod extends MutatorAction<StatementList> {
         // 1) select statements to isolate
         // 2) create a new method with them in a statement list
         // 3) replace the statements with a call to invoke the method
+        return false;
     }
     
 }

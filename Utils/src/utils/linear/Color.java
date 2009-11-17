@@ -61,31 +61,6 @@ public class Color implements Linear<Color> {
             }
         }
         return c;
-
-    /*
-    double h = hue % 1.0;
-    double s = Math.min(Math.max(saturation, 0), 1);
-    double v = brightness;
-    
-    double f = h*6 - (int)(h*6);
-    
-    double p = v*(1.0-s);
-    double q = v*(1.0-s*f);
-    double t = v*(1.0-s*(1.0-f));
-    
-    if(h < 1.0/6)
-    return new Color(q,v,p);
-    else if(h < 2.0/6)
-    return new Color(p,v,t);
-    else if(h < 3.0/6)
-    return new Color(p,q,v);
-    else if(h < 4.0/6)
-    return new Color(t,p,v);
-    else if(h < 5.0/6)
-    return new Color(v,p,q);
-    else
-    return new Color(v,t,p);
-     */
     }
 
     public double[] hsbvals() {

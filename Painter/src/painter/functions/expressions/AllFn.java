@@ -1,4 +1,4 @@
-package painter . functions . commands;
+package painter . functions . expressions;
 
 import java.util.*;
 import genetic.*;
@@ -13,11 +13,10 @@ import genetic.component.statement.*;
 import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
 
-public class AllFn implements AllComponents<Command> {
-   public List<Command> allInstances(ContextModel cm) {
-      List<Command> r = new ArrayList<Command>();
-      r.addAll(new BrushCommands().allInstances(cm));
-      r.addAll(new StrokeCommands().allInstances(cm));
+public class AllFn implements AllComponents<ExpressionFunction> {
+   public List<ExpressionFunction> allInstances(ContextModel cm) {
+      List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
+      r.addAll(new Curves().allInstances(cm));
       return r;
    }
 

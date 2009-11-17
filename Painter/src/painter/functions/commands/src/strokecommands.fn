@@ -1,0 +1,46 @@
+package painter.functions.commands;
+group StrokeCommands;
+type Command;
+
+import utils.linear.*;
+import painter.tools.canvas.*;
+import painter.tools.brush.*;
+import painter.tools.stroke.*;
+import painter.util.curves.*;
+
+
+description "Stroke commands";
+
+
+fn SimpleStroke {
+    in CurveUtil.Curve_v2 position;
+    in Color color;
+    parameter LDouble width;
+
+    init {
+        width = new LDouble(Math.random()*.1);
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        Stroke stroke = new Stroke(position, color);
+        stroke.setSize(width.val);
+        stroke.render(canvas);
+    }
+}
+
+fn ColorStroke {
+    in CurveUtil.Curve_v2 position;
+    in CurveUtil.Curve_col color;
+    parameter LDouble width;
+
+    init {
+        width = new LDouble(Math.random()*.1);
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        Stroke stroke = new Stroke(new ConstantCurve<LDouble>(width), position, color);
+        stroke.render(canvas);
+    }
+}

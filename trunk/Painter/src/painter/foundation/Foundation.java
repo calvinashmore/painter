@@ -49,6 +49,7 @@ public class Foundation extends GeneticFoundationImpl {
             public List<ExpressionFunction> allInstances(ContextModel cm) {
                 List<ExpressionFunction> allInstances = super.allInstances(cm);
                 allInstances.addAll(allExpressionFunctions.allInstances(cm));
+                allInstances.addAll(new painter.functions.expressions.AllFn().allInstances(cm));
                 return allInstances;
             }
         };
@@ -75,8 +76,8 @@ public class Foundation extends GeneticFoundationImpl {
             public double getWeight(ContextModel cm, StatementFunction sf) {
                 if (sf instanceof CommandStatementFunction) {
                     return 15;
-                //if(sf.getClass().getName().contains("Loop"))
-                //    return 2;
+                    //if(sf.getClass().getName().contains("Loop"))
+                    //    return 2;
                 }
                 return super.getWeight(cm, sf);
             }

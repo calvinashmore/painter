@@ -181,6 +181,11 @@ public class DemoApplet extends JApplet {
 
         System.out.println("Setting up...");
         program.setup();
+
+        StringBuilder sb = new StringBuilder();
+        ProgramPrinter.printProgram(sb, program);
+        System.out.println(sb);
+
         return program;
     }
 

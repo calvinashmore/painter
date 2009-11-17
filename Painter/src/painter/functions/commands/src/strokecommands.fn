@@ -29,7 +29,7 @@ fn SimpleStroke {
     }
 }
 
-fn ColorStroke {
+fn ColorStroke1 {
     in CurveUtil.Curve_v2 position;
     in CurveUtil.Curve_col color;
     parameter LDouble width;
@@ -41,6 +41,30 @@ fn ColorStroke {
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
         Stroke stroke = new Stroke(new ConstantCurve<LDouble>(width), position, color);
+        stroke.render(canvas);
+    }
+}
+
+fn ColorStroke2 {
+    in CurveUtil.Curve_v2 position;
+    in CurveUtil.Curve_col color;
+    in LDouble width;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        Stroke stroke = new Stroke(new ConstantCurve<LDouble>(width), position, color);
+        stroke.render(canvas);
+    }
+}
+
+fn ColorSizeStroke {
+    in CurveUtil.Curve_v2 position;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d size;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        Stroke stroke = new Stroke(size, position, color);
         stroke.render(canvas);
     }
 }

@@ -2,7 +2,7 @@
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
-<project name="Painter01" default="default" basedir=".">
+<project name="Painter" default="default" basedir=".">
     <description>Builds, tests, and runs the project Painter01.</description>
     <import file="nbproject/build-impl.xml"/>
     
@@ -28,6 +28,15 @@
             fork="true">
                 <arg value="src/painter/functions/expressions/src"/>
                 <arg value="src/painter/functions/expressions"/>
+        </java>
+        <echo> *** processing statements... </echo>
+        <java
+            classname="fn.FnCompiler"
+            classpath="../Fn/dist/Fn.jar"
+            dir="."
+            fork="true">
+                <arg value="src/painter/functions/statements/src"/>
+                <arg value="src/painter/functions/statements"/>
         </java>
         <echo> *** completed Fn! </echo>
     </target>

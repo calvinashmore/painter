@@ -152,7 +152,7 @@ public class ContextModel {
         return assignableVars;
     }
 
-    List<String> getMyVariables() {
+    public List<String> getMyVariables() {
         return new ArrayList<String>(variableTypes.keySet());
     }
 

@@ -18,11 +18,15 @@ public class CurveUtil {
     private CurveUtil() {
     }
 
-    public static class Curve_d implements Curve<LDouble> {
+    public interface Curve_d extends Curve<LDouble> {}
+    public interface Curve_v2 extends Curve<LVect2d> {}
+    public interface Curve_col extends Curve<Color> {}
+
+    public static class Curve_d_wrap implements Curve_d {
 
         private Curve<LDouble> base;
 
-        public Curve_d(Curve<LDouble> base) {
+        public Curve_d_wrap(Curve<LDouble> base) {
             this.base = base;
         }
 
@@ -31,11 +35,11 @@ public class CurveUtil {
         }
     }
 
-    public static class Curve_v2 implements Curve<LVect2d> {
+    public static class Curve_v2_wrap implements Curve_v2 {
 
         private Curve<LVect2d> base;
 
-        public Curve_v2(Curve<LVect2d> base) {
+        public Curve_v2_wrap(Curve<LVect2d> base) {
             this.base = base;
         }
 
@@ -44,11 +48,11 @@ public class CurveUtil {
         }
     }
 
-    public static class Curve_col implements Curve<Color> {
+    public static class Curve_col_wrap implements Curve_col {
 
         private Curve<Color> base;
 
-        public Curve_col(Curve<Color> base) {
+        public Curve_col_wrap(Curve<Color> base) {
             this.base = base;
         }
 

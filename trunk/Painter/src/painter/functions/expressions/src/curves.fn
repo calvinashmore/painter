@@ -18,7 +18,7 @@ fn segmentCurve_d {
     fout CurveUtil.Curve_d;
 
     eval {
-        return new CurveUtil.Curve_d(new SegmentCurve(x,y));
+        return new CurveUtil.Curve_d_wrap(new SegmentCurve(x,y));
     }
 }
 
@@ -28,7 +28,7 @@ fn segmentCurve_v2 {
     fout CurveUtil.Curve_v2;
 
     eval {
-        return new CurveUtil.Curve_v2(new SegmentCurve(x,y));
+        return new CurveUtil.Curve_v2_wrap(new SegmentCurve(x,y));
     }
 }
 
@@ -38,6 +38,94 @@ fn segmentCurve_col {
     fout CurveUtil.Curve_col;
 
     eval {
-        return new CurveUtil.Curve_col(new SegmentCurve(x,y));
+        return new CurveUtil.Curve_col_wrap(new SegmentCurve(x,y));
+    }
+}
+
+// *****************************************
+// ****** MISCELLANEOUS CURVES
+// *****************************************
+
+fn circleCurve_v2 {
+    in LVect2d center;
+    in LDouble radius;
+
+    fout CurveUtil.Curve_v2;
+
+    eval {
+        return new CurveUtil.Curve_v2_wrap(new Circle(center, radius.val));
+    }
+}
+
+fn circleCurve1_v2 {
+    in LVect2d center;
+    parameter LDouble radius;
+
+    fout CurveUtil.Curve_v2;
+
+    init {
+        radius = new LDouble(Math.random()+.1);
+    }
+
+    eval {
+        return new CurveUtil.Curve_v2_wrap(new Circle(center, radius.val));
+    }
+}
+
+fn sinCurve_d {
+    description "This is a sin curve from 0 to 2*pi";
+
+    fout CurveUtil.Curve_d;
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double t) {
+                return new LDouble(Math.sin(t*2*Math.PI));
+            }
+        };
+    }
+}
+
+fn cosCurve_d {
+    description "This is a cos curve from 0 to 2*pi";
+
+    fout CurveUtil.Curve_d;
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double t) {
+                return new LDouble(Math.cos(t*2*Math.PI));
+            }
+        };
+    }
+}
+
+
+fn sinBumpCurve_d {
+    description "This is a sin curve from 0 to pi, creating a bump";
+
+    fout CurveUtil.Curve_d;
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double t) {
+                return new LDouble(Math.sin(t*Math.PI));
+            }
+        };
+    }
+}
+
+
+fn cosBumpCurve_d {
+    description "This is a cos curve from -pi to pi, creating a tapered bump, and scaled so its range is in 1/0";
+
+    fout CurveUtil.Curve_d;
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double t) {
+                return new LDouble(.5+.5*Math.cos(-Math.PI + t*Math.PI));
+            }
+        };
     }
 }

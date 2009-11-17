@@ -36,6 +36,10 @@ public class CommandStatementFunction extends StatementFunction {
         super.setup();
     }
 
+    public Command getCommand() {
+        return command;
+    }
+
     @Override
     public String getName() {
         return command.getClass().getName();

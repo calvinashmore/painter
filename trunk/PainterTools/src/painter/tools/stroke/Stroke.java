@@ -49,7 +49,7 @@ public class Stroke {
     public void render(Canvas canvas) {
 
         LVect2d lastPosition = null;
-        for (int i = 0; i < steps; i++) {
+        for (int i = -1; i < steps; i++) {
             double t = (double) i / steps;
 
             LVect2d positionValue = position.getValue(t);

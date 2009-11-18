@@ -26,7 +26,6 @@ public class ContextModel {
             this.type = type;
             this.readOnly = readOnly;
         }
-        
         final public Class type;
         final public boolean readOnly;
 
@@ -90,7 +89,8 @@ public class ContextModel {
 
     public String declareVariable(String name, Class type, boolean readOnly) {
 
-        if (variableTypes.get(name) != null) {
+        //if (variableTypes.get(name) != null) {
+        if (getType(name) != null) {
             // get numeric suffix, add to it until the variable has a unique name
             if (!name.matches(".*_\\d+$")) {
                 name = name + "_1";
@@ -101,7 +101,7 @@ public class ContextModel {
             do {
                 int varNumber = Integer.parseInt(name.substring(underscorePos + 1));
                 name = name.substring(0, underscorePos + 1) + (varNumber + 1);
-            } while (variableTypes.get(name) != null);
+            } while (getType(name) != null);
         }
 
         VariableDefinition def = new VariableDefinition(type, readOnly);
@@ -214,15 +214,15 @@ public class ContextModel {
     }
 
     /*public String printout(String indent) {
-        String r = indent + "contextModel\n";
-        for (String name : variableTypes.keySet()) {
-            r += indent + "  " + name + ": " + variableTypes.get(name).type;
-            if (variableTypes.get(name).readOnly) {
-                r += " (r/o)";
-            }
-            r += "\n";
-        }
-        return r;
+    String r = indent + "contextModel\n";
+    for (String name : variableTypes.keySet()) {
+    r += indent + "  " + name + ": " + variableTypes.get(name).type;
+    if (variableTypes.get(name).readOnly) {
+    r += " (r/o)";
+    }
+    r += "\n";
+    }
+    return r;
     }*/
 
     /*protected void createNewVariables() {

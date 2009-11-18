@@ -95,9 +95,23 @@ public class ProgramPrinter {
 
         sb.append(indent + name + "(\n");
 
+        if (function.getNumberContextVariables() > 0) {
+            sb.append(indent + "    [");
+            for (int i = 0; i < function.getNumberContextVariables(); i++) {
+                String cvarName = function.getContextVariableIntendedName(i);
+                String cvarActualName = function.getContextVariableActualName(cvarName);
+                Class cvarType = function.getContextVariableType(i);
+                if (i > 0) {
+                    sb.append(", ");
+                }
+                sb.append(cvarType.getSimpleName() + " " + cvarName + " (" + cvarActualName + ")");
+            }
+            sb.append("]\n");
+        }
+
         for (int i = 0; i < function.getNumberInputs(); i++) {
 
-            sb.append(indent+"    "+function.getInputName(i) + " = ");
+            sb.append(indent + "    " + function.getInputName(i) + " = ");
 
             GeneticComponent input = statement.getInput(i);
             if (input instanceof Expression) {
@@ -107,7 +121,7 @@ public class ProgramPrinter {
                 printStatementList(sb, indent + "        ", (StatementList) input, true);
             }
 
-            if (i < function.getNumberInputs()-1) {
+            if (i < function.getNumberInputs() - 1) {
                 sb.append(",\n");
             }
             //sb.append("\n");

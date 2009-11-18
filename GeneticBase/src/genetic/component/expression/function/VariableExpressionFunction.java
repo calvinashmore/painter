@@ -29,7 +29,12 @@ public class VariableExpressionFunction<Type> extends ExpressionFunction {
     }
     
     public Object evaluate(Context context, Object[] inputs) {
-        return context.getVariable(variableName);
+        Object value = context.getVariable(variableName);
+        if(value == null) {
+            System.err.println("WARNING: "+variableName+" is not defined in context!");
+            System.err.println("Context variables: "+context.allVariables());
+        }
+        return value;
     }
 
     public int getNumberInputs() {return 0;}

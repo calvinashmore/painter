@@ -100,7 +100,16 @@ public class StatementBuilderImpl implements StatementBuilder {
     protected Expression makeExpression(Statement statement, StatementFunction.ExpressionInputSignature signature)
             throws BuildException {
 
-        return Foundation.getInstance().getExpressionBuilder().makeTree(signature.getExpressionReturnType(), statement);
+        //return Foundation.getInstance().getExpressionBuilder().makeTree(signature.getExpressionReturnType(), statement);
+        
+        // NOTE:
+        // this is a bit of a hack, but here is how this works: 
+        // statement includes its own context model. Really, we want the expression child to use the context model of the statement's parent,
+        // OTHERWISE, we would be getting illegal references, ie a statement has an exin that depends on a cvar
+        // typically we want the cvar to depend on the exin.
+        Expression r = Foundation.getInstance().getExpressionBuilder().makeTree(signature.getExpressionReturnType(), statement.getParent());
+        r.setParent(statement);
+        return r;
     }
 
     protected StatementList makeStatementList(Statement statement) throws BuildException {

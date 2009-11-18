@@ -51,7 +51,7 @@ public class Expression implements Parameterized, GeneticComponent {
         }
 
         this.function = function;
-        this.depth = parent.getDepth()+1;
+        this.depth = parent.getDepth() + 1;
     }
 
     public Class getOutputType() {
@@ -107,6 +107,11 @@ public class Expression implements Parameterized, GeneticComponent {
 
         try {
             output = function.evaluate(context, cacheInputs);
+
+            if (output == null) {
+                throw new IllegalStateException("function " + function.getClass().getName() + " created a null output!");
+            }
+
             output = Foundation.getInstance().getTypeSystem().checkInvalid(output);
         } catch (ClassCastException e) {
             output = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
@@ -217,7 +222,7 @@ public class Expression implements Parameterized, GeneticComponent {
 
         return clone;
     }
-    
+
     public void removeVariable(String name) {
         if (function instanceof VariableExpressionFunction) {
             VariableExpressionFunction variableFunction = (VariableExpressionFunction) function;
@@ -229,11 +234,11 @@ public class Expression implements Parameterized, GeneticComponent {
                     function = constantFunction;
 
                 } catch (BuildException ex) {
-                // Supress an exception here, it should never occur.
+                    // Supress an exception here, it should never occur.
                 }
             }
         }
-    // otherwise do nothing, we're okay.
+        // otherwise do nothing, we're okay.
     }
 
     public boolean hasVariable(String name) {

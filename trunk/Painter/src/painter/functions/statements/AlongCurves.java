@@ -80,6 +80,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       public alongCurve_dense_d() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .2);
          n = 150 + new Random ( ) . nextInt ( 100 ) ;
       }
 
@@ -191,6 +192,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       public alongCurve_light_d() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .5);
          n = 15 + new Random ( ) . nextInt ( 10 ) ;
       }
 
@@ -302,6 +304,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       public alongCurve_dense_v2() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .2);
          n = 150 + new Random ( ) . nextInt ( 100 ) ;
       }
 
@@ -413,6 +416,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       public alongCurve_light_v2() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .5);
          n = 15 + new Random ( ) . nextInt ( 10 ) ;
       }
 
@@ -524,6 +528,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       public alongCurve_dense_col() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .2);
          n = 150 + new Random ( ) . nextInt ( 100 ) ;
       }
 
@@ -635,6 +640,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       public alongCurve_light_col() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .5);
          n = 15 + new Random ( ) . nextInt ( 10 ) ;
       }
 

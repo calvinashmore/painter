@@ -18,6 +18,8 @@ fn alongCurve_dense_d {
     exin CurveUtil.Curve_d curve;
     slin body;
 
+    meta selectionWeight .2;
+
     init {
         n = 150+new Random().nextInt(100);
     }
@@ -44,6 +46,8 @@ fn alongCurve_light_d {
 
     exin CurveUtil.Curve_d curve;
     slin body;
+
+    meta selectionWeight .5;
 
     init {
         n = 15+new Random().nextInt(10);
@@ -73,6 +77,8 @@ fn alongCurve_dense_v2 {
     exin CurveUtil.Curve_v2 curve;
     slin body;
 
+    meta selectionWeight .2;
+
     init {
         n = 150+new Random().nextInt(100);
     }
@@ -100,6 +106,8 @@ fn alongCurve_light_v2 {
     exin CurveUtil.Curve_v2 curve;
     slin body;
 
+    meta selectionWeight .5;
+
     init {
         n = 15+new Random().nextInt(10);
     }
@@ -123,6 +131,8 @@ fn alongCurve_dense_col {
     parameter Integer n;
     cvar Integer i;
     cvar Color x;
+
+    meta selectionWeight .2;
 
     exin CurveUtil.Curve_col curve;
     slin body;
@@ -154,6 +164,8 @@ fn alongCurve_light_col {
 
     exin CurveUtil.Curve_col curve;
     slin body;
+
+    meta selectionWeight .5;
 
     init {
         n = 15+new Random().nextInt(10);

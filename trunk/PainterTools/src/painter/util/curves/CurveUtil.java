@@ -7,6 +7,7 @@ package painter.util.curves;
 import utils.linear.Color;
 import utils.linear.LDouble;
 import utils.linear.LVect2d;
+import utils.linear.Linear;
 
 /**
  *
@@ -18,9 +19,14 @@ public class CurveUtil {
     private CurveUtil() {
     }
 
-    public interface Curve_d extends Curve<LDouble> {}
-    public interface Curve_v2 extends Curve<LVect2d> {}
-    public interface Curve_col extends Curve<Color> {}
+    public interface Curve_d extends Curve<LDouble> {
+    }
+
+    public interface Curve_v2 extends Curve<LVect2d> {
+    }
+
+    public interface Curve_col extends Curve<Color> {
+    }
 
     public static class Curve_d_wrap implements Curve_d {
 
@@ -59,5 +65,41 @@ public class CurveUtil {
         public Color getValue(double t) {
             return base.getValue(t);
         }
+    }
+
+    public static <T extends Linear<T>> Curve<T> add(final Curve<T> a, final Curve<T> b) {
+        return new Curve<T>() {
+
+            public T getValue(double t) {
+                return a.getValue(t).add(b.getValue(t));
+            }
+        };
+    }
+
+    public static <T extends Linear<T>> Curve<T> sub(final Curve<T> a, final Curve<T> b) {
+        return new Curve<T>() {
+
+            public T getValue(double t) {
+                return a.getValue(t).sub(b.getValue(t));
+            }
+        };
+    }
+
+    public static <T extends Linear<T>> Curve<T> mult(final Curve<T> a, final double c) {
+        return new Curve<T>() {
+
+            public T getValue(double t) {
+                return a.getValue(t).mult(c);
+            }
+        };
+    }
+
+    public static <T extends Linear<T>> Curve<T> reverse(final Curve<T> a) {
+        return new Curve<T>() {
+
+            public T getValue(double t) {
+                return a.getValue(1 - t);
+            }
+        };
     }
 }

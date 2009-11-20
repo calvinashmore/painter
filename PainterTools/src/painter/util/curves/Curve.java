@@ -5,9 +5,6 @@
 
 package painter.util.curves;
 
-import utils.linear.Color;
-import utils.linear.LDouble;
-import utils.linear.LVect2d;
 import utils.linear.Linear;
 
 /**

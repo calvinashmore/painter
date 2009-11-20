@@ -129,3 +129,157 @@ fn cosBumpCurve_d {
         };
     }
 }
+
+// *****************************************
+// ****** SPIRALS
+// *****************************************
+
+fn spiralArchimedean {
+    description "Archimedean spiral";
+    fout CurveUtil.Curve_v2;
+
+    parameter double a;
+    parameter double b;
+
+    init {
+        a = .8+.4*Math.random();
+        b = 2 + 2*Math.random();
+    }
+
+    eval {
+        return new CurveUtil.Curve_v2_wrap(new ArchimedeanSpiral(a,b));
+    }
+}
+
+fn spiralFermat {
+    description "Fermat spiral";
+    fout CurveUtil.Curve_v2;
+
+    parameter double a;
+    parameter double b;
+
+    init {
+        a = .8+.4*Math.random();
+        b = 2 + 2*Math.random();
+    }
+
+    eval {
+        return new CurveUtil.Curve_v2_wrap(new FermatSpiral(a,b));
+    }
+}
+
+fn spiralLogarithmic {
+    description "Logarithmic spiral";
+    fout CurveUtil.Curve_v2;
+
+    parameter double a;
+    parameter double b;
+    parameter double c;
+
+    init {
+        a = .8+.4*Math.random();
+        b = .8+.4*Math.random();
+        c = 2 + 2*Math.random();
+    }
+
+    eval {
+        return new CurveUtil.Curve_v2_wrap(new LogarithmicSpiral(a,b,c));
+    }
+}
+
+// *****************************************
+// ****** ALGEBRA
+// *****************************************
+
+fn add_d {
+    fout CurveUtil.Curve_d;
+    in CurveUtil.Curve_d x;
+    in CurveUtil.Curve_d y;
+
+    eval {
+        return new CurveUtil.Curve_d_wrap(CurveUtil.add(x,y));
+    }
+}
+
+fn sub_d {
+    fout CurveUtil.Curve_d;
+    in CurveUtil.Curve_d x;
+    in CurveUtil.Curve_d y;
+
+    eval {
+        return new CurveUtil.Curve_d_wrap(CurveUtil.sub(x,y));
+    }
+}
+
+fn mult_d {
+    fout CurveUtil.Curve_d;
+    in CurveUtil.Curve_d x;
+    in LDouble c;
+
+    eval {
+        return new CurveUtil.Curve_d_wrap(CurveUtil.mult(x,c.val));
+    }
+}
+
+
+fn add_v2 {
+    fout CurveUtil.Curve_v2;
+    in CurveUtil.Curve_v2 x;
+    in CurveUtil.Curve_v2 y;
+
+    eval {
+        return new CurveUtil.Curve_v2_wrap(CurveUtil.add(x,y));
+    }
+}
+
+fn sub_v2 {
+    fout CurveUtil.Curve_v2;
+    in CurveUtil.Curve_v2 x;
+    in CurveUtil.Curve_v2 y;
+
+    eval {
+        return new CurveUtil.Curve_v2_wrap(CurveUtil.sub(x,y));
+    }
+}
+
+fn mult_v2 {
+    fout CurveUtil.Curve_v2;
+    in CurveUtil.Curve_v2 x;
+    in LDouble c;
+
+    eval {
+        return new CurveUtil.Curve_v2_wrap(CurveUtil.mult(x,c.val));
+    }
+}
+
+
+fn add_col {
+    fout CurveUtil.Curve_col;
+    in CurveUtil.Curve_col x;
+    in CurveUtil.Curve_col y;
+
+    eval {
+        return new CurveUtil.Curve_col_wrap(CurveUtil.add(x,y));
+    }
+}
+
+fn sub_col {
+    fout CurveUtil.Curve_col;
+    in CurveUtil.Curve_col x;
+    in CurveUtil.Curve_col y;
+
+    eval {
+        return new CurveUtil.Curve_col_wrap(CurveUtil.sub(x,y));
+    }
+}
+
+fn mult_col {
+    fout CurveUtil.Curve_col;
+    in CurveUtil.Curve_col x;
+    in LDouble c;
+
+    eval {
+        return new CurveUtil.Curve_col_wrap(CurveUtil.mult(x,c.val));
+    }
+}
+

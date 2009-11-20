@@ -1,0 +1,17 @@
+package painter.functions.expressions;
+group Brushes;
+type Expression;
+
+import utils.linear.*;
+import painter.tools.brush.*;
+
+description "expressions to generate brushes";
+
+fn simpleBrush {
+    fout Brush;
+
+    eval {
+        return new SimpleBrush();
+    }
+}
+

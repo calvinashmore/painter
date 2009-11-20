@@ -34,6 +34,77 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class hollowCircleBrush extends ExpressionFunction {
+
+      public hollowCircleBrush() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+
+         return new HollowCircleBrush ( ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class cyclingBrush extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public cyclingBrush() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         Brush brush = (Brush)inputs[0];
+         return new CyclingBrush ( brush ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class penBrush extends ExpressionFunction {
+
+      public penBrush() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+
+         return new PenBrush ( ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class sweepBrush1 extends ExpressionFunction {
 
       private int numberDots;private double dotSize;
@@ -181,6 +252,9 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
    public List<ExpressionFunction> allInstances(ContextModel cm) {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
       r.add(new simpleBrush());
+      r.add(new hollowCircleBrush());
+      r.add(new cyclingBrush());
+      r.add(new penBrush());
       r.add(new sweepBrush1());
       r.add(new sweepBrush2());
       return r;

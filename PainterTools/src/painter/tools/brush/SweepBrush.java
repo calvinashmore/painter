@@ -44,8 +44,8 @@ public class SweepBrush implements Brush {
 
         for (int i = 0; i < numberDots; i++) {
             double t = 2 * (double) i / (numberDots - 1) - 1;
-            double dotx = t * tx * radius;
-            double doty = t * ty * radius;
+            double dotx = t * tx * radius + x;
+            double doty = t * ty * radius + y;
 
             double dotr = radius * dotSize / numberDots;
 

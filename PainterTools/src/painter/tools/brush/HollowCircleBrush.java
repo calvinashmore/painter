@@ -12,7 +12,7 @@ import utils.linear.Color;
  * A very simple brush tool
  * @author Calvin Ashmore
  */
-public class SimpleBrush implements Brush {
+public class HollowCircleBrush implements Brush {
 
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
@@ -21,7 +21,7 @@ public class SimpleBrush implements Brush {
         radius = Math.abs(radius);
 
         graphics.setColor(new java.awt.Color(color.toARGB()));
-        graphics.fillOval(
+        graphics.drawOval(
                 (int) (x * canvas.getWidth()),
                 (int) (y * canvas.getHeight()),
                 (int) (radius * canvas.getWidth()),

@@ -42,6 +42,51 @@ fn segmentCurve_col {
     }
 }
 
+fn segmentCurve1_d {
+    parameter LDouble x;
+    parameter LDouble y;
+    fout CurveUtil.Curve_d;
+
+    init {
+        x = new LDouble(2*Math.random()-1);
+        y = new LDouble(2*Math.random()-1);
+    }
+
+    eval {
+        return new CurveUtil.Curve_d_wrap(new SegmentCurve(x,y));
+    }
+}
+
+fn segmentCurve1_v2 {
+    parameter LVect2d x;
+    parameter LVect2d y;
+    fout CurveUtil.Curve_v2;
+
+    init {
+        x = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        y = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+    }
+
+    eval {
+        return new CurveUtil.Curve_v2_wrap(new SegmentCurve(x,y));
+    }
+}
+
+fn segmentCurve1_col {
+    parameter Color x;
+    parameter Color y;
+    fout CurveUtil.Curve_col;
+
+    init {
+        x = new Color(Math.random(), Math.random(), Math.random());
+        y = new Color(Math.random(), Math.random(), Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_col_wrap(new SegmentCurve(x,y));
+    }
+}
+
 // *****************************************
 // ****** MISCELLANEOUS CURVES
 // *****************************************

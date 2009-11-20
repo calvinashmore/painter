@@ -13,9 +13,11 @@ fn Plot_d2_col {
     in LDouble x;
     in LDouble y;
     in Color color;
+    in Brush brush;
+
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        new SimpleBrush().paint(x.val, y.val,0,0, .02, color, canvas);
+        brush.paint(x.val, y.val,0,0, .02, color, canvas);
     }
 }
 
@@ -24,18 +26,22 @@ fn Plot_d2_r_col {
     in LDouble y;
     in LDouble r;
     in Color color;
+    in Brush brush;
+
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        new SimpleBrush().paint(x.val, y.val,0,0, r.val, color, canvas);
+        brush.paint(x.val, y.val,0,0, r.val, color, canvas);
     }
 }
 
 fn Plot_v2_col {
     in LVect2d x;
     in Color color;
+    in Brush brush;
+
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        new SimpleBrush().paint(x.x, x.y,0,0, .02, color, canvas);
+        brush.paint(x.x, x.y,0,0, .02, color, canvas);
     }
 }
 
@@ -43,131 +49,10 @@ fn Plot_v2_r_col {
     in LVect2d x;
     in LDouble r;
     in Color color;
-    exec {
-        Canvas canvas = (Canvas) context.getVariable("canvas");
-        new SimpleBrush().paint(x.x, x.y,0,0, r.val, color, canvas);
-    }
-}
+    in Brush brush;
 
-/*
-fn Line_d4_col {
-    in LDouble x1;
-    in LDouble y1;
-    in LDouble x2;
-    in LDouble y2;
-    in Color color;
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paintLine(x1.val, y1.val,x2.val,y2.val, .02, .02, color, canvas);
+        brush.paint(x.x, x.y,0,0, r.val, color, canvas);
     }
 }
-
-fn Line_d4_col2 {
-    in LDouble x1;
-    in LDouble y1;
-    in LDouble x2;
-    in LDouble y2;
-    in Color color1;
-    in Color color2;
-    exec {
-        Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paintLine(x1.val, y1.val,x2.val,y2.val, .02, .02, color1, color2, canvas);
-    }
-}
-
-fn Line_d4_r_col {
-    in LDouble x1;
-    in LDouble y1;
-    in LDouble x2;
-    in LDouble y2;
-    in LDouble r;
-    in Color color;
-    exec {
-        Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paintLine(x1.val, y1.val,x2.val,y2.val, r.val, r.val, color, canvas);
-    }
-}
-
-fn Line_d4_r_col2 {
-    in LDouble x1;
-    in LDouble y1;
-    in LDouble x2;
-    in LDouble y2;
-    in LDouble r;
-    in Color color1;
-    in Color color2;
-    exec {
-        Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paintLine(x1.val, y1.val,x2.val,y2.val, r.val, r.val, color1, color2, canvas);
-    }
-}
-
-fn Line_v2_v2_col {
-    in LVect2d x1;
-    in LVect2d x2;
-    in Color color;
-    exec {
-        Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paintLine(x1.x, x1.y, x2.x, x2.y, .02, .02, color, canvas);
-    }
-}
-
-fn Line_v2_v2_col2 {
-    in LVect2d x1;
-    in LVect2d x2;
-    in Color color1;
-    in Color color2;
-    exec {
-        Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paintLine(x1.x, x1.y, x2.x, x2.y, .02, .02, color1, color2, canvas);
-    }
-}
-
-fn Line_v2_v2_r_col {
-    in LVect2d x1;
-    in LVect2d x2;
-    in LDouble r;
-    in Color color;
-    exec {
-        Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paintLine(x1.x, x1.y, x2.x, x2.y, r.val, r.val, color, canvas);
-    }
-}
-
-fn Line_v2_v2_r_col2 {
-    in LVect2d x1;
-    in LVect2d x2;
-    in LDouble r;
-    in Color color1;
-    in Color color2;
-    exec {
-        Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paintLine(x1.x, x1.y, x2.x, x2.y, r.val, r.val, color1, color2, canvas);
-    }
-}
-
-fn Line_v2_v2_r2_col {
-    in LVect2d x1;
-    in LVect2d x2;
-    in LDouble r1;
-    in LDouble r2;
-    in Color color;
-    exec {
-        Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paintLine(x1.x, x1.y, x2.x, x2.y, r1.val, r2.val, color, canvas);
-    }
-}
-
-fn Line_v2_v2_r2_col2 {
-    in LVect2d x1;
-    in LVect2d x2;
-    in LDouble r1;
-    in LDouble r2;
-    in Color color1;
-    in Color color2;
-    exec {
-        Canvas canvas = (Canvas) context.getVariable("canvas");
-        new Brush().paintLine(x1.x, x1.y, x2.x, x2.y, r1.val, r2.val, color1, color2, canvas);
-    }
-}
-*/

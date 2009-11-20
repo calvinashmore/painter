@@ -35,6 +35,8 @@ public class SimpleBrush implements Brush {
         
         Graphics2D graphics = canvas.getGraphics();
 
+        radius = Math.abs(radius);
+
         graphics.setColor(new java.awt.Color(color.toARGB()));
         graphics.fillOval(
                 (int)(x*canvas.getWidth()),

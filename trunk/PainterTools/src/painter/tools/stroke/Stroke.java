@@ -19,7 +19,7 @@ import utils.linear.LVect2d;
  */
 public class Stroke {
 
-    private static final int steps = 100;
+    private int steps = 1000;
     private Brush brush;
     private Curve<LDouble> size;
     private Curve<LVect2d> position;
@@ -92,5 +92,9 @@ public class Stroke {
 
     public void setSize(double size) {
         this.size = new ConstantCurve<LDouble>(new LDouble(size));
+    }
+
+    public void setSteps(int steps) {
+        this.steps = steps;
     }
 }

@@ -1,0 +1,70 @@
+package painter.functions.expressions;
+group Strokes;
+type Expression;
+
+import utils.linear.*;
+import painter.util.curves.*;
+import painter.tools.brush.*;
+import painter.tools.stroke.*;
+
+description "expressions to generate brush strokes";
+
+
+// *****************************************
+// ****** STROKES
+// *****************************************
+
+
+fn basicStroke {
+
+    fout Stroke;
+
+    eval {
+        return new BasicStroke();
+    }
+}
+
+
+fn alphaStroke1 {
+
+    in CurveUtil.Curve_d alpha;
+    in Stroke baseStroke;
+    fout Stroke;
+
+    eval {
+        return new AlphaStroke(baseStroke, alpha);
+    }
+}
+
+fn alphaStroke2 {
+
+    in Stroke baseStroke;
+    fout Stroke;
+
+    eval {
+        return new AlphaStroke(baseStroke);
+    }
+}
+
+fn alphaStroke3 {
+
+    fout Stroke;
+
+    eval {
+        return new AlphaStroke(new BasicStroke());
+    }
+}
+
+// *****************************************
+// ****** SEGMENT RENDERERS
+// *****************************************
+
+
+fn basicSegmentRenderer {
+    fout SegmentRenderer;
+
+    eval {
+        return new BasicSegmentRenderer();
+    }
+}
+

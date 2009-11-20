@@ -16,6 +16,8 @@ fn SimpleStroke {
     in CurveUtil.Curve_v2 position;
     in Color color;
     in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
     parameter LDouble width;
 
     init {
@@ -24,10 +26,7 @@ fn SimpleStroke {
 
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        Stroke stroke = new Stroke(position, color);
-        stroke.setSize(width.val);
-        stroke.setBrush(brush);
-        stroke.render(canvas);
+        stroke.render(brush, new ConstantCurve<LDouble>(width), position, new ConstantCurve<Color>(color), canvas, renderer);
     }
 }
 
@@ -35,6 +34,8 @@ fn ColorStroke1 {
     in CurveUtil.Curve_v2 position;
     in CurveUtil.Curve_col color;
     in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
     parameter LDouble width;
 
     init {
@@ -43,9 +44,7 @@ fn ColorStroke1 {
 
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        Stroke stroke = new Stroke(new ConstantCurve<LDouble>(width), position, color);
-        stroke.setBrush(brush);
-        stroke.render(canvas);
+        stroke.render(brush, new ConstantCurve<LDouble>(width), position, color, canvas, renderer);
     }
 }
 
@@ -54,25 +53,25 @@ fn ColorStroke2 {
     in CurveUtil.Curve_col color;
     in LDouble width;
     in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
 
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        Stroke stroke = new Stroke(new ConstantCurve<LDouble>(width), position, color);
-        stroke.setBrush(brush);
-        stroke.render(canvas);
+        stroke.render(brush, new ConstantCurve<LDouble>(width), position, color, canvas, renderer);
     }
 }
 
 fn ColorSizeStroke {
     in CurveUtil.Curve_v2 position;
     in CurveUtil.Curve_col color;
-    in CurveUtil.Curve_d size;
+    in CurveUtil.Curve_d width;
     in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
 
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
-        Stroke stroke = new Stroke(size, position, color);
-        stroke.setBrush(brush);
-        stroke.render(canvas);
+        stroke.render(brush, width, position, color, canvas, renderer);
     }
 }

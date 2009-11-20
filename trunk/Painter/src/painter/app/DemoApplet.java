@@ -21,7 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import painter.foundation.Foundation;
-import painter.tools.canvas.Canvas;
+import painter.tools.canvas.CanvasImpl;
 
 /**
  *
@@ -146,7 +146,7 @@ public class DemoApplet extends JApplet {
             } else {
                 currentProgram = makeProgram();
             }
-            Canvas canvas = makeCanvas(currentProgram);
+            CanvasImpl canvas = makeCanvas(currentProgram);
             imageLabel.setIcon(new ImageIcon(canvas.makeImage()));
 
         } catch (BuildException ex) {
@@ -176,7 +176,7 @@ public class DemoApplet extends JApplet {
 
         GeneticTopLevel program = foundation.getProgramBuilder().build();
 
-        program.getContextModel().declareVariable("canvas", Canvas.class, true);
+        program.getContextModel().declareVariable("canvas", CanvasImpl.class, true);
         program.createMethod("doStuff");
 
         System.out.println("Setting up...");
@@ -189,10 +189,10 @@ public class DemoApplet extends JApplet {
         return program;
     }
 
-    protected Canvas makeCanvas(GeneticTopLevel program) throws BuildException {
+    protected CanvasImpl makeCanvas(GeneticTopLevel program) throws BuildException {
 
 
-        Canvas canvas = new Canvas(500, 500);
+        CanvasImpl canvas = new CanvasImpl(500, 500);
         program.getContext().setVariable("canvas", canvas);
 
         System.out.println("Calling method...");

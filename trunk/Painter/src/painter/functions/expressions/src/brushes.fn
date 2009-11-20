@@ -15,6 +15,30 @@ fn simpleBrush {
     }
 }
 
+fn hollowCircleBrush {
+    fout Brush;
+
+    eval {
+        return new HollowCircleBrush();
+    }
+}
+
+fn cyclingBrush {
+    fout Brush;
+    in Brush brush;
+
+    eval {
+        return new CyclingBrush(brush);
+    }
+}
+
+fn penBrush {
+    fout Brush;
+
+    eval {
+        return new PenBrush();
+    }
+}
 
 fn sweepBrush1 {
     fout Brush;

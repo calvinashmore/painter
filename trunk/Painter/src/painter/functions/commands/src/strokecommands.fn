@@ -12,6 +12,11 @@ import painter.util.curves.*;
 description "Stroke commands";
 
 
+// *****************************************
+// ****** BASIC STROKES
+// *****************************************
+
+
 fn SimpleStroke {
     in CurveUtil.Curve_v2 position;
     in Color color;
@@ -73,5 +78,37 @@ fn ColorSizeStroke {
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
         stroke.render(brush, width, position, color, canvas, renderer);
+    }
+}
+
+
+// *****************************************
+// ****** SPECIAL STROKES
+// *****************************************
+
+fn TwoCurveStroke {
+    in CurveUtil.Curve_v2 position1;
+    in CurveUtil.Curve_v2 position2;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+
+    parameter int middlePoints;
+
+    init {
+        middlePoints = (int)(20 + 50*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(int i=0;i<middlePoints;i++) {
+            double x = (double)i/middlePoints;
+
+            Curve<LVect2d> position = new SegmentCurve(position1.getValue(x), position2.getValue(x));
+            stroke.render(brush, width, position, color, canvas, renderer);
+        }
     }
 }

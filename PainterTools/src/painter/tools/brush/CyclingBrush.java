@@ -4,7 +4,6 @@
  */
 package painter.tools.brush;
 
-import java.awt.Graphics2D;
 import painter.tools.canvas.Canvas;
 import utils.linear.Color;
 

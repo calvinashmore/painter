@@ -137,6 +137,186 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
 
    }
 
+   public static class segmentCurve1_d extends ExpressionFunction {
+
+      private LDouble x;private LDouble y;
+      public int getNumberParameters() {
+         return 2;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return x;
+            case 1: return y;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: x = (LDouble) value; return;
+            case 1: y = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public segmentCurve1_d() {
+         addGroupMeta(this);
+         x = new LDouble ( 2 * Math . random ( ) - 1 ) ;
+         y = new LDouble ( 2 * Math . random ( ) - 1 ) ;
+      }
+
+      public CurveUtil . Curve_d evaluate(Context context, Object[] inputs) {
+
+         return new CurveUtil . Curve_d_wrap ( new SegmentCurve ( x , y ) ) ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_d.class;
+      }
+
+   }
+
+   public static class segmentCurve1_v2 extends ExpressionFunction {
+
+      private LVect2d x;private LVect2d y;
+      public int getNumberParameters() {
+         return 2;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return x;
+            case 1: return y;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LVect2d.class;
+            case 1: return LVect2d.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: x = (LVect2d) value; return;
+            case 1: y = (LVect2d) value; return;
+            default: return;
+         }
+
+      }
+
+      public segmentCurve1_v2() {
+         addGroupMeta(this);
+         x = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         y = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+      }
+
+      public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
+
+         return new CurveUtil . Curve_v2_wrap ( new SegmentCurve ( x , y ) ) ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_v2.class;
+      }
+
+   }
+
+   public static class segmentCurve1_col extends ExpressionFunction {
+
+      private Color x;private Color y;
+      public int getNumberParameters() {
+         return 2;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return x;
+            case 1: return y;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Color.class;
+            case 1: return Color.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: x = (Color) value; return;
+            case 1: y = (Color) value; return;
+            default: return;
+         }
+
+      }
+
+      public segmentCurve1_col() {
+         addGroupMeta(this);
+         x = new Color ( Math . random ( ) , Math . random ( ) , Math . random ( ) ) ;
+         y = new Color ( Math . random ( ) , Math . random ( ) , Math . random ( ) ) ;
+      }
+
+      public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
+
+         return new CurveUtil . Curve_col_wrap ( new SegmentCurve ( x , y ) ) ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_col.class;
+      }
+
+   }
+
    public static class circleCurve_v2 extends ExpressionFunction {
 
       public int getNumberInputs() {
@@ -922,6 +1102,9 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       r.add(new segmentCurve_d());
       r.add(new segmentCurve_v2());
       r.add(new segmentCurve_col());
+      r.add(new segmentCurve1_d());
+      r.add(new segmentCurve1_v2());
+      r.add(new segmentCurve1_col());
       r.add(new circleCurve_v2());
       r.add(new circleCurve1_v2());
       r.add(new sinCurve_d());

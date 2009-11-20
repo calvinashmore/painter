@@ -35,6 +35,10 @@ public class ExpressionBuilderImpl implements ExpressionBuilder {
         // *** seek an appropriate function        
         ExpressionFunction nf = nff.selectByOutput(outputClass, parent.getContextModel(), depth >= getTargetDepth());
 
+        if(depth > 4*getTargetDepth()) {
+            throw new BuildException("Cannot find terminal for output:" + outputClass + " (" + depth + "/" + getTargetDepth() + " deep)");
+        }
+
         // *** if we are in too deep, seek a terminal function
         if ((depth >= getTargetDepth() && nf != null && nf.getNumberInputs() != 0)) {
             int check = 10;// + (int) Math.sqrt(numberNodes);

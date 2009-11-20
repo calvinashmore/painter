@@ -60,13 +60,14 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       }
 
       public int getNumberInputs() {
-         return 2;
+         return 3;
       }
 
       public String getInputName(int i) {
          switch(i) {
             case 0: return "position";
             case 1: return "color";
+            case 2: return "brush";
             default: return null;
          }
 
@@ -76,6 +77,7 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
          switch(i) {
             case 0: return CurveUtil . Curve_v2.class;
             case 1: return Color.class;
+            case 2: return Brush.class;
             default: return null;
          }
 
@@ -89,9 +91,11 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       public void execute(Context context, Object[] inputs) {
          CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
          Color color = (Color)inputs[1];
+         Brush brush = (Brush)inputs[2];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          Stroke stroke = new Stroke ( position , color ) ;
          stroke . setSize ( width . val ) ;
+         stroke . setBrush ( brush ) ;
          stroke . render ( canvas ) ;
       }
 
@@ -137,13 +141,14 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       }
 
       public int getNumberInputs() {
-         return 2;
+         return 3;
       }
 
       public String getInputName(int i) {
          switch(i) {
             case 0: return "position";
             case 1: return "color";
+            case 2: return "brush";
             default: return null;
          }
 
@@ -153,6 +158,7 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
          switch(i) {
             case 0: return CurveUtil . Curve_v2.class;
             case 1: return CurveUtil . Curve_col.class;
+            case 2: return Brush.class;
             default: return null;
          }
 
@@ -166,8 +172,10 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       public void execute(Context context, Object[] inputs) {
          CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
          CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         Brush brush = (Brush)inputs[2];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          Stroke stroke = new Stroke ( new ConstantCurve < LDouble > ( width ) , position , color ) ;
+         stroke . setBrush ( brush ) ;
          stroke . render ( canvas ) ;
       }
 
@@ -176,7 +184,7 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
    public static class ColorStroke2 extends Command {
 
       public int getNumberInputs() {
-         return 3;
+         return 4;
       }
 
       public String getInputName(int i) {
@@ -184,6 +192,7 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
             case 0: return "position";
             case 1: return "color";
             case 2: return "width";
+            case 3: return "brush";
             default: return null;
          }
 
@@ -194,6 +203,7 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
             case 0: return CurveUtil . Curve_v2.class;
             case 1: return CurveUtil . Curve_col.class;
             case 2: return LDouble.class;
+            case 3: return Brush.class;
             default: return null;
          }
 
@@ -207,8 +217,10 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
          CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
          CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
          LDouble width = (LDouble)inputs[2];
+         Brush brush = (Brush)inputs[3];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          Stroke stroke = new Stroke ( new ConstantCurve < LDouble > ( width ) , position , color ) ;
+         stroke . setBrush ( brush ) ;
          stroke . render ( canvas ) ;
       }
 
@@ -217,7 +229,7 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
    public static class ColorSizeStroke extends Command {
 
       public int getNumberInputs() {
-         return 3;
+         return 4;
       }
 
       public String getInputName(int i) {
@@ -225,6 +237,7 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
             case 0: return "position";
             case 1: return "color";
             case 2: return "size";
+            case 3: return "brush";
             default: return null;
          }
 
@@ -235,6 +248,7 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
             case 0: return CurveUtil . Curve_v2.class;
             case 1: return CurveUtil . Curve_col.class;
             case 2: return CurveUtil . Curve_d.class;
+            case 3: return Brush.class;
             default: return null;
          }
 
@@ -248,8 +262,10 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
          CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
          CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
          CurveUtil . Curve_d size = (CurveUtil . Curve_d)inputs[2];
+         Brush brush = (Brush)inputs[3];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          Stroke stroke = new Stroke ( size , position , color ) ;
+         stroke . setBrush ( brush ) ;
          stroke . render ( canvas ) ;
       }
 

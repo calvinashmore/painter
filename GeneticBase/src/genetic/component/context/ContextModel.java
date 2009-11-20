@@ -213,41 +213,7 @@ public class ContextModel {
         return context;
     }
 
-    /*public String printout(String indent) {
-    String r = indent + "contextModel\n";
-    for (String name : variableTypes.keySet()) {
-    r += indent + "  " + name + ": " + variableTypes.get(name).type;
-    if (variableTypes.get(name).readOnly) {
-    r += " (r/o)";
-    }
-    r += "\n";
-    }
-    return r;
-    }*/
-
-    /*protected void createNewVariables() {
-    int vars = numberBaseVars + new Random().nextInt(numberFlexVars);
-    for (int i = 0; i < vars; i++) {
-    Class type = randomType();
-    declareVariable(type, false);
-    }
-    //System.out.println(vars+" variables created.");
-    }*/
     public void absorb(ContextModel contextModel) {
         variableTypes.putAll(contextModel.variableTypes);
     }
-
-    /*protected Class randomType() {
-    int i = new Random().nextInt(7);
-    switch (i) {
-    case 0: return Color.class;
-    case 1: return Complex.class;
-    case 2: return LDouble.class;
-    case 3: return LVect2d.class;
-    case 4: return LVect2i.class;
-    case 5: return LVect3d.class;
-    case 6: return Quaternion.class;
-    }
-    return null;
-    }*/
 }

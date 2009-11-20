@@ -15,3 +15,36 @@ fn simpleBrush {
     }
 }
 
+
+fn sweepBrush1 {
+    fout Brush;
+    parameter int numberDots;
+    parameter double dotSize;
+
+    init {
+        dotSize = .2+.8*Math.random();
+        numberDots = (int)(3+5*Math.random());
+    }
+
+    eval {
+        return new SweepBrush(numberDots, dotSize, new SimpleBrush());
+    }
+}
+
+fn sweepBrush2 {
+    fout Brush;
+    parameter int numberDots;
+    parameter double dotSize;
+
+    in Brush brush;
+
+    init {
+        dotSize = .2+.8*Math.random();
+        numberDots = (int)(3+5*Math.random());
+    }
+
+    eval {
+        return new SweepBrush(numberDots, dotSize, brush);
+    }
+}
+

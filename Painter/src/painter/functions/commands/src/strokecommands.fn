@@ -15,6 +15,7 @@ description "Stroke commands";
 fn SimpleStroke {
     in CurveUtil.Curve_v2 position;
     in Color color;
+    in Brush brush;
     parameter LDouble width;
 
     init {
@@ -25,6 +26,7 @@ fn SimpleStroke {
         Canvas canvas = (Canvas) context.getVariable("canvas");
         Stroke stroke = new Stroke(position, color);
         stroke.setSize(width.val);
+        stroke.setBrush(brush);
         stroke.render(canvas);
     }
 }
@@ -32,6 +34,7 @@ fn SimpleStroke {
 fn ColorStroke1 {
     in CurveUtil.Curve_v2 position;
     in CurveUtil.Curve_col color;
+    in Brush brush;
     parameter LDouble width;
 
     init {
@@ -41,6 +44,7 @@ fn ColorStroke1 {
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
         Stroke stroke = new Stroke(new ConstantCurve<LDouble>(width), position, color);
+        stroke.setBrush(brush);
         stroke.render(canvas);
     }
 }
@@ -49,10 +53,12 @@ fn ColorStroke2 {
     in CurveUtil.Curve_v2 position;
     in CurveUtil.Curve_col color;
     in LDouble width;
+    in Brush brush;
 
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
         Stroke stroke = new Stroke(new ConstantCurve<LDouble>(width), position, color);
+        stroke.setBrush(brush);
         stroke.render(canvas);
     }
 }
@@ -61,10 +67,12 @@ fn ColorSizeStroke {
     in CurveUtil.Curve_v2 position;
     in CurveUtil.Curve_col color;
     in CurveUtil.Curve_d size;
+    in Brush brush;
 
     exec {
         Canvas canvas = (Canvas) context.getVariable("canvas");
         Stroke stroke = new Stroke(size, position, color);
+        stroke.setBrush(brush);
         stroke.render(canvas);
     }
 }

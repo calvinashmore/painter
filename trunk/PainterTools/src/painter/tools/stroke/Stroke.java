@@ -19,11 +19,16 @@ import utils.linear.LVect2d;
  */
 public class Stroke {
 
-    private int steps = 1000;
+    private static int baseSteps = 1000;
     private Brush brush;
     private Curve<LDouble> size;
     private Curve<LVect2d> position;
     private Curve<Color> color;
+    private double stepsMultiplier = 1;
+
+    public static void setBaseSteps(int baseSteps) {
+        Stroke.baseSteps = baseSteps;
+    }
 
     public Stroke(Curve<LDouble> size, Curve<LVect2d> position, Curve<Color> color) {
         this.brush = new SimpleBrush();
@@ -49,8 +54,11 @@ public class Stroke {
     public void render(Canvas canvas) {
 
         LVect2d lastPosition = null;
-        for (int i = -1; i < steps; i++) {
-            double t = (double) i / steps;
+        int totalSteps = (int) (baseSteps * stepsMultiplier);
+        double invSteps = 1.0 / totalSteps;
+
+        for (int i = -1; i < totalSteps; i++) {
+            double t = (double) i * invSteps;
 
             LVect2d positionValue = position.getValue(t);
 
@@ -59,7 +67,7 @@ public class Stroke {
                 Color colorValue = color.getValue(t);
 
                 // determine difference after the first cycle.
-                LVect2d difference = positionValue.sub(lastPosition).mult(steps);
+                LVect2d difference = positionValue.sub(lastPosition).mult(totalSteps);
 
                 // only paint after difference is determined
                 brush.paint(positionValue.x, positionValue.y,
@@ -92,9 +100,5 @@ public class Stroke {
 
     public void setSize(double size) {
         this.size = new ConstantCurve<LDouble>(new LDouble(size));
-    }
-
-    public void setSteps(int steps) {
-        this.steps = steps;
     }
 }

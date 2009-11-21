@@ -8,6 +8,7 @@ import genetic.BuildException;
 import genetic.GeneticTopLevel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -30,7 +31,7 @@ import painter.tools.canvas.CanvasImpl;
 public class DemoApplet extends JApplet {
 
     private static final int RESOLUTION = 500;
-    private JLabel imageLabel;
+    private ImageThing imageLabel;
     private JLabel captionLabel;
     private boolean isCalculating;
     private long calculationStart;
@@ -38,12 +39,13 @@ public class DemoApplet extends JApplet {
     private Thread calculateThread;
     private JButton mutateButton;
     private GeneticTopLevel currentProgram;
+    private CanvasImpl globalCanvas;
 
     @Override
     public void init() {
         super.init();
 
-        imageLabel = new JLabel();
+        imageLabel = new ImageThing();
         imageLabel.setPreferredSize(new Dimension(RESOLUTION, RESOLUTION));
         captionLabel = new JLabel("Loading...");
 
@@ -115,6 +117,8 @@ public class DemoApplet extends JApplet {
                 isCalculating = false;
             }
 
+            imageLabel.repaint();
+
         } else {
             captionLabel.setText("Click above to make an image");
         }
@@ -147,7 +151,7 @@ public class DemoApplet extends JApplet {
                 currentProgram = makeProgram();
             }
             CanvasImpl canvas = makeCanvas(currentProgram);
-            imageLabel.setIcon(new ImageIcon(canvas.makeImage()));
+            //imageLabel.setIcon(new ImageIcon(canvas.makeImage()));
 
         } catch (BuildException ex) {
         }
@@ -193,6 +197,7 @@ public class DemoApplet extends JApplet {
 
 
         CanvasImpl canvas = new CanvasImpl(500, 500);
+        globalCanvas = canvas;
         program.getContext().setVariable("canvas", canvas);
 
         System.out.println("Calling method...");
@@ -200,5 +205,16 @@ public class DemoApplet extends JApplet {
         System.out.println("Done!");
 
         return canvas;
+    }
+
+    private class ImageThing extends JPanel {
+
+        @Override
+        public void paint(Graphics g) {
+            //super.paint(g);
+            if (globalCanvas != null) {
+                g.drawImage(globalCanvas.makeImage(), 0, 0, null);
+            }
+        }
     }
 }

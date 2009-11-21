@@ -14,15 +14,18 @@
         
         <echo>Building: GeneticLibrary</echo>
         <subant buildpath="GeneticLibrary/" target="jar"/>
-        
+
+        <echo>Building: PainterTools</echo>
+        <subant buildpath="PainterTools/" target="jar"/>
+
         <echo>Building: Painter</echo>
         <subant buildpath="Painter/" target="jar"/>
         
-        <echo>Building: FnSupport</echo>
+        <!--<echo>Building: FnSupport</echo>
         <subant buildpath="FnSupport Suite/" target="build" inheritall="false" inheritrefs="false"/>
         
         <echo>Building: PainterV</echo>
-        <subant buildpath="PainterV/" target="build" inheritall="false" inheritrefs="false"/>
+        <subant buildpath="PainterV/" target="build" inheritall="false" inheritrefs="false"/>-->
     </target>
     
     <target name="clean">
@@ -37,15 +40,18 @@
         
         <echo>Cleaning: GeneticLibrary</echo>
         <subant buildpath="GeneticLibrary/" target="clean"/>
-        
+
+        <echo>Cleaning: PainterTools</echo>
+        <subant buildpath="PainterTools/" target="clean"/>
+
         <echo>Cleaning: Painter</echo>
         <subant buildpath="Painter/" target="clean"/>
         
-        <echo>Cleaning: FnSupport</echo>
+        <!--<echo>Cleaning: FnSupport</echo>
         <subant buildpath="FnSupport Suite/" target="clean" inheritall="false" inheritrefs="false"/>
         
         <echo>Cleaning: PainterV</echo>
-        <subant buildpath="PainterV/" target="clean" inheritall="false" inheritrefs="false"/>
+        <subant buildpath="PainterV/" target="clean" inheritall="false" inheritrefs="false"/>-->
     </target>
     
 </project>

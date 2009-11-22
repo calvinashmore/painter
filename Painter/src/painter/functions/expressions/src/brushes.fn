@@ -7,11 +7,33 @@ import painter.tools.brush.*;
 
 description "expressions to generate brushes";
 
-fn simpleBrush {
+fn simpleBrush1 {
     fout Brush;
 
     eval {
         return new SimpleBrush();
+    }
+}
+
+fn simpleBrush2 {
+    fout Brush;
+
+    parameter LDouble radiusMultiplier;
+    init {
+        radiusMultiplier = new LDouble(.2*Math.random()*.5);
+    }
+
+    eval {
+        return new SimpleBrush(radiusMultiplier.val);
+    }
+}
+
+fn simpleBrush3 {
+    fout Brush;
+    in LDouble radiusMultiplier;
+
+    eval {
+        return new SimpleBrush(radiusMultiplier.val);
     }
 }
 

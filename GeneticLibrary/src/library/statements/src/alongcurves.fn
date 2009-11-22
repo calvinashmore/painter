@@ -1,9 +1,9 @@
-package painter.functions.statements;
+package library.statements;
 group AlongCurves;
 type Statement;
 
 import utils.linear.*;
-import painter.util.curves.*;
+import utils.curves.*;
 
 description "Statements that iterate along curves.";
 

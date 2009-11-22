@@ -1,4 +1,4 @@
-package painter . functions . statements;
+package library . statements;
 
 import java.util.*;
 import genetic.*;
@@ -14,7 +14,7 @@ import genetic.component.statement.*;
 import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
 import utils.linear.*;
-import painter.util.curves.*;
+import utils.curves.*;
 
 public final class AlongCurves implements AllComponents<StatementFunction>, Described {
 

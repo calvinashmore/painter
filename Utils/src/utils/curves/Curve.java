@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package painter.util.curves;
+package utils.curves;
 
 import utils.linear.Linear;
 

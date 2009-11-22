@@ -1,0 +1,411 @@
+package library.expressions.functions;
+group Quaternions;
+type Expression;
+
+import utils.linear.*;
+
+description "functions for complex quaternion numbers";
+
+// ************
+// *** BUILDING
+// ************
+
+fn NewQuat4d {
+    in LDouble u;
+    in LDouble i;
+    in LDouble j;
+    in LDouble k;
+    fout Quaternion;
+
+    eval {
+        return new Quaternion(
+            u.val, i.val, j.val, k.val
+            );
+    }
+
+}
+
+fn NewQuat2c1 {
+    in Complex a;
+    in Complex b;
+    fout Quaternion;
+
+    eval {
+        return new Quaternion(
+            a.x, a.y, b.x, b.y
+            );
+    }
+}
+
+fn NewQuatdv3 {
+    in LDouble a;
+    in LVect3d b;
+    fout Quaternion;
+
+    eval {
+        return new Quaternion(
+            a.val, b.x, b.y, b.z
+            );
+    }
+}
+
+fn NewQuat2c2 {
+    in Complex a;
+    in Complex b;
+    fout Quaternion;
+
+    eval {
+        return new Quaternion(
+            a.x*b.x, a.y*b.x, b.y*a.x, a.y*b.y
+            );
+    }
+}
+
+// ***************
+// *** DECOMPOSING
+// ***************
+
+fn q_u {
+    in Quaternion q;
+    fout LDouble;
+    eval { return new LDouble(q.u); }
+}
+
+fn q_i {
+    in Quaternion q;
+    fout LDouble;
+    eval { return new LDouble(q.i); }
+}
+
+fn q_j {
+    in Quaternion q;
+    fout LDouble;
+    eval { return new LDouble(q.j); }
+}
+
+fn q_k {
+    in Quaternion q;
+    fout LDouble;
+    eval { return new LDouble(q.k); }
+}
+
+fn q_angle {
+    in Quaternion q;
+    fout LDouble;
+    eval { return new LDouble(q.anglePart()); }
+}
+
+fn q_magnitude {
+    in Quaternion q;
+    fout LDouble;
+    eval { return new LDouble(q.magnitude()); }
+}
+
+fn q_ci {
+    in Quaternion q;
+    fout Complex;
+    eval { return new Complex(q.u, q.i); }
+}
+
+fn q_cj {
+    in Quaternion q;
+    fout Complex;
+    eval { return new Complex(q.u, q.j); }
+}
+
+fn q_ck {
+    in Quaternion q;
+    fout Complex;
+    eval { return new Complex(q.u, q.k); }
+}
+
+fn q_v3 {
+    in Quaternion q;
+    fout LVect3d;
+    eval { return q.vectorPart(); }
+}
+
+fn q_col {
+    in Quaternion q;
+    fout Color;
+    eval { return new Color(q.i,q.j,q.k); }
+}
+
+// *************
+// *** ALGEBRAIC
+// *************
+
+fn add {
+    in Quaternion a;
+    in Quaternion b;
+    fout Quaternion;
+
+    eval {return a.add(b);}
+}
+
+fn sub {
+    in Quaternion a;
+    in Quaternion b;
+    fout Quaternion;
+
+    eval {return a.sub(b);}
+}
+
+fn mult {
+    in Quaternion a;
+    in Quaternion b;
+    fout Quaternion;
+
+    eval {return a.mult(b);}
+}
+
+fn div {
+    in Quaternion a;
+    in Quaternion b;
+    fout Quaternion;
+
+    eval {return a.div(b);}
+}
+
+fn powq {
+    in Quaternion a;
+    in Quaternion b;
+    fout Quaternion;
+
+    eval {return a.pow(b);}
+}
+
+fn pow {
+    in Quaternion a;
+    in LDouble b;
+    fout Quaternion;
+
+    eval {return a.pow(b.val);}
+}
+
+fn invert {
+    in Quaternion a;
+    fout Quaternion;
+
+    eval {return a.invert();}
+}
+
+// ************
+// *** ANALYTIC
+// ************
+
+// well, not really, since functions on quaternions aren't really analytic...
+
+fn square {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.mult(a);}
+}
+
+fn exp {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.exp();}
+}
+
+fn log {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.log();}
+}
+
+fn sin {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.sin();}
+}
+fn cos {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.cos();}
+}
+fn tan {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.tan();}
+}
+
+fn sinh {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.sinh();}
+}
+fn cosh {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.cosh();}
+}
+fn tanh {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.tanh();}
+}
+
+fn arcsin {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.arcsin();}
+}
+fn arccos {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.arccos();}
+}
+fn arctan {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.arctan();}
+}
+
+fn arcsinh {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.arcsinh();}
+}
+fn arccosh {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.arccosh();}
+}
+fn arctanh {
+    in Quaternion a;
+    fout Quaternion;
+    eval {return a.arctanh();}
+}
+
+// *****************
+// *** MISCELLANEOUS
+// *****************
+
+fn isin {
+    in Quaternion a;
+    fout Quaternion;
+    eval {
+        return new Quaternion(
+            Math.sin(a.u),
+            Math.sin(a.i),
+            Math.sin(a.j),
+            Math.sin(a.k)
+            );
+    }
+}
+fn icos {
+    in Quaternion a;
+    fout Quaternion;
+    eval {
+        return new Quaternion(
+            Math.cos(a.u),
+            Math.cos(a.i),
+            Math.cos(a.j),
+            Math.cos(a.k)
+            );
+    }
+}
+fn itan {
+    in Quaternion a;
+    fout Quaternion;
+    eval {
+        return new Quaternion(
+            Math.tan(a.u),
+            Math.tan(a.i),
+            Math.tan(a.j),
+            Math.tan(a.k)
+            );
+    }
+}
+fn iexp {
+    in Quaternion a;
+    fout Quaternion;
+    eval {
+        return new Quaternion(
+            Math.exp(a.u),
+            Math.exp(a.i),
+            Math.exp(a.j),
+            Math.exp(a.k)
+            );
+    }
+}
+fn ilog {
+    in Quaternion a;
+    fout Quaternion;
+    eval {
+        return new Quaternion(
+            Math.log(a.u),
+            Math.log(a.i),
+            Math.log(a.j),
+            Math.log(a.k)
+            );
+    }
+}
+
+fn swapl {
+    in Quaternion a;
+    fout Quaternion;
+    eval {
+        return new Quaternion(
+            a.i, a.j, a.k, a.u
+            );
+    }
+}
+fn swapr {
+    in Quaternion a;
+    fout Quaternion;
+    eval {
+        return new Quaternion(
+            a.k, a.u, a.i, a.j
+            );
+    }
+}
+fn conj {
+    in Quaternion a;
+    fout Quaternion;
+    eval {
+        return a.conj();
+    }
+}
+
+fn aut1 {
+    in Quaternion a;
+    in Quaternion b;
+    fout Quaternion;
+    eval {
+        return b.div(a).mult(a);
+    }
+}
+fn aut2 {
+    in Quaternion a;
+    in Quaternion b;
+    fout Quaternion;
+    eval {
+        return b.div(a.conj()).mult(a);
+    }
+}
+
+fn orth {
+    in Quaternion a;
+    in Quaternion b;
+    fout Quaternion;
+    
+    eval {
+        return a.normal().mult(b.mult(a.normal().conj()));
+    }
+}
+
+fn mod {
+    in Quaternion a;
+    fout Quaternion;
+
+    eval {
+        return new Quaternion(
+            a.u - Math.floor(a.u),
+            a.i - Math.floor(a.i),
+            a.j - Math.floor(a.j),
+            a.k - Math.floor(a.k)
+            );
+    }
+}

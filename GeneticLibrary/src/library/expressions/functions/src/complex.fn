@@ -1,0 +1,183 @@
+package library.expressions.functions;
+group Complexfn;
+type Expression;
+
+import utils.linear.*;
+
+description "Functions for complex numbers";
+
+
+// *****************
+// *** TRIGONOMETRIC
+// *****************
+
+fn Sin {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return new Complex( Math.sin(x.x)*Math.cosh(x.y), Math.cos(x.x)*Math.sinh(x.y) );
+    }
+}
+
+fn Cos {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return new Complex( Math.cos(x.x)*Math.cosh(x.y), -Math.sin(x.x)*Math.sinh(x.y) );
+    }
+}
+
+fn Tan {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return new Complex( Math.sinh(x.y)*Math.cosh(x.y), Math.sin(x.x)*Math.cos(x.x) ).mult(
+                1.0 /( Math.cos(x.x)*Math.cos(x.x) + Math.sinh(x.y)*Math.sinh(x.y) ) );
+    }
+}
+
+fn Sinh {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return new Complex( Math.sinh(x.x)*Math.cos(x.y), Math.cosh(x.x)*Math.sin(x.y) );
+    }
+}
+
+fn Cosh {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return new Complex( Math.cosh(x.x)*Math.cos(x.y), Math.sinh(x.x)*Math.sin(x.y) );
+    }
+}
+
+fn Tanh {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return new Complex( Math.sinh(x.x)*Math.cosh(x.x), Math.sin(x.y)*Math.cos(x.y) ).mult(
+                1.0 /( Math.cos(x.y)*Math.cos(x.y) + Math.sinh(x.x)*Math.sinh(x.x) ) );
+    }
+}
+
+// ****************
+// *** INVERSE TRIG
+// ****************
+
+fn Asin {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        Complex r = new Complex(-x.y,x.x).add( new Complex(1-x.x*x.x+x.y*x.y,-2*x.x*x.y).pow(.5) ).log();
+        Complex p = new Complex(r.y,-r.x);
+        
+        return p;
+    }
+}
+
+fn Acos {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        Complex r = new Complex(-x.y,x.x).add( new Complex(1-x.x*x.x+x.y*x.y,-2*x.x*x.y).pow(.5) ).log();
+        Complex p = new Complex(Math.PI/2 - r.y, r.x);
+        
+        return p;
+    }
+}
+
+fn Atan {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        Complex r = new Complex(1+x.y,-x.x).log();
+        Complex s = new Complex(1-x.y, x.x).log();
+        Complex t = r.add(s);
+        Complex p = new Complex( -t.y/2, t.x/2 );
+        
+        return p;
+    }
+}
+
+// **********
+// *** BINARY
+// **********
+
+fn Pow {
+    in Complex x;
+    in Complex y;
+    fout Complex;
+
+    eval {
+        Complex xlog = new Complex( Math.log(x.magnitude()), x.theta() );
+        Complex ymul = new Complex( xlog.x * y.x - xlog.y * y.y, xlog.x * y.y + xlog.y * y.x );
+        Complex z = new Complex( Math.exp(ymul.x)*Math.cos(ymul.y), Math.exp(ymul.x)*Math.sin(ymul.y) );
+        
+        return z;
+    }
+}
+
+fn Div {
+    in Complex x;
+    in Complex y;
+    fout Complex;
+
+    eval {
+        Complex z = new Complex();
+        z.x = x.x * y.x + x.y * y.y;
+        z.y = x.y * y.x - x.x * y.y;
+        double mag = x.magnitude() * y.magnitude();
+        return z.mult( 1.0/mag );
+    }
+}
+
+// *************
+// *** EXPONENTS
+// *************
+
+fn Exp {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return x.exp();
+    }
+}
+
+fn Log {
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return x.log();
+    }
+}
+
+// *****************
+// *** MISCELLANEOUS
+// *****************
+
+fn Spin {
+    in Complex x;
+    in Complex y;
+    fout Complex;
+
+    eval {
+        //(Complex(0,lhs.Theta())+Complex(0,1)*rhs).Exp()*lhs.Radius();
+
+        Complex c = new Complex();
+        c.x = -x.x;
+        c.y = x.y + y.theta();
+        return c.exp().mult(y.magnitude());
+    }
+}

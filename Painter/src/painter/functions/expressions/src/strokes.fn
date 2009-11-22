@@ -3,7 +3,7 @@ group Strokes;
 type Expression;
 
 import utils.linear.*;
-import painter.util.curves.*;
+import utils.curves.*;
 import painter.tools.brush.*;
 import painter.tools.stroke.*;
 

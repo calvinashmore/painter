@@ -1,9 +1,9 @@
-package painter.functions.expressions;
+package library.expressions.functions;
 group Curves;
 type Expression;
 
 import utils.linear.*;
-import painter.util.curves.*;
+import utils.curves.*;
 
 description "expressions to generate curves";
 

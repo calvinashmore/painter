@@ -14,7 +14,7 @@ import genetic.component.statement.*;
 import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
 import utils.linear.*;
-import painter.util.curves.*;
+import utils.curves.*;
 import painter.tools.brush.*;
 import painter.tools.stroke.*;
 

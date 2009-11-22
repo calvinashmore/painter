@@ -14,10 +14,10 @@ import genetic.component.statement.*;
 import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
 import utils.linear.*;
+import utils.curves.*;
 import painter.tools.canvas.*;
 import painter.tools.brush.*;
 import painter.tools.stroke.*;
-import painter.util.curves.*;
 
 public final class StrokeCommands implements AllComponents<Command>, Described {
 
@@ -287,7 +287,7 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
 
    }
 
-   public static class TwoCurveStroke extends Command {
+   public static class TwoCurveStroke1 extends Command {
 
       private int middlePoints;
       public int getNumberParameters() {
@@ -358,9 +358,13 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
 
       }
 
-      public TwoCurveStroke() {
+      public TwoCurveStroke1() {
          addGroupMeta(this);
          middlePoints = ( int ) ( 20 + 50 * Math . random ( ) ) ;
+      }
+
+      public String getDescription() {
+         return "draws strokes between two curves";
       }
 
       public void execute(Context context, Object[] inputs) {
@@ -383,6 +387,106 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
 
    }
 
+   public static class TwoCurveStroke2 extends Command {
+
+      private int middlePoints;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return middlePoints;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "middlePoints";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return int.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: middlePoints = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 7;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "position1";
+            case 1: return "position2";
+            case 2: return "color";
+            case 3: return "width";
+            case 4: return "brush";
+            case 5: return "stroke";
+            case 6: return "renderer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return CurveUtil . Curve_v2.class;
+            case 1: return CurveUtil . Curve_v2.class;
+            case 2: return CurveUtil . Curve_col.class;
+            case 3: return CurveUtil . Curve_d.class;
+            case 4: return Brush.class;
+            case 5: return Stroke.class;
+            case 6: return SegmentRenderer.class;
+            default: return null;
+         }
+
+      }
+
+      public TwoCurveStroke2() {
+         addGroupMeta(this);
+         middlePoints = ( int ) ( 20 + 50 * Math . random ( ) ) ;
+      }
+
+      public String getDescription() {
+         return "draws cuves between two strokes, but reverses them";
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         CurveUtil . Curve_v2 position1 = (CurveUtil . Curve_v2)inputs[0];
+         CurveUtil . Curve_v2 position2 = (CurveUtil . Curve_v2)inputs[1];
+         CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[2];
+         CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[3];
+         Brush brush = (Brush)inputs[4];
+         Stroke stroke = (Stroke)inputs[5];
+         SegmentRenderer renderer = (SegmentRenderer)inputs[6];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         for ( int i = 0 ;
+         i < middlePoints ;
+         i ++ ) {
+         double x = ( double ) i / middlePoints ;
+         Curve < LVect2d > position = new SegmentCurve ( position1 . getValue ( x ) , position2 . getValue ( 1 - x ) ) ;
+         stroke . render ( brush , width , position , color , canvas , renderer ) ;
+         }
+      }
+
+   }
+
    public String getDescription() {
       return "Stroke commands";
    }
@@ -393,7 +497,8 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       r.add(new ColorStroke1());
       r.add(new ColorStroke2());
       r.add(new ColorSizeStroke());
-      r.add(new TwoCurveStroke());
+      r.add(new TwoCurveStroke1());
+      r.add(new TwoCurveStroke2());
       return r;
    }
 

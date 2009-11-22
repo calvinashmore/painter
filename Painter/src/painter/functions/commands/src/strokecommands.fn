@@ -3,10 +3,10 @@ group StrokeCommands;
 type Command;
 
 import utils.linear.*;
+import utils.curves.*;
 import painter.tools.canvas.*;
 import painter.tools.brush.*;
 import painter.tools.stroke.*;
-import painter.util.curves.*;
 
 
 description "Stroke commands";
@@ -86,7 +86,7 @@ fn ColorSizeStroke {
 // ****** SPECIAL STROKES
 // *****************************************
 
-fn TwoCurveStroke {
+fn TwoCurveStroke1 {
     in CurveUtil.Curve_v2 position1;
     in CurveUtil.Curve_v2 position2;
     in CurveUtil.Curve_col color;
@@ -94,6 +94,8 @@ fn TwoCurveStroke {
     in Brush brush;
     in Stroke stroke;
     in SegmentRenderer renderer;
+
+    description "draws strokes between two curves";
 
     parameter int middlePoints;
 
@@ -108,6 +110,35 @@ fn TwoCurveStroke {
             double x = (double)i/middlePoints;
 
             Curve<LVect2d> position = new SegmentCurve(position1.getValue(x), position2.getValue(x));
+            stroke.render(brush, width, position, color, canvas, renderer);
+        }
+    }
+}
+
+fn TwoCurveStroke2 {
+    in CurveUtil.Curve_v2 position1;
+    in CurveUtil.Curve_v2 position2;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+
+    description "draws cuves between two strokes, but reverses them";
+
+    parameter int middlePoints;
+
+    init {
+        middlePoints = (int)(20 + 50*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(int i=0;i<middlePoints;i++) {
+            double x = (double)i/middlePoints;
+
+            Curve<LVect2d> position = new SegmentCurve(position1.getValue(x), position2.getValue(1-x));
             stroke.render(brush, width, position, color, canvas, renderer);
         }
     }

@@ -18,15 +18,107 @@ import painter.tools.brush.*;
 
 public final class Brushes implements AllComponents<ExpressionFunction>, Described {
 
-   public static class simpleBrush extends ExpressionFunction {
+   public static class simpleBrush1 extends ExpressionFunction {
 
-      public simpleBrush() {
+      public simpleBrush1() {
          addGroupMeta(this);
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
 
          return new SimpleBrush ( ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class simpleBrush2 extends ExpressionFunction {
+
+      private LDouble radiusMultiplier;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return radiusMultiplier;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "radiusMultiplier";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: radiusMultiplier = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public simpleBrush2() {
+         addGroupMeta(this);
+         radiusMultiplier = new LDouble ( .2 * Math . random ( ) * .5 ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+
+         return new SimpleBrush ( radiusMultiplier . val ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class simpleBrush3 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "radiusMultiplier";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public simpleBrush3() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         LDouble radiusMultiplier = (LDouble)inputs[0];
+         return new SimpleBrush ( radiusMultiplier . val ) ;
       }
 
       public Class getReturnType() {
@@ -252,7 +344,9 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    public List<ExpressionFunction> allInstances(ContextModel cm) {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
-      r.add(new simpleBrush());
+      r.add(new simpleBrush1());
+      r.add(new simpleBrush2());
+      r.add(new simpleBrush3());
       r.add(new hollowCircleBrush());
       r.add(new cyclingBrush());
       r.add(new penBrush());

@@ -14,6 +14,17 @@ import utils.linear.Color;
  */
 public class SimpleBrush implements Brush {
 
+    private double radiusMultiplier = 1;
+
+    public SimpleBrush() {
+    }
+
+    public SimpleBrush(double radiusMultiplier) {
+        this.radiusMultiplier = radiusMultiplier;
+    }
+
+
+
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
         Graphics2D graphics = canvas.getGraphics();

@@ -7,8 +7,10 @@ package painter.app;
 import genetic.BuildException;
 import genetic.GeneticTopLevel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -37,29 +39,32 @@ public class DemoApplet extends JApplet {
     private long calculationStart;
     private ScheduledExecutorService executor;
     private Thread calculateThread;
-    private JButton mutateButton;
+    //private JButton mutateButton;
     private GeneticTopLevel currentProgram;
     private CanvasImpl globalCanvas;
+    private boolean hasStarted = false;
 
     @Override
     public void init() {
         super.init();
 
+        globalCanvas = new CanvasImpl(RESOLUTION, RESOLUTION);
+
         imageLabel = new ImageThing();
         imageLabel.setPreferredSize(new Dimension(RESOLUTION, RESOLUTION));
         captionLabel = new JLabel("Loading...");
 
-        mutateButton = new JButton("mutate");
-        mutateButton.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                startCalculate(true);
-            }
-        });
+//        mutateButton = new JButton("mutate");
+//        mutateButton.addActionListener(new ActionListener() {
+//
+//            public void actionPerformed(ActionEvent e) {
+//                startCalculate(true);
+//            }
+//        });
 
         JPanel controlPanel = new JPanel(new BorderLayout());
         controlPanel.add(captionLabel, BorderLayout.CENTER);
-        controlPanel.add(mutateButton, BorderLayout.EAST);
+        //controlPanel.add(mutateButton, BorderLayout.EAST);
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(imageLabel, BorderLayout.CENTER);
@@ -95,7 +100,8 @@ public class DemoApplet extends JApplet {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            startCalculate(false);
+            //startCalculate(false);
+            hasStarted = true;
         }
     }
 
@@ -107,12 +113,12 @@ public class DemoApplet extends JApplet {
             //if(beenCalculatingFor < 3000) {
             //    captionLabel.setText("Thinking...");
             //} else
-            if (beenCalculatingFor < 10000) {
+            if (beenCalculatingFor < 5000) {
                 int seconds = (int) (beenCalculatingFor / 1000);
                 captionLabel.setText("Thinking... (" + seconds + ")");
             } else {
                 // try to shut it down
-                captionLabel.setText("I'm confused!");
+                captionLabel.setText("Starting new");
                 calculateThread.stop();
                 isCalculating = false;
             }
@@ -120,7 +126,11 @@ public class DemoApplet extends JApplet {
             imageLabel.repaint();
 
         } else {
-            captionLabel.setText("Click above to make an image");
+            if(hasStarted) {
+                startCalculate(false);
+            } else {
+            captionLabel.setText("Click above to start");
+            }
         }
     }
 
@@ -150,7 +160,7 @@ public class DemoApplet extends JApplet {
             } else {
                 currentProgram = makeProgram();
             }
-            CanvasImpl canvas = makeCanvas(currentProgram);
+            paintCanvas(currentProgram);
             //imageLabel.setIcon(new ImageIcon(canvas.makeImage()));
 
         } catch (BuildException ex) {
@@ -193,26 +203,28 @@ public class DemoApplet extends JApplet {
         return program;
     }
 
-    protected CanvasImpl makeCanvas(GeneticTopLevel program) throws BuildException {
+    protected CanvasImpl paintCanvas(GeneticTopLevel program) throws BuildException {
 
-
-        CanvasImpl canvas = new CanvasImpl(500, 500);
-        globalCanvas = canvas;
-        program.getContext().setVariable("canvas", canvas);
+        //CanvasImpl canvas = new CanvasImpl(RESOLUTION, RESOLUTION);
+        globalCanvas.getGraphics().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //globalCanvas = canvas;
+        program.getContext().setVariable("canvas", globalCanvas);
 
         System.out.println("Calling method...");
         program.callMethod("doStuff");
         System.out.println("Done!");
 
-        return canvas;
+        return globalCanvas;
     }
 
     private class ImageThing extends JPanel {
 
         @Override
         public void paint(Graphics g) {
-            //super.paint(g);
+            super.paint(g);
             if (globalCanvas != null) {
+                //g.setColor(Color.WHITE);
+                //g.fillRect(0, 0, RESOLUTION, RESOLUTION);
                 g.drawImage(globalCanvas.makeImage(), 0, 0, null);
             }
         }

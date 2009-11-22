@@ -15,11 +15,13 @@ import painter.foundation.typehandlers.IntegerHandler;
 import painter.foundation.typehandlers.LDoubleHandler;
 import painter.foundation.typehandlers.LVect2dHandler;
 import painter.foundation.typehandlers.LVect3dHandler;
+import painter.foundation.typehandlers.QuaternionHandler;
 import utils.linear.Color;
 import utils.linear.Complex;
 import utils.linear.LDouble;
 import utils.linear.LVect2d;
 import utils.linear.LVect3d;
+import utils.linear.Quaternion;
 
 /**
  *
@@ -39,6 +41,7 @@ public class TypeSystem implements genetic.TypeSystem {
         handlers.put(Color.class, new ColorHandler());
         handlers.put(Boolean.class, new BooleanHandler());
         handlers.put(Complex.class, new ComplexHandler());
+        handlers.put(Quaternion.class, new QuaternionHandler());
 
         allTypes = new ArrayList<Class>(handlers.keySet());
     }

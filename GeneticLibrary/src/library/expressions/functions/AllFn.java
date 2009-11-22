@@ -17,7 +17,14 @@ public class AllFn implements AllComponents<ExpressionFunction> {
    public List<ExpressionFunction> allInstances(ContextModel cm) {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
       r.addAll(new Algebraic().allInstances(cm));
+      r.addAll(new Analytic().allInstances(cm));
       r.addAll(new BooleanOperations().allInstances(cm));
+      r.addAll(new ColorOp().allInstances(cm));
+      r.addAll(new Noise1().allInstances(cm));
+      r.addAll(new Noise1Grad().allInstances(cm));
+      r.addAll(new Noise2().allInstances(cm));
+      r.addAll(new Noise3().allInstances(cm));
+      r.addAll(new ColorPaint().allInstances(cm));
       r.addAll(new RandomValues().allInstances(cm));
       r.addAll(new VectorSwitch().allInstances(cm));
       return r;

@@ -55,6 +55,7 @@ public class Foundation extends GeneticFoundationImpl {
             public List<ExpressionFunction> allInstances(ContextModel cm) {
                 if (painterEFs == null) {
                     painterEFs = new ArrayList<ExpressionFunction>(new painter.functions.expressions.AllFn().allInstances(cm));
+                    painterEFs.addAll(allExpressionFunctions.allInstances(cm));
                 }
 
                 List<ExpressionFunction> allInstances = super.allInstances(cm);

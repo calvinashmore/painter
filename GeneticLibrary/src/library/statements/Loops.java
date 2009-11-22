@@ -7,6 +7,7 @@ import genetic.component.command.*;
 import genetic.component.context.*;
 import genetic.component.expression.*;
 import genetic.component.expression.function.*;
+import genetic.component.expression.function.cx.*;
 import genetic.component.method.*;
 import genetic.component.program.*;
 import genetic.component.statement.*;
@@ -84,20 +85,6 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
          return "Loops n times. The parameter n is initialized to a value between 10 and 20.";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
-         StatementList body = (StatementList) inputs.get(0);
-         String __i = getContextVariableActualName("i");
-         Integer i;
-         String __x = getContextVariableActualName("x");
-         LDouble x;
-         i = 0 ; context.setVariable(__i, i);
-         while ( i < n ) {
-         x = new LDouble ( 1.0 * i / n ) ; context.setVariable(__x, x);
-         body . execute ( context ) ;
-         i = i + 1 ; context.setVariable(__i, i);
-         }
-      }
-
       public int getNumberContextVariables() {
          return 2;
       }
@@ -118,6 +105,20 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
             default: return null;
          }
 
+      }
+
+      public void execute(Context context, List<GeneticComponent> inputs) {
+         StatementList body = (StatementList) inputs.get(0);
+         final String __i = getContextVariableActualName("i");
+         Integer i;
+         final String __x = getContextVariableActualName("x");
+         LDouble x;
+         i = 0 ; context.setVariable(__i, i);
+         while ( i < n ) {
+         x = new LDouble ( 1.0 * i / n ) ; context.setVariable(__x, x);
+         body . execute ( context ) ;
+         i = i + 1 ; context.setVariable(__i, i);
+         }
       }
 
    }
@@ -154,23 +155,6 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
          return "Loops n times, where n is an input value.";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
-         Expression n = (Expression) inputs.get(0);
-         StatementList body = (StatementList) inputs.get(1);
-         String __i = getContextVariableActualName("i");
-         Integer i;
-         String __x = getContextVariableActualName("x");
-         LDouble x;
-         int nValue = ( Integer ) n . evaluate ( context ) ;
-         nValue = Math . min ( nValue , max ) ;
-         i = 0 ; context.setVariable(__i, i);
-         while ( i < nValue ) {
-         x = new LDouble ( 1.0 * i / nValue ) ; context.setVariable(__x, x);
-         body . execute ( context ) ;
-         i = i + 1 ; context.setVariable(__i, i);
-         }
-      }
-
       public int getNumberContextVariables() {
          return 2;
       }
@@ -191,6 +175,23 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
             default: return null;
          }
 
+      }
+
+      public void execute(Context context, List<GeneticComponent> inputs) {
+         Expression n = (Expression) inputs.get(0);
+         StatementList body = (StatementList) inputs.get(1);
+         final String __i = getContextVariableActualName("i");
+         Integer i;
+         final String __x = getContextVariableActualName("x");
+         LDouble x;
+         int nValue = ( Integer ) n . evaluate ( context ) ;
+         nValue = Math . min ( nValue , max ) ;
+         i = 0 ; context.setVariable(__i, i);
+         while ( i < nValue ) {
+         x = new LDouble ( 1.0 * i / nValue ) ; context.setVariable(__x, x);
+         body . execute ( context ) ;
+         i = i + 1 ; context.setVariable(__i, i);
+         }
       }
 
    }
@@ -264,33 +265,6 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
          return "Loops n times in two dimensions. The parameter n is initialized to a value between 10 and 20.";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
-         StatementList body = (StatementList) inputs.get(0);
-         String __i = getContextVariableActualName("i");
-         Integer i;
-         String __j = getContextVariableActualName("j");
-         Integer j;
-         String __x = getContextVariableActualName("x");
-         LDouble x;
-         String __y = getContextVariableActualName("y");
-         LDouble y;
-         String __v = getContextVariableActualName("v");
-         LVect2d v;
-         i = 0 ; context.setVariable(__i, i);
-         j = 0 ; context.setVariable(__j, j);
-         while ( i < n ) {
-         x = new LDouble ( 1.0 * i / n ) ; context.setVariable(__x, x);
-         j = 0 ; context.setVariable(__j, j);
-         while ( j < n ) {
-         y = new LDouble ( 1.0 * j / n ) ; context.setVariable(__y, y);
-         v = new LVect2d ( x . val , y . val ) ; context.setVariable(__v, v);
-         body . execute ( context ) ;
-         j = j + 1 ; context.setVariable(__j, j);
-         }
-         i = i + 1 ; context.setVariable(__i, i);
-         }
-      }
-
       public int getNumberContextVariables() {
          return 5;
       }
@@ -317,6 +291,33 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
             default: return null;
          }
 
+      }
+
+      public void execute(Context context, List<GeneticComponent> inputs) {
+         StatementList body = (StatementList) inputs.get(0);
+         final String __i = getContextVariableActualName("i");
+         Integer i;
+         final String __j = getContextVariableActualName("j");
+         Integer j;
+         final String __x = getContextVariableActualName("x");
+         LDouble x;
+         final String __y = getContextVariableActualName("y");
+         LDouble y;
+         final String __v = getContextVariableActualName("v");
+         LVect2d v;
+         i = 0 ; context.setVariable(__i, i);
+         j = 0 ; context.setVariable(__j, j);
+         while ( i < n ) {
+         x = new LDouble ( 1.0 * i / n ) ; context.setVariable(__x, x);
+         j = 0 ; context.setVariable(__j, j);
+         while ( j < n ) {
+         y = new LDouble ( 1.0 * j / n ) ; context.setVariable(__y, y);
+         v = new LVect2d ( x . val , y . val ) ; context.setVariable(__v, v);
+         body . execute ( context ) ;
+         j = j + 1 ; context.setVariable(__j, j);
+         }
+         i = i + 1 ; context.setVariable(__i, i);
+         }
       }
 
    }
@@ -390,41 +391,6 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
          return "Loops n times in three dimensions. The parameter n is initialized to a value between 5 and 10.";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
-         StatementList body = (StatementList) inputs.get(0);
-         String __i = getContextVariableActualName("i");
-         Integer i;
-         String __j = getContextVariableActualName("j");
-         Integer j;
-         String __k = getContextVariableActualName("k");
-         Integer k;
-         String __x = getContextVariableActualName("x");
-         LDouble x;
-         String __y = getContextVariableActualName("y");
-         LDouble y;
-         String __z = getContextVariableActualName("z");
-         LDouble z;
-         String __v = getContextVariableActualName("v");
-         LVect3d v;
-         i = 0 ; context.setVariable(__i, i);
-         while ( i < n ) {
-         x = new LDouble ( 1.0 * i / n ) ; context.setVariable(__x, x);
-         j = 0 ; context.setVariable(__j, j);
-         while ( j < n ) {
-         y = new LDouble ( 1.0 * j / n ) ; context.setVariable(__y, y);
-         k = 0 ; context.setVariable(__k, k);
-         while ( k < n ) {
-         z = new LDouble ( 1.0 * k / n ) ; context.setVariable(__z, z);
-         v = new LVect3d ( x . val , y . val , z . val ) ; context.setVariable(__v, v);
-         body . execute ( context ) ;
-         k = k + 1 ; context.setVariable(__k, k);
-         }
-         j = j + 1 ; context.setVariable(__j, j);
-         }
-         i = i + 1 ; context.setVariable(__i, i);
-         }
-      }
-
       public int getNumberContextVariables() {
          return 7;
       }
@@ -455,6 +421,41 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
             default: return null;
          }
 
+      }
+
+      public void execute(Context context, List<GeneticComponent> inputs) {
+         StatementList body = (StatementList) inputs.get(0);
+         final String __i = getContextVariableActualName("i");
+         Integer i;
+         final String __j = getContextVariableActualName("j");
+         Integer j;
+         final String __k = getContextVariableActualName("k");
+         Integer k;
+         final String __x = getContextVariableActualName("x");
+         LDouble x;
+         final String __y = getContextVariableActualName("y");
+         LDouble y;
+         final String __z = getContextVariableActualName("z");
+         LDouble z;
+         final String __v = getContextVariableActualName("v");
+         LVect3d v;
+         i = 0 ; context.setVariable(__i, i);
+         while ( i < n ) {
+         x = new LDouble ( 1.0 * i / n ) ; context.setVariable(__x, x);
+         j = 0 ; context.setVariable(__j, j);
+         while ( j < n ) {
+         y = new LDouble ( 1.0 * j / n ) ; context.setVariable(__y, y);
+         k = 0 ; context.setVariable(__k, k);
+         while ( k < n ) {
+         z = new LDouble ( 1.0 * k / n ) ; context.setVariable(__z, z);
+         v = new LVect3d ( x . val , y . val , z . val ) ; context.setVariable(__v, v);
+         body . execute ( context ) ;
+         k = k + 1 ; context.setVariable(__k, k);
+         }
+         j = j + 1 ; context.setVariable(__j, j);
+         }
+         i = i + 1 ; context.setVariable(__i, i);
+         }
       }
 
    }

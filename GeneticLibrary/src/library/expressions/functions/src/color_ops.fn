@@ -1,0 +1,411 @@
+package library.expressions.functions;
+group ColorOp;
+type Expression;
+
+import utils.linear.*;
+
+description "Color operations";
+
+
+fn Invert {
+    in Color x;
+    fout Color;
+
+    eval {
+        return new Color(1-x.r, 1-x.g, 1-x.b);
+    }
+}
+
+fn Invert1 {
+    in Color x;
+    fout Color;
+
+    eval {
+        Color c = new Color(1-x.r, 1-x.g, 1-x.b);
+        return c.mult( x.magnitude() / c.magnitude() );
+    }
+}
+
+fn Tone_blend {
+    in Color x;
+    in LDouble t;
+    fout Color;
+
+    eval {
+        Color c = new Color(1-x.r, 1-x.g, 1-x.b);
+        c = c.mult( x.magnitude() / c.magnitude() );
+
+        return x.mult(1-t.val).add( c.mult(t.val) );
+    }
+}
+
+fn offsetHue {
+    in Color x;
+    in LDouble offset;
+    fout Color;
+
+    eval {
+        double hsb[] = x.hsbvals();
+        return new Color(hsb[0]+offset.val,hsb[1],hsb[2]);
+    }
+}
+
+fn setHue {
+    in Color x;
+    in LDouble value;
+    fout Color;
+
+    eval {
+        double hsb[] = x.hsbvals();
+        return new Color(value.val,hsb[1],hsb[2]);
+    }
+}
+
+fn setSaturation {
+    in Color x;
+    in LDouble value;
+    fout Color;
+
+    eval {
+        double hsb[] = x.hsbvals();
+        return new Color(hsb[0],value.val,hsb[2]);
+    }
+}
+
+fn setBrightness {
+    in Color x;
+    in LDouble value;
+    fout Color;
+
+    eval {
+        double hsb[] = x.hsbvals();
+        return new Color(hsb[0],hsb[1],value.val);
+    }
+}
+
+fn RGB_to_HSB1 {
+    in Color x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(x.r, x.g, x.b);
+    }
+}
+
+fn RGB_to_HSB2 {
+    in Color x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(x.g, x.r, x.b);
+    }
+}
+
+fn RGB_to_HSB3 {
+    in Color x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(x.r, x.b, x.g);
+    }
+}
+
+fn RGB_to_HSB4 {
+    in Color x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(x.g, x.b, x.r);
+    }
+}
+
+fn RGB_to_HSB5 {
+    in Color x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(x.b, x.r, x.g);
+    }
+}
+
+fn RGB_to_HSB6 {
+    in Color x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(x.b, x.g, x.r);
+    }
+}
+
+fn HSB_to_RGB1 {
+    in Color x;
+    fout Color;
+
+    eval {
+        double[] hsb = x.hsbvals();
+        return new Color(hsb[0], hsb[1], hsb[2]);
+    }
+}
+
+fn HSB_to_RGB2 {
+    in Color x;
+    fout Color;
+
+    eval {
+        double[] hsb = x.hsbvals();
+        return new Color(hsb[0], hsb[2], hsb[1]);
+    }
+}
+
+fn HSB_to_RGB3 {
+    in Color x;
+    fout Color;
+
+    eval {
+        double[] hsb = x.hsbvals();
+        return new Color(hsb[1], hsb[0], hsb[2]);
+    }
+}
+
+fn HSB_to_RGB4 {
+    in Color x;
+    fout Color;
+
+    eval {
+        double[] hsb = x.hsbvals();
+        return new Color(hsb[1], hsb[2], hsb[0]);
+    }
+}
+
+fn HSB_to_RGB5 {
+    in Color x;
+    fout Color;
+
+    eval {
+        double[] hsb = x.hsbvals();
+        return new Color(hsb[2], hsb[1], hsb[0]);
+    }
+}
+
+fn HSB_to_RGB6 {
+    in Color x;
+    fout Color;
+
+    eval {
+        double[] hsb = x.hsbvals();
+        return new Color(hsb[2], hsb[0], hsb[1]);
+    }
+}
+
+fn HSB {
+    in LDouble h;
+    in LDouble s;
+    in LDouble b;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(h.val,s.val,b.val);
+    }
+}
+
+fn HSB1 {
+    in LDouble h;
+    in LDouble s;
+    in LDouble b;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(h.val,s.val,.5+.5*b.val/(1+Math.abs(b.val)));
+    }
+}
+
+fn HSB_v3 {
+    in LVect3d hsb;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(hsb.x, hsb.y, hsb.z);
+    }
+}
+
+fn HSB1_v3 {
+    in LVect3d hsb;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(hsb.x, hsb.y, .5+.5*hsb.z/(1+Math.abs(hsb.z)));
+    }
+}
+
+fn HSB_v3_gauss {
+    in LVect3d hsb;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(
+            hsb.x,
+            Math.exp(-hsb.y*hsb.y),
+            Math.exp(-hsb.z*hsb.z)
+            );
+    }
+}
+
+fn HSB_v3_sigmoid {
+    in LVect3d hsb;
+    fout Color;
+
+    eval {
+        return Color.makeHSB(
+            hsb.x,
+            1/(1.0+Math.exp(-hsb.y)),
+            1/(1.0+Math.exp(-hsb.z))
+            );
+    }
+}
+
+fn v3_RGB {
+    in Color rgb;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d(rgb.r, rgb.g, rgb.b);
+    }
+}
+
+fn v3_HSB {
+    in Color x;
+    fout LVect3d;
+
+    eval {
+        double[] hsb = x.hsbvals();
+        return new LVect3d(hsb[0], hsb[1], hsb[2]);
+    }
+}
+
+fn RGB {
+    in LDouble r;
+    in LDouble g;
+    in LDouble b;
+    fout Color;
+
+    eval {
+        return new Color(r.val,g.val,b.val);
+    }
+}
+
+fn RGB_v3 {
+    in LVect3d rgb;
+    fout Color;
+
+    eval {
+        return new Color(rgb.x, rgb.y, rgb.z);
+    }
+}
+
+fn RGB_v3_gauss {
+    in LVect3d rgb;
+    fout Color;
+
+    eval {
+        return new Color(
+            Math.exp(-rgb.x*rgb.x),
+            Math.exp(-rgb.y*rgb.y),
+            Math.exp(-rgb.z*rgb.z)
+            );
+    }
+}
+
+fn RGB_v3_sigmoid {
+    in LVect3d rgb;
+    fout Color;
+
+    eval {
+        return new Color(
+            1/(1.0+Math.exp(-rgb.x)),
+            1/(1.0+Math.exp(-rgb.y)),
+            1/(1.0+Math.exp(-rgb.z))
+            );
+    }
+}
+
+fn Blend_to_White {
+    in Color color;
+    in LDouble blend;
+    fout Color;
+
+    eval {
+        double blend1 = 1/(1.0+Math.exp(-blend.val));
+        return new Color(
+            blend1 + (1-blend1)*color.r,
+            blend1 + (1-blend1)*color.g,
+            blend1 + (1-blend1)*color.b
+            );
+    }
+}
+
+fn Blend_to_Black {
+    in Color color;
+    in LDouble blend;
+    fout Color;
+
+    eval {
+        double blend1 = 1/(1.0+Math.exp(-blend.val));
+        return new Color(
+            0 + (1-blend1)*color.r,
+            0 + (1-blend1)*color.g,
+            0 + (1-blend1)*color.b
+            );
+    }
+}
+
+fn Blend_to_Gray {
+    in Color color;
+    in LDouble blend;
+    fout Color;
+
+    eval {
+        double blend1 = 1/(1.0+Math.exp(-blend.val));
+        return new Color(
+            .5*blend1 + (1-blend1)*color.r,
+            .5*blend1 + (1-blend1)*color.g,
+            .5*blend1 + (1-blend1)*color.b
+            );
+    }
+}
+
+fn Monochrome {
+    in Color color;
+    in LDouble blend;
+    fout Color;
+
+    eval {
+        double blend1 = 1/(1.0+Math.exp(-blend.val));
+        if(blend1 > .5)
+            return new Color(
+                2*(blend1-.5) + (1-2*(blend1-.5))*color.r,
+                2*(blend1-.5) + (1-2*(blend1-.5))*color.g,
+                2*(blend1-.5) + (1-2*(blend1-.5))*color.b
+                );
+        else
+            return new Color(
+                (2*blend1)*color.r,
+                (2*blend1)*color.g,
+                (2*blend1)*color.b
+                );
+    }
+}
+
+fn Sigmoidize {
+    in Color color;
+    in LDouble blend;
+    fout Color;
+
+    eval {
+        double blend1 = 1/(1.0+Math.exp(-blend.val));
+        return new Color(
+            blend1*(1-color.r) + (1-blend1)*color.r,
+            blend1*(1-color.g) + (1-blend1)*color.g,
+            blend1*(1-color.b) + (1-blend1)*color.b
+            );
+    }
+}

@@ -1,0 +1,268 @@
+package library.expressions.functions;
+group Noise2;
+type Expression;
+
+import utils.linear.*;
+import utils.noise.*;
+
+description "Noise: Perlin parameters";
+
+
+// ***************************
+// *** Perlin Noise parameters
+// ***************************
+
+fn PerlinParameters1 {
+    fout PerlinNoiseParameters;
+
+    parameter LVect3d scale;
+    parameter LVect3d translate;
+
+    init {
+        translate = new LVect3d();
+        translate.x = Math.random()*100 - 50;
+        translate.y = Math.random()*100 - 50;
+        translate.z = Math.random()*100 - 50;
+        scale = new LVect3d();
+        scale.x = 1;
+        scale.y = 1;
+        scale.z = 1;
+    }
+
+    private PerlinNoiseParameters params = new PerlinNoiseParameters();
+    
+
+    eval {
+        params.scale = scale;
+        params.translate = translate;
+        return params;
+    }
+}
+
+fn PerlinParameters1a {
+    fout PerlinNoiseParameters;
+
+    parameter double scale;
+    parameter LVect3d translate;
+
+    init {
+        translate = new LVect3d();
+        translate.x = Math.random()*100 - 50;
+        translate.y = Math.random()*100 - 50;
+        translate.z = Math.random()*100 - 50;
+        scale = 1;
+    }
+
+    private PerlinNoiseParameters params = new PerlinNoiseParameters();
+
+    eval {
+        params.scale = new LVect3d(scale,scale,scale);
+        params.translate = translate;
+        return params;
+    }
+}
+
+fn PerlinParameters2 {
+    fout PerlinNoiseParameters;
+
+    in LVect3d scale;
+    parameter LVect3d translate;
+
+    init {
+        translate = new LVect3d();
+        translate.x = Math.random()*100 - 50;
+        translate.y = Math.random()*100 - 50;
+        translate.z = Math.random()*100 - 50;
+    }
+
+    private PerlinNoiseParameters params = new PerlinNoiseParameters();
+
+    eval {
+        params.scale = scale;
+        params.translate = translate;
+        return params;
+    }
+}
+
+fn PerlinParameters2a {
+    fout PerlinNoiseParameters;
+
+    in LDouble scale;
+    parameter LVect3d translate;
+
+    init {
+        translate = new LVect3d();
+        translate.x = Math.random()*100 - 50;
+        translate.y = Math.random()*100 - 50;
+        translate.z = Math.random()*100 - 50;
+    }
+
+    private PerlinNoiseParameters params = new PerlinNoiseParameters();
+    
+    eval {
+        params.scale.x = scale.val;
+        params.scale.y = scale.val;
+        params.scale.z = scale.val;
+        params.translate = translate;
+        return params;
+    }
+}
+
+fn PerlinParameters3 {
+    fout PerlinNoiseParameters;
+
+    parameter LVect3d scale;
+    in LVect3d translate;
+
+    init {
+        scale = new LVect3d();
+        scale.x = 1;
+        scale.y = 1;
+        scale.z = 1;
+    }
+
+    private PerlinNoiseParameters params = new PerlinNoiseParameters();
+
+    eval {
+        params.scale = scale;
+        params.translate = translate;
+        return params;
+    }
+}
+
+fn PerlinParameters3a {
+    fout PerlinNoiseParameters;
+
+    parameter double scale;
+    in LVect3d translate;
+
+    init {
+        scale = 1;
+    }
+
+    private PerlinNoiseParameters params = new PerlinNoiseParameters();
+
+    eval {
+        params.scale.x = scale;
+        params.scale.y = scale;
+        params.scale.z = scale;
+        params.translate = translate;
+        return params;
+    }
+}
+
+fn PerlinParameters4 {
+    fout PerlinNoiseParameters;
+
+    in LVect3d scale;
+    in LVect3d translate;
+
+    private PerlinNoiseParameters params = new PerlinNoiseParameters();
+    
+    eval {
+        params.scale = scale;
+        params.translate = translate;
+        return params;
+    }
+}
+
+fn PerlinParameters4a {
+    fout PerlinNoiseParameters;
+
+    in LDouble scale;
+    in LVect3d translate;
+
+    private PerlinNoiseParameters params = new PerlinNoiseParameters();
+
+    eval {
+        params.scale.x = scale.val;
+        params.scale.y = scale.val;
+        params.scale.z = scale.val;
+        params.translate = translate;
+        return params;
+    }
+}
+
+// **************************
+// *** Perlin Noise functions
+// **************************
+
+fn Perlin1 {
+    in PerlinNoiseParameters params;
+    fout NoiseFunction;
+
+    eval {
+        return new PerlinNoise(params);
+    }
+}
+
+fn Perlin2 {
+    in PerlinNoiseParameters params;
+    fout NoiseFunction;
+
+    eval {
+        PerlinNoise noise = new PerlinNoise() {
+            public double fade(double t) {return t;}
+        };
+        noise.setParameters(params);
+        return noise;
+    }
+}
+
+fn Perlin3 {
+    in PerlinNoiseParameters params;
+    fout NoiseFunction;
+
+    eval {
+        PerlinNoise noise = new PerlinNoise() {
+            public double fade(double t) {return Math.sqrt(t);}
+        };
+        noise.setParameters(params);
+        return noise;
+    }
+}
+
+fn Perlin4 {
+    in PerlinNoiseParameters params;
+    fout NoiseFunction;
+
+    eval {
+        PerlinNoise noise = new PerlinNoise() {
+            public double fade(double t) {return t*t;}
+        };
+        noise.setParameters(params);
+        return noise;
+    }
+}
+
+fn Perlin5 {
+    in PerlinNoiseParameters params;
+    fout NoiseFunction;
+
+    eval {
+        PerlinNoise noise = new PerlinNoise() {
+            public double fade(double x) {
+                double y = 2*(x - .5);
+                return (y*y*y - y)/2 + x;
+            }
+        };
+        noise.setParameters(params);
+        return noise;
+    }
+}
+
+fn Perlin6 {
+    in PerlinNoiseParameters params;
+    fout NoiseFunction;
+
+    eval {
+        PerlinNoise noise = new PerlinNoise() {
+            public double fade(double x) { return Math.sin(x*Math.PI/2); }
+        };
+        noise.setParameters(params);
+        return noise;
+    }
+}
+
+
+

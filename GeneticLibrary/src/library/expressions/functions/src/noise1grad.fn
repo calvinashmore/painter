@@ -1,0 +1,1132 @@
+package library.expressions.functions;
+group Noise1Grad;
+type Expression;
+
+import utils.linear.*;
+import utils.noise.*;
+
+description "Noise: Gradient evaluation";
+
+fn ngrad_v2_d_1 {
+    in LVect2d x;
+    in NoiseFunction noise;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx = (noise.noise(x.x+delta,x.y,0) - noise.noise(x.x-delta,x.y,0)) / (2*delta);
+        double dy = (noise.noise(x.x,x.y+delta,0) - noise.noise(x.x,x.y-delta,0)) / (2*delta);
+
+        return new LVect2d(dx, dy);
+    }
+}
+
+fn ngrad_v2_d_2 {
+    in LVect2d x;
+    in NoiseFunction noise;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx = (noise.noise(x.x+delta,x.y,0) - noise.noise(x.x-delta,x.y,0)) / (2*delta);
+        double dy = (noise.noise(x.x,x.y+delta,0) - noise.noise(x.x,x.y-delta,0)) / (2*delta);
+
+        return new LVect2d(dx, dy).normal();
+    }
+}
+
+fn ngrad_v3_d_1 {
+    in LVect3d x;
+    in NoiseFunction noise;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx = (noise.noise(x.x+delta,x.y,x.z) - noise.noise(x.x-delta,x.y,x.z)) / (2*delta);
+        double dy = (noise.noise(x.x,x.y+delta,x.z) - noise.noise(x.x,x.y-delta,x.z)) / (2*delta);
+        double dz = (noise.noise(x.x,x.y,x.z+delta) - noise.noise(x.x,x.y,x.z-delta)) / (2*delta);
+
+        return new LVect3d(dx, dy, dz);
+    }
+}
+
+fn ngrad_v3_d_2 {
+    in LVect3d x;
+    in NoiseFunction noise;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx = (noise.noise(x.x+delta,x.y,x.z) - noise.noise(x.x-delta,x.y,x.z)) / (2*delta);
+        double dy = (noise.noise(x.x,x.y+delta,x.z) - noise.noise(x.x,x.y-delta,x.z)) / (2*delta);
+        double dz = (noise.noise(x.x,x.y,x.z+delta) - noise.noise(x.x,x.y,x.z-delta)) / (2*delta);
+
+        return new LVect3d(dx, dy, dz).normal();
+    }
+}
+
+fn ngrad_v2_v2_1 {
+    in LVect2d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (noise.noise(x.x+delta,x.y,0) - noise.noise(x.x-delta,x.y,0)) / (2*delta);
+        double dy1 = (noise.noise(x.x,x.y+delta,0) - noise.noise(x.x,x.y-delta,0)) / (2*delta);
+        double dx2 = (noise.noise(x.x+delta+100,x.y+100,100) - noise.noise(x.x-delta+100,x.y+100,100)) / (2*delta);
+        double dy2 = (noise.noise(x.x+100,x.y+delta+100,100) - noise.noise(x.x+100,x.y-delta+100,100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new LVect2d( dx1*ynorm.x + dx2*ynorm.y, dy1*ynorm.x + dy2*ynorm.y);
+    }
+}
+
+fn ngrad_v2_v2_2 {
+    in LVect2d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (noise.noise(x.x+delta,x.y,0) - noise.noise(x.x-delta,x.y,0)) / (2*delta);
+        double dy1 = (noise.noise(x.x,x.y+delta,0) - noise.noise(x.x,x.y-delta,0)) / (2*delta);
+        double dx2 = (noise.noise(x.x+delta+100,x.y+100,100) - noise.noise(x.x-delta+100,x.y+100,100)) / (2*delta);
+        double dy2 = (noise.noise(x.x+100,x.y+delta+100,100) - noise.noise(x.x+100,x.y-delta+100,100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new LVect2d( dx1*ynorm.x + dx2*ynorm.y, dy1*ynorm.x + dy2*ynorm.y).normal();
+    }
+}
+
+fn ngrad_v2_v2_3 {
+    in LVect2d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( noise.noise(x.x+delta,x.y,0), noise.noise(x.x+delta+100,x.y+100,100) ).normal();
+        LVect2d vx2 = new LVect2d( noise.noise(x.x-delta,x.y,0), noise.noise(x.x-delta+100,x.y+100,100) ).normal();
+        LVect2d vy1 = new LVect2d( noise.noise(x.x,x.y+delta,0), noise.noise(x.x+100,x.y+delta+100,100) ).normal();
+        LVect2d vy2 = new LVect2d( noise.noise(x.x,x.y-delta,0), noise.noise(x.x+100,x.y-delta+100,100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+
+        return new LVect2d( xpart, ypart );
+    }
+}
+
+fn ngrad_v2_v2_4 {
+    in LVect2d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( noise.noise(x.x+delta,x.y,0), noise.noise(x.x+delta+100,x.y+100,100) ).normal();
+        LVect2d vx2 = new LVect2d( noise.noise(x.x-delta,x.y,0), noise.noise(x.x-delta+100,x.y+100,100) ).normal();
+        LVect2d vy1 = new LVect2d( noise.noise(x.x,x.y+delta,0), noise.noise(x.x+100,x.y+delta+100,100) ).normal();
+        LVect2d vy2 = new LVect2d( noise.noise(x.x,x.y-delta,0), noise.noise(x.x+100,x.y-delta+100,100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+
+        return new LVect2d( xpart, ypart ).normal();
+    }
+}
+
+fn ngrad_v3_v2_1 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (noise.noise(x.x+delta,x.y,x.z) - noise.noise(x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (noise.noise(x.x,x.y+delta,x.z) - noise.noise(x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (noise.noise(x.x,x.y,x.z+delta) - noise.noise(x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (noise.noise(x.x+delta+100,x.y+100,x.z+100) - noise.noise(x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (noise.noise(x.x+100,x.y+delta+100,x.z+100) - noise.noise(x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (noise.noise(x.x+100,x.y+100,x.z+delta+100) - noise.noise(x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new LVect3d(
+                dx1*ynorm.x + dx2*ynorm.y,
+                dy1*ynorm.x + dy2*ynorm.y,
+                dz1*ynorm.x + dz2*ynorm.y );
+    }
+}
+
+fn ngrad_v3_v2_2 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (noise.noise(x.x+delta,x.y,x.z) - noise.noise(x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (noise.noise(x.x,x.y+delta,x.z) - noise.noise(x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (noise.noise(x.x,x.y,x.z+delta) - noise.noise(x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (noise.noise(x.x+delta+100,x.y+100,x.z+100) - noise.noise(x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (noise.noise(x.x+100,x.y+delta+100,x.z+100) - noise.noise(x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (noise.noise(x.x+100,x.y+100,x.z+delta+100) - noise.noise(x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new LVect3d(
+                dx1*ynorm.x + dx2*ynorm.y,
+                dy1*ynorm.x + dy2*ynorm.y,
+                dz1*ynorm.x + dz2*ynorm.y ).normal();
+    }
+}
+
+fn ngrad_v3_v2_3 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( noise.noise(x.x+delta,x.y,x.z), noise.noise(x.x+delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vx2 = new LVect2d( noise.noise(x.x-delta,x.y,x.z), noise.noise(x.x-delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vy1 = new LVect2d( noise.noise(x.x,x.y+delta,x.z), noise.noise(x.x+100,x.y+delta+100,x.z+100) ).normal();
+        LVect2d vy2 = new LVect2d( noise.noise(x.x,x.y-delta,x.z), noise.noise(x.x+100,x.y-delta+100,x.z+100) ).normal();
+        LVect2d vz1 = new LVect2d( noise.noise(x.x,x.y,x.z+delta), noise.noise(x.x+100,x.y+100,x.z+delta+100) ).normal();
+        LVect2d vz2 = new LVect2d( noise.noise(x.x,x.y,x.z-delta), noise.noise(x.x+100,x.y+100,x.z-delta+100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new LVect3d( xpart, ypart, zpart );
+    }
+}
+
+fn ngrad_v3_v2_4 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( noise.noise(x.x+delta,x.y,x.z), noise.noise(x.x+delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vx2 = new LVect2d( noise.noise(x.x-delta,x.y,x.z), noise.noise(x.x-delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vy1 = new LVect2d( noise.noise(x.x,x.y+delta,x.z), noise.noise(x.x+100,x.y+delta+100,x.z+100) ).normal();
+        LVect2d vy2 = new LVect2d( noise.noise(x.x,x.y-delta,x.z), noise.noise(x.x+100,x.y-delta+100,x.z+100) ).normal();
+        LVect2d vz1 = new LVect2d( noise.noise(x.x,x.y,x.z+delta), noise.noise(x.x+100,x.y+100,x.z+delta+100) ).normal();
+        LVect2d vz2 = new LVect2d( noise.noise(x.x,x.y,x.z-delta), noise.noise(x.x+100,x.y+100,x.z-delta+100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new LVect3d( xpart, ypart, zpart ).normal();
+    }
+}
+
+fn ngrad_v3_v3_1 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (noise.noise(x.x+delta,x.y,x.z) - noise.noise(x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (noise.noise(x.x,x.y+delta,x.z) - noise.noise(x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (noise.noise(x.x,x.y,x.z+delta) - noise.noise(x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (noise.noise(x.x+delta+100,x.y+100,x.z+100) - noise.noise(x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (noise.noise(x.x+100,x.y+delta+100,x.z+100) - noise.noise(x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (noise.noise(x.x+100,x.y+100,x.z+delta+100) - noise.noise(x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        double dx3 = (noise.noise(x.x+delta+300,x.y+300,x.z+300) - noise.noise(x.x-delta+300,x.y+300,x.z+300)) / (2*delta);
+        double dy3 = (noise.noise(x.x+300,x.y+delta+300,x.z+300) - noise.noise(x.x+300,x.y-delta+300,x.z+300)) / (2*delta);
+        double dz3 = (noise.noise(x.x+300,x.y+300,x.z+delta+300) - noise.noise(x.x+300,x.y+300,x.z-delta+300)) / (2*delta);
+        LVect3d ynorm = y.normal();
+
+        return new LVect3d(
+                dx1*ynorm.x + dx2*ynorm.y + dx3*ynorm.z,
+                dy1*ynorm.x + dy2*ynorm.y + dy3*ynorm.z,
+                dz1*ynorm.x + dz2*ynorm.y + dz3*ynorm.z );
+    }
+}
+
+fn ngrad_v3_v3_2 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (noise.noise(x.x+delta,x.y,x.z) - noise.noise(x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (noise.noise(x.x,x.y+delta,x.z) - noise.noise(x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (noise.noise(x.x,x.y,x.z+delta) - noise.noise(x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (noise.noise(x.x+delta+100,x.y+100,x.z+100) - noise.noise(x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (noise.noise(x.x+100,x.y+delta+100,x.z+100) - noise.noise(x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (noise.noise(x.x+100,x.y+100,x.z+delta+100) - noise.noise(x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        double dx3 = (noise.noise(x.x+delta+300,x.y+300,x.z+300) - noise.noise(x.x-delta+300,x.y+300,x.z+300)) / (2*delta);
+        double dy3 = (noise.noise(x.x+300,x.y+delta+300,x.z+300) - noise.noise(x.x+300,x.y-delta+300,x.z+300)) / (2*delta);
+        double dz3 = (noise.noise(x.x+300,x.y+300,x.z+delta+300) - noise.noise(x.x+300,x.y+300,x.z-delta+300)) / (2*delta);
+        LVect3d ynorm = y.normal();
+
+        return new LVect3d(
+                dx1*ynorm.x + dx2*ynorm.y + dx3*ynorm.z,
+                dy1*ynorm.x + dy2*ynorm.y + dy3*ynorm.z,
+                dz1*ynorm.x + dz2*ynorm.y + dz3*ynorm.z ).normal();
+    }
+}
+
+fn ngrad_v3_v3_3 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect3d vx1 = new LVect3d( noise.noise(x.x+delta,x.y,x.z), noise.noise(x.x+delta+100,x.y+100,x.z+100), noise.noise(x.x+delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vx2 = new LVect3d( noise.noise(x.x-delta,x.y,x.z), noise.noise(x.x-delta+100,x.y+100,x.z+100), noise.noise(x.x-delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vy1 = new LVect3d( noise.noise(x.x,x.y+delta,x.z), noise.noise(x.x+100,x.y+delta+100,x.z+100), noise.noise(x.x+300,x.y+delta+300,x.z+300) ).normal();
+        LVect3d vy2 = new LVect3d( noise.noise(x.x,x.y-delta,x.z), noise.noise(x.x+100,x.y-delta+100,x.z+100), noise.noise(x.x+300,x.y-delta+300,x.z+300) ).normal();
+        LVect3d vz1 = new LVect3d( noise.noise(x.x,x.y,x.z+delta), noise.noise(x.x+100,x.y+100,x.z+delta+100), noise.noise(x.x+300,x.y+300,x.z+delta+300) ).normal();
+        LVect3d vz2 = new LVect3d( noise.noise(x.x,x.y,x.z-delta), noise.noise(x.x+100,x.y+100,x.z-delta+100), noise.noise(x.x+300,x.y+300,x.z-delta+300) ).normal();
+
+        LVect3d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new LVect3d( xpart, ypart, zpart );
+    }
+}
+
+fn ngrad_v3_v3_4 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect3d vx1 = new LVect3d( noise.noise(x.x+delta,x.y,x.z), noise.noise(x.x+delta+100,x.y+100,x.z+100), noise.noise(x.x+delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vx2 = new LVect3d( noise.noise(x.x-delta,x.y,x.z), noise.noise(x.x-delta+100,x.y+100,x.z+100), noise.noise(x.x-delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vy1 = new LVect3d( noise.noise(x.x,x.y+delta,x.z), noise.noise(x.x+100,x.y+delta+100,x.z+100), noise.noise(x.x+300,x.y+delta+300,x.z+300) ).normal();
+        LVect3d vy2 = new LVect3d( noise.noise(x.x,x.y-delta,x.z), noise.noise(x.x+100,x.y-delta+100,x.z+100), noise.noise(x.x+300,x.y-delta+300,x.z+300) ).normal();
+        LVect3d vz1 = new LVect3d( noise.noise(x.x,x.y,x.z+delta), noise.noise(x.x+100,x.y+100,x.z+delta+100), noise.noise(x.x+300,x.y+300,x.z+delta+300) ).normal();
+        LVect3d vz2 = new LVect3d( noise.noise(x.x,x.y,x.z-delta), noise.noise(x.x+100,x.y+100,x.z-delta+100), noise.noise(x.x+300,x.y+300,x.z-delta+300) ).normal();
+
+        LVect3d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new LVect3d( xpart, ypart, zpart ).normal();
+    }
+}
+
+fn ngrad_col_v2_1 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (noise.noise(x.x+delta,x.y,x.z) - noise.noise(x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (noise.noise(x.x,x.y+delta,x.z) - noise.noise(x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (noise.noise(x.x,x.y,x.z+delta) - noise.noise(x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (noise.noise(x.x+delta+100,x.y+100,x.z+100) - noise.noise(x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (noise.noise(x.x+100,x.y+delta+100,x.z+100) - noise.noise(x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (noise.noise(x.x+100,x.y+100,x.z+delta+100) - noise.noise(x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new Color(
+                dx1*ynorm.x + dx2*ynorm.y,
+                dy1*ynorm.x + dy2*ynorm.y,
+                dz1*ynorm.x + dz2*ynorm.y );
+    }
+}
+
+fn ngrad_col_v2_2 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (noise.noise(x.x+delta,x.y,x.z) - noise.noise(x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (noise.noise(x.x,x.y+delta,x.z) - noise.noise(x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (noise.noise(x.x,x.y,x.z+delta) - noise.noise(x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (noise.noise(x.x+delta+100,x.y+100,x.z+100) - noise.noise(x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (noise.noise(x.x+100,x.y+delta+100,x.z+100) - noise.noise(x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (noise.noise(x.x+100,x.y+100,x.z+delta+100) - noise.noise(x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new Color(
+                dx1*ynorm.x + dx2*ynorm.y,
+                dy1*ynorm.x + dy2*ynorm.y,
+                dz1*ynorm.x + dz2*ynorm.y ).normal();
+    }
+}
+
+fn ngrad_col_v2_3 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( noise.noise(x.x+delta,x.y,x.z), noise.noise(x.x+delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vx2 = new LVect2d( noise.noise(x.x-delta,x.y,x.z), noise.noise(x.x-delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vy1 = new LVect2d( noise.noise(x.x,x.y+delta,x.z), noise.noise(x.x+100,x.y+delta+100,x.z+100) ).normal();
+        LVect2d vy2 = new LVect2d( noise.noise(x.x,x.y-delta,x.z), noise.noise(x.x+100,x.y-delta+100,x.z+100) ).normal();
+        LVect2d vz1 = new LVect2d( noise.noise(x.x,x.y,x.z+delta), noise.noise(x.x+100,x.y+100,x.z+delta+100) ).normal();
+        LVect2d vz2 = new LVect2d( noise.noise(x.x,x.y,x.z-delta), noise.noise(x.x+100,x.y+100,x.z-delta+100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new Color( xpart, ypart, zpart );
+    }
+}
+
+fn ngrad_col_v2_4 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( noise.noise(x.x+delta,x.y,x.z), noise.noise(x.x+delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vx2 = new LVect2d( noise.noise(x.x-delta,x.y,x.z), noise.noise(x.x-delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vy1 = new LVect2d( noise.noise(x.x,x.y+delta,x.z), noise.noise(x.x+100,x.y+delta+100,x.z+100) ).normal();
+        LVect2d vy2 = new LVect2d( noise.noise(x.x,x.y-delta,x.z), noise.noise(x.x+100,x.y-delta+100,x.z+100) ).normal();
+        LVect2d vz1 = new LVect2d( noise.noise(x.x,x.y,x.z+delta), noise.noise(x.x+100,x.y+100,x.z+delta+100) ).normal();
+        LVect2d vz2 = new LVect2d( noise.noise(x.x,x.y,x.z-delta), noise.noise(x.x+100,x.y+100,x.z-delta+100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new Color( xpart, ypart, zpart ).normal();
+    }
+}
+
+fn ngrad_col_v3_1 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (noise.noise(x.x+delta,x.y,x.z) - noise.noise(x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (noise.noise(x.x,x.y+delta,x.z) - noise.noise(x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (noise.noise(x.x,x.y,x.z+delta) - noise.noise(x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (noise.noise(x.x+delta+100,x.y+100,x.z+100) - noise.noise(x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (noise.noise(x.x+100,x.y+delta+100,x.z+100) - noise.noise(x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (noise.noise(x.x+100,x.y+100,x.z+delta+100) - noise.noise(x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        double dx3 = (noise.noise(x.x+delta+300,x.y+300,x.z+300) - noise.noise(x.x-delta+300,x.y+300,x.z+300)) / (2*delta);
+        double dy3 = (noise.noise(x.x+300,x.y+delta+300,x.z+300) - noise.noise(x.x+300,x.y-delta+300,x.z+300)) / (2*delta);
+        double dz3 = (noise.noise(x.x+300,x.y+300,x.z+delta+300) - noise.noise(x.x+300,x.y+300,x.z-delta+300)) / (2*delta);
+        LVect3d ynorm = y.normal();
+
+        return new Color(
+                dx1*ynorm.x + dx2*ynorm.y + dx3*ynorm.z,
+                dy1*ynorm.x + dy2*ynorm.y + dy3*ynorm.z,
+                dz1*ynorm.x + dz2*ynorm.y + dz3*ynorm.z );
+    }
+}
+
+fn ngrad_col_v3_2 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (noise.noise(x.x+delta,x.y,x.z) - noise.noise(x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (noise.noise(x.x,x.y+delta,x.z) - noise.noise(x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (noise.noise(x.x,x.y,x.z+delta) - noise.noise(x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (noise.noise(x.x+delta+100,x.y+100,x.z+100) - noise.noise(x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (noise.noise(x.x+100,x.y+delta+100,x.z+100) - noise.noise(x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (noise.noise(x.x+100,x.y+100,x.z+delta+100) - noise.noise(x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        double dx3 = (noise.noise(x.x+delta+300,x.y+300,x.z+300) - noise.noise(x.x-delta+300,x.y+300,x.z+300)) / (2*delta);
+        double dy3 = (noise.noise(x.x+300,x.y+delta+300,x.z+300) - noise.noise(x.x+300,x.y-delta+300,x.z+300)) / (2*delta);
+        double dz3 = (noise.noise(x.x+300,x.y+300,x.z+delta+300) - noise.noise(x.x+300,x.y+300,x.z-delta+300)) / (2*delta);
+        LVect3d ynorm = y.normal();
+
+        return new Color(
+                dx1*ynorm.x + dx2*ynorm.y + dx3*ynorm.z,
+                dy1*ynorm.x + dy2*ynorm.y + dy3*ynorm.z,
+                dz1*ynorm.x + dz2*ynorm.y + dz3*ynorm.z ).normal();
+    }
+}
+
+fn ngrad_col_v3_3 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect3d vx1 = new LVect3d( noise.noise(x.x+delta,x.y,x.z), noise.noise(x.x+delta+100,x.y+100,x.z+100), noise.noise(x.x+delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vx2 = new LVect3d( noise.noise(x.x-delta,x.y,x.z), noise.noise(x.x-delta+100,x.y+100,x.z+100), noise.noise(x.x-delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vy1 = new LVect3d( noise.noise(x.x,x.y+delta,x.z), noise.noise(x.x+100,x.y+delta+100,x.z+100), noise.noise(x.x+300,x.y+delta+300,x.z+300) ).normal();
+        LVect3d vy2 = new LVect3d( noise.noise(x.x,x.y-delta,x.z), noise.noise(x.x+100,x.y-delta+100,x.z+100), noise.noise(x.x+300,x.y-delta+300,x.z+300) ).normal();
+        LVect3d vz1 = new LVect3d( noise.noise(x.x,x.y,x.z+delta), noise.noise(x.x+100,x.y+100,x.z+delta+100), noise.noise(x.x+300,x.y+300,x.z+delta+300) ).normal();
+        LVect3d vz2 = new LVect3d( noise.noise(x.x,x.y,x.z-delta), noise.noise(x.x+100,x.y+100,x.z-delta+100), noise.noise(x.x+300,x.y+300,x.z-delta+300) ).normal();
+
+        LVect3d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new Color( xpart, ypart, zpart );
+    }
+}
+
+fn ngrad_col_v3_4 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect3d vx1 = new LVect3d( noise.noise(x.x+delta,x.y,x.z), noise.noise(x.x+delta+100,x.y+100,x.z+100), noise.noise(x.x+delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vx2 = new LVect3d( noise.noise(x.x-delta,x.y,x.z), noise.noise(x.x-delta+100,x.y+100,x.z+100), noise.noise(x.x-delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vy1 = new LVect3d( noise.noise(x.x,x.y+delta,x.z), noise.noise(x.x+100,x.y+delta+100,x.z+100), noise.noise(x.x+300,x.y+delta+300,x.z+300) ).normal();
+        LVect3d vy2 = new LVect3d( noise.noise(x.x,x.y-delta,x.z), noise.noise(x.x+100,x.y-delta+100,x.z+100), noise.noise(x.x+300,x.y-delta+300,x.z+300) ).normal();
+        LVect3d vz1 = new LVect3d( noise.noise(x.x,x.y,x.z+delta), noise.noise(x.x+100,x.y+100,x.z+delta+100), noise.noise(x.x+300,x.y+300,x.z+delta+300) ).normal();
+        LVect3d vz2 = new LVect3d( noise.noise(x.x,x.y,x.z-delta), noise.noise(x.x+100,x.y+100,x.z-delta+100), noise.noise(x.x+300,x.y+300,x.z-delta+300) ).normal();
+
+        LVect3d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new Color( xpart, ypart, zpart ).normal();
+    }
+}
+
+// ************
+// *** fractals
+// ************
+
+fn fgrad_v2_d_1 {
+    in LVect2d x;
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx = (fractal.evalFractal(noise,x.x+delta,x.y,0) - fractal.evalFractal(noise,x.x-delta,x.y,0)) / (2*delta);
+        double dy = (fractal.evalFractal(noise,x.x,x.y+delta,0) - fractal.evalFractal(noise,x.x,x.y-delta,0)) / (2*delta);
+
+        return new LVect2d(dx, dy);
+    }
+}
+
+fn fgrad_v2_d_2 {
+    in LVect2d x;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx = (fractal.evalFractal(noise,x.x+delta,x.y,0) - fractal.evalFractal(noise,x.x-delta,x.y,0)) / (2*delta);
+        double dy = (fractal.evalFractal(noise,x.x,x.y+delta,0) - fractal.evalFractal(noise,x.x,x.y-delta,0)) / (2*delta);
+
+        return new LVect2d(dx, dy).normal();
+    }
+}
+
+fn fgrad_v3_d_1 {
+    in LVect3d x;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx = (fractal.evalFractal(noise,x.x+delta,x.y,x.z) - fractal.evalFractal(noise,x.x-delta,x.y,x.z)) / (2*delta);
+        double dy = (fractal.evalFractal(noise,x.x,x.y+delta,x.z) - fractal.evalFractal(noise,x.x,x.y-delta,x.z)) / (2*delta);
+        double dz = (fractal.evalFractal(noise,x.x,x.y,x.z+delta) - fractal.evalFractal(noise,x.x,x.y,x.z-delta)) / (2*delta);
+
+        return new LVect3d(dx, dy, dz);
+    }
+}
+
+fn fgrad_v3_d_2 {
+    in LVect3d x;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx = (fractal.evalFractal(noise,x.x+delta,x.y,x.z) - fractal.evalFractal(noise,x.x-delta,x.y,x.z)) / (2*delta);
+        double dy = (fractal.evalFractal(noise,x.x,x.y+delta,x.z) - fractal.evalFractal(noise,x.x,x.y-delta,x.z)) / (2*delta);
+        double dz = (fractal.evalFractal(noise,x.x,x.y,x.z+delta) - fractal.evalFractal(noise,x.x,x.y,x.z-delta)) / (2*delta);
+
+        return new LVect3d(dx, dy, dz).normal();
+    }
+}
+
+fn fgrad_v2_v2_1 {
+    in LVect2d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (fractal.evalFractal(noise,x.x+delta,x.y,0) - fractal.evalFractal(noise,x.x-delta,x.y,0)) / (2*delta);
+        double dy1 = (fractal.evalFractal(noise,x.x,x.y+delta,0) - fractal.evalFractal(noise,x.x,x.y-delta,0)) / (2*delta);
+        double dx2 = (fractal.evalFractal(noise,x.x+delta+100,x.y+100,100) - fractal.evalFractal(noise,x.x-delta+100,x.y+100,100)) / (2*delta);
+        double dy2 = (fractal.evalFractal(noise,x.x+100,x.y+delta+100,100) - fractal.evalFractal(noise,x.x+100,x.y-delta+100,100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new LVect2d( dx1*ynorm.x + dx2*ynorm.y, dy1*ynorm.x + dy2*ynorm.y);
+    }
+}
+
+fn fgrad_v2_v2_2 {
+    in LVect2d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (fractal.evalFractal(noise,x.x+delta,x.y,0) - fractal.evalFractal(noise,x.x-delta,x.y,0)) / (2*delta);
+        double dy1 = (fractal.evalFractal(noise,x.x,x.y+delta,0) - fractal.evalFractal(noise,x.x,x.y-delta,0)) / (2*delta);
+        double dx2 = (fractal.evalFractal(noise,x.x+delta+100,x.y+100,100) - fractal.evalFractal(noise,x.x-delta+100,x.y+100,100)) / (2*delta);
+        double dy2 = (fractal.evalFractal(noise,x.x+100,x.y+delta+100,100) - fractal.evalFractal(noise,x.x+100,x.y-delta+100,100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new LVect2d( dx1*ynorm.x + dx2*ynorm.y, dy1*ynorm.x + dy2*ynorm.y).normal();
+    }
+}
+
+fn fgrad_v2_v2_3 {
+    in LVect2d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( fractal.evalFractal(noise,x.x+delta,x.y,0), fractal.evalFractal(noise,x.x+delta+100,x.y+100,100) ).normal();
+        LVect2d vx2 = new LVect2d( fractal.evalFractal(noise,x.x-delta,x.y,0), fractal.evalFractal(noise,x.x-delta+100,x.y+100,100) ).normal();
+        LVect2d vy1 = new LVect2d( fractal.evalFractal(noise,x.x,x.y+delta,0), fractal.evalFractal(noise,x.x+100,x.y+delta+100,100) ).normal();
+        LVect2d vy2 = new LVect2d( fractal.evalFractal(noise,x.x,x.y-delta,0), fractal.evalFractal(noise,x.x+100,x.y-delta+100,100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+
+        return new LVect2d( xpart, ypart );
+    }
+}
+
+fn fgrad_v2_v2_4 {
+    in LVect2d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect2d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( fractal.evalFractal(noise,x.x+delta,x.y,0), fractal.evalFractal(noise,x.x+delta+100,x.y+100,100) ).normal();
+        LVect2d vx2 = new LVect2d( fractal.evalFractal(noise,x.x-delta,x.y,0), fractal.evalFractal(noise,x.x-delta+100,x.y+100,100) ).normal();
+        LVect2d vy1 = new LVect2d( fractal.evalFractal(noise,x.x,x.y+delta,0), fractal.evalFractal(noise,x.x+100,x.y+delta+100,100) ).normal();
+        LVect2d vy2 = new LVect2d( fractal.evalFractal(noise,x.x,x.y-delta,0), fractal.evalFractal(noise,x.x+100,x.y-delta+100,100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+
+        return new LVect2d( xpart, ypart ).normal();
+    }
+}
+
+fn fgrad_v3_v2_1 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (fractal.evalFractal(noise,x.x+delta,x.y,x.z) - fractal.evalFractal(noise,x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (fractal.evalFractal(noise,x.x,x.y+delta,x.z) - fractal.evalFractal(noise,x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (fractal.evalFractal(noise,x.x,x.y,x.z+delta) - fractal.evalFractal(noise,x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) - fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) - fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) - fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new LVect3d(
+                dx1*ynorm.x + dx2*ynorm.y,
+                dy1*ynorm.x + dy2*ynorm.y,
+                dz1*ynorm.x + dz2*ynorm.y );
+    }
+}
+
+fn fgrad_v3_v2_2 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (fractal.evalFractal(noise,x.x+delta,x.y,x.z) - fractal.evalFractal(noise,x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (fractal.evalFractal(noise,x.x,x.y+delta,x.z) - fractal.evalFractal(noise,x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (fractal.evalFractal(noise,x.x,x.y,x.z+delta) - fractal.evalFractal(noise,x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) - fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) - fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) - fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new LVect3d(
+                dx1*ynorm.x + dx2*ynorm.y,
+                dy1*ynorm.x + dy2*ynorm.y,
+                dz1*ynorm.x + dz2*ynorm.y ).normal();
+    }
+}
+
+fn fgrad_v3_v2_3 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( fractal.evalFractal(noise,x.x+delta,x.y,x.z), fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vx2 = new LVect2d( fractal.evalFractal(noise,x.x-delta,x.y,x.z), fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vy1 = new LVect2d( fractal.evalFractal(noise,x.x,x.y+delta,x.z), fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) ).normal();
+        LVect2d vy2 = new LVect2d( fractal.evalFractal(noise,x.x,x.y-delta,x.z), fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100) ).normal();
+        LVect2d vz1 = new LVect2d( fractal.evalFractal(noise,x.x,x.y,x.z+delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) ).normal();
+        LVect2d vz2 = new LVect2d( fractal.evalFractal(noise,x.x,x.y,x.z-delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new LVect3d( xpart, ypart, zpart );
+    }
+}
+
+fn fgrad_v3_v2_4 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( fractal.evalFractal(noise,x.x+delta,x.y,x.z), fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vx2 = new LVect2d( fractal.evalFractal(noise,x.x-delta,x.y,x.z), fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vy1 = new LVect2d( fractal.evalFractal(noise,x.x,x.y+delta,x.z), fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) ).normal();
+        LVect2d vy2 = new LVect2d( fractal.evalFractal(noise,x.x,x.y-delta,x.z), fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100) ).normal();
+        LVect2d vz1 = new LVect2d( fractal.evalFractal(noise,x.x,x.y,x.z+delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) ).normal();
+        LVect2d vz2 = new LVect2d( fractal.evalFractal(noise,x.x,x.y,x.z-delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new LVect3d( xpart, ypart, zpart ).normal();
+    }
+}
+
+fn fgrad_v3_v3_1 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (fractal.evalFractal(noise,x.x+delta,x.y,x.z) - fractal.evalFractal(noise,x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (fractal.evalFractal(noise,x.x,x.y+delta,x.z) - fractal.evalFractal(noise,x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (fractal.evalFractal(noise,x.x,x.y,x.z+delta) - fractal.evalFractal(noise,x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) - fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) - fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) - fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        double dx3 = (fractal.evalFractal(noise,x.x+delta+300,x.y+300,x.z+300) - fractal.evalFractal(noise,x.x-delta+300,x.y+300,x.z+300)) / (2*delta);
+        double dy3 = (fractal.evalFractal(noise,x.x+300,x.y+delta+300,x.z+300) - fractal.evalFractal(noise,x.x+300,x.y-delta+300,x.z+300)) / (2*delta);
+        double dz3 = (fractal.evalFractal(noise,x.x+300,x.y+300,x.z+delta+300) - fractal.evalFractal(noise,x.x+300,x.y+300,x.z-delta+300)) / (2*delta);
+        LVect3d ynorm = y.normal();
+
+        return new LVect3d(
+                dx1*ynorm.x + dx2*ynorm.y + dx3*ynorm.z,
+                dy1*ynorm.x + dy2*ynorm.y + dy3*ynorm.z,
+                dz1*ynorm.x + dz2*ynorm.y + dz3*ynorm.z );
+    }
+}
+
+fn fgrad_v3_v3_2 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (fractal.evalFractal(noise,x.x+delta,x.y,x.z) - fractal.evalFractal(noise,x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (fractal.evalFractal(noise,x.x,x.y+delta,x.z) - fractal.evalFractal(noise,x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (fractal.evalFractal(noise,x.x,x.y,x.z+delta) - fractal.evalFractal(noise,x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) - fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) - fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) - fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        double dx3 = (fractal.evalFractal(noise,x.x+delta+300,x.y+300,x.z+300) - fractal.evalFractal(noise,x.x-delta+300,x.y+300,x.z+300)) / (2*delta);
+        double dy3 = (fractal.evalFractal(noise,x.x+300,x.y+delta+300,x.z+300) - fractal.evalFractal(noise,x.x+300,x.y-delta+300,x.z+300)) / (2*delta);
+        double dz3 = (fractal.evalFractal(noise,x.x+300,x.y+300,x.z+delta+300) - fractal.evalFractal(noise,x.x+300,x.y+300,x.z-delta+300)) / (2*delta);
+        LVect3d ynorm = y.normal();
+
+        return new LVect3d(
+                dx1*ynorm.x + dx2*ynorm.y + dx3*ynorm.z,
+                dy1*ynorm.x + dy2*ynorm.y + dy3*ynorm.z,
+                dz1*ynorm.x + dz2*ynorm.y + dz3*ynorm.z ).normal();
+    }
+}
+
+fn fgrad_v3_v3_3 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect3d vx1 = new LVect3d( fractal.evalFractal(noise,x.x+delta,x.y,x.z), fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x+delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vx2 = new LVect3d( fractal.evalFractal(noise,x.x-delta,x.y,x.z), fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x-delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vy1 = new LVect3d( fractal.evalFractal(noise,x.x,x.y+delta,x.z), fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y+delta+300,x.z+300) ).normal();
+        LVect3d vy2 = new LVect3d( fractal.evalFractal(noise,x.x,x.y-delta,x.z), fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y-delta+300,x.z+300) ).normal();
+        LVect3d vz1 = new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z+delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z+delta+300) ).normal();
+        LVect3d vz2 = new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z-delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z-delta+300) ).normal();
+
+        LVect3d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new LVect3d( xpart, ypart, zpart );
+    }
+}
+
+fn fgrad_v3_v3_4 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout LVect3d;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect3d vx1 = new LVect3d( fractal.evalFractal(noise,x.x+delta,x.y,x.z), fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x+delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vx2 = new LVect3d( fractal.evalFractal(noise,x.x-delta,x.y,x.z), fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x-delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vy1 = new LVect3d( fractal.evalFractal(noise,x.x,x.y+delta,x.z), fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y+delta+300,x.z+300) ).normal();
+        LVect3d vy2 = new LVect3d( fractal.evalFractal(noise,x.x,x.y-delta,x.z), fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y-delta+300,x.z+300) ).normal();
+        LVect3d vz1 = new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z+delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z+delta+300) ).normal();
+        LVect3d vz2 = new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z-delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z-delta+300) ).normal();
+
+        LVect3d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new LVect3d( xpart, ypart, zpart ).normal();
+    }
+}
+
+fn fgrad_col_v2_1 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (fractal.evalFractal(noise,x.x+delta,x.y,x.z) - fractal.evalFractal(noise,x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (fractal.evalFractal(noise,x.x,x.y+delta,x.z) - fractal.evalFractal(noise,x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (fractal.evalFractal(noise,x.x,x.y,x.z+delta) - fractal.evalFractal(noise,x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) - fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) - fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) - fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new Color(
+                dx1*ynorm.x + dx2*ynorm.y,
+                dy1*ynorm.x + dy2*ynorm.y,
+                dz1*ynorm.x + dz2*ynorm.y );
+    }
+}
+
+fn fgrad_col_v2_2 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (fractal.evalFractal(noise,x.x+delta,x.y,x.z) - fractal.evalFractal(noise,x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (fractal.evalFractal(noise,x.x,x.y+delta,x.z) - fractal.evalFractal(noise,x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (fractal.evalFractal(noise,x.x,x.y,x.z+delta) - fractal.evalFractal(noise,x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) - fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) - fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) - fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        LVect2d ynorm = y.normal();
+
+        return new Color(
+                dx1*ynorm.x + dx2*ynorm.y,
+                dy1*ynorm.x + dy2*ynorm.y,
+                dz1*ynorm.x + dz2*ynorm.y ).normal();
+    }
+}
+
+fn fgrad_col_v2_3 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( fractal.evalFractal(noise,x.x+delta,x.y,x.z), fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vx2 = new LVect2d( fractal.evalFractal(noise,x.x-delta,x.y,x.z), fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vy1 = new LVect2d( fractal.evalFractal(noise,x.x,x.y+delta,x.z), fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) ).normal();
+        LVect2d vy2 = new LVect2d( fractal.evalFractal(noise,x.x,x.y-delta,x.z), fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100) ).normal();
+        LVect2d vz1 = new LVect2d( fractal.evalFractal(noise,x.x,x.y,x.z+delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) ).normal();
+        LVect2d vz2 = new LVect2d( fractal.evalFractal(noise,x.x,x.y,x.z-delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new Color( xpart, ypart, zpart );
+    }
+}
+
+fn fgrad_col_v2_4 {
+    in LVect3d x;
+    in LVect2d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect2d vx1 = new LVect2d( fractal.evalFractal(noise,x.x+delta,x.y,x.z), fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vx2 = new LVect2d( fractal.evalFractal(noise,x.x-delta,x.y,x.z), fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100) ).normal();
+        LVect2d vy1 = new LVect2d( fractal.evalFractal(noise,x.x,x.y+delta,x.z), fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) ).normal();
+        LVect2d vy2 = new LVect2d( fractal.evalFractal(noise,x.x,x.y-delta,x.z), fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100) ).normal();
+        LVect2d vz1 = new LVect2d( fractal.evalFractal(noise,x.x,x.y,x.z+delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) ).normal();
+        LVect2d vz2 = new LVect2d( fractal.evalFractal(noise,x.x,x.y,x.z-delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100) ).normal();
+
+        LVect2d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new Color( xpart, ypart, zpart ).normal();
+    }
+}
+
+fn fgrad_col_v3_1 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise; 
+    in NoiseFractal fractal;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (fractal.evalFractal(noise,x.x+delta,x.y,x.z) - fractal.evalFractal(noise,x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (fractal.evalFractal(noise,x.x,x.y+delta,x.z) - fractal.evalFractal(noise,x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (fractal.evalFractal(noise,x.x,x.y,x.z+delta) - fractal.evalFractal(noise,x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) - fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) - fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) - fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        double dx3 = (fractal.evalFractal(noise,x.x+delta+300,x.y+300,x.z+300) - fractal.evalFractal(noise,x.x-delta+300,x.y+300,x.z+300)) / (2*delta);
+        double dy3 = (fractal.evalFractal(noise,x.x+300,x.y+delta+300,x.z+300) - fractal.evalFractal(noise,x.x+300,x.y-delta+300,x.z+300)) / (2*delta);
+        double dz3 = (fractal.evalFractal(noise,x.x+300,x.y+300,x.z+delta+300) - fractal.evalFractal(noise,x.x+300,x.y+300,x.z-delta+300)) / (2*delta);
+        LVect3d ynorm = y.normal();
+
+        return new Color(
+                dx1*ynorm.x + dx2*ynorm.y + dx3*ynorm.z,
+                dy1*ynorm.x + dy2*ynorm.y + dy3*ynorm.z,
+                dz1*ynorm.x + dz2*ynorm.y + dz3*ynorm.z );
+    }
+}
+
+fn fgrad_col_v3_2 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        double dx1 = (fractal.evalFractal(noise,x.x+delta,x.y,x.z) - fractal.evalFractal(noise,x.x-delta,x.y,x.z)) / (2*delta);
+        double dy1 = (fractal.evalFractal(noise,x.x,x.y+delta,x.z) - fractal.evalFractal(noise,x.x,x.y-delta,x.z)) / (2*delta);
+        double dz1 = (fractal.evalFractal(noise,x.x,x.y,x.z+delta) - fractal.evalFractal(noise,x.x,x.y,x.z-delta)) / (2*delta);
+        double dx2 = (fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100) - fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100)) / (2*delta);
+        double dy2 = (fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100) - fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100)) / (2*delta);
+        double dz2 = (fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100) - fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100)) / (2*delta);
+        double dx3 = (fractal.evalFractal(noise,x.x+delta+300,x.y+300,x.z+300) - fractal.evalFractal(noise,x.x-delta+300,x.y+300,x.z+300)) / (2*delta);
+        double dy3 = (fractal.evalFractal(noise,x.x+300,x.y+delta+300,x.z+300) - fractal.evalFractal(noise,x.x+300,x.y-delta+300,x.z+300)) / (2*delta);
+        double dz3 = (fractal.evalFractal(noise,x.x+300,x.y+300,x.z+delta+300) - fractal.evalFractal(noise,x.x+300,x.y+300,x.z-delta+300)) / (2*delta);
+        LVect3d ynorm = y.normal();
+
+        return new Color(
+                dx1*ynorm.x + dx2*ynorm.y + dx3*ynorm.z,
+                dy1*ynorm.x + dy2*ynorm.y + dy3*ynorm.z,
+                dz1*ynorm.x + dz2*ynorm.y + dz3*ynorm.z ).normal();
+    }
+}
+
+fn fgrad_col_v3_3 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect3d vx1 = new LVect3d( fractal.evalFractal(noise,x.x+delta,x.y,x.z), fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x+delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vx2 = new LVect3d( fractal.evalFractal(noise,x.x-delta,x.y,x.z), fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x-delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vy1 = new LVect3d( fractal.evalFractal(noise,x.x,x.y+delta,x.z), fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y+delta+300,x.z+300) ).normal();
+        LVect3d vy2 = new LVect3d( fractal.evalFractal(noise,x.x,x.y-delta,x.z), fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y-delta+300,x.z+300) ).normal();
+        LVect3d vz1 = new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z+delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z+delta+300) ).normal();
+        LVect3d vz2 = new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z-delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z-delta+300) ).normal();
+
+        LVect3d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new Color( xpart, ypart, zpart );
+    }
+}
+
+fn fgrad_col_v3_4 {
+    in LVect3d x;
+    in LVect3d y;
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout Color;
+
+    private static final double delta = .01;
+
+    eval {
+        LVect3d vx1 = new LVect3d( fractal.evalFractal(noise,x.x+delta,x.y,x.z), fractal.evalFractal(noise,x.x+delta+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x+delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vx2 = new LVect3d( fractal.evalFractal(noise,x.x-delta,x.y,x.z), fractal.evalFractal(noise,x.x-delta+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x-delta+300,x.y+300,x.z+300) ).normal();
+        LVect3d vy1 = new LVect3d( fractal.evalFractal(noise,x.x,x.y+delta,x.z), fractal.evalFractal(noise,x.x+100,x.y+delta+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y+delta+300,x.z+300) ).normal();
+        LVect3d vy2 = new LVect3d( fractal.evalFractal(noise,x.x,x.y-delta,x.z), fractal.evalFractal(noise,x.x+100,x.y-delta+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y-delta+300,x.z+300) ).normal();
+        LVect3d vz1 = new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z+delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+delta+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z+delta+300) ).normal();
+        LVect3d vz2 = new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z-delta), fractal.evalFractal(noise,x.x+100,x.y+100,x.z-delta+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z-delta+300) ).normal();
+
+        LVect3d ynorm = y.normal();
+        double xpart = vx1.sub(vx2).dot(ynorm) / (2*delta);
+        double ypart = vy1.sub(vy2).dot(ynorm) / (2*delta);
+        double zpart = vz1.sub(vz2).dot(ynorm) / (2*delta);
+
+        return new Color( xpart, ypart, zpart ).normal();
+    }
+}

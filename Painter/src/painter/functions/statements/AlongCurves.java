@@ -7,6 +7,7 @@ import genetic.component.command.*;
 import genetic.component.context.*;
 import genetic.component.expression.*;
 import genetic.component.expression.function.*;
+import genetic.component.expression.function.cx.*;
 import genetic.component.method.*;
 import genetic.component.program.*;
 import genetic.component.statement.*;
@@ -88,23 +89,6 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
          return "Iterates densely along a LDouble curve";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
-         Expression curve = (Expression) inputs.get(0);
-         StatementList body = (StatementList) inputs.get(1);
-         String __i = getContextVariableActualName("i");
-         Integer i;
-         String __x = getContextVariableActualName("x");
-         LDouble x;
-         i = 0 ; context.setVariable(__i, i);
-         CurveUtil . Curve_d evalCurve = ( CurveUtil . Curve_d ) curve . evaluate ( context ) ;
-         while ( i < n ) {
-         double t = 1.0 * i / n ;
-         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
-         body . execute ( context ) ;
-         i = i + 1 ; context.setVariable(__i, i);
-         }
-      }
-
       public int getNumberContextVariables() {
          return 2;
       }
@@ -125,6 +109,23 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
             default: return null;
          }
 
+      }
+
+      public void execute(Context context, List<GeneticComponent> inputs) {
+         Expression curve = (Expression) inputs.get(0);
+         StatementList body = (StatementList) inputs.get(1);
+         final String __i = getContextVariableActualName("i");
+         Integer i;
+         final String __x = getContextVariableActualName("x");
+         LDouble x;
+         i = 0 ; context.setVariable(__i, i);
+         CurveUtil . Curve_d evalCurve = ( CurveUtil . Curve_d ) curve . evaluate ( context ) ;
+         while ( i < n ) {
+         double t = 1.0 * i / n ;
+         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
+         body . execute ( context ) ;
+         i = i + 1 ; context.setVariable(__i, i);
+         }
       }
 
    }
@@ -200,23 +201,6 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
          return "Iterates lightly along a LDouble curve";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
-         Expression curve = (Expression) inputs.get(0);
-         StatementList body = (StatementList) inputs.get(1);
-         String __i = getContextVariableActualName("i");
-         Integer i;
-         String __x = getContextVariableActualName("x");
-         LDouble x;
-         i = 0 ; context.setVariable(__i, i);
-         CurveUtil . Curve_d evalCurve = ( CurveUtil . Curve_d ) curve . evaluate ( context ) ;
-         while ( i < n ) {
-         double t = 1.0 * i / n ;
-         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
-         body . execute ( context ) ;
-         i = i + 1 ; context.setVariable(__i, i);
-         }
-      }
-
       public int getNumberContextVariables() {
          return 2;
       }
@@ -237,6 +221,23 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
             default: return null;
          }
 
+      }
+
+      public void execute(Context context, List<GeneticComponent> inputs) {
+         Expression curve = (Expression) inputs.get(0);
+         StatementList body = (StatementList) inputs.get(1);
+         final String __i = getContextVariableActualName("i");
+         Integer i;
+         final String __x = getContextVariableActualName("x");
+         LDouble x;
+         i = 0 ; context.setVariable(__i, i);
+         CurveUtil . Curve_d evalCurve = ( CurveUtil . Curve_d ) curve . evaluate ( context ) ;
+         while ( i < n ) {
+         double t = 1.0 * i / n ;
+         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
+         body . execute ( context ) ;
+         i = i + 1 ; context.setVariable(__i, i);
+         }
       }
 
    }
@@ -312,23 +313,6 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
          return "Iterates densely along a LVect2d curve";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
-         Expression curve = (Expression) inputs.get(0);
-         StatementList body = (StatementList) inputs.get(1);
-         String __i = getContextVariableActualName("i");
-         Integer i;
-         String __x = getContextVariableActualName("x");
-         LVect2d x;
-         i = 0 ; context.setVariable(__i, i);
-         CurveUtil . Curve_v2 evalCurve = ( CurveUtil . Curve_v2 ) curve . evaluate ( context ) ;
-         while ( i < n ) {
-         double t = 1.0 * i / n ;
-         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
-         body . execute ( context ) ;
-         i = i + 1 ; context.setVariable(__i, i);
-         }
-      }
-
       public int getNumberContextVariables() {
          return 2;
       }
@@ -349,6 +333,23 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
             default: return null;
          }
 
+      }
+
+      public void execute(Context context, List<GeneticComponent> inputs) {
+         Expression curve = (Expression) inputs.get(0);
+         StatementList body = (StatementList) inputs.get(1);
+         final String __i = getContextVariableActualName("i");
+         Integer i;
+         final String __x = getContextVariableActualName("x");
+         LVect2d x;
+         i = 0 ; context.setVariable(__i, i);
+         CurveUtil . Curve_v2 evalCurve = ( CurveUtil . Curve_v2 ) curve . evaluate ( context ) ;
+         while ( i < n ) {
+         double t = 1.0 * i / n ;
+         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
+         body . execute ( context ) ;
+         i = i + 1 ; context.setVariable(__i, i);
+         }
       }
 
    }
@@ -424,23 +425,6 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
          return "Iterates lightly along a LVect2d curve";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
-         Expression curve = (Expression) inputs.get(0);
-         StatementList body = (StatementList) inputs.get(1);
-         String __i = getContextVariableActualName("i");
-         Integer i;
-         String __x = getContextVariableActualName("x");
-         LVect2d x;
-         i = 0 ; context.setVariable(__i, i);
-         CurveUtil . Curve_v2 evalCurve = ( CurveUtil . Curve_v2 ) curve . evaluate ( context ) ;
-         while ( i < n ) {
-         double t = 1.0 * i / n ;
-         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
-         body . execute ( context ) ;
-         i = i + 1 ; context.setVariable(__i, i);
-         }
-      }
-
       public int getNumberContextVariables() {
          return 2;
       }
@@ -461,6 +445,23 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
             default: return null;
          }
 
+      }
+
+      public void execute(Context context, List<GeneticComponent> inputs) {
+         Expression curve = (Expression) inputs.get(0);
+         StatementList body = (StatementList) inputs.get(1);
+         final String __i = getContextVariableActualName("i");
+         Integer i;
+         final String __x = getContextVariableActualName("x");
+         LVect2d x;
+         i = 0 ; context.setVariable(__i, i);
+         CurveUtil . Curve_v2 evalCurve = ( CurveUtil . Curve_v2 ) curve . evaluate ( context ) ;
+         while ( i < n ) {
+         double t = 1.0 * i / n ;
+         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
+         body . execute ( context ) ;
+         i = i + 1 ; context.setVariable(__i, i);
+         }
       }
 
    }
@@ -536,23 +537,6 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
          return "Iterates densely along a Color curve";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
-         Expression curve = (Expression) inputs.get(0);
-         StatementList body = (StatementList) inputs.get(1);
-         String __i = getContextVariableActualName("i");
-         Integer i;
-         String __x = getContextVariableActualName("x");
-         Color x;
-         i = 0 ; context.setVariable(__i, i);
-         CurveUtil . Curve_col evalCurve = ( CurveUtil . Curve_col ) curve . evaluate ( context ) ;
-         while ( i < n ) {
-         double t = 1.0 * i / n ;
-         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
-         body . execute ( context ) ;
-         i = i + 1 ; context.setVariable(__i, i);
-         }
-      }
-
       public int getNumberContextVariables() {
          return 2;
       }
@@ -573,6 +557,23 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
             default: return null;
          }
 
+      }
+
+      public void execute(Context context, List<GeneticComponent> inputs) {
+         Expression curve = (Expression) inputs.get(0);
+         StatementList body = (StatementList) inputs.get(1);
+         final String __i = getContextVariableActualName("i");
+         Integer i;
+         final String __x = getContextVariableActualName("x");
+         Color x;
+         i = 0 ; context.setVariable(__i, i);
+         CurveUtil . Curve_col evalCurve = ( CurveUtil . Curve_col ) curve . evaluate ( context ) ;
+         while ( i < n ) {
+         double t = 1.0 * i / n ;
+         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
+         body . execute ( context ) ;
+         i = i + 1 ; context.setVariable(__i, i);
+         }
       }
 
    }
@@ -648,23 +649,6 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
          return "Iterates lightly along a Color curve";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
-         Expression curve = (Expression) inputs.get(0);
-         StatementList body = (StatementList) inputs.get(1);
-         String __i = getContextVariableActualName("i");
-         Integer i;
-         String __x = getContextVariableActualName("x");
-         Color x;
-         i = 0 ; context.setVariable(__i, i);
-         CurveUtil . Curve_col evalCurve = ( CurveUtil . Curve_col ) curve . evaluate ( context ) ;
-         while ( i < n ) {
-         double t = 1.0 * i / n ;
-         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
-         body . execute ( context ) ;
-         i = i + 1 ; context.setVariable(__i, i);
-         }
-      }
-
       public int getNumberContextVariables() {
          return 2;
       }
@@ -685,6 +669,23 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
             default: return null;
          }
 
+      }
+
+      public void execute(Context context, List<GeneticComponent> inputs) {
+         Expression curve = (Expression) inputs.get(0);
+         StatementList body = (StatementList) inputs.get(1);
+         final String __i = getContextVariableActualName("i");
+         Integer i;
+         final String __x = getContextVariableActualName("x");
+         Color x;
+         i = 0 ; context.setVariable(__i, i);
+         CurveUtil . Curve_col evalCurve = ( CurveUtil . Curve_col ) curve . evaluate ( context ) ;
+         while ( i < n ) {
+         double t = 1.0 * i / n ;
+         x = evalCurve . getValue ( t ) ; context.setVariable(__x, x);
+         body . execute ( context ) ;
+         i = i + 1 ; context.setVariable(__i, i);
+         }
       }
 
    }

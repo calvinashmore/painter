@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package fn;
 
 import fn.parser.ASTFnDefinition;
@@ -20,13 +19,16 @@ public class ExpressionFnGroup extends FnGroup<ExpressionFnNode> {
 
     @Override
     FnNode getNode(ASTFnDefinition fn) {
-        return new ExpressionFnNode(fn);
+
+        if (fn.getTypeAndNames("exin").size() > 0) {
+            return new ExpressionContextDependentFnNode(fn);
+        } else {
+            return new ExpressionFnNode(fn);
+        }
     }
 
     @Override
     String getFnClassName() {
         return "ExpressionFunction";
     }
-
-    
 }

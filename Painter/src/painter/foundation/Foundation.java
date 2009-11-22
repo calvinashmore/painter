@@ -115,7 +115,7 @@ public class Foundation extends GeneticFoundationImpl {
 
             @Override
             protected int getTargetDepth() {
-                return 1;
+                return 5;
             }
         };
     }

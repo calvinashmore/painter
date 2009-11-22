@@ -16,6 +16,8 @@ import genetic.*;
 import genetic.Foundation;
 import genetic.component.expression.function.VariableExpressionFunction;
 import genetic.BuildException;
+import genetic.component.expression.function.cx.ContextDependentExpressionFunction;
+import genetic.component.expression.function.cx.ContextDependentExpressionProxy;
 import java.util.*;
 import java.util.ArrayList;
 
@@ -29,6 +31,7 @@ public class Expression implements Parameterized, GeneticComponent {
     private Object[] cacheInputs;
     private ExpressionFunction function;
     private GeneticComponent parent;
+    private ContextDependentExpressionProxy cxProxy = null; // this stays null unless the function is context dependent.
     private int depth;
 
     private void setParent(Expression parent) {
@@ -42,6 +45,10 @@ public class Expression implements Parameterized, GeneticComponent {
     public Expression(ExpressionFunction function, GeneticComponent parent) {
 
         this.parent = parent;
+
+        if (function instanceof ContextDependentExpressionFunction) {
+            cxProxy = new ContextDependentExpressionProxy((ContextDependentExpressionFunction) function, this);
+        }
 
         children = new ArrayList<Expression>(function.getNumberInputs());
         cacheInputs = new Object[function.getNumberInputs()];
@@ -106,7 +113,13 @@ public class Expression implements Parameterized, GeneticComponent {
         }
 
         try {
-            output = function.evaluate(context, cacheInputs);
+
+            if (cxProxy != null) {
+                // handle context dependent case:
+                output = cxProxy.evaluate(context, cacheInputs);
+            } else {
+                output = function.evaluate(context, cacheInputs);
+            }
 
             if (output == null) {
                 throw new IllegalStateException("function " + function.getClass().getName() + " created a null output!");
@@ -131,6 +144,10 @@ public class Expression implements Parameterized, GeneticComponent {
                 child.setup();
             }
         }
+
+        if (cxProxy != null) {
+            cxProxy.setup();
+        }
     }
 
     public boolean isSetup() {
@@ -144,6 +161,11 @@ public class Expression implements Parameterized, GeneticComponent {
                 return false;
             }
         }
+
+        if (cxProxy != null && !cxProxy.isSetup()) {
+            return false;
+        }
+
         return true;
     }
 
@@ -211,6 +233,10 @@ public class Expression implements Parameterized, GeneticComponent {
         this.parent = newParent;
     }
 
+    public ContextDependentExpressionProxy getContextProxy() {
+        return cxProxy;
+    }
+
     public Expression clone(GeneticComponent newParent) throws BuildException {
 
         Expression clone = new Expression(function.cloneFunction(), newParent);
@@ -218,6 +244,10 @@ public class Expression implements Parameterized, GeneticComponent {
         // clone children
         for (int i = 0; i < getNumberInputs(); i++) {
             clone.setInput(i, getInput(i).clone(clone));
+        }
+
+        if (cxProxy != null) {
+            clone.cxProxy = cxProxy.clone(clone);
         }
 
         return clone;
@@ -238,6 +268,10 @@ public class Expression implements Parameterized, GeneticComponent {
                 }
             }
         }
+
+        if (cxProxy != null) {
+            cxProxy.removeVariable(name);
+        }
         // otherwise do nothing, we're okay.
     }
 
@@ -247,6 +281,10 @@ public class Expression implements Parameterized, GeneticComponent {
             if (variableFunction.getVariableName().equals(name)) {
                 return true;
             }
+        }
+
+        if (cxProxy != null && cxProxy.hasVariable(name)) {
+            return true;
         }
         return false;
     }

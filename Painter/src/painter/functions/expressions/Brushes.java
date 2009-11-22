@@ -7,6 +7,7 @@ import genetic.component.command.*;
 import genetic.component.context.*;
 import genetic.component.expression.*;
 import genetic.component.expression.function.*;
+import genetic.component.expression.function.cx.*;
 import genetic.component.method.*;
 import genetic.component.program.*;
 import genetic.component.statement.*;

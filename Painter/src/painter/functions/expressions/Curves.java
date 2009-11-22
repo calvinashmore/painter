@@ -7,6 +7,7 @@ import genetic.component.command.*;
 import genetic.component.context.*;
 import genetic.component.expression.*;
 import genetic.component.expression.function.*;
+import genetic.component.expression.function.cx.*;
 import genetic.component.method.*;
 import genetic.component.program.*;
 import genetic.component.statement.*;
@@ -16,6 +17,204 @@ import utils.linear.*;
 import painter.util.curves.*;
 
 public final class Curves implements AllComponents<ExpressionFunction>, Described {
+
+   public static class exCurve_d extends ContextDependentExpressionFunction {
+
+      public exCurve_d() {
+         addGroupMeta(this);
+      }
+
+      public int getNumberContextVariables() {
+         return 1;
+      }
+
+      public String getContextVariableIntendedName(int i) {
+         switch(i) {
+            case 0: return "x";
+            default: return null;
+         }
+
+      }
+
+      public Class getContextVariableType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public CurveUtil . Curve_d evaluate(final Context context, final Object[] inputs, final List<Expression> contextExpressions) {
+
+         final Expression f = (Expression) contextExpressions.get(0);
+         final String __x = getContextVariableActualName("x");
+         LDouble x;
+         return new CurveUtil . Curve_d ( ) {
+         public LDouble getValue ( double t ) {
+         context . setVariable ( __x , new LDouble ( t ) ) ;
+         return ( LDouble ) f . evaluate ( context ) ;
+         }
+         }
+         ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_d.class;
+      }
+
+      public int getNumberContextInputs() {
+         return 1;
+      }
+
+      public String getContextInputName(int i) {
+         switch(i) {
+            case 0: return "f";
+            default: return null;
+         }
+
+      }
+
+      public Class getContextInputType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+   }
+
+   public static class exCurve_v2 extends ContextDependentExpressionFunction {
+
+      public exCurve_v2() {
+         addGroupMeta(this);
+      }
+
+      public int getNumberContextVariables() {
+         return 1;
+      }
+
+      public String getContextVariableIntendedName(int i) {
+         switch(i) {
+            case 0: return "x";
+            default: return null;
+         }
+
+      }
+
+      public Class getContextVariableType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public CurveUtil . Curve_v2 evaluate(final Context context, final Object[] inputs, final List<Expression> contextExpressions) {
+
+         final Expression f = (Expression) contextExpressions.get(0);
+         final String __x = getContextVariableActualName("x");
+         LDouble x;
+         return new CurveUtil . Curve_v2 ( ) {
+         public LVect2d getValue ( double t ) {
+         context . setVariable ( __x , new LDouble ( t ) ) ;
+         return ( LVect2d ) f . evaluate ( context ) ;
+         }
+         }
+         ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_v2.class;
+      }
+
+      public int getNumberContextInputs() {
+         return 1;
+      }
+
+      public String getContextInputName(int i) {
+         switch(i) {
+            case 0: return "f";
+            default: return null;
+         }
+
+      }
+
+      public Class getContextInputType(int i) {
+         switch(i) {
+            case 0: return LVect2d.class;
+            default: return null;
+         }
+
+      }
+
+   }
+
+   public static class exCurve_col extends ContextDependentExpressionFunction {
+
+      public exCurve_col() {
+         addGroupMeta(this);
+      }
+
+      public int getNumberContextVariables() {
+         return 1;
+      }
+
+      public String getContextVariableIntendedName(int i) {
+         switch(i) {
+            case 0: return "x";
+            default: return null;
+         }
+
+      }
+
+      public Class getContextVariableType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public CurveUtil . Curve_col evaluate(final Context context, final Object[] inputs, final List<Expression> contextExpressions) {
+
+         final Expression f = (Expression) contextExpressions.get(0);
+         final String __x = getContextVariableActualName("x");
+         LDouble x;
+         return new CurveUtil . Curve_col ( ) {
+         public Color getValue ( double t ) {
+         context . setVariable ( __x , new LDouble ( t ) ) ;
+         return ( Color ) f . evaluate ( context ) ;
+         }
+         }
+         ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_col.class;
+      }
+
+      public int getNumberContextInputs() {
+         return 1;
+      }
+
+      public String getContextInputName(int i) {
+         switch(i) {
+            case 0: return "f";
+            default: return null;
+         }
+
+      }
+
+      public Class getContextInputType(int i) {
+         switch(i) {
+            case 0: return Color.class;
+            default: return null;
+         }
+
+      }
+
+   }
 
    public static class segmentCurve_d extends ExpressionFunction {
 
@@ -1099,6 +1298,9 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
 
    public List<ExpressionFunction> allInstances(ContextModel cm) {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
+      r.add(new exCurve_d());
+      r.add(new exCurve_v2());
+      r.add(new exCurve_col());
       r.add(new segmentCurve_d());
       r.add(new segmentCurve_v2());
       r.add(new segmentCurve_col());

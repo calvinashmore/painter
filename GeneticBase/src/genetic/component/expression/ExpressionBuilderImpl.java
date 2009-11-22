@@ -9,6 +9,8 @@ import genetic.component.expression.function.ExpressionFunction;
 import genetic.GeneticComponent;
 import genetic.Foundation;
 import genetic.BuildException;
+import genetic.component.expression.function.cx.ContextDependentExpressionFunction;
+import genetic.component.expression.function.cx.ContextDependentExpressionProxy;
 
 /**
  *
@@ -64,6 +66,15 @@ public class ExpressionBuilderImpl implements ExpressionBuilder {
         //if(inputClasses != null)
         for (int i = 0; i < node.getNumberInputs(); i++) {
             node.assignChild(i, makeTree(node.getInputType(i), node, depth + 1));
+        }
+
+        if(nf instanceof ContextDependentExpressionFunction) {
+            ContextDependentExpressionFunction cxnf = (ContextDependentExpressionFunction) nf;
+            ContextDependentExpressionProxy contextProxy = node.getContextProxy();
+
+            for (int i = 0; i < cxnf.getNumberContextInputs(); i++) {
+                contextProxy.setInput(i, makeTree(cxnf.getContextInputType(i), contextProxy, depth));
+            }
         }
 
         return node;

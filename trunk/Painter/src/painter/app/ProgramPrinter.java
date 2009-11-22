@@ -11,6 +11,7 @@ import genetic.component.expression.Expression;
 import genetic.component.expression.function.ConstantExpressionFunction;
 import genetic.component.expression.function.ExpressionFunction;
 import genetic.component.expression.function.VariableExpressionFunction;
+import genetic.component.expression.function.cx.ContextDependentExpressionFunction;
 import genetic.component.method.Method;
 import genetic.component.statement.Statement;
 import genetic.component.statement.function.CommandStatementFunction;
@@ -144,6 +145,36 @@ public class ProgramPrinter {
 
             String name = ef.getClass().getSimpleName();
             sb.append(name + "(");
+
+            if (ef instanceof ContextDependentExpressionFunction) {
+                ContextDependentExpressionFunction cxef = (ContextDependentExpressionFunction) ef;
+
+                sb.append("[");
+                for (int i = 0; i < cxef.getNumberContextVariables(); i++) {
+
+                    String cvarName = cxef.getContextVariableIntendedName(i);
+                    String cvarActualName = cxef.getContextVariableActualName(cvarName);
+                    Class cvarType = cxef.getContextVariableType(i);
+                    if (i > 0) {
+                        sb.append(", ");
+                    }
+                    sb.append(cvarType.getSimpleName() + " " + cvarName + " (" + cvarActualName + ")");
+                }
+                sb.append("] ");
+
+                for (int i = 0; i < cxef.getNumberContextInputs(); i++) {
+                    String contextInputName = cxef.getContextInputName(i);
+                    Expression input = expression.getContextProxy().getInput(i);
+                    if (i > 0) {
+                        sb.append(", ");
+                    }
+                    sb.append(contextInputName + " = ");
+                    printExpression(sb, input);
+                }
+                if (ef.getNumberInputs() > 0) {
+                    sb.append(", ");
+                }
+            }
 
             for (int i = 0; i < ef.getNumberInputs(); i++) {
                 if (i > 0) {

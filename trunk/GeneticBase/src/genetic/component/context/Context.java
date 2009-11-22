@@ -47,10 +47,12 @@ public class Context {
     }
 
     public Object getVariable(String name) {
-        
-        if(variables.get(name) == null && parent != null)
+
+        Object variable = variables.get(name);
+
+        if(variable == null && parent != null)
             return parent.getVariable(name);
-        return variables.get(name);
+        return variable;
     }
 
     public List<String> allVariables() {

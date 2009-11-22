@@ -9,6 +9,64 @@ description "expressions to generate curves";
 
 
 // *****************************************
+// ****** EXPRESSION CURVES
+// *****************************************
+
+fn exCurve_d {
+
+    exin LDouble f;
+    fout CurveUtil.Curve_d;
+
+    cvar LDouble x;
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double t) {
+                //x = new LDouble(t);
+                context.setVariable(__x, new LDouble(t));
+                return (LDouble) f.evaluate(context);
+            }
+        };
+    }
+}
+
+fn exCurve_v2 {
+
+    exin LVect2d f;
+    fout CurveUtil.Curve_v2;
+
+    cvar LDouble x;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double t) {
+                //x = new LDouble(t);
+                context.setVariable(__x, new LDouble(t));
+                return (LVect2d) f.evaluate(context);
+            }
+        };
+    }
+}
+
+fn exCurve_col {
+
+    exin Color f;
+    fout CurveUtil.Curve_col;
+
+    cvar LDouble x;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double t) {
+                //x = new LDouble(t);
+                context.setVariable(__x, new LDouble(t));
+                return (Color) f.evaluate(context);
+            }
+        };
+    }
+}
+
+// *****************************************
 // ****** SEGMENT CURVES
 // *****************************************
 

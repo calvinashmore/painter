@@ -32,6 +32,7 @@ abstract public class FnGroup<NodeType extends FnNode> {
         addImport("genetic.component.context.*");
         addImport("genetic.component.expression.*");
         addImport("genetic.component.expression.function.*");
+        addImport("genetic.component.expression.function.cx.*");
         addImport("genetic.component.method.*");
         addImport("genetic.component.program.*");
         addImport("genetic.component.statement.*");

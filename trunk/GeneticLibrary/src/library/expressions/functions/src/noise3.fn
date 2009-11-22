@@ -1,0 +1,669 @@
+package library.expressions.functions;
+group Noise3;
+type Expression;
+
+import utils.linear.*;
+import utils.noise.*;
+
+description "Noise: Fractals";
+
+// ***************************
+// *** Noise fractal functions
+// ***************************
+
+
+fn fBm1 {
+    
+    fout NoiseFractal;
+
+    parameter double lacunarity;
+    parameter double exponent;
+    parameter int octaves;
+
+    init {
+        lacunarity = 1.5 + Math.random();
+        exponent = .1 + .7*Math.random();
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+
+            double amplitude = 1;
+            double value = 0;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+            for(int i=0;i<octaves;i++) {
+                value += f.noise( x1, y1, z1 ) * amplitude;
+                x1 *= lacunarity;
+                y1 *= lacunarity;
+                z1 *= lacunarity;
+                amplitude *= exponent;
+            }
+            return value;
+        }
+    };
+
+    eval {return fractal;}
+}
+
+fn fBm2 {
+    
+    fout NoiseFractal;
+
+    parameter double lacunarity;
+    in LDouble exponent;
+    parameter int octaves;
+
+    init {
+        lacunarity = 1.5 + Math.random();
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private double exponent1;
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            
+            double amplitude = 1;
+            double value = 0;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+            for(int i=0;i<octaves;i++) {
+                value += f.noise( x1, y1, z1 ) * amplitude;
+                x1 *= lacunarity;
+                y1 *= lacunarity;
+                z1 *= lacunarity;
+                amplitude *= exponent1;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        exponent1 = exponent.val/4;
+        return fractal;
+    }
+}
+
+fn fBm3 {
+    
+    fout NoiseFractal;
+
+    in LDouble lacunarity;
+    in LDouble exponent;
+    parameter int octaves;
+
+    init {
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private double exponent1;
+    private double lacunarity1;
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            
+            double amplitude = 1;
+            double value = 0;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+            for(int i=0;i<octaves;i++) {
+                value += f.noise( x1, y1, z1 ) * amplitude;
+                x1 *= lacunarity1;
+                y1 *= lacunarity1;
+                z1 *= lacunarity1;
+                amplitude *= exponent1;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        exponent1 = exponent.val/4;
+        lacunarity1 = lacunarity.val;
+        return fractal;
+    }
+}
+
+
+fn StatsByAlt1 {
+    
+    fout NoiseFractal;
+
+    parameter double lacunarity;
+    parameter double exponent;
+    parameter int octaves;
+
+    init {
+        lacunarity = 1.5 + Math.random();
+        exponent = .1 + .7*Math.random();
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = f.noise( x1, y1, z1 );
+
+            for(int i=1;i<octaves;i++) {
+                value += value * f.noise( x1, y1, z1 ) * amplitude;
+                x1 *= lacunarity;
+                y1 *= lacunarity;
+                z1 *= lacunarity;
+                amplitude *= exponent;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        return fractal;
+    }
+}
+
+fn StatsByAlt2 {
+    
+    fout NoiseFractal;
+
+    parameter double lacunarity;
+    in LDouble exponent;
+    parameter int octaves;
+
+    init {
+        lacunarity = 1.5 + Math.random();
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private double exponent1;
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = f.noise( x1, y1, z1 );
+
+            for(int i=1;i<octaves;i++) {
+                value += value * f.noise( x1, y1, z1 ) * amplitude;
+                x1 *= lacunarity;
+                y1 *= lacunarity;
+                z1 *= lacunarity;
+                amplitude *= exponent1;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        exponent1 = exponent.val/4;
+        return fractal;
+    }
+}
+
+fn StatsByAlt3 {
+    
+    fout NoiseFractal;
+
+    in LDouble lacunarity;
+    in LDouble exponent;
+    parameter int octaves;
+
+    init {
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private double exponent1;
+    private double lacunarity1;
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = f.noise( x1, y1, z1 );
+
+            for(int i=1;i<octaves;i++) {
+                value += value * f.noise( x1, y1, z1 ) * amplitude;
+                x1 *= lacunarity1;
+                y1 *= lacunarity1;
+                z1 *= lacunarity1;
+                amplitude *= exponent1;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        exponent1 = exponent.val/4;
+        lacunarity1 = lacunarity.val;
+        return fractal;
+    }
+}
+
+
+fn MultifractalA_1 {
+    
+    fout NoiseFractal;
+
+    parameter double lacunarity;
+    parameter double exponent;
+    parameter int octaves;
+
+    init {
+        lacunarity = 1.5 + Math.random();
+        exponent = .1 + .7*Math.random();
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = 0;
+            double weight = 0;
+            double signal = 0;
+            
+            weight = value = f.noise( x1, y1, z1 );
+
+            for(int i=1;i<octaves;i++) {
+                signal = f.noise( x1, y1, z1 ) * amplitude;
+                value += weight * signal;
+                weight = signal;
+                
+                x1 *= lacunarity;
+                y1 *= lacunarity;
+                z1 *= lacunarity;
+                amplitude *= exponent;
+            }
+            return value;
+        }
+    };
+
+    eval {return fractal;}
+}
+
+fn MultifractalA_2 {
+    
+    fout NoiseFractal;
+
+    parameter double lacunarity;
+    in LDouble exponent;
+    parameter int octaves;
+
+    init {
+        lacunarity = 1.5 + Math.random();
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private double exponent1;
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = 0;
+            double weight = 0;
+            double signal = 0;
+            
+            weight = value = f.noise( x1, y1, z1 );
+
+            for(int i=1;i<octaves;i++) {
+                signal = f.noise( x1, y1, z1 ) * amplitude;
+                value += weight * signal;
+                weight = signal;
+                
+                x1 *= lacunarity;
+                y1 *= lacunarity;
+                z1 *= lacunarity;
+                amplitude *= exponent1;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        exponent1 = exponent.val/4;
+        return fractal;
+    }
+}
+
+fn MultifractalA_3 {
+    
+    fout NoiseFractal;
+
+    in LDouble lacunarity;
+    in LDouble exponent;
+    parameter int octaves;
+
+    init {
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private double exponent1;
+    private double lacunarity1;
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = 0;
+            double weight = 0;
+            double signal = 0;
+            
+            weight = value = f.noise( x1, y1, z1 );
+
+            for(int i=1;i<octaves;i++) {
+                signal = f.noise( x1, y1, z1 ) * amplitude;
+                value += weight * signal;
+                weight = signal;
+                
+                x1 *= lacunarity1;
+                y1 *= lacunarity1;
+                z1 *= lacunarity1;
+                amplitude *= exponent1;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        exponent1 = exponent.val/4;
+        lacunarity1 = lacunarity.val;
+        return fractal;
+    }
+}
+
+
+fn MultifractalB_1 {
+    
+    fout NoiseFractal;
+
+    parameter double lacunarity;
+    parameter double exponent;
+    parameter int octaves;
+
+    init {
+        lacunarity = 1.5 + Math.random();
+        exponent = .1 + .7*Math.random();
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = 0;
+            double weight = 0;
+            double signal = 0;
+            
+            weight = value = f.noise( x1, y1, z1 );
+
+            for(int i=1;i<octaves;i++) {
+                signal = f.noise( x1, y1, z1 ) * amplitude;
+                value += weight * signal;
+                weight = signal;
+                
+                x1 *= lacunarity + signal;
+                y1 *= lacunarity + signal;
+                z1 *= lacunarity + signal;
+                amplitude *= exponent;
+            }
+            return value;
+        }
+    };
+
+    eval {return fractal;}
+}
+
+fn MultifractalB_2 {
+    
+    fout NoiseFractal;
+
+    parameter double lacunarity;
+    in LDouble exponent;
+    parameter int octaves;
+
+    init {
+        lacunarity = 1.5 + Math.random();
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private double exponent1;
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = 0;
+            double weight = 0;
+            double signal = 0;
+            
+            weight = value = f.noise( x1, y1, z1 );
+
+            for(int i=1;i<octaves;i++) {
+                signal = f.noise( x1, y1, z1 ) * amplitude;
+                value += weight * signal;
+                weight = signal;
+                
+                x1 *= lacunarity + signal;
+                y1 *= lacunarity + signal;
+                z1 *= lacunarity + signal;
+                amplitude *= exponent1;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        exponent1 = exponent.val/4;
+        return fractal;
+    }
+}
+
+fn MultifractalB_3 {
+    
+    fout NoiseFractal;
+
+    in LDouble lacunarity;
+    in LDouble exponent;
+    parameter int octaves;
+
+    init {
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private double exponent1;
+    private double lacunarity1;
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = 0;
+            double weight = 0;
+            double signal = 0;
+            
+            weight = value = f.noise( x1, y1, z1 );
+
+            for(int i=1;i<octaves;i++) {
+                signal = f.noise( x1, y1, z1 ) * amplitude;
+                value += weight * signal;
+                weight = signal;
+                
+                x1 *= lacunarity1 + signal;
+                y1 *= lacunarity1 + signal;
+                z1 *= lacunarity1 + signal;
+                amplitude *= exponent1;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        exponent1 = exponent.val/4;
+        lacunarity1 = lacunarity.val;
+        return fractal;
+    }
+}
+
+
+fn MultifractalC_1 {
+    
+    fout NoiseFractal;
+
+    parameter double lacunarity;
+    parameter double exponent;
+    parameter int octaves;
+
+    init {
+        lacunarity = 1.5 + Math.random();
+        exponent = .1 + .6*Math.random();
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = 0;
+
+            for(int i=0;i<octaves;i++) {
+                value += f.noise( x1, y1, z1 ) * amplitude;
+                
+                x1 *= lacunarity + value;
+                y1 *= lacunarity + value;
+                z1 *= lacunarity + value;
+                amplitude *= exponent;
+            }
+            return value;
+        }
+    };
+
+    eval {return fractal;}
+}
+
+fn MultifractalC_2 {
+    
+    fout NoiseFractal;
+
+    parameter double lacunarity;
+    in LDouble exponent;
+    parameter int octaves;
+
+    init {
+        lacunarity = 1.5 + Math.random();
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private double exponent1;
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = 0;
+
+            for(int i=0;i<octaves;i++) {
+                value += f.noise( x1, y1, z1 ) * amplitude;
+                
+                x1 *= lacunarity + value;
+                y1 *= lacunarity + value;
+                z1 *= lacunarity + value;
+                amplitude *= exponent1;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        exponent1 = exponent.val/4;
+        return fractal;
+    }
+}
+
+fn MultifractalC_3 {
+    
+    fout NoiseFractal;
+
+    in LDouble lacunarity;
+    in LDouble exponent;
+    parameter int octaves;
+
+    init {
+        octaves = 5+new Random().nextInt(3);
+    }
+
+    private double exponent1;
+    private double lacunarity1;
+    private final NoiseFractal fractal = new NoiseFractal() {
+        public double evalFractal(NoiseFunction f, double x, double y, double z) {
+            double amplitude = 1;
+
+            double x1 = x;
+            double y1 = y;
+            double z1 = z;
+
+            double value = 0;
+
+            for(int i=0;i<octaves;i++) {
+                value += f.noise( x1, y1, z1 ) * amplitude;
+                
+                x1 *= lacunarity1 + value;
+                y1 *= lacunarity1 + value;
+                z1 *= lacunarity1 + value;
+                amplitude *= exponent1;
+            }
+            return value;
+        }
+    };
+
+    eval {
+        exponent1 = exponent.val/4;
+        lacunarity1 = lacunarity.val;
+        return fractal;
+    }
+}

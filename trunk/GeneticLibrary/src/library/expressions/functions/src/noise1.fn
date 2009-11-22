@@ -1,0 +1,1394 @@
+package library.expressions.functions;
+group Noise1;
+type Expression;
+
+import utils.linear.*;
+import utils.noise.*;
+
+description "Noise: Evaluation";
+
+
+// ***********************
+// *** Evaluation of noise
+// ***********************
+
+// LDouble ->
+
+fn Noise_d_d {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( noise.noise(x.val,0,0) );
+    }
+}
+
+fn Noise_d_d_n {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( noise.noise(x.val,0,0) ).normal();
+    }
+}
+
+fn Noise_d_v2 {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( noise.noise(x.val,0,0), noise.noise(x.val+100,100,100) );
+    }
+}
+
+fn Noise_d_v2_n {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( noise.noise(x.val,0,0), noise.noise(x.val+100,100,100) ).normal();
+    }
+}
+
+fn Noise_d_c {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout Complex;
+
+    eval {
+        return new Complex( noise.noise(x.val,0,0), noise.noise(x.val+100,100,100) );
+    }
+}
+
+fn Noise_d_c_n {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout Complex;
+
+    eval {
+        return new Complex( noise.noise(x.val,0,0), noise.noise(x.val+100,100,100) ).normal();
+    }
+}
+
+fn Noise_d_v3 {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( noise.noise(x.val,0,0), noise.noise(x.val+100,100,100), noise.noise(x.val+300,300,300) );
+    }
+}
+
+fn Noise_d_v3_n {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( noise.noise(x.val,0,0), noise.noise(x.val+100,100,100), noise.noise(x.val+300,300,300) ).normal();
+    }
+}
+
+fn Noise_d_col {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*noise.noise(x.val,0,0), .5+.5*noise.noise(x.val+100,100,100), .5+.5*noise.noise(x.val+300,300,300) );
+    }
+}
+
+fn Noise_d_col_n {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*noise.noise(x.val,0,0), .5+.5*noise.noise(x.val+100,100,100), .5+.5*noise.noise(x.val+300,300,300) ).normal();
+    }
+}
+
+fn Noise_d_col1 {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( noise.noise(x.val,0,0), .5+.5*noise.noise(x.val+100,100,100), .5+.5*noise.noise(x.val+300,300,300) );
+    }
+}
+
+fn Noise_d_col1_n {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( noise.noise(x.val,0,0), .5+.5*noise.noise(x.val+100,100,100), .5+.5*noise.noise(x.val+300,300,300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+fn Noise_d_colA {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return new Color( noise.noise(x.val,0,0), noise.noise(x.val+100,100,100), noise.noise(x.val+300,300,300) );
+    }
+}
+
+fn Noise_d_colA_n {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return new Color( noise.noise(x.val,0,0), noise.noise(x.val+100,100,100), noise.noise(x.val+300,300,300) ).normal();
+    }
+}
+
+fn Noise_d_col1A {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( noise.noise(x.val,0,0), noise.noise(x.val+100,100,100), noise.noise(x.val+300,300,300) );
+    }
+}
+
+fn Noise_d_col1A_n {
+    in NoiseFunction noise;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( noise.noise(x.val,0,0), noise.noise(x.val+100,100,100), noise.noise(x.val+300,300,300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+// LVect2d ->
+
+fn Noise_v2_d {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( noise.noise(x.x,x.y,0) );
+    }
+}
+
+fn Noise_v2_d_n {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( noise.noise(x.x,x.y,0) ).normal();
+    }
+}
+
+fn Noise_v2_v2 {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100) );
+    }
+}
+
+fn Noise_v2_v2_n {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100) ).normal();
+    }
+}
+
+fn Noise_v2_c {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout Complex;
+
+    eval {
+        return new Complex( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100) );
+    }
+}
+
+fn Noise_v2_c_n {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout Complex;
+
+    eval {
+        return new Complex( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100) ).normal();
+    }
+}
+
+fn Noise_v2_v3 {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) );
+    }
+}
+
+fn Noise_v2_v3_n {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Noise_v2_col {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*noise.noise(x.x,x.y,0), .5+.5*noise.noise(x.x+100,x.y+100,100), .5+.5*noise.noise(x.x+300,x.y+300,300) );
+    }
+}
+
+fn Noise_v2_col_n {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*noise.noise(x.x,x.y,0), .5+.5*noise.noise(x.x+100,x.y+100,100), .5+.5*noise.noise(x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Noise_v2_col1 {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( noise.noise(x.x,x.y,0), .5+.5*noise.noise(x.x+100,x.y+100,100), .5+.5*noise.noise(x.x+300,x.y+300,300) );
+    }
+}
+
+fn Noise_v2_col1_n {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( noise.noise(x.x,x.y,0), .5+.5*noise.noise(x.x+100,x.y+100,100), .5+.5*noise.noise(x.x+300,x.y+300,300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+fn Noise_v2_colA {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return new Color( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) );
+    }
+}
+
+fn Noise_v2_colA_n {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return new Color( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Noise_v2_col1A {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) );
+    }
+}
+
+fn Noise_v2_col1A_n {
+    in NoiseFunction noise;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+// Complex ->
+
+fn Noise_c_d {
+    in NoiseFunction noise;
+    in Complex x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( noise.noise(x.x,x.y,0) );
+    }
+}
+
+fn Noise_c_d_n {
+    in NoiseFunction noise;
+    in Complex x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( noise.noise(x.x,x.y,0) ).normal();
+    }
+}
+
+fn Noise_c_v2 {
+    in NoiseFunction noise;
+    in Complex x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100) );
+    }
+}
+
+fn Noise_c_v2_n {
+    in NoiseFunction noise;
+    in Complex x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100) ).normal();
+    }
+}
+
+fn Noise_c_c {
+    in NoiseFunction noise;
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return new Complex( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100) );
+    }
+}
+
+fn Noise_c_c_n {
+    in NoiseFunction noise;
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return new Complex( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100) ).normal();
+    }
+}
+
+fn Noise_c_v3 {
+    in NoiseFunction noise;
+    in Complex x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) );
+    }
+}
+
+fn Noise_c_v3_n {
+    in NoiseFunction noise;
+    in Complex x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Noise_c_col {
+    in NoiseFunction noise;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*noise.noise(x.x,x.y,0), .5+.5*noise.noise(x.x+100,x.y+100,100), .5+.5*noise.noise(x.x+300,x.y+300,300) );
+    }
+}
+
+fn Noise_c_col_n {
+    in NoiseFunction noise;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*noise.noise(x.x,x.y,0), .5+.5*noise.noise(x.x+100,x.y+100,100), .5+.5*noise.noise(x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Noise_c_col1 {
+    in NoiseFunction noise;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( noise.noise(x.x,x.y,0), .5+.5*noise.noise(x.x+100,x.y+100,100), .5+.5*noise.noise(x.x+300,x.y+300,300) );
+    }
+}
+
+fn Noise_c_col1_n {
+    in NoiseFunction noise;
+    in Complex x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( noise.noise(x.x,x.y,0), .5+.5*noise.noise(x.x+100,x.y+100,100), .5+.5*noise.noise(x.x+300,x.y+300,300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+fn Noise_c_colA {
+    in NoiseFunction noise;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return new Color( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) );
+    }
+}
+
+fn Noise_c_colA_n {
+    in NoiseFunction noise;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return new Color( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Noise_c_col1A {
+    in NoiseFunction noise;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) );
+    }
+}
+
+fn Noise_c_col1A_n {
+    in NoiseFunction noise;
+    in Complex x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( noise.noise(x.x,x.y,0), noise.noise(x.x+100,x.y+100,100), noise.noise(x.x+300,x.y+300,300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+// LVect3d ->
+
+fn Noise_v3_d {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( noise.noise(x.x,x.y,x.z) );
+    }
+}
+
+fn Noise_v3_d_n {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( noise.noise(x.x,x.y,x.z) ).normal();
+    }
+}
+
+fn Noise_v3_v2 {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( noise.noise(x.x,x.y,x.z), noise.noise(x.x+100,x.y+100,x.z+100) );
+    }
+}
+
+fn Noise_v3_v2_n {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( noise.noise(x.x,x.y,x.z), noise.noise(x.x+100,x.y+100,x.z+100) ).normal();
+    }
+}
+
+fn Noise_v3_c {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout Complex;
+
+    eval {
+        return new Complex( noise.noise(x.x,x.y,x.z), noise.noise(x.x+100,x.y+100,x.z+100) );
+    }
+}
+
+fn Noise_v3_c_n {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout Complex;
+
+    eval {
+        return new Complex( noise.noise(x.x,x.y,x.z), noise.noise(x.x+100,x.y+100,x.z+100) ).normal();
+    }
+}
+
+fn Noise_v3_v3 {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( noise.noise(x.x,x.y,x.z), noise.noise(x.x+100,x.y+100,x.z+100), noise.noise(x.x+300,x.y+300,x.z+300) );
+    }
+}
+
+fn Noise_v3_v3_n {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( noise.noise(x.x,x.y,x.z), noise.noise(x.x+100,x.y+100,x.z+100), noise.noise(x.x+300,x.y+300,x.z+300) ).normal();
+    }
+}
+
+fn Noise_v3_col {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*noise.noise(x.x,x.y,x.z), .5+.5*noise.noise(x.x+100,x.y+100,x.z+100), .5+.5*noise.noise(x.x+300,x.y+300,x.z+300) );
+    }
+}
+
+fn Noise_v3_col_n {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*noise.noise(x.x,x.y,x.z), .5+.5*noise.noise(x.x+100,x.y+100,x.z+100), .5+.5*noise.noise(x.x+300,x.y+300,x.z+300) ).normal();
+    }
+}
+
+fn Noise_v3_col1 {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( noise.noise(x.x,x.y,x.z), .5+.5*noise.noise(x.x+100,x.y+100,x.z+100), .5+.5*noise.noise(x.x+300,x.y+300,x.z+300) );
+    }
+}
+
+fn Noise_v3_col1_n {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( noise.noise(x.x,x.y,x.z), .5+.5*noise.noise(x.x+100,x.y+100,x.z+100), .5+.5*noise.noise(x.x+300,x.y+300,x.z+300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+fn Noise_v3_colA {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return new Color( noise.noise(x.x,x.y,x.z), noise.noise(x.x+100,x.y+100,x.z+100), noise.noise(x.x+300,x.y+300,x.z+300) );
+    }
+}
+
+fn Noise_v3_colA_n {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return new Color( noise.noise(x.x,x.y,x.z), noise.noise(x.x+100,x.y+100,x.z+100), noise.noise(x.x+300,x.y+300,x.z+300) ).normal();
+    }
+}
+
+fn Noise_v3_col1A {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( noise.noise(x.x,x.y,x.z), noise.noise(x.x+100,x.y+100,x.z+100), noise.noise(x.x+300,x.y+300,x.z+300) );
+    }
+}
+
+fn Noise_v3_col1A_n {
+    in NoiseFunction noise;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( noise.noise(x.x,x.y,x.z), noise.noise(x.x+100,x.y+100,x.z+100), noise.noise(x.x+300,x.y+300,x.z+300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+// ********************************
+// *** Evaluation of noise fractals
+// ********************************
+
+// LDouble ->
+
+fn Fractal_d_d {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( fractal.evalFractal(noise,x.val,0,0) );
+    }
+}
+
+fn Fractal_d_d_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( fractal.evalFractal(noise,x.val,0,0) ).normal();
+    }
+}
+
+fn Fractal_d_v2 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( fractal.evalFractal(noise,x.val,0,0), fractal.evalFractal(noise,x.val+100,100,100) );
+    }
+}
+
+fn Fractal_d_v2_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( fractal.evalFractal(noise,x.val,0,0), fractal.evalFractal(noise,x.val+100,100,100) ).normal();
+    }
+}
+
+fn Fractal_d_c {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout Complex;
+
+    eval {
+        return new Complex( fractal.evalFractal(noise,x.val,0,0), fractal.evalFractal(noise,x.val+100,100,100) );
+    }
+}
+
+fn Fractal_d_c_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout Complex;
+
+    eval {
+        return new Complex( fractal.evalFractal(noise,x.val,0,0), fractal.evalFractal(noise,x.val+100,100,100) ).normal();
+    }
+}
+
+fn Fractal_d_v3 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( fractal.evalFractal(noise,x.val,0,0), fractal.evalFractal(noise,x.val+100,100,100), fractal.evalFractal(noise,x.val+300,300,300) );
+    }
+}
+
+fn Fractal_d_v3_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( fractal.evalFractal(noise,x.val,0,0), fractal.evalFractal(noise,x.val+100,100,100), fractal.evalFractal(noise,x.val+300,300,300) ).normal();
+    }
+}
+
+fn Fractal_d_col {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*fractal.evalFractal(noise,x.val,0,0), .5+.5*fractal.evalFractal(noise,x.val+100,100,100), .5+.5*fractal.evalFractal(noise,x.val+300,300,300) );
+    }
+}
+
+fn Fractal_d_col_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*fractal.evalFractal(noise,x.val,0,0), .5+.5*fractal.evalFractal(noise,x.val+100,100,100), .5+.5*fractal.evalFractal(noise,x.val+300,300,300) ).normal();
+    }
+}
+
+fn Fractal_d_col1 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( fractal.evalFractal(noise,x.val,0,0), .5+.5*fractal.evalFractal(noise,x.val+100,100,100), .5+.5*fractal.evalFractal(noise,x.val+300,300,300) );
+    }
+}
+
+fn Fractal_d_col1_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( fractal.evalFractal(noise,x.val,0,0), .5+.5*fractal.evalFractal(noise,x.val+100,100,100), .5+.5*fractal.evalFractal(noise,x.val+300,300,300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+fn Fractal_d_colA {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return new Color( fractal.evalFractal(noise,x.val,0,0), fractal.evalFractal(noise,x.val+100,100,100), fractal.evalFractal(noise,x.val+300,300,300) );
+    }
+}
+
+fn Fractal_d_colA_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return new Color( fractal.evalFractal(noise,x.val,0,0), fractal.evalFractal(noise,x.val+100,100,100), fractal.evalFractal(noise,x.val+300,300,300) ).normal();
+    }
+}
+
+fn Fractal_d_col1A {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( fractal.evalFractal(noise,x.val,0,0), fractal.evalFractal(noise,x.val+100,100,100), fractal.evalFractal(noise,x.val+300,300,300) );
+    }
+}
+
+fn Fractal_d_col1A_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LDouble x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( fractal.evalFractal(noise,x.val,0,0), fractal.evalFractal(noise,x.val+100,100,100), fractal.evalFractal(noise,x.val+300,300,300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+// LVect2d ->
+
+fn Fractal_v2_d {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( fractal.evalFractal(noise,x.x,x.y,0) );
+    }
+}
+
+fn Fractal_v2_d_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( fractal.evalFractal(noise,x.x,x.y,0) ).normal();
+    }
+}
+
+fn Fractal_v2_v2 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100) );
+    }
+}
+
+fn Fractal_v2_v2_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100) ).normal();
+    }
+}
+
+fn Fractal_v2_c {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout Complex;
+
+    eval {
+        return new Complex( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100) );
+    }
+}
+
+fn Fractal_v2_c_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout Complex;
+
+    eval {
+        return new Complex( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100) ).normal();
+    }
+}
+
+fn Fractal_v2_v3 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) );
+    }
+}
+
+fn Fractal_v2_v3_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Fractal_v2_col {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*fractal.evalFractal(noise,x.x,x.y,0), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,300) );
+    }
+}
+
+fn Fractal_v2_col_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*fractal.evalFractal(noise,x.x,x.y,0), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Fractal_v2_col1 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( fractal.evalFractal(noise,x.x,x.y,0), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,300) );
+    }
+}
+
+fn Fractal_v2_col1_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( fractal.evalFractal(noise,x.x,x.y,0), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,300) ).normal();;
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+fn Fractal_v2_colA {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return new Color( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) );
+    }
+}
+
+fn Fractal_v2_colA_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return new Color( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Fractal_v2_col1A {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) );
+    }
+}
+
+fn Fractal_v2_col1A_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect2d x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) ).normal();;
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+// Complex ->
+
+fn Fractal_c_d {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( fractal.evalFractal(noise,x.x,x.y,0) );
+    }
+}
+
+fn Fractal_c_d_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( fractal.evalFractal(noise,x.x,x.y,0) ).normal();
+    }
+}
+
+fn Fractal_c_v2 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100) );
+    }
+}
+
+fn Fractal_c_v2_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100) ).normal();
+    }
+}
+
+fn Fractal_c_c {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return new Complex( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100) );
+    }
+}
+
+fn Fractal_c_c_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout Complex;
+
+    eval {
+        return new Complex( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100) ).normal();
+    }
+}
+
+fn Fractal_c_v3 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) );
+    }
+}
+
+fn Fractal_c_v3_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Fractal_c_col {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*fractal.evalFractal(noise,x.x,x.y,0), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,300) );
+    }
+}
+
+fn Fractal_c_col_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*fractal.evalFractal(noise,x.x,x.y,0), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Fractal_c_col1 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( fractal.evalFractal(noise,x.x,x.y,0), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,300) );
+    }
+}
+
+fn Fractal_c_col1_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( fractal.evalFractal(noise,x.x,x.y,0), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+fn Fractal_c_colA {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return new Color( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) );
+    }
+}
+
+fn Fractal_c_colA_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return new Color( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) ).normal();
+    }
+}
+
+fn Fractal_c_col1A {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) );
+    }
+}
+
+fn Fractal_c_col1A_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in Complex x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( fractal.evalFractal(noise,x.x,x.y,0), fractal.evalFractal(noise,x.x+100,x.y+100,100), fractal.evalFractal(noise,x.x+300,x.y+300,300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+// LVect3d ->
+
+fn Fractal_v3_d {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( fractal.evalFractal(noise,x.x,x.y,x.z) );
+    }
+}
+
+fn Fractal_v3_d_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout LDouble;
+
+    eval {
+        return new LDouble( fractal.evalFractal(noise,x.x,x.y,x.z) ).normal();
+    }
+}
+
+fn Fractal_v3_v2 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( fractal.evalFractal(noise,x.x,x.y,x.z), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100) );
+    }
+}
+
+fn Fractal_v3_v2_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout LVect2d;
+
+    eval {
+        return new LVect2d( fractal.evalFractal(noise,x.x,x.y,x.z), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100) ).normal();
+    }
+}
+
+fn Fractal_v3_c {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout Complex;
+
+    eval {
+        return new Complex( fractal.evalFractal(noise,x.x,x.y,x.z), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100) );
+    }
+}
+
+fn Fractal_v3_c_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout Complex;
+
+    eval {
+        return new Complex( fractal.evalFractal(noise,x.x,x.y,x.z), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100) ).normal();
+    }
+}
+
+fn Fractal_v3_v3 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z+300) );
+    }
+}
+
+fn Fractal_v3_v3_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout LVect3d;
+
+    eval {
+        return new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z+300) ).normal();
+    }
+}
+
+fn Fractal_v3_col {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*fractal.evalFractal(noise,x.x,x.y,x.z), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,x.z+300) );
+    }
+}
+
+fn Fractal_v3_col_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return new Color( .5+.5*fractal.evalFractal(noise,x.x,x.y,x.z), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,x.z+300) ).normal();
+    }
+}
+
+fn Fractal_v3_col1 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( fractal.evalFractal(noise,x.x,x.y,x.z), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,x.z+300) );
+    }
+}
+
+fn Fractal_v3_col1_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z), .5+.5*fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100), .5+.5*fractal.evalFractal(noise,x.x+300,x.y+300,x.z+300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+
+fn Fractal_v3_colA {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return new Color( fractal.evalFractal(noise,x.x,x.y,x.z), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z+300) );
+    }
+}
+
+fn Fractal_v3_colA_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return new Color( fractal.evalFractal(noise,x.x,x.y,x.z), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z+300) ).normal();
+    }
+}
+
+fn Fractal_v3_col1A {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        return Color.makeHSB( fractal.evalFractal(noise,x.x,x.y,x.z), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z+300) );
+    }
+}
+
+fn Fractal_v3_col1A_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    in LVect3d x;
+    fout Color;
+
+    eval {
+        LVect3d v = new LVect3d( fractal.evalFractal(noise,x.x,x.y,x.z), fractal.evalFractal(noise,x.x+100,x.y+100,x.z+100), fractal.evalFractal(noise,x.x+300,x.y+300,x.z+300) ).normal();
+        return Color.makeHSB( v.x, v.y, v.z );
+    }
+}
+

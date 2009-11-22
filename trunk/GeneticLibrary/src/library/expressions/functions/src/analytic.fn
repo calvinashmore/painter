@@ -1,0 +1,387 @@
+package library.expressions.functions;
+group Analytic;
+type Expression;
+
+import utils.linear.*;
+
+description "analytic functions";
+
+
+// *************
+// *** SQUASHING
+// *************
+
+// this group only partially belongs here
+// it shouldn't go in algebraic, but these describe
+// multi-vector operations
+
+fn Gaussian_v2 {
+    in LVect2d x;
+    fout LVect2d;
+    
+    double gauss(double x) {
+        return Math.exp(-x*x);
+    }
+
+    eval {
+        return new LVect2d(gauss(x.x), gauss(x.y));
+    }
+}
+
+fn Squash_v2 {
+    in LVect2d x;
+    fout LVect2d;
+    
+    double squash(double x) {
+        return x/(1.0+Math.abs(x));
+    }
+
+    eval {
+        return new LVect2d(squash(x.x), squash(x.y));
+    }
+}
+
+fn Squash2_v2 {
+    in LVect2d x;
+    in LDouble y;
+    fout LVect2d;
+
+    double squash(double x, double y) {
+        return x/(y+Math.abs(x));
+    }
+
+    eval {
+        return new LVect2d(squash(x.x,y.val), squash(x.y,y.val));
+    }
+}
+
+fn Sigmoid_v2 {
+    in LVect2d x;
+    fout LVect2d;
+    
+    double squash(double x) {
+        return 1/(1.0+Math.exp(-x));
+    }
+
+    eval {
+        return new LVect2d(squash(x.x), squash(x.y));
+    }
+}
+
+fn Gaussian_v3 {
+    in LVect3d x;
+    fout LVect3d;
+    
+    double gauss(double x) {
+        return Math.exp(-x*x);
+    }
+
+    eval {
+        return new LVect3d(gauss(x.x), gauss(x.y), gauss(x.z));
+    }
+}
+
+fn Squash_v3 {
+    in LVect3d x;
+    fout LVect3d;
+    
+    double squash(double x) {
+        return x/(1.0+Math.abs(x));
+    }
+
+    eval {
+        return new LVect3d(squash(x.x), squash(x.y), squash(x.z));
+    }
+}
+
+fn Squash2_v3 {
+    in LVect3d x;
+    in LDouble y;
+    fout LVect3d;
+    
+    double squash(double x, double y) {
+        return x/(y+Math.abs(x));
+    }
+
+    eval {
+        return new LVect3d(squash(x.x,y.val), squash(x.y,y.val), squash(x.z,y.val));
+    }
+}
+
+fn Sigmoid_v3 {
+    in LVect3d x;
+    fout LVect3d;
+    
+    double squash(double x) {
+        return 1/(1.0+Math.exp(-x));
+    }
+
+    eval {
+        return new LVect3d(squash(x.x), squash(x.y), squash(x.z));
+    }
+}
+
+fn Gaussian_col {
+    in Color x;
+    fout Color;
+    
+    double gauss(double x) {
+        return Math.exp(-x*x);
+    }
+
+    eval {
+        return new Color(gauss(x.r), gauss(x.g), gauss(x.b));
+    }
+}
+
+fn Squash_col {
+    in Color x;
+    fout Color;
+    
+    double squash(double x) {
+        return x/(1.0+Math.abs(x));
+    }
+    
+    eval {
+        return new Color(squash(x.r), squash(x.g), squash(x.b));
+    }
+}
+
+fn Squash2_col {
+    in Color x;
+    in LDouble y;
+    fout Color;
+    
+    double squash(double x, double y) {
+        return x/(y+Math.abs(x));
+    }
+
+    eval {
+        return new Color(squash(x.r,y.val), squash(x.g,y.val), squash(x.b,y.val));
+    }
+}
+
+fn Sigmoid_col {
+    in Color x;
+    fout Color;
+    
+    double squash(double x) {
+        return 1/(1.0+Math.exp(-x));
+    }
+
+    eval {
+        return new Color(squash(x.r), squash(x.g), squash(x.b));
+    }
+}
+
+// *****************
+// *** MISCELLANEOUS
+// *****************
+
+fn Abs {
+    in LDouble x;
+    fout LDouble;
+
+    eval { return new LDouble(Math.abs(x.val)); }
+}
+
+fn Step {
+    in LDouble x;
+    fout LDouble;
+
+    parameter double steps;
+
+    init {
+        steps = 5 + Math.random()*10;
+    }
+
+    eval {
+        return new LDouble( (int)(x.val * steps) / (double)steps );
+    }
+}
+
+fn Sawtooth {
+    in LDouble x;
+    fout LDouble;
+
+    parameter double steps;
+
+    init {
+        steps = 5 + Math.random()*10;
+    }
+
+    eval {
+        double x1 = x.val*steps;
+        double xbase = Math.floor(x1);
+
+        return new LDouble( x1-xbase );
+    }
+}
+
+fn Inverse {
+    in LDouble x;
+    fout LDouble;
+
+    eval { return new LDouble(1/x.val); }
+}
+
+// ****************
+// *** SMALL POWERS
+// ****************
+
+fn Square {
+    in LDouble x;
+    fout LDouble;
+
+    eval { return new LDouble(x.val*x.val); }
+}
+
+fn Cube {
+    in LDouble x;
+    fout LDouble;
+
+    eval { return new LDouble(x.val*x.val*x.val); }
+}
+
+fn Sqrt {
+    in LDouble x;
+    fout LDouble;
+
+    eval { return new LDouble(Math.sqrt(x.val)); }
+}
+
+fn Cbrt {
+    in LDouble x;
+    fout LDouble;
+
+    eval { return new LDouble(Math.cbrt(x.val)); }
+}
+
+// *************
+// *** SQUASHING
+// *************
+
+fn Gaussian {
+    in LDouble x;
+    fout LDouble;
+    
+    double gauss(double x) {
+        return Math.exp(-x*x);
+    }
+
+    eval { return new LDouble(gauss(x.val)); }
+}
+
+fn Squash {
+    in LDouble x;
+    fout LDouble;
+    
+    double squash(double x) {
+        return x/(1.0+Math.abs(x));
+    }
+
+    eval { return new LDouble(squash(x.val)); }
+}
+
+fn Squash2 {
+    in LDouble x;
+    in LDouble y;
+    fout LDouble;
+    
+    double squash(double x, double y) {
+        return x/(y+Math.abs(x));
+    }
+
+    eval { return new LDouble(squash(x.val,y.val)); }
+}
+
+fn Sigmoid {
+    in LDouble x;
+    fout LDouble;
+    
+    double squash(double x) {
+        return 1/(1.0+Math.exp(-x));
+    }
+
+    eval { return new LDouble(squash(x.val)); }
+}
+
+// ***************
+// *** POWERS
+// ***************
+
+fn Exp {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.exp(x.val)); }
+}
+
+fn Log {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.log(x.val)); }
+}
+
+// ***************
+// *** TRIGOMETRIC
+// ***************
+
+fn Sin {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.sin(x.val)); }
+}
+fn Cos {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.cos(x.val)); }
+}
+fn Tan {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.tan(x.val)); }
+}
+
+fn Sinh {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.sinh(x.val)); }
+}
+fn Cosh {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.cosh(x.val)); }
+}
+fn Tanh {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.tanh(x.val)); }
+}
+
+fn ASin {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.asin(x.val)); }
+}
+fn ACos {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.acos(x.val)); }
+}
+fn ATan {
+    in LDouble x;
+    fout LDouble;
+    
+    eval { return new LDouble(Math.atan(x.val)); }
+}
+

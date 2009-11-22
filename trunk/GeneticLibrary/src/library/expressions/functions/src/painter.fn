@@ -1,0 +1,1008 @@
+
+package library.expressions.functions;
+group ColorPaint;
+type Expression;
+
+import utils.linear.*;
+
+description "Color painting";
+
+fn Pure {
+    in LDouble h;
+    fout Color;
+
+    eval {
+        return ColorPainter.getColor(h.val);
+    }
+}
+
+fn HueSat {
+    in LDouble h;
+    in LDouble s;
+    fout Color;
+
+    eval {
+        Color val = ColorPainter.getColor(h.val);
+        Color compliment = ColorPainter.getColor(h.val+.5);
+        return val.mult(s.val).add(compliment.mult(1-s.val));
+    }
+}
+
+fn HueSat_gauss {
+    in LDouble h;
+    in LDouble s;
+    fout Color;
+
+    eval {
+        Color val = ColorPainter.getColor(h.val);
+        Color compliment = ColorPainter.getColor(h.val+.5);
+        double sat = Math.exp(-s.val*s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn HueSat_sigmoid {
+    in LDouble h;
+    in LDouble s;
+    fout Color;
+
+    eval {
+        Color val = ColorPainter.getColor(h.val);
+        Color compliment = ColorPainter.getColor(h.val+.5);
+        double sat = 1/(1.0+Math.exp(-s.val));
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn HueSat_gauss01 {
+    in LDouble h;
+    in LDouble s;
+    fout Color;
+
+    eval {
+        Color val = ColorPainter.getColor(h.val);
+        Color compliment = ColorPainter.getColor(h.val+.5);
+        double sat = .5+.5*Math.exp(-s.val*s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn HueSat_sigmoid01 {
+    in LDouble h;
+    in LDouble s;
+    fout Color;
+
+    eval {
+        Color val = ColorPainter.getColor(h.val);
+        Color compliment = ColorPainter.getColor(h.val+.5);
+        double sat = .5+.5*1/(1.0+Math.exp(-s.val));
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn HueSat_v2 {
+    in LVect2d hs;
+    fout Color;
+
+    eval {
+        Color val = ColorPainter.getColor(hs.x);
+        Color compliment = ColorPainter.getColor(hs.x+.5);
+        return val.mult(hs.y).add(compliment.mult(1-hs.y));
+    }
+}
+
+fn HueSat_v2_gauss {
+    in LVect2d hs;
+    fout Color;
+
+    eval {
+        Color val = ColorPainter.getColor(hs.x);
+        Color compliment = ColorPainter.getColor(hs.x+.5);
+        double sat = Math.exp(-hs.y*hs.y);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn HueSat_v2_sigmoid {
+    in LVect2d hs;
+    fout Color;
+
+    eval {
+        Color val = ColorPainter.getColor(hs.x);
+        Color compliment = ColorPainter.getColor(hs.x+.5);
+        double sat = 1/(1.0+Math.exp(-hs.y));
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn HueSat_v2_gauss01 {
+    in LVect2d hs;
+    fout Color;
+
+    eval {
+        Color val = ColorPainter.getColor(hs.x);
+        Color compliment = ColorPainter.getColor(hs.x+.5);
+        double sat = .5+.5*Math.exp(-hs.y*hs.y);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn HueSat_v2_sigmoid01 {
+    in LVect2d hs;
+    fout Color;
+
+    eval {
+        Color val = ColorPainter.getColor(hs.x);
+        Color compliment = ColorPainter.getColor(hs.x+.5);
+        double sat = .5+.5/(1.0+Math.exp(-hs.y));
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Hue {
+    in LDouble h;
+    fout Color;
+
+    parameter double s;
+
+    init {
+        s = Math.random();
+    }
+
+    eval {
+        Color val = ColorPainter.getColor(h.val);
+        Color compliment = ColorPainter.getColor(h.val+.5);
+        return val.mult(s).add(compliment.mult(1-s));
+    }
+}
+
+fn Sat {
+    in LDouble s;
+    fout Color;
+
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        Color val = ColorPainter.getColor(h);
+        Color compliment = ColorPainter.getColor(h+.5);
+        return val.mult(s.val).add(compliment.mult(1-s.val));
+    }
+}
+
+fn Sat_sigmoid {
+    in LDouble s;
+    fout Color;
+
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        Color val = ColorPainter.getColor(h);
+        Color compliment = ColorPainter.getColor(h+.5);
+        double sat = 1/Math.exp(1+s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Sat_gauss01 {
+    in LDouble s;
+    fout Color;
+
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        Color val = ColorPainter.getColor(h);
+        Color compliment = ColorPainter.getColor(h+.5);
+        double sat = .5+.5*Math.exp(-s.val*s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Sat_near {
+    in LDouble s;
+    fout Color;
+
+    parameter double h;
+    parameter double offset;
+
+    init {
+        h = Math.random();
+        offset = Math.random()/3 - 1.0/6;
+    }
+
+    eval {
+        Color val = ColorPainter.getColor(h);
+        Color compliment = ColorPainter.getColor(h+.5+offset);
+        return val.mult(s.val).add(compliment.mult(1-s.val));
+    }
+}
+
+fn Sat_near_sigmoid {
+    in LDouble s;
+    fout Color;
+
+    parameter double h;
+    parameter double offset;
+
+    init {
+        h = Math.random();
+        offset = Math.random()/3 - 1.0/6;
+    }
+
+    eval {
+        Color val = ColorPainter.getColor(h);
+        Color compliment = ColorPainter.getColor(h+.5+offset);
+        double sat = .5+.5*Math.exp(-s.val*s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Secondaries_h {
+    in LDouble hbias;
+    fout Color;
+    
+    parameter double h;
+    parameter double s;
+
+    init {
+        h = Math.random();
+        s = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        return val.mult(s).add(compliment.mult(1-s));
+    }
+}
+
+fn Secondaries_hs {
+    in LDouble hbias;
+    in LDouble s;
+    fout Color;
+    
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        return val.mult(s.val).add(compliment.mult(1-s.val));
+    }
+}
+
+fn Secondaries_hs_gauss {
+    in LDouble hbias;
+    in LDouble s;
+    fout Color;
+    
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        double sat = Math.exp(-s.val*s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Secondaries_hs_sigmoid {
+    in LDouble hbias;
+    in LDouble s;
+    fout Color;
+    
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        double sat = 1/Math.exp(1+s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Secondaries_hs_gauss01 {
+    in LDouble hbias;
+    in LDouble s;
+    fout Color;
+    
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        double sat = .5+.5*Math.exp(-s.val*s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Secondaries_hs_sigmoid01 {
+    in LDouble hbias;
+    in LDouble s;
+    fout Color;
+    
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        double sat = .5+.5*1/Math.exp(1+s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Secondaries_hs_v2 {
+    in LVect2d x;
+    fout Color;
+    
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(x.x,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        return val.mult(x.y).add(compliment.mult(1-x.y));
+    }
+}
+
+fn Secondaries_hs_v2_gauss {
+    in LVect2d x;
+    fout Color;
+    
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(x.x,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        double sat = Math.exp(-x.y*x.y);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Secondaries_hs_v2_sigmoid {
+    in LVect2d x;
+    fout Color;
+    
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(x.x,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        double sat = 1/Math.exp(1+x.y);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Secondaries_hs_v2_gauss01 {
+    in LVect2d x;
+    fout Color;
+    
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(x.x,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        double sat = .5+.5*Math.exp(-x.y*x.y);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Secondaries_hs_v2_sigmoid01 {
+    in LVect2d x;
+    fout Color;
+    
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(x.x,1),-1);
+
+        Color val = ColorPainter.getColor(h + (1.0/6)*hue_bias);
+        Color compliment = ColorPainter.getColor(h + (1.0/6)*hue_bias + .5);
+        double sat = .5+.5*1/Math.exp(1+x.y);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Arc_h {
+    in LDouble hbias;
+    fout Color;
+    
+    parameter double h;
+    parameter double s;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        s = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        return val.mult(s).add(compliment.mult(1-s));
+    }
+}
+
+fn Arc_hs {
+    in LDouble hbias;
+    in LDouble s;
+    fout Color;
+    
+    parameter double h;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        return val.mult(s.val).add(compliment.mult(1-s.val));
+    }
+}
+
+fn Arc_hs_gauss {
+    in LDouble hbias;
+    in LDouble s;
+    fout Color;
+    
+    parameter double h;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        double sat = Math.exp(-s.val*s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Arc_hs_sigmoid {
+    in LDouble hbias;
+    in LDouble s;
+    fout Color;
+    
+    parameter double h;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        double sat = 1/Math.exp(1+s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Arc_hs_gauss01 {
+    in LDouble hbias;
+    in LDouble s;
+    fout Color;
+    
+    parameter double h;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        double sat = .5+.5*Math.exp(-s.val*s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Arc_hs_sigmoid01 {
+    in LDouble hbias;
+    in LDouble s;
+    fout Color;
+    
+    parameter double h;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(hbias.val,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        double sat = .5+.5*1/Math.exp(1+s.val);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Arc_hs_v2 {
+    in LVect2d x;
+    fout Color;
+    
+    parameter double h;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(x.x,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        return val.mult(x.y).add(compliment.mult(1-x.y));
+    }
+}
+
+fn Arc_hs_v2_gauss {
+    in LVect2d x;
+    fout Color;
+    
+    parameter double h;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(x.x,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        double sat = Math.exp(-x.y*x.y);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Arc_hs_v2_sigmoid {
+    in LVect2d x;
+    fout Color;
+    
+    parameter double h;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(x.x,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        double sat = 1/Math.exp(1+x.y);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Arc_hs_v2_gauss01 {
+    in LVect2d x;
+    fout Color;
+    
+    parameter double h;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(x.x,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        double sat = .5+.5*Math.exp(-x.y*x.y);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Arc_hs_v2_sigmoid01 {
+    in LVect2d x;
+    fout Color;
+    
+    parameter double h;
+    parameter double arc;
+
+    init {
+        h = Math.random();
+        arc = Math.random()/6;
+    }
+
+    eval {
+        double hue_bias = Math.max(Math.min(x.x,1),-1);
+
+        Color val = ColorPainter.getColor(h + arc*hue_bias);
+        Color compliment = ColorPainter.getColor(h + arc*hue_bias + .5);
+        double sat = .5+.5*1/Math.exp(1+x.y);
+        return val.mult(sat).add(compliment.mult(1-sat));
+    }
+}
+
+fn Chord_h {
+    in LDouble v;
+    fout Color;
+
+    parameter double h1;
+    parameter double h2;
+
+    init {
+        h1 = Math.random();
+        h2 = Math.random();
+    }
+
+    eval {
+        Color v1 = ColorPainter.getColor(h1);
+        Color v2 = ColorPainter.getColor(h2);
+        return v1.mult(v.val).add(v2.mult(1-v.val));
+    }
+}
+
+fn MotherColor {
+    in LDouble u;
+    in LDouble v;
+    fout Color;
+
+    parameter double h;
+    parameter double h0;
+
+    init {
+        h = Math.random();
+        h0 = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h-h0/6);
+        Color c2 = ColorPainter.getColor(h+1.0/6-h0/6);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(u.val).add(c2.mult(1-u.val));
+        return c4.mult(v.val).add(c3.mult(1-v.val));
+    }
+}
+
+fn MotherColor_gauss {
+    in LDouble u;
+    in LDouble v;
+    fout Color;
+
+    parameter double h;
+    parameter double h0;
+
+    init {
+        h = Math.random();
+        h0 = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h-h0/6);
+        Color c2 = ColorPainter.getColor(h+1.0/6-h0/6);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(u.val).add(c2.mult(1-u.val));
+        double sat = Math.exp(-v.val*v.val);
+        return c4.mult(sat).add(c3.mult(sat));
+    }
+}
+
+fn MotherColor_gauss1 {
+    in LDouble u;
+    in LDouble v;
+    fout Color;
+
+    parameter double h;
+    parameter double h0;
+
+    init {
+        h = Math.random();
+        h0 = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h-h0/6);
+        Color c2 = ColorPainter.getColor(h+1.0/6-h0/6);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(u.val).add(c2.mult(1-u.val));
+        double sat = 1-Math.exp(-v.val*v.val);
+        return c4.mult(sat).add(c3.mult(sat));
+    }
+}
+
+fn MotherColor_sigmoid {
+    in LDouble u;
+    in LDouble v;
+    fout Color;
+
+    parameter double h;
+    parameter double h0;
+
+    init {
+        h = Math.random();
+        h0 = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h-h0/6);
+        Color c2 = ColorPainter.getColor(h+1.0/6-h0/6);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(u.val).add(c2.mult(1-u.val));
+        double sat = 1/Math.exp(1+v.val);
+        return c4.mult(sat).add(c3.mult(sat));
+    }
+}
+
+fn MotherColor_v2 {
+    in LVect2d x;
+    fout Color;
+
+    parameter double h;
+    parameter double h0;
+
+    init {
+        h = Math.random();
+        h0 = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h-h0/6);
+        Color c2 = ColorPainter.getColor(h+1.0/6-h0/6);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(x.x).add(c2.mult(1-x.x));
+        return c4.mult(x.y).add(c3.mult(1-x.y));
+    }
+}
+
+fn MotherColor_v2_gauss {
+    in LVect2d x;
+    fout Color;
+
+    parameter double h;
+    parameter double h0;
+
+    init {
+        h = Math.random();
+        h0 = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h-h0/6);
+        Color c2 = ColorPainter.getColor(h+1.0/6-h0/6);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(x.x).add(c2.mult(1-x.x));
+        double sat = Math.exp(-x.y*x.y);
+        return c4.mult(sat).add(c3.mult(sat));
+    }
+}
+
+fn MotherColor_v2_gauss1 {
+    in LVect2d x;
+    fout Color;
+
+    parameter double h;
+    parameter double h0;
+
+    init {
+        h = Math.random();
+        h0 = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h-h0/6);
+        Color c2 = ColorPainter.getColor(h+1.0/6-h0/6);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(x.x).add(c2.mult(1-x.x));
+        double sat = 1-Math.exp(-x.y*x.y);
+        return c4.mult(sat).add(c3.mult(sat));
+    }
+}
+
+fn MotherColor_v2_sigmoid {
+    in LVect2d x;
+    fout Color;
+
+    parameter double h;
+    parameter double h0;
+
+    init {
+        h = Math.random();
+        h0 = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h-h0/6);
+        Color c2 = ColorPainter.getColor(h+1.0/6-h0/6);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(x.x).add(c2.mult(1-x.x));
+        double sat = 1/Math.exp(1+x.y);
+        return c4.mult(sat).add(c3.mult(sat));
+    }
+}
+
+/*
+fn MotherColor_right {
+    in LDouble u;
+    in LDouble v;
+    fout Color;
+
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h);
+        Color c2 = ColorPainter.getColor(h-1.0/6);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(u.val).add(c2.mult(1-u.val));
+        return c4.mult(v.val).add(c3.mult(1-v.val));
+    }
+}
+
+fn MotherColor_right_v2 {
+    in LVect2d x;
+    fout Color;
+
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h);
+        Color c2 = ColorPainter.getColor(h-1.0/6);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(x.x).add(c2.mult(1-x.x));
+        return c4.mult(x.y).add(c3.mult(1-x.y));
+    }
+}
+
+fn MotherColor_center {
+    in LDouble u;
+    in LDouble v;
+    fout Color;
+
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h+1.0/12);
+        Color c2 = ColorPainter.getColor(h-1.0/12);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(u.val).add(c2.mult(1-u.val));
+        return c4.mult(v.val).add(c3.mult(1-v.val));
+    }
+}
+
+fn MotherColor_center_v2 {
+    in LVect2d x;
+    fout Color;
+
+    parameter double h;
+
+    init {
+        h = Math.random();
+    }
+
+    eval {
+        Color c1 = ColorPainter.getColor(h+1.0/12);
+        Color c2 = ColorPainter.getColor(h-1.0/12);
+        Color c3 = ColorPainter.getColor(h+.5);
+
+        Color c4 = c1.mult(x.x).add(c2.mult(1-x.x));
+        return c4.mult(x.y).add(c3.mult(1-x.y));
+    }
+}*/
+

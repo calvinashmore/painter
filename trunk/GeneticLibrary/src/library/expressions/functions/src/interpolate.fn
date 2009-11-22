@@ -1,0 +1,202 @@
+package library.expressions.functions;
+group Interpolate;
+type Expression;
+
+import utils.linear.*;
+
+description "Interpolations";
+
+// *****************
+// *** INTERPOLATORS
+// *****************
+
+fn Interpolate_d {
+    in LDouble interp;
+    in LDouble x;
+    in LDouble y;
+    fout LDouble;
+
+    eval {
+        double mod = Math.min(Math.max(interp.val,0),1);
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate_v2 {
+    in LDouble interp;
+    in LVect2d x;
+    in LVect2d y;
+    fout LVect2d;
+
+    eval {
+        double mod = Math.min(Math.max(interp.val,0),1);
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate_v3 {
+    in LDouble interp;
+    in LVect3d x;
+    in LVect3d y;
+    fout LVect3d;
+
+    eval {
+        double mod = Math.min(Math.max(interp.val,0),1);
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate_col {
+    in LDouble interp;
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        double mod = Math.min(Math.max(interp.val,0),1);
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate1_d {
+    in LDouble interp;
+    in LDouble x;
+    in LDouble y;
+    fout LDouble;
+
+    eval {
+        double mod = 1/(1.0+Math.exp(-interp.val));
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate1_v2 {
+    in LDouble interp;
+    in LVect2d x;
+    in LVect2d y;
+    fout LVect2d;
+
+    eval {
+        double mod = 1/(1.0+Math.exp(-interp.val));
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate1_v3 {
+    in LDouble interp;
+    in LVect3d x;
+    in LVect3d y;
+    fout LVect3d;
+
+    eval {
+        double mod = 1/(1.0+Math.exp(-interp.val));
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate1_col {
+    in LDouble interp;
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        double mod = 1/(1.0+Math.exp(-interp.val));
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate2_d {
+    in LDouble interp;
+    in LDouble x;
+    in LDouble y;
+    fout LDouble;
+
+    eval {
+        double mod = Math.exp(-interp.val*interp.val);
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate2_v2 {
+    in LDouble interp;
+    in LVect2d x;
+    in LVect2d y;
+    fout LVect2d;
+
+    eval {
+        double mod = Math.exp(-interp.val*interp.val);
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate2_v3 {
+    in LDouble interp;
+    in LVect3d x;
+    in LVect3d y;
+    fout LVect3d;
+
+    eval {
+        double mod = Math.exp(-interp.val*interp.val);
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+fn Interpolate2_col {
+    in LDouble interp;
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        double mod = Math.exp(-interp.val*interp.val);
+        return x.mult(mod).add(y.mult(1-mod));
+    }
+}
+
+// **************
+// *** THRESHOLDS
+// **************
+
+fn Threshold_d {
+    in LDouble thresh;
+    in LDouble x;
+    in LDouble y;
+    fout LDouble;
+
+    eval {
+        if(thresh.val < .5)
+            return x;
+        else
+            return y;
+    }
+}
+
+fn Threshold_v2 {
+    in LDouble thresh;
+    in LVect2d x;
+    in LVect2d y;
+    fout LVect2d;
+
+    eval {
+        if(thresh.val < .5)
+            return x;
+        else
+            return y;
+    }
+}
+
+fn Threshold_v3 {
+    in LDouble thresh;
+    in LVect3d x;
+    in LVect3d y;
+    fout LVect3d;
+
+    eval {
+        if(thresh.val < .5)
+            return x;
+        else
+            return y;
+    }
+}
+

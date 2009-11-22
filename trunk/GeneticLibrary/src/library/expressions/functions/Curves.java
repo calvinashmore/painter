@@ -1,4 +1,4 @@
-package painter . functions . expressions;
+package library . expressions . functions;
 
 import java.util.*;
 import genetic.*;

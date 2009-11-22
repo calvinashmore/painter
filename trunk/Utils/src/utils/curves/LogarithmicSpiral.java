@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package painter.util.curves;
+package utils.curves;
 
 import utils.linear.LVect2d;
 import utils.linear.Linear;

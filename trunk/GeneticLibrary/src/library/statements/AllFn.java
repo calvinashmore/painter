@@ -16,6 +16,7 @@ import genetic.component.statement.function.*;
 public class AllFn implements AllComponents<StatementFunction> {
    public List<StatementFunction> allInstances(ContextModel cm) {
       List<StatementFunction> r = new ArrayList<StatementFunction>();
+      r.addAll(new AlongCurves().allInstances(cm));
       r.addAll(new Conditionals().allInstances(cm));
       r.addAll(new Loops().allInstances(cm));
       return r;

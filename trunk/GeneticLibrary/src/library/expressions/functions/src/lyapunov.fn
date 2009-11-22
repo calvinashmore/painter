@@ -1,0 +1,304 @@
+package library.expressions.functions;
+group Lyapunov;
+type Expression;
+
+import utils.linear.*;
+import utils.lyapunov.*;
+
+description "Lyapunov fractals";
+
+
+// *************
+// *** Functions
+// *************
+
+fn sin2b {
+    interface LyapunovFunction;
+    fout LyapunovFunction;
+
+    parameter double b;
+
+    init {
+        b = Math.random()*2+1;
+    }
+
+    public double apply(double x, double k) {
+        return b*Math.pow(Math.sin(x+k),2);
+    }
+    public double deriv(double x, double k) {
+        return 2*b*Math.sin(x+k)*Math.cos(x+k);
+    }
+
+    eval {return this;}
+}
+
+fn sin2b1 {
+    interface LyapunovFunction;
+    fout LyapunovFunction;
+
+    in LDouble b_in;
+
+    private double b;
+    public double apply(double x, double k) {
+        return b*Math.pow(Math.sin(x+k),2);
+    }
+    public double deriv(double x, double k) {
+        return 2*b*Math.sin(x+k)*Math.cos(x+k);
+    }
+
+    eval {
+        b = b_in.val;
+        return this;
+    }
+}
+
+fn cos2b {
+    interface LyapunovFunction;
+    fout LyapunovFunction;
+
+    parameter double b;
+
+    init {
+        b = Math.random()*2+1;
+    }
+
+    public double apply(double x, double k) {
+        return b*Math.pow(Math.cos(x+k),2);
+    }
+    public double deriv(double x, double k) {
+        return -2*b*Math.cos(x+k)*Math.sin(x+k);
+    }
+
+    eval {return this;}
+}
+
+fn cos2b1 {
+    interface LyapunovFunction;
+    fout LyapunovFunction;
+
+    in LDouble b_in;
+
+    private double b;
+    public double apply(double x, double k) {
+        return b*Math.pow(Math.cos(x+k),2);
+    }
+    public double deriv(double x, double k) {
+        return -2*b*Math.cos(x+k)*Math.sin(x+k);
+    }
+
+    eval {
+        b = b_in.val;
+        return this;
+    }
+}
+
+fn kcos2 {
+    interface LyapunovFunction;
+    fout LyapunovFunction;
+
+    public double apply(double x, double k) {
+        return k*Math.pow(Math.cos(x),2);
+    }
+    public double deriv(double x, double k) {
+        return -2*k*Math.cos(x)*Math.sin(x);
+    }
+
+    eval {return this;}
+}
+
+fn logistic_saw {
+    interface LyapunovFunction;
+    fout LyapunovFunction;
+
+    public double apply(double x, double k) {
+        k = k - 4*Math.floor(k/4);
+        return k*x*(1-x);
+    }
+    public double deriv(double x, double k) {
+        k = k - 4*Math.floor(k/4);
+        return k - 2*k*x;
+    }
+
+    eval {return this;}
+}
+
+
+// **************
+// *** Evaluators
+// **************
+
+fn Lyapunov_2_v2 {
+    fout LDouble;
+    in LyapunovFunction f;
+
+    in LVect2d v;
+
+    parameter String sequence;
+    parameter double seed;
+
+    init {
+        int len = 2+(int)(Math.random()*6);
+        char chars[] = new char[len];
+        chars[0] = 'a';
+        do {
+            for(int i=1;i<len;i++)
+                chars[i] = (char)('a' + (Math.random()*2));
+            sequence = new String(chars);
+        } while(sequence.indexOf('b') == -1);
+
+        seed = Math.random()*Math.PI;
+    }
+
+    private static final int prelim = 20;
+    private static final int iterations = 100;
+    private char seqAt(int i) {
+        return sequence.charAt( i % sequence.length() );
+    }
+
+
+    eval {
+        double x = v.x;
+        double y = v.y;
+        double sum = 0;
+        double p = seed;
+
+        for(int i=0;i<iterations;i++) {
+            char seq = seqAt(i);
+            
+            if(i > prelim) {
+                if(seq == 'a')
+                     sum += Math.log( Math.abs(f.deriv(p,x)) );
+                else sum += Math.log( Math.abs(f.deriv(p,y)) );
+            }
+
+            if(seq == 'a')
+                 p = f.apply(p , x);
+            else p = f.apply(p , y);
+        }
+
+        sum /= (iterations - prelim);
+        if(sum < 0) sum /= 2;
+        else sum *= 2;
+        return new LDouble(sum);
+    }
+}
+
+fn Lyapunov_2_dd {
+    fout LDouble;
+    in LyapunovFunction f;
+
+    in LDouble x1;
+    in LDouble y1;
+
+    parameter String sequence;
+    parameter double seed;
+
+    init {
+        int len = 2+(int)(Math.random()*6);
+        char chars[] = new char[len];
+        chars[0] = 'a';
+        do {
+            for(int i=1;i<len;i++)
+                chars[i] = (char)('a' + (Math.random()*2));
+            sequence = new String(chars);
+        } while(sequence.indexOf('b') == -1);
+
+        seed = Math.random()*Math.PI;
+    }
+
+    private static final int prelim = 20;
+    private static final int iterations = 100;
+    private char seqAt(int i) {
+        return sequence.charAt( i % sequence.length() );
+    }
+
+    eval {
+        double x = x1.val;
+        double y = y1.val;
+        double sum = 0;
+        double p = seed;
+
+        for(int i=0;i<iterations;i++) {
+            char seq = seqAt(i);
+            
+            if(i > prelim) {
+                if(seq == 'a')
+                     sum += Math.log( Math.abs(f.deriv(p,x)) );
+                else sum += Math.log( Math.abs(f.deriv(p,y)) );
+            }
+
+            if(seq == 'a')
+                 p = f.apply(p , x);
+            else p = f.apply(p , y);
+        }
+
+        sum /= (iterations - prelim);
+        if(sum < 0) sum /= 2;
+        else sum *= 2;
+        return new LDouble(sum);
+    }
+}
+
+fn Lyapunov_3_v3 {
+    fout LDouble;
+    in LyapunovFunction f;
+
+    in LVect3d v;
+
+    parameter String sequence;
+    parameter double seed;
+
+    init {
+        int len = 2+(int)(Math.random()*6);
+        char chars[] = new char[len];
+        chars[0] = 'a';
+        do {
+            for(int i=1;i<len;i++)
+                chars[i] = (char)('a' + (Math.random()*3));
+            sequence = new String(chars);
+        } while(
+            sequence.indexOf('b') == -1 &&
+            sequence.indexOf('c') == -1 );
+
+        seed = Math.random()*Math.PI;
+    }
+
+    private static final int prelim = 20;
+    private static final int iterations = 100;
+    private char seqAt(int i) {
+        return sequence.charAt( i % sequence.length() );
+    }
+
+    eval {
+        double x = v.x;
+        double y = v.y;
+        double z = v.z;
+        double sum = 0;
+        double p = seed;
+
+        for(int i=0;i<iterations;i++) {
+            char seq = seqAt(i);
+            
+            if(i > prelim) {
+                if(seq == 'a')
+                    sum += Math.log( Math.abs(f.deriv(p,x)) );
+                else if(seq == 'b')
+                    sum += Math.log( Math.abs(f.deriv(p,y)) );
+                else
+                    sum += Math.log( Math.abs(f.deriv(p,z)) );
+            }
+
+            if(seq == 'a')
+                p = f.apply(p , x);
+            else if(seq == 'b')
+                p = f.apply(p , y);
+            else
+                p = f.apply(p , z);
+        }
+
+        sum /= (iterations - prelim);
+        if(sum < 0) sum /= 2;
+        else sum *= 2;
+        return new LDouble(sum);
+    }
+}

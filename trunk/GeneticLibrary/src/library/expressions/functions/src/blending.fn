@@ -1,0 +1,253 @@
+package library.expressions.functions;
+group Blending;
+type Expression;
+
+import utils.linear.*;
+
+description "Color blending operations";
+
+
+fn Limit {
+    in Color x;
+    fout Color;
+
+    eval {
+        return new Color(
+                Math.max(Math.min(x.r,1), 0),
+                Math.max(Math.min(x.g,1), 0), 
+                Math.max(Math.min(x.b,1), 0)
+                );
+    }
+}
+
+
+fn Average {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(
+                (x.r + y.r) / 2,
+                (x.g + y.g) / 2,
+                (x.b + y.b) / 2
+                );
+    }
+}
+
+fn ColorBurn {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(
+                1 - (1 - x.r) / (y.r),
+                1 - (1 - x.g) / (y.g),
+                1 - (1 - x.b) / (y.b)
+                );
+    }
+}
+
+fn ColorDodge {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(
+                x.r / (1 - y.r),
+                x.g / (1 - y.g),
+                x.b / (1 - y.b)
+                );
+    }
+}
+
+fn Darken {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(Math.min(x.r , y.r), Math.min(x.g , y.g), Math.min(x.b , y.b));
+    }
+}
+
+fn Difference {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(
+                Math.abs(y.r - x.r), 
+                Math.abs(y.g - x.g), 
+                Math.abs(y.b - x.b)
+                );
+    }
+}
+
+fn Exclusion {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(
+                x.r + y.r - 2*x.r*y.r, 
+                x.g + y.g - 2*x.g*y.g, 
+                x.b + y.b - 2*x.b*y.b
+                );
+    }
+}
+
+fn HardLight {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        double lum = .2125 * y.r + .7154 * y.g + .0721 * y.b;
+        
+        if(lum < 0.45) {
+            return new Color(2*x.r*y.r, 2*x.g*y.g, 2*x.b*y.b);
+        } else if(lum > .55) {
+            return new Color(
+                    1 - 2*(1-x.r)*(1-y.r),
+                    1 - 2*(1-x.g)*(1-y.g),
+                    1 - 2*(1-x.b)*(1-y.b)
+                    );
+        } else {
+            
+            Color r1 = new Color(2*x.r*y.r, 2*x.g*y.g, 2*x.b*y.b);
+            Color r2 = new Color(
+                    1 - 2*(1-x.r)*(1-y.r),
+                    1 - 2*(1-x.g)*(1-y.g),
+                    1 - 2*(1-x.b)*(1-y.b)
+                    );
+            
+            r1.multv(10*(lum - 0.45));
+            r2.multv(1 - 10*(lum - 0.45));
+            
+            return r1.add(r2);
+        }
+    }
+}
+
+fn InverseDifference {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(
+                1 - Math.abs(1 - y.r - x.r), 
+                1 - Math.abs(1 - y.g - x.g), 
+                1 - Math.abs(1 - y.b - x.b)
+                );
+    }
+}
+
+fn Lighten {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(Math.max(x.r , y.r), Math.max(x.g , y.g), Math.max(x.b , y.b));
+    }
+}
+
+fn Multiply {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(x.r * y.r, x.g * y.g, x.b * y.b);
+    }
+}
+
+fn Overlay {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        double lum = .2125 * x.r + .7154 * x.g + .0721 * x.b;
+            
+        Color r1 = new Color(2*x.r*y.r, 2*x.g*y.g, 2*x.b*y.b);
+        Color r2 = new Color(
+                1 - 2*(1-x.r)*(1-y.r),
+                1 - 2*(1-x.g)*(1-y.g),
+                1 - 2*(1-x.b)*(1-y.b)
+                );
+
+        r1.multv(lum);
+        r2.multv(1 - lum);
+
+        return r1.add(r2);
+    }
+}
+
+fn Overlay_x {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        double lum = .2125 * x.r + .7154 * x.g + .0721 * x.b;
+        
+        if(lum < 0.45) {
+            return new Color(2*x.r*y.r, 2*x.g*y.g, 2*x.b*y.b);
+        } else if(lum > .55) {
+            return new Color(
+                    1 - 2*(1-x.r)*(1-y.r),
+                    1 - 2*(1-x.g)*(1-y.g),
+                    1 - 2*(1-x.b)*(1-y.b)
+                    );
+        } else {
+            
+            Color r1 = new Color(2*x.r*y.r, 2*x.g*y.g, 2*x.b*y.b);
+            Color r2 = new Color(
+                    1 - 2*(1-x.r)*(1-y.r),
+                    1 - 2*(1-x.g)*(1-y.g),
+                    1 - 2*(1-x.b)*(1-y.b)
+                    );
+            
+            r1.multv(10*(lum - 0.45));
+            r2.multv(1 - 10*(lum - 0.45));
+            
+            return r1.add(r2);
+        }
+    }
+}
+
+fn Screen {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(
+                1 - (1 - x.r) * (1 - y.r),
+                1 - (1 - x.g) * (1 - y.g),
+                1 - (1 - x.b) * (1 - y.b)
+                );
+    }
+}
+
+fn SoftLight {
+    in Color x;
+    in Color y;
+    fout Color;
+
+    eval {
+        return new Color(
+                2*x.r*y.r + x.r*x.r - 2*x.r*x.r*y.r,
+                2*x.g*y.g + x.g*x.g - 2*x.g*x.g*y.g,
+                2*x.b*y.b + x.b*x.b - 2*x.b*x.b*y.b
+                );
+    }
+}
+

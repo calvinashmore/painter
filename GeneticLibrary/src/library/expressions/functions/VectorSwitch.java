@@ -44,7 +44,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public Integer evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return ( int ) x . val ;
       }
 
@@ -81,7 +81,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Integer x = (Integer)inputs[0];
+         final Integer x = (Integer)inputs[0];
          return new LDouble ( x ) ;
       }
 
@@ -118,7 +118,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return new LVect2d ( x . x , x . y ) ;
       }
 
@@ -155,7 +155,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return new LDouble ( x . x ) ;
       }
 
@@ -192,7 +192,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return new LDouble ( x . y ) ;
       }
 
@@ -229,7 +229,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return new Complex ( x . x , x . y ) ;
       }
 
@@ -266,7 +266,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return new LDouble ( x . x ) ;
       }
 
@@ -303,7 +303,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return new LDouble ( x . y ) ;
       }
 
@@ -340,7 +340,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return new LVect2d ( x . y , x . x ) ;
       }
 
@@ -377,7 +377,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double r = Math . sqrt ( x . x * x . x + x . y * x . y ) ;
          double theta = Math . atan2 ( x . y , x . x ) ;
          return new LVect2d ( r , theta ) ;
@@ -416,7 +416,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return new LVect2d ( x . x * Math . cos ( x . y ) , x . x * Math . sin ( x . y ) ) ;
       }
 
@@ -453,7 +453,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new LDouble ( x . r ) ;
       }
 
@@ -490,7 +490,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new LDouble ( x . g ) ;
       }
 
@@ -527,7 +527,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new LDouble ( x . b ) ;
       }
 
@@ -564,7 +564,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new LDouble ( x . hsbvals ( ) [ 0 ] ) ;
       }
 
@@ -601,7 +601,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new LDouble ( x . hsbvals ( ) [ 1 ] ) ;
       }
 
@@ -638,7 +638,7 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new LDouble ( x . hsbvals ( ) [ 2 ] ) ;
       }
 
@@ -677,8 +677,8 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new Complex ( x . val , y . val ) ;
       }
 
@@ -717,8 +717,8 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LVect2d ( x . val , y . val ) ;
       }
 
@@ -759,9 +759,9 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
-         LDouble z = (LDouble)inputs[2];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
+         final LDouble z = (LDouble)inputs[2];
          return new LVect3d ( x . val , y . val , z . val ) ;
       }
 
@@ -800,8 +800,8 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LVect2d yz = (LVect2d)inputs[1];
+         final LDouble x = (LDouble)inputs[0];
+         final LVect2d yz = (LVect2d)inputs[1];
          return new LVect3d ( x . val , yz . x , yz . y ) ;
       }
 
@@ -840,8 +840,8 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect2d xy = (LVect2d)inputs[0];
-         LDouble z = (LDouble)inputs[1];
+         final LVect2d xy = (LVect2d)inputs[0];
+         final LDouble z = (LDouble)inputs[1];
          return new LVect3d ( xy . x , xy . y , z . val ) ;
       }
 
@@ -880,8 +880,8 @@ public final class VectorSwitch implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect2d xz = (LVect2d)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LVect2d xz = (LVect2d)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LVect3d ( xz . x , y . val , xz . y ) ;
       }
 

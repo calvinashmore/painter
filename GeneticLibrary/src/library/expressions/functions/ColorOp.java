@@ -44,7 +44,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new Color ( 1 - x . r , 1 - x . g , 1 - x . b ) ;
       }
 
@@ -81,7 +81,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          Color c = new Color ( 1 - x . r , 1 - x . g , 1 - x . b ) ;
          return c . mult ( x . magnitude ( ) / c . magnitude ( ) ) ;
       }
@@ -121,8 +121,8 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         LDouble t = (LDouble)inputs[1];
+         final Color x = (Color)inputs[0];
+         final LDouble t = (LDouble)inputs[1];
          Color c = new Color ( 1 - x . r , 1 - x . g , 1 - x . b ) ;
          c = c . mult ( x . magnitude ( ) / c . magnitude ( ) ) ;
          return x . mult ( 1 - t . val ) . add ( c . mult ( t . val ) ) ;
@@ -163,8 +163,8 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         LDouble offset = (LDouble)inputs[1];
+         final Color x = (Color)inputs[0];
+         final LDouble offset = (LDouble)inputs[1];
          double hsb [ ] = x . hsbvals ( ) ;
          return new Color ( hsb [ 0 ] + offset . val , hsb [ 1 ] , hsb [ 2 ] ) ;
       }
@@ -204,8 +204,8 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         LDouble value = (LDouble)inputs[1];
+         final Color x = (Color)inputs[0];
+         final LDouble value = (LDouble)inputs[1];
          double hsb [ ] = x . hsbvals ( ) ;
          return new Color ( value . val , hsb [ 1 ] , hsb [ 2 ] ) ;
       }
@@ -245,8 +245,8 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         LDouble value = (LDouble)inputs[1];
+         final Color x = (Color)inputs[0];
+         final LDouble value = (LDouble)inputs[1];
          double hsb [ ] = x . hsbvals ( ) ;
          return new Color ( hsb [ 0 ] , value . val , hsb [ 2 ] ) ;
       }
@@ -286,8 +286,8 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         LDouble value = (LDouble)inputs[1];
+         final Color x = (Color)inputs[0];
+         final LDouble value = (LDouble)inputs[1];
          double hsb [ ] = x . hsbvals ( ) ;
          return new Color ( hsb [ 0 ] , hsb [ 1 ] , value . val ) ;
       }
@@ -325,7 +325,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return Color . makeHSB ( x . r , x . g , x . b ) ;
       }
 
@@ -362,7 +362,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return Color . makeHSB ( x . g , x . r , x . b ) ;
       }
 
@@ -399,7 +399,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return Color . makeHSB ( x . r , x . b , x . g ) ;
       }
 
@@ -436,7 +436,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return Color . makeHSB ( x . g , x . b , x . r ) ;
       }
 
@@ -473,7 +473,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return Color . makeHSB ( x . b , x . r , x . g ) ;
       }
 
@@ -510,7 +510,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return Color . makeHSB ( x . b , x . g , x . r ) ;
       }
 
@@ -547,7 +547,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          double [ ] hsb = x . hsbvals ( ) ;
          return new Color ( hsb [ 0 ] , hsb [ 1 ] , hsb [ 2 ] ) ;
       }
@@ -585,7 +585,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          double [ ] hsb = x . hsbvals ( ) ;
          return new Color ( hsb [ 0 ] , hsb [ 2 ] , hsb [ 1 ] ) ;
       }
@@ -623,7 +623,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          double [ ] hsb = x . hsbvals ( ) ;
          return new Color ( hsb [ 1 ] , hsb [ 0 ] , hsb [ 2 ] ) ;
       }
@@ -661,7 +661,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          double [ ] hsb = x . hsbvals ( ) ;
          return new Color ( hsb [ 1 ] , hsb [ 2 ] , hsb [ 0 ] ) ;
       }
@@ -699,7 +699,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          double [ ] hsb = x . hsbvals ( ) ;
          return new Color ( hsb [ 2 ] , hsb [ 1 ] , hsb [ 0 ] ) ;
       }
@@ -737,7 +737,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          double [ ] hsb = x . hsbvals ( ) ;
          return new Color ( hsb [ 2 ] , hsb [ 0 ] , hsb [ 1 ] ) ;
       }
@@ -779,9 +779,9 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble h = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
-         LDouble b = (LDouble)inputs[2];
+         final LDouble h = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
+         final LDouble b = (LDouble)inputs[2];
          return Color . makeHSB ( h . val , s . val , b . val ) ;
       }
 
@@ -822,9 +822,9 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble h = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
-         LDouble b = (LDouble)inputs[2];
+         final LDouble h = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
+         final LDouble b = (LDouble)inputs[2];
          return Color . makeHSB ( h . val , s . val , .5 + .5 * b . val / ( 1 + Math . abs ( b . val ) ) ) ;
       }
 
@@ -861,7 +861,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d hsb = (LVect3d)inputs[0];
+         final LVect3d hsb = (LVect3d)inputs[0];
          return Color . makeHSB ( hsb . x , hsb . y , hsb . z ) ;
       }
 
@@ -898,7 +898,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d hsb = (LVect3d)inputs[0];
+         final LVect3d hsb = (LVect3d)inputs[0];
          return Color . makeHSB ( hsb . x , hsb . y , .5 + .5 * hsb . z / ( 1 + Math . abs ( hsb . z ) ) ) ;
       }
 
@@ -935,7 +935,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d hsb = (LVect3d)inputs[0];
+         final LVect3d hsb = (LVect3d)inputs[0];
          return Color . makeHSB ( hsb . x , Math . exp ( - hsb . y * hsb . y ) , Math . exp ( - hsb . z * hsb . z ) ) ;
       }
 
@@ -972,7 +972,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d hsb = (LVect3d)inputs[0];
+         final LVect3d hsb = (LVect3d)inputs[0];
          return Color . makeHSB ( hsb . x , 1 / ( 1.0 + Math . exp ( - hsb . y ) ) , 1 / ( 1.0 + Math . exp ( - hsb . z ) ) ) ;
       }
 
@@ -1009,7 +1009,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         Color rgb = (Color)inputs[0];
+         final Color rgb = (Color)inputs[0];
          return new LVect3d ( rgb . r , rgb . g , rgb . b ) ;
       }
 
@@ -1046,7 +1046,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          double [ ] hsb = x . hsbvals ( ) ;
          return new LVect3d ( hsb [ 0 ] , hsb [ 1 ] , hsb [ 2 ] ) ;
       }
@@ -1088,9 +1088,9 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble r = (LDouble)inputs[0];
-         LDouble g = (LDouble)inputs[1];
-         LDouble b = (LDouble)inputs[2];
+         final LDouble r = (LDouble)inputs[0];
+         final LDouble g = (LDouble)inputs[1];
+         final LDouble b = (LDouble)inputs[2];
          return new Color ( r . val , g . val , b . val ) ;
       }
 
@@ -1127,7 +1127,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d rgb = (LVect3d)inputs[0];
+         final LVect3d rgb = (LVect3d)inputs[0];
          return new Color ( rgb . x , rgb . y , rgb . z ) ;
       }
 
@@ -1164,7 +1164,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d rgb = (LVect3d)inputs[0];
+         final LVect3d rgb = (LVect3d)inputs[0];
          return new Color ( Math . exp ( - rgb . x * rgb . x ) , Math . exp ( - rgb . y * rgb . y ) , Math . exp ( - rgb . z * rgb . z ) ) ;
       }
 
@@ -1201,7 +1201,7 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d rgb = (LVect3d)inputs[0];
+         final LVect3d rgb = (LVect3d)inputs[0];
          return new Color ( 1 / ( 1.0 + Math . exp ( - rgb . x ) ) , 1 / ( 1.0 + Math . exp ( - rgb . y ) ) , 1 / ( 1.0 + Math . exp ( - rgb . z ) ) ) ;
       }
 
@@ -1240,8 +1240,8 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color color = (Color)inputs[0];
-         LDouble blend = (LDouble)inputs[1];
+         final Color color = (Color)inputs[0];
+         final LDouble blend = (LDouble)inputs[1];
          double blend1 = 1 / ( 1.0 + Math . exp ( - blend . val ) ) ;
          return new Color ( blend1 + ( 1 - blend1 ) * color . r , blend1 + ( 1 - blend1 ) * color . g , blend1 + ( 1 - blend1 ) * color . b ) ;
       }
@@ -1281,8 +1281,8 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color color = (Color)inputs[0];
-         LDouble blend = (LDouble)inputs[1];
+         final Color color = (Color)inputs[0];
+         final LDouble blend = (LDouble)inputs[1];
          double blend1 = 1 / ( 1.0 + Math . exp ( - blend . val ) ) ;
          return new Color ( 0 + ( 1 - blend1 ) * color . r , 0 + ( 1 - blend1 ) * color . g , 0 + ( 1 - blend1 ) * color . b ) ;
       }
@@ -1322,8 +1322,8 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color color = (Color)inputs[0];
-         LDouble blend = (LDouble)inputs[1];
+         final Color color = (Color)inputs[0];
+         final LDouble blend = (LDouble)inputs[1];
          double blend1 = 1 / ( 1.0 + Math . exp ( - blend . val ) ) ;
          return new Color ( .5 * blend1 + ( 1 - blend1 ) * color . r , .5 * blend1 + ( 1 - blend1 ) * color . g , .5 * blend1 + ( 1 - blend1 ) * color . b ) ;
       }
@@ -1363,8 +1363,8 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color color = (Color)inputs[0];
-         LDouble blend = (LDouble)inputs[1];
+         final Color color = (Color)inputs[0];
+         final LDouble blend = (LDouble)inputs[1];
          double blend1 = 1 / ( 1.0 + Math . exp ( - blend . val ) ) ;
          if ( blend1 > .5 ) return new Color ( 2 * ( blend1 - .5 ) + ( 1 - 2 * ( blend1 - .5 ) ) * color . r , 2 * ( blend1 - .5 ) + ( 1 - 2 * ( blend1 - .5 ) ) * color . g , 2 * ( blend1 - .5 ) + ( 1 - 2 * ( blend1 - .5 ) ) * color . b ) ;
          else return new Color ( ( 2 * blend1 ) * color . r , ( 2 * blend1 ) * color . g , ( 2 * blend1 ) * color . b ) ;
@@ -1405,8 +1405,8 @@ public final class ColorOp implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color color = (Color)inputs[0];
-         LDouble blend = (LDouble)inputs[1];
+         final Color color = (Color)inputs[0];
+         final LDouble blend = (LDouble)inputs[1];
          double blend1 = 1 / ( 1.0 + Math . exp ( - blend . val ) ) ;
          return new Color ( blend1 * ( 1 - color . r ) + ( 1 - blend1 ) * color . r , blend1 * ( 1 - color . g ) + ( 1 - blend1 ) * color . g , blend1 * ( 1 - color . b ) + ( 1 - blend1 ) * color . b ) ;
       }

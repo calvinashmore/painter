@@ -342,7 +342,7 @@ abstract public class FnNode /*implements Compilable*/ {
         
         int i=0;
         for (TypeAndName input : getFn().getTypeAndNames("in")) {
-            sb.append(input.getType().dumpTokens()+" ");
+            sb.append("final "+input.getType().dumpTokens()+" ");
             sb.append(input.getName()+" = ("+input.getType().dumpTokens()+")inputs["+i+"];\n");
             i++;
         }

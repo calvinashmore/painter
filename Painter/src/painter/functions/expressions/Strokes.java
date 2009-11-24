@@ -66,8 +66,8 @@ public final class Strokes implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Stroke evaluate(Context context, Object[] inputs) {
-         CurveUtil . Curve_d alpha = (CurveUtil . Curve_d)inputs[0];
-         Stroke baseStroke = (Stroke)inputs[1];
+         final CurveUtil . Curve_d alpha = (CurveUtil . Curve_d)inputs[0];
+         final Stroke baseStroke = (Stroke)inputs[1];
          return new AlphaStroke ( baseStroke , alpha ) ;
       }
 
@@ -104,7 +104,7 @@ public final class Strokes implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Stroke evaluate(Context context, Object[] inputs) {
-         Stroke baseStroke = (Stroke)inputs[0];
+         final Stroke baseStroke = (Stroke)inputs[0];
          return new AlphaStroke ( baseStroke ) ;
       }
 

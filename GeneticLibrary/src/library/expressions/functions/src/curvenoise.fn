@@ -1,0 +1,151 @@
+package library.expressions.functions;
+group CurveNoise;
+type Expression;
+
+import utils.linear.*;
+import utils.curves.*;
+import utils.noise.*;
+
+description "curves based on perlin noise";
+
+
+// *****************************************
+// ****** BASIC CURVES
+// *****************************************
+
+// These use the t of the curve as input for noise.
+
+fn basicnoise_d {
+    fout CurveUtil.Curve_d;
+    in NoiseFunction noise;
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double t) {
+                return new LDouble(noise.noise(t,0,0));
+            }
+        };
+    }
+}
+
+fn basicnoise_v2 {
+    fout CurveUtil.Curve_v2;
+    in NoiseFunction noise;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double t) {
+                return new LVect2d(noise.noise(t,0,0), noise.noise(t+100,0,100));
+            }
+        };
+    }
+}
+
+fn basicnoise_v2_n {
+    fout CurveUtil.Curve_v2;
+    in NoiseFunction noise;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double t) {
+                return new LVect2d(noise.noise(t,0,0), noise.noise(t+100,0,100)).normal();
+            }
+        };
+    }
+}
+
+fn basicnoise_col {
+    fout CurveUtil.Curve_col;
+    in NoiseFunction noise;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double t) {
+                return new Color(.5+.5*noise.noise(t,0,0), .5+.5*noise.noise(t+100,0,100), .5+.5*noise.noise(t+300,0,300));
+            }
+        };
+    }
+}
+
+fn basicnoise_col_n {
+    fout CurveUtil.Curve_col;
+    in NoiseFunction noise;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double t) {
+                return new Color(.5+.5*noise.noise(t,0,0), .5+.5*noise.noise(t+100,0,100), .5+.5*noise.noise(t+300,0,300)).normal();
+            }
+        };
+    }
+}
+
+fn basicfractal_d {
+    fout CurveUtil.Curve_d;
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double t) {
+                return new LDouble(fractal.evalFractal(noise, t,0,0));
+            }
+        };
+    }
+}
+
+fn basicfractal_v2 {
+    fout CurveUtil.Curve_v2;
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double t) {
+                return new LVect2d(fractal.evalFractal(noise, t,0,0), fractal.evalFractal(noise, t+100,0,100));
+            }
+        };
+    }
+}
+
+fn basicfractal_v2_n {
+    fout CurveUtil.Curve_v2;
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double t) {
+                return new LVect2d(fractal.evalFractal(noise, t,0,0), fractal.evalFractal(noise, t+100,0,100)).normal();
+            }
+        };
+    }
+}
+
+fn basicfractal_col {
+    fout CurveUtil.Curve_col;
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double t) {
+                return new Color(.5+.5*fractal.evalFractal(noise, t,0,0), .5+.5*fractal.evalFractal(noise, t+100,0,100), .5+.5*fractal.evalFractal(noise, t+300,0,300));
+            }
+        };
+    }
+}
+
+fn basicfractal_col_n {
+    fout CurveUtil.Curve_col;
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double t) {
+                return new Color(.5+.5*fractal.evalFractal(noise, t,0,0), .5+.5*fractal.evalFractal(noise, t+100,0,100), .5+.5*fractal.evalFractal(noise, t+300,0,300)).normal();
+            }
+        };
+    }
+}

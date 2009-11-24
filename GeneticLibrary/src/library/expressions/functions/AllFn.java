@@ -22,6 +22,7 @@ public class AllFn implements AllComponents<ExpressionFunction> {
       r.addAll(new BooleanOperations().allInstances(cm));
       r.addAll(new ColorOp().allInstances(cm));
       r.addAll(new Complexfn().allInstances(cm));
+      r.addAll(new CurveNoise().allInstances(cm));
       r.addAll(new Curves().allInstances(cm));
       r.addAll(new Interpolate().allInstances(cm));
       r.addAll(new Lyapunov().allInstances(cm));

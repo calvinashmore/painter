@@ -117,7 +117,7 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
-         LDouble radiusMultiplier = (LDouble)inputs[0];
+         final LDouble radiusMultiplier = (LDouble)inputs[0];
          return new SimpleBrush ( radiusMultiplier . val ) ;
       }
 
@@ -171,7 +171,7 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
-         Brush brush = (Brush)inputs[0];
+         final Brush brush = (Brush)inputs[0];
          return new CyclingBrush ( brush ) ;
       }
 
@@ -328,7 +328,7 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
-         Brush brush = (Brush)inputs[0];
+         final Brush brush = (Brush)inputs[0];
          return new SweepBrush ( numberDots , dotSize , brush ) ;
       }
 

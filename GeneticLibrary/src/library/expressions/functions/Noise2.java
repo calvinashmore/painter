@@ -219,7 +219,7 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public PerlinNoiseParameters evaluate(Context context, Object[] inputs) {
-         LVect3d scale = (LVect3d)inputs[0];
+         final LVect3d scale = (LVect3d)inputs[0];
          params . scale = scale ;
          params . translate = translate ;
          return params ;
@@ -299,7 +299,7 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public PerlinNoiseParameters evaluate(Context context, Object[] inputs) {
-         LDouble scale = (LDouble)inputs[0];
+         final LDouble scale = (LDouble)inputs[0];
          params . scale . x = scale . val ;
          params . scale . y = scale . val ;
          params . scale . z = scale . val ;
@@ -381,7 +381,7 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public PerlinNoiseParameters evaluate(Context context, Object[] inputs) {
-         LVect3d translate = (LVect3d)inputs[0];
+         final LVect3d translate = (LVect3d)inputs[0];
          params . scale = scale ;
          params . translate = translate ;
          return params ;
@@ -458,7 +458,7 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public PerlinNoiseParameters evaluate(Context context, Object[] inputs) {
-         LVect3d translate = (LVect3d)inputs[0];
+         final LVect3d translate = (LVect3d)inputs[0];
          params . scale . x = scale ;
          params . scale . y = scale ;
          params . scale . z = scale ;
@@ -501,8 +501,8 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public PerlinNoiseParameters evaluate(Context context, Object[] inputs) {
-         LVect3d scale = (LVect3d)inputs[0];
-         LVect3d translate = (LVect3d)inputs[1];
+         final LVect3d scale = (LVect3d)inputs[0];
+         final LVect3d translate = (LVect3d)inputs[1];
          params . scale = scale ;
          params . translate = translate ;
          return params ;
@@ -543,8 +543,8 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public PerlinNoiseParameters evaluate(Context context, Object[] inputs) {
-         LDouble scale = (LDouble)inputs[0];
-         LVect3d translate = (LVect3d)inputs[1];
+         final LDouble scale = (LDouble)inputs[0];
+         final LVect3d translate = (LVect3d)inputs[1];
          params . scale . x = scale . val ;
          params . scale . y = scale . val ;
          params . scale . z = scale . val ;
@@ -585,7 +585,7 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFunction evaluate(Context context, Object[] inputs) {
-         PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
+         final PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
          return new PerlinNoise ( params ) ;
       }
 
@@ -622,7 +622,7 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFunction evaluate(Context context, Object[] inputs) {
-         PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
+         final PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
          PerlinNoise noise = new PerlinNoise ( ) {
          public double fade ( double t ) {
          return t ;
@@ -666,7 +666,7 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFunction evaluate(Context context, Object[] inputs) {
-         PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
+         final PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
          PerlinNoise noise = new PerlinNoise ( ) {
          public double fade ( double t ) {
          return Math . sqrt ( t ) ;
@@ -710,7 +710,7 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFunction evaluate(Context context, Object[] inputs) {
-         PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
+         final PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
          PerlinNoise noise = new PerlinNoise ( ) {
          public double fade ( double t ) {
          return t * t ;
@@ -754,7 +754,7 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFunction evaluate(Context context, Object[] inputs) {
-         PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
+         final PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
          PerlinNoise noise = new PerlinNoise ( ) {
          public double fade ( double x ) {
          double y = 2 * ( x - .5 ) ;
@@ -799,7 +799,7 @@ public final class Noise2 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFunction evaluate(Context context, Object[] inputs) {
-         PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
+         final PerlinNoiseParameters params = (PerlinNoiseParameters)inputs[0];
          PerlinNoise noise = new PerlinNoise ( ) {
          public double fade ( double x ) {
          return Math . sin ( x * Math . PI / 2 ) ;

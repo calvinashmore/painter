@@ -48,9 +48,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         LDouble x = (LDouble)inputs[1];
-         LDouble y = (LDouble)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
+         final LDouble y = (LDouble)inputs[2];
          double mod = Math . min ( Math . max ( interp . val , 0 ) , 1 ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -92,9 +92,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
-         LVect2d y = (LVect2d)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
+         final LVect2d y = (LVect2d)inputs[2];
          double mod = Math . min ( Math . max ( interp . val , 0 ) , 1 ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -136,9 +136,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
-         LVect3d y = (LVect3d)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
+         final LVect3d y = (LVect3d)inputs[2];
          double mod = Math . min ( Math . max ( interp . val , 0 ) , 1 ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -180,9 +180,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         Color x = (Color)inputs[1];
-         Color y = (Color)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final Color x = (Color)inputs[1];
+         final Color y = (Color)inputs[2];
          double mod = Math . min ( Math . max ( interp . val , 0 ) , 1 ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -224,9 +224,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         LDouble x = (LDouble)inputs[1];
-         LDouble y = (LDouble)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
+         final LDouble y = (LDouble)inputs[2];
          double mod = 1 / ( 1.0 + Math . exp ( - interp . val ) ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -268,9 +268,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
-         LVect2d y = (LVect2d)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
+         final LVect2d y = (LVect2d)inputs[2];
          double mod = 1 / ( 1.0 + Math . exp ( - interp . val ) ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -312,9 +312,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
-         LVect3d y = (LVect3d)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
+         final LVect3d y = (LVect3d)inputs[2];
          double mod = 1 / ( 1.0 + Math . exp ( - interp . val ) ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -356,9 +356,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         Color x = (Color)inputs[1];
-         Color y = (Color)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final Color x = (Color)inputs[1];
+         final Color y = (Color)inputs[2];
          double mod = 1 / ( 1.0 + Math . exp ( - interp . val ) ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -400,9 +400,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         LDouble x = (LDouble)inputs[1];
-         LDouble y = (LDouble)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
+         final LDouble y = (LDouble)inputs[2];
          double mod = Math . exp ( - interp . val * interp . val ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -444,9 +444,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
-         LVect2d y = (LVect2d)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
+         final LVect2d y = (LVect2d)inputs[2];
          double mod = Math . exp ( - interp . val * interp . val ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -488,9 +488,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
-         LVect3d y = (LVect3d)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
+         final LVect3d y = (LVect3d)inputs[2];
          double mod = Math . exp ( - interp . val * interp . val ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -532,9 +532,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble interp = (LDouble)inputs[0];
-         Color x = (Color)inputs[1];
-         Color y = (Color)inputs[2];
+         final LDouble interp = (LDouble)inputs[0];
+         final Color x = (Color)inputs[1];
+         final Color y = (Color)inputs[2];
          double mod = Math . exp ( - interp . val * interp . val ) ;
          return x . mult ( mod ) . add ( y . mult ( 1 - mod ) ) ;
       }
@@ -576,9 +576,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble thresh = (LDouble)inputs[0];
-         LDouble x = (LDouble)inputs[1];
-         LDouble y = (LDouble)inputs[2];
+         final LDouble thresh = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
+         final LDouble y = (LDouble)inputs[2];
          if ( thresh . val < .5 ) return x ;
          else return y ;
       }
@@ -620,9 +620,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LDouble thresh = (LDouble)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
-         LVect2d y = (LVect2d)inputs[2];
+         final LDouble thresh = (LDouble)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
+         final LVect2d y = (LVect2d)inputs[2];
          if ( thresh . val < .5 ) return x ;
          else return y ;
       }
@@ -664,9 +664,9 @@ public final class Interpolate implements AllComponents<ExpressionFunction>, Des
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LDouble thresh = (LDouble)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
-         LVect3d y = (LVect3d)inputs[2];
+         final LDouble thresh = (LDouble)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
+         final LVect3d y = (LVect3d)inputs[2];
          if ( thresh . val < .5 ) return x ;
          else return y ;
       }

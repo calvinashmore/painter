@@ -153,7 +153,7 @@ public final class Noise3 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFractal evaluate(Context context, Object[] inputs) {
-         LDouble exponent = (LDouble)inputs[0];
+         final LDouble exponent = (LDouble)inputs[0];
          exponent1 = exponent . val / 4 ;
          return fractal ;
       }
@@ -231,8 +231,8 @@ public final class Noise3 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFractal evaluate(Context context, Object[] inputs) {
-         LDouble lacunarity = (LDouble)inputs[0];
-         LDouble exponent = (LDouble)inputs[1];
+         final LDouble lacunarity = (LDouble)inputs[0];
+         final LDouble exponent = (LDouble)inputs[1];
          exponent1 = exponent . val / 4 ;
          lacunarity1 = lacunarity . val ;
          return fractal ;
@@ -379,7 +379,7 @@ public final class Noise3 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFractal evaluate(Context context, Object[] inputs) {
-         LDouble exponent = (LDouble)inputs[0];
+         final LDouble exponent = (LDouble)inputs[0];
          exponent1 = exponent . val / 4 ;
          return fractal ;
       }
@@ -457,8 +457,8 @@ public final class Noise3 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFractal evaluate(Context context, Object[] inputs) {
-         LDouble lacunarity = (LDouble)inputs[0];
-         LDouble exponent = (LDouble)inputs[1];
+         final LDouble lacunarity = (LDouble)inputs[0];
+         final LDouble exponent = (LDouble)inputs[1];
          exponent1 = exponent . val / 4 ;
          lacunarity1 = lacunarity . val ;
          return fractal ;
@@ -605,7 +605,7 @@ public final class Noise3 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFractal evaluate(Context context, Object[] inputs) {
-         LDouble exponent = (LDouble)inputs[0];
+         final LDouble exponent = (LDouble)inputs[0];
          exponent1 = exponent . val / 4 ;
          return fractal ;
       }
@@ -683,8 +683,8 @@ public final class Noise3 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFractal evaluate(Context context, Object[] inputs) {
-         LDouble lacunarity = (LDouble)inputs[0];
-         LDouble exponent = (LDouble)inputs[1];
+         final LDouble lacunarity = (LDouble)inputs[0];
+         final LDouble exponent = (LDouble)inputs[1];
          exponent1 = exponent . val / 4 ;
          lacunarity1 = lacunarity . val ;
          return fractal ;
@@ -831,7 +831,7 @@ public final class Noise3 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFractal evaluate(Context context, Object[] inputs) {
-         LDouble exponent = (LDouble)inputs[0];
+         final LDouble exponent = (LDouble)inputs[0];
          exponent1 = exponent . val / 4 ;
          return fractal ;
       }
@@ -909,8 +909,8 @@ public final class Noise3 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFractal evaluate(Context context, Object[] inputs) {
-         LDouble lacunarity = (LDouble)inputs[0];
-         LDouble exponent = (LDouble)inputs[1];
+         final LDouble lacunarity = (LDouble)inputs[0];
+         final LDouble exponent = (LDouble)inputs[1];
          exponent1 = exponent . val / 4 ;
          lacunarity1 = lacunarity . val ;
          return fractal ;
@@ -1057,7 +1057,7 @@ public final class Noise3 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFractal evaluate(Context context, Object[] inputs) {
-         LDouble exponent = (LDouble)inputs[0];
+         final LDouble exponent = (LDouble)inputs[0];
          exponent1 = exponent . val / 4 ;
          return fractal ;
       }
@@ -1135,8 +1135,8 @@ public final class Noise3 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public NoiseFractal evaluate(Context context, Object[] inputs) {
-         LDouble lacunarity = (LDouble)inputs[0];
-         LDouble exponent = (LDouble)inputs[1];
+         final LDouble lacunarity = (LDouble)inputs[0];
+         final LDouble exponent = (LDouble)inputs[1];
          exponent1 = exponent . val / 4 ;
          lacunarity1 = lacunarity . val ;
          return fractal ;

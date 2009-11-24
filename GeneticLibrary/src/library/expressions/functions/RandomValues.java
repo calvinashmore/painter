@@ -90,7 +90,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Integer evaluate(Context context, Object[] inputs) {
-         Integer x = (Integer)inputs[0];
+         final Integer x = (Integer)inputs[0];
          int xmod = ( ( int ) x ) % a . length ;
          if ( xmod < 0 ) xmod += a . length ;
          return a [ xmod ] ;
@@ -182,7 +182,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Integer evaluate(Context context, Object[] inputs) {
-         Integer x = (Integer)inputs[0];
+         final Integer x = (Integer)inputs[0];
          int xmod = ( ( int ) x ) % a . length ;
          if ( xmod < 0 ) xmod += a . length ;
          return a [ xmod ] ;
@@ -263,7 +263,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          int i = ( int ) ( v * a . length ) ;
          return new LDouble ( a [ i ] ) ;
@@ -344,7 +344,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          double alpha = v * a . length - Math . floor ( v * a . length ) ;
          int i = ( int ) ( v * a . length ) ;
@@ -427,7 +427,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          double alpha = v * a . length - Math . floor ( v * a . length ) ;
          int i = ( int ) ( v * a . length ) ;
@@ -522,7 +522,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          int i = ( int ) ( v * a . length ) ;
          return new LVect2d ( a [ i ] , b [ i ] ) ;
@@ -611,7 +611,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          double alpha = v * a . length - Math . floor ( v * a . length ) ;
          int i = ( int ) ( v * a . length ) ;
@@ -702,7 +702,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          double alpha = v * a . length - Math . floor ( v * a . length ) ;
          int i = ( int ) ( v * a . length ) ;
@@ -807,7 +807,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          int i = ( int ) ( v * a . length ) ;
          return new LVect3d ( a [ i ] , b [ i ] , c [ i ] ) ;
@@ -902,7 +902,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          double alpha = v * a . length - Math . floor ( v * a . length ) ;
          int i = ( int ) ( v * a . length ) ;
@@ -999,7 +999,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          double alpha = v * a . length - Math . floor ( v * a . length ) ;
          int i = ( int ) ( v * a . length ) ;
@@ -1108,7 +1108,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          int i = ( int ) ( v * a . length ) ;
          return new Color ( a [ i ] , b [ i ] , c [ i ] ) ;
@@ -1203,7 +1203,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          double alpha = v * a . length - Math . floor ( v * a . length ) ;
          int i = ( int ) ( v * a . length ) ;
@@ -1300,7 +1300,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double v = x . val - Math . floor ( x . val ) ;
          double alpha = v * a . length - Math . floor ( v * a . length ) ;
          int i = ( int ) ( v * a . length ) ;
@@ -1397,7 +1397,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double v = x . y - Math . floor ( x . y ) ;
          int ui = ( int ) ( u * a . length ) ;
@@ -1482,7 +1482,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -1572,7 +1572,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -1673,7 +1673,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double v = x . y - Math . floor ( x . y ) ;
          int ui = ( int ) ( u * a . length ) ;
@@ -1766,7 +1766,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -1864,7 +1864,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -1976,7 +1976,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double v = x . y - Math . floor ( x . y ) ;
          int ui = ( int ) ( u * a . length ) ;
@@ -2075,7 +2075,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -2179,7 +2179,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -2293,7 +2293,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double v = x . y - Math . floor ( x . y ) ;
          int ui = ( int ) ( u * a . length ) ;
@@ -2392,7 +2392,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -2496,7 +2496,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -2598,7 +2598,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double v = x . y - Math . floor ( x . y ) ;
          double w = x . z - Math . floor ( x . z ) ;
@@ -2687,7 +2687,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -2783,7 +2783,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -2891,7 +2891,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double v = x . y - Math . floor ( x . y ) ;
          double w = x . z - Math . floor ( x . z ) ;
@@ -2988,7 +2988,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -3092,7 +3092,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -3211,7 +3211,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double v = x . y - Math . floor ( x . y ) ;
          double w = x . z - Math . floor ( x . z ) ;
@@ -3314,7 +3314,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -3424,7 +3424,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -3545,7 +3545,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double v = x . y - Math . floor ( x . y ) ;
          double w = x . z - Math . floor ( x . z ) ;
@@ -3648,7 +3648,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;
@@ -3758,7 +3758,7 @@ public final class RandomValues implements AllComponents<ExpressionFunction>, De
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          double u = x . x - Math . floor ( x . x ) ;
          double ualpha = u * a . length - Math . floor ( u * a . length ) ;
          double v = x . y - Math . floor ( x . y ) ;

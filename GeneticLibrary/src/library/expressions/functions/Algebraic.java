@@ -46,8 +46,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LDouble ( ( x . val + y . val ) / 2 ) ;
       }
 
@@ -86,8 +86,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Integer evaluate(Context context, Object[] inputs) {
-         Integer x = (Integer)inputs[0];
-         Integer y = (Integer)inputs[1];
+         final Integer x = (Integer)inputs[0];
+         final Integer y = (Integer)inputs[1];
          return ( x + y ) / 2 ;
       }
 
@@ -126,8 +126,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
-         Complex y = (Complex)inputs[1];
+         final Complex x = (Complex)inputs[0];
+         final Complex y = (Complex)inputs[1];
          return new Complex ( x . x + y . x , x . y + y . y ) ;
       }
 
@@ -166,8 +166,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
          return new LVect2d ( x . x + y . x , x . y + y . y ) ;
       }
 
@@ -206,8 +206,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
          return new LVect3d ( ( x . x + y . x ) / 2 , ( x . y + y . y ) / 2 , ( x . z + y . z ) / 2 ) ;
       }
 
@@ -246,8 +246,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( x . r + y . r , x . g + y . g , x . b + y . b ) ;
       }
 
@@ -286,8 +286,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LDouble ( x . val + y . val ) ;
       }
 
@@ -326,8 +326,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Integer evaluate(Context context, Object[] inputs) {
-         Integer x = (Integer)inputs[0];
-         Integer y = (Integer)inputs[1];
+         final Integer x = (Integer)inputs[0];
+         final Integer y = (Integer)inputs[1];
          return x + y ;
       }
 
@@ -366,8 +366,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
-         Complex y = (Complex)inputs[1];
+         final Complex x = (Complex)inputs[0];
+         final Complex y = (Complex)inputs[1];
          return new Complex ( x . x + y . x , x . y + y . y ) ;
       }
 
@@ -406,8 +406,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
          return new LVect2d ( x . x + y . x , x . y + y . y ) ;
       }
 
@@ -446,8 +446,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
          return new LVect3d ( x . x + y . x , x . y + y . y , x . z + y . z ) ;
       }
 
@@ -486,8 +486,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( x . r - y . r , x . g - y . g , x . b - y . b ) ;
       }
 
@@ -526,8 +526,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
-         Complex y = (Complex)inputs[1];
+         final Complex x = (Complex)inputs[0];
+         final Complex y = (Complex)inputs[1];
          return new Complex ( x . x - y . x , x . y - y . y ) ;
       }
 
@@ -566,8 +566,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LDouble ( x . val - y . val ) ;
       }
 
@@ -606,8 +606,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Integer evaluate(Context context, Object[] inputs) {
-         Integer x = (Integer)inputs[0];
-         Integer y = (Integer)inputs[1];
+         final Integer x = (Integer)inputs[0];
+         final Integer y = (Integer)inputs[1];
          return x - y ;
       }
 
@@ -646,8 +646,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
          return new LVect2d ( x . x - y . x , x . y - y . y ) ;
       }
 
@@ -686,8 +686,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
          return new LVect3d ( x . x - y . x , x . y - y . y , x . z - y . z ) ;
       }
 
@@ -726,8 +726,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final Color x = (Color)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new Color ( x . r * y . val , x . g * y . val , x . b * y . val ) ;
       }
 
@@ -766,8 +766,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LDouble ( x . val * y . val ) ;
       }
 
@@ -806,8 +806,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Integer evaluate(Context context, Object[] inputs) {
-         Integer x = (Integer)inputs[0];
-         Integer y = (Integer)inputs[1];
+         final Integer x = (Integer)inputs[0];
+         final Integer y = (Integer)inputs[1];
          return x * y ;
       }
 
@@ -846,8 +846,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Integer x = (Integer)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final Integer x = (Integer)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LDouble ( x * y . val ) ;
       }
 
@@ -886,8 +886,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final Complex x = (Complex)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new Complex ( x . x * y . val , x . y * y . val ) ;
       }
 
@@ -926,8 +926,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
-         Complex y = (Complex)inputs[1];
+         final Complex x = (Complex)inputs[0];
+         final Complex y = (Complex)inputs[1];
          return new Complex ( x . x * y . x , x . y * y . y ) ;
       }
 
@@ -966,8 +966,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LVect2d ( x . x * y . val , x . y * y . val ) ;
       }
 
@@ -1006,8 +1006,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
          return new LVect2d ( x . x * y . x , x . y * y . y ) ;
       }
 
@@ -1046,8 +1046,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LVect3d ( x . x * y . val , x . y * y . val , x . z * y . val ) ;
       }
 
@@ -1086,8 +1086,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
          return new LVect3d ( x . x * y . x , x . y * y . y , x . z * y . z ) ;
       }
 
@@ -1126,8 +1126,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final Color x = (Color)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new Color ( Math . pow ( x . r , y . val ) , Math . pow ( x . g , y . val ) , Math . pow ( x . b , y . val ) ) ;
       }
 
@@ -1166,8 +1166,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( Math . pow ( x . r , y . r ) , Math . pow ( x . g , y . g ) , Math . pow ( x . b , y . b ) ) ;
       }
 
@@ -1206,8 +1206,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LDouble ( Math . pow ( x . val , y . val ) ) ;
       }
 
@@ -1246,8 +1246,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LVect2d ( Math . pow ( x . x , y . val ) , Math . pow ( x . y , y . val ) ) ;
       }
 
@@ -1286,8 +1286,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
          return new LVect2d ( Math . pow ( x . x , y . x ) , Math . pow ( x . y , y . y ) ) ;
       }
 
@@ -1326,8 +1326,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LVect3d ( Math . pow ( x . x , y . val ) , Math . pow ( x . y , y . val ) , Math . pow ( x . z , y . val ) ) ;
       }
 
@@ -1366,8 +1366,8 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
          return new LVect3d ( Math . pow ( x . x , y . x ) , Math . pow ( x . y , y . y ) , Math . pow ( x . z , y . z ) ) ;
       }
 
@@ -1445,7 +1445,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return offset . add ( x ) ;
       }
 
@@ -1520,7 +1520,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( x . val + offset ) ;
       }
 
@@ -1597,7 +1597,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return offset . add ( x ) ;
       }
 
@@ -1674,7 +1674,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return offset . add ( x ) ;
       }
 
@@ -1752,7 +1752,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          return offset . add ( x ) ;
       }
 
@@ -1827,7 +1827,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return x . mult ( scale ) ;
       }
 
@@ -1902,7 +1902,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return x . mult ( scale ) ;
       }
 
@@ -1977,7 +1977,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return x . mult ( scale ) ;
       }
 
@@ -2052,7 +2052,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          return x . mult ( scale ) ;
       }
 
@@ -2127,7 +2127,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return x . mult ( scale ) ;
       }
 
@@ -2164,7 +2164,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( x . val - Math . floor ( x . val ) ) ;
       }
 
@@ -2201,7 +2201,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return new LVect2d ( x . x - Math . floor ( x . x ) , x . y - Math . floor ( x . y ) ) ;
       }
 
@@ -2238,7 +2238,7 @@ public final class Algebraic implements AllComponents<ExpressionFunction>, Descr
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          return new LVect3d ( x . x - Math . floor ( x . x ) , x . y - Math . floor ( x . y ) , x . z - Math . floor ( x . z ) ) ;
       }
 

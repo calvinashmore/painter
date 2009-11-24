@@ -100,7 +100,7 @@ public final class Lyapunov implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LyapunovFunction evaluate(Context context, Object[] inputs) {
-         LDouble b_in = (LDouble)inputs[0];
+         final LDouble b_in = (LDouble)inputs[0];
          b = b_in . val ;
          return this ;
       }
@@ -193,7 +193,7 @@ public final class Lyapunov implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LyapunovFunction evaluate(Context context, Object[] inputs) {
-         LDouble b_in = (LDouble)inputs[0];
+         final LDouble b_in = (LDouble)inputs[0];
          b = b_in . val ;
          return this ;
       }
@@ -319,8 +319,8 @@ public final class Lyapunov implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LyapunovFunction f = (LyapunovFunction)inputs[0];
-         LVect2d v = (LVect2d)inputs[1];
+         final LyapunovFunction f = (LyapunovFunction)inputs[0];
+         final LVect2d v = (LVect2d)inputs[1];
          double x = v . x ;
          double y = v . y ;
          double sum = 0 ;
@@ -431,9 +431,9 @@ public final class Lyapunov implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LyapunovFunction f = (LyapunovFunction)inputs[0];
-         LDouble x1 = (LDouble)inputs[1];
-         LDouble y1 = (LDouble)inputs[2];
+         final LyapunovFunction f = (LyapunovFunction)inputs[0];
+         final LDouble x1 = (LDouble)inputs[1];
+         final LDouble y1 = (LDouble)inputs[2];
          double x = x1 . val ;
          double y = y1 . val ;
          double sum = 0 ;
@@ -542,8 +542,8 @@ public final class Lyapunov implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LyapunovFunction f = (LyapunovFunction)inputs[0];
-         LVect3d v = (LVect3d)inputs[1];
+         final LyapunovFunction f = (LyapunovFunction)inputs[0];
+         final LVect3d v = (LVect3d)inputs[1];
          double x = v . x ;
          double y = v . y ;
          double z = v . z ;

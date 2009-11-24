@@ -44,7 +44,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble h = (LDouble)inputs[0];
+         final LDouble h = (LDouble)inputs[0];
          return ColorPainter . getColor ( h . val ) ;
       }
 
@@ -83,8 +83,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble h = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble h = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          Color val = ColorPainter . getColor ( h . val ) ;
          Color compliment = ColorPainter . getColor ( h . val + .5 ) ;
          return val . mult ( s . val ) . add ( compliment . mult ( 1 - s . val ) ) ;
@@ -125,8 +125,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble h = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble h = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          Color val = ColorPainter . getColor ( h . val ) ;
          Color compliment = ColorPainter . getColor ( h . val + .5 ) ;
          double sat = Math . exp ( - s . val * s . val ) ;
@@ -168,8 +168,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble h = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble h = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          Color val = ColorPainter . getColor ( h . val ) ;
          Color compliment = ColorPainter . getColor ( h . val + .5 ) ;
          double sat = 1 / ( 1.0 + Math . exp ( - s . val ) ) ;
@@ -211,8 +211,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble h = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble h = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          Color val = ColorPainter . getColor ( h . val ) ;
          Color compliment = ColorPainter . getColor ( h . val + .5 ) ;
          double sat = .5 + .5 * Math . exp ( - s . val * s . val ) ;
@@ -254,8 +254,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble h = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble h = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          Color val = ColorPainter . getColor ( h . val ) ;
          Color compliment = ColorPainter . getColor ( h . val + .5 ) ;
          double sat = .5 + .5 * 1 / ( 1.0 + Math . exp ( - s . val ) ) ;
@@ -295,7 +295,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d hs = (LVect2d)inputs[0];
+         final LVect2d hs = (LVect2d)inputs[0];
          Color val = ColorPainter . getColor ( hs . x ) ;
          Color compliment = ColorPainter . getColor ( hs . x + .5 ) ;
          return val . mult ( hs . y ) . add ( compliment . mult ( 1 - hs . y ) ) ;
@@ -334,7 +334,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d hs = (LVect2d)inputs[0];
+         final LVect2d hs = (LVect2d)inputs[0];
          Color val = ColorPainter . getColor ( hs . x ) ;
          Color compliment = ColorPainter . getColor ( hs . x + .5 ) ;
          double sat = Math . exp ( - hs . y * hs . y ) ;
@@ -374,7 +374,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d hs = (LVect2d)inputs[0];
+         final LVect2d hs = (LVect2d)inputs[0];
          Color val = ColorPainter . getColor ( hs . x ) ;
          Color compliment = ColorPainter . getColor ( hs . x + .5 ) ;
          double sat = 1 / ( 1.0 + Math . exp ( - hs . y ) ) ;
@@ -414,7 +414,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d hs = (LVect2d)inputs[0];
+         final LVect2d hs = (LVect2d)inputs[0];
          Color val = ColorPainter . getColor ( hs . x ) ;
          Color compliment = ColorPainter . getColor ( hs . x + .5 ) ;
          double sat = .5 + .5 * Math . exp ( - hs . y * hs . y ) ;
@@ -454,7 +454,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d hs = (LVect2d)inputs[0];
+         final LVect2d hs = (LVect2d)inputs[0];
          Color val = ColorPainter . getColor ( hs . x ) ;
          Color compliment = ColorPainter . getColor ( hs . x + .5 ) ;
          double sat = .5 + .5 / ( 1.0 + Math . exp ( - hs . y ) ) ;
@@ -532,7 +532,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble h = (LDouble)inputs[0];
+         final LDouble h = (LDouble)inputs[0];
          Color val = ColorPainter . getColor ( h . val ) ;
          Color compliment = ColorPainter . getColor ( h . val + .5 ) ;
          return val . mult ( s ) . add ( compliment . mult ( 1 - s ) ) ;
@@ -609,7 +609,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble s = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[0];
          Color val = ColorPainter . getColor ( h ) ;
          Color compliment = ColorPainter . getColor ( h + .5 ) ;
          return val . mult ( s . val ) . add ( compliment . mult ( 1 - s . val ) ) ;
@@ -686,7 +686,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble s = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[0];
          Color val = ColorPainter . getColor ( h ) ;
          Color compliment = ColorPainter . getColor ( h + .5 ) ;
          double sat = 1 / Math . exp ( 1 + s . val ) ;
@@ -764,7 +764,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble s = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[0];
          Color val = ColorPainter . getColor ( h ) ;
          Color compliment = ColorPainter . getColor ( h + .5 ) ;
          double sat = .5 + .5 * Math . exp ( - s . val * s . val ) ;
@@ -847,7 +847,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble s = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[0];
          Color val = ColorPainter . getColor ( h ) ;
          Color compliment = ColorPainter . getColor ( h + .5 + offset ) ;
          return val . mult ( s . val ) . add ( compliment . mult ( 1 - s . val ) ) ;
@@ -929,7 +929,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble s = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[0];
          Color val = ColorPainter . getColor ( h ) ;
          Color compliment = ColorPainter . getColor ( h + .5 + offset ) ;
          double sat = .5 + .5 * Math . exp ( - s . val * s . val ) ;
@@ -1012,7 +1012,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
+         final LDouble hbias = (LDouble)inputs[0];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1092,8 +1092,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble hbias = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1173,8 +1173,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble hbias = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1255,8 +1255,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble hbias = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1337,8 +1337,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble hbias = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1419,8 +1419,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble hbias = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1499,7 +1499,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double hue_bias = Math . max ( Math . min ( x . x , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1577,7 +1577,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double hue_bias = Math . max ( Math . min ( x . x , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1656,7 +1656,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double hue_bias = Math . max ( Math . min ( x . x , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1735,7 +1735,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double hue_bias = Math . max ( Math . min ( x . x , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1814,7 +1814,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double hue_bias = Math . max ( Math . min ( x . x , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + ( 1.0 / 6 ) * hue_bias + .5 ) ;
@@ -1903,7 +1903,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
+         final LDouble hbias = (LDouble)inputs[0];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -1988,8 +1988,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble hbias = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -2074,8 +2074,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble hbias = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -2161,8 +2161,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble hbias = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -2248,8 +2248,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble hbias = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -2335,8 +2335,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble hbias = (LDouble)inputs[0];
-         LDouble s = (LDouble)inputs[1];
+         final LDouble hbias = (LDouble)inputs[0];
+         final LDouble s = (LDouble)inputs[1];
          double hue_bias = Math . max ( Math . min ( hbias . val , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -2420,7 +2420,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double hue_bias = Math . max ( Math . min ( x . x , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -2503,7 +2503,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double hue_bias = Math . max ( Math . min ( x . x , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -2587,7 +2587,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double hue_bias = Math . max ( Math . min ( x . x , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -2671,7 +2671,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double hue_bias = Math . max ( Math . min ( x . x , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -2755,7 +2755,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          double hue_bias = Math . max ( Math . min ( x . x , 1 ) , - 1 ) ;
          Color val = ColorPainter . getColor ( h + arc * hue_bias ) ;
          Color compliment = ColorPainter . getColor ( h + arc * hue_bias + .5 ) ;
@@ -2839,7 +2839,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble v = (LDouble)inputs[0];
+         final LDouble v = (LDouble)inputs[0];
          Color v1 = ColorPainter . getColor ( h1 ) ;
          Color v2 = ColorPainter . getColor ( h2 ) ;
          return v1 . mult ( v . val ) . add ( v2 . mult ( 1 - v . val ) ) ;
@@ -2923,8 +2923,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble u = (LDouble)inputs[0];
-         LDouble v = (LDouble)inputs[1];
+         final LDouble u = (LDouble)inputs[0];
+         final LDouble v = (LDouble)inputs[1];
          Color c1 = ColorPainter . getColor ( h - h0 / 6 ) ;
          Color c2 = ColorPainter . getColor ( h + 1.0 / 6 - h0 / 6 ) ;
          Color c3 = ColorPainter . getColor ( h + .5 ) ;
@@ -3010,8 +3010,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble u = (LDouble)inputs[0];
-         LDouble v = (LDouble)inputs[1];
+         final LDouble u = (LDouble)inputs[0];
+         final LDouble v = (LDouble)inputs[1];
          Color c1 = ColorPainter . getColor ( h - h0 / 6 ) ;
          Color c2 = ColorPainter . getColor ( h + 1.0 / 6 - h0 / 6 ) ;
          Color c3 = ColorPainter . getColor ( h + .5 ) ;
@@ -3098,8 +3098,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble u = (LDouble)inputs[0];
-         LDouble v = (LDouble)inputs[1];
+         final LDouble u = (LDouble)inputs[0];
+         final LDouble v = (LDouble)inputs[1];
          Color c1 = ColorPainter . getColor ( h - h0 / 6 ) ;
          Color c2 = ColorPainter . getColor ( h + 1.0 / 6 - h0 / 6 ) ;
          Color c3 = ColorPainter . getColor ( h + .5 ) ;
@@ -3186,8 +3186,8 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LDouble u = (LDouble)inputs[0];
-         LDouble v = (LDouble)inputs[1];
+         final LDouble u = (LDouble)inputs[0];
+         final LDouble v = (LDouble)inputs[1];
          Color c1 = ColorPainter . getColor ( h - h0 / 6 ) ;
          Color c2 = ColorPainter . getColor ( h + 1.0 / 6 - h0 / 6 ) ;
          Color c3 = ColorPainter . getColor ( h + .5 ) ;
@@ -3272,7 +3272,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          Color c1 = ColorPainter . getColor ( h - h0 / 6 ) ;
          Color c2 = ColorPainter . getColor ( h + 1.0 / 6 - h0 / 6 ) ;
          Color c3 = ColorPainter . getColor ( h + .5 ) ;
@@ -3356,7 +3356,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          Color c1 = ColorPainter . getColor ( h - h0 / 6 ) ;
          Color c2 = ColorPainter . getColor ( h + 1.0 / 6 - h0 / 6 ) ;
          Color c3 = ColorPainter . getColor ( h + .5 ) ;
@@ -3441,7 +3441,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          Color c1 = ColorPainter . getColor ( h - h0 / 6 ) ;
          Color c2 = ColorPainter . getColor ( h + 1.0 / 6 - h0 / 6 ) ;
          Color c3 = ColorPainter . getColor ( h + .5 ) ;
@@ -3526,7 +3526,7 @@ public final class ColorPaint implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          Color c1 = ColorPainter . getColor ( h - h0 / 6 ) ;
          Color c2 = ColorPainter . getColor ( h + 1.0 / 6 - h0 / 6 ) ;
          Color c3 = ColorPainter . getColor ( h + .5 ) ;

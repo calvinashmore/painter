@@ -52,10 +52,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
       }
 
       public void execute(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
-         Color color = (Color)inputs[2];
-         Brush brush = (Brush)inputs[3];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
+         final Color color = (Color)inputs[2];
+         final Brush brush = (Brush)inputs[3];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          brush . paint ( x . val , y . val , 0 , 0 , .02 , color , canvas ) ;
       }
@@ -97,11 +97,11 @@ public final class BrushCommands implements AllComponents<Command>, Described {
       }
 
       public void execute(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
-         LDouble r = (LDouble)inputs[2];
-         Color color = (Color)inputs[3];
-         Brush brush = (Brush)inputs[4];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
+         final LDouble r = (LDouble)inputs[2];
+         final Color color = (Color)inputs[3];
+         final Brush brush = (Brush)inputs[4];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          brush . paint ( x . val , y . val , 0 , 0 , r . val , color , canvas ) ;
       }
@@ -139,9 +139,9 @@ public final class BrushCommands implements AllComponents<Command>, Described {
       }
 
       public void execute(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         Color color = (Color)inputs[1];
-         Brush brush = (Brush)inputs[2];
+         final LVect2d x = (LVect2d)inputs[0];
+         final Color color = (Color)inputs[1];
+         final Brush brush = (Brush)inputs[2];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          brush . paint ( x . x , x . y , 0 , 0 , .02 , color , canvas ) ;
       }
@@ -181,10 +181,10 @@ public final class BrushCommands implements AllComponents<Command>, Described {
       }
 
       public void execute(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LDouble r = (LDouble)inputs[1];
-         Color color = (Color)inputs[2];
-         Brush brush = (Brush)inputs[3];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LDouble r = (LDouble)inputs[1];
+         final Color color = (Color)inputs[2];
+         final Brush brush = (Brush)inputs[3];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          brush . paint ( x . x , x . y , 0 , 0 , r . val , color , canvas ) ;
       }

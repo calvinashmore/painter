@@ -47,8 +47,8 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         NoiseFunction noise = (NoiseFunction)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final NoiseFunction noise = (NoiseFunction)inputs[1];
          double dx = ( noise . noise ( x . x + delta , x . y , 0 ) - noise . noise ( x . x - delta , x . y , 0 ) ) / ( 2 * delta ) ;
          double dy = ( noise . noise ( x . x , x . y + delta , 0 ) - noise . noise ( x . x , x . y - delta , 0 ) ) / ( 2 * delta ) ;
          return new LVect2d ( dx , dy ) ;
@@ -89,8 +89,8 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         NoiseFunction noise = (NoiseFunction)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final NoiseFunction noise = (NoiseFunction)inputs[1];
          double dx = ( noise . noise ( x . x + delta , x . y , 0 ) - noise . noise ( x . x - delta , x . y , 0 ) ) / ( 2 * delta ) ;
          double dy = ( noise . noise ( x . x , x . y + delta , 0 ) - noise . noise ( x . x , x . y - delta , 0 ) ) / ( 2 * delta ) ;
          return new LVect2d ( dx , dy ) . normal ( ) ;
@@ -131,8 +131,8 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         NoiseFunction noise = (NoiseFunction)inputs[1];
+         final LVect3d x = (LVect3d)inputs[0];
+         final NoiseFunction noise = (NoiseFunction)inputs[1];
          double dx = ( noise . noise ( x . x + delta , x . y , x . z ) - noise . noise ( x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy = ( noise . noise ( x . x , x . y + delta , x . z ) - noise . noise ( x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz = ( noise . noise ( x . x , x . y , x . z + delta ) - noise . noise ( x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -174,8 +174,8 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         NoiseFunction noise = (NoiseFunction)inputs[1];
+         final LVect3d x = (LVect3d)inputs[0];
+         final NoiseFunction noise = (NoiseFunction)inputs[1];
          double dx = ( noise . noise ( x . x + delta , x . y , x . z ) - noise . noise ( x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy = ( noise . noise ( x . x , x . y + delta , x . z ) - noise . noise ( x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz = ( noise . noise ( x . x , x . y , x . z + delta ) - noise . noise ( x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -219,9 +219,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          double dx1 = ( noise . noise ( x . x + delta , x . y , 0 ) - noise . noise ( x . x - delta , x . y , 0 ) ) / ( 2 * delta ) ;
          double dy1 = ( noise . noise ( x . x , x . y + delta , 0 ) - noise . noise ( x . x , x . y - delta , 0 ) ) / ( 2 * delta ) ;
          double dx2 = ( noise . noise ( x . x + delta + 100 , x . y + 100 , 100 ) - noise . noise ( x . x - delta + 100 , x . y + 100 , 100 ) ) / ( 2 * delta ) ;
@@ -267,9 +267,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          double dx1 = ( noise . noise ( x . x + delta , x . y , 0 ) - noise . noise ( x . x - delta , x . y , 0 ) ) / ( 2 * delta ) ;
          double dy1 = ( noise . noise ( x . x , x . y + delta , 0 ) - noise . noise ( x . x , x . y - delta , 0 ) ) / ( 2 * delta ) ;
          double dx2 = ( noise . noise ( x . x + delta + 100 , x . y + 100 , 100 ) - noise . noise ( x . x - delta + 100 , x . y + 100 , 100 ) ) / ( 2 * delta ) ;
@@ -315,9 +315,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          LVect2d vx1 = new LVect2d ( noise . noise ( x . x + delta , x . y , 0 ) , noise . noise ( x . x + delta + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( noise . noise ( x . x - delta , x . y , 0 ) , noise . noise ( x . x - delta + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( noise . noise ( x . x , x . y + delta , 0 ) , noise . noise ( x . x + 100 , x . y + delta + 100 , 100 ) ) . normal ( ) ;
@@ -365,9 +365,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          LVect2d vx1 = new LVect2d ( noise . noise ( x . x + delta , x . y , 0 ) , noise . noise ( x . x + delta + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( noise . noise ( x . x - delta , x . y , 0 ) , noise . noise ( x . x - delta + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( noise . noise ( x . x , x . y + delta , 0 ) , noise . noise ( x . x + 100 , x . y + delta + 100 , 100 ) ) . normal ( ) ;
@@ -415,9 +415,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          double dx1 = ( noise . noise ( x . x + delta , x . y , x . z ) - noise . noise ( x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( noise . noise ( x . x , x . y + delta , x . z ) - noise . noise ( x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( noise . noise ( x . x , x . y , x . z + delta ) - noise . noise ( x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -465,9 +465,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          double dx1 = ( noise . noise ( x . x + delta , x . y , x . z ) - noise . noise ( x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( noise . noise ( x . x , x . y + delta , x . z ) - noise . noise ( x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( noise . noise ( x . x , x . y , x . z + delta ) - noise . noise ( x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -515,9 +515,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          LVect2d vx1 = new LVect2d ( noise . noise ( x . x + delta , x . y , x . z ) , noise . noise ( x . x + delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( noise . noise ( x . x - delta , x . y , x . z ) , noise . noise ( x . x - delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( noise . noise ( x . x , x . y + delta , x . z ) , noise . noise ( x . x + 100 , x . y + delta + 100 , x . z + 100 ) ) . normal ( ) ;
@@ -568,9 +568,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          LVect2d vx1 = new LVect2d ( noise . noise ( x . x + delta , x . y , x . z ) , noise . noise ( x . x + delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( noise . noise ( x . x - delta , x . y , x . z ) , noise . noise ( x . x - delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( noise . noise ( x . x , x . y + delta , x . z ) , noise . noise ( x . x + 100 , x . y + delta + 100 , x . z + 100 ) ) . normal ( ) ;
@@ -621,9 +621,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          double dx1 = ( noise . noise ( x . x + delta , x . y , x . z ) - noise . noise ( x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( noise . noise ( x . x , x . y + delta , x . z ) - noise . noise ( x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( noise . noise ( x . x , x . y , x . z + delta ) - noise . noise ( x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -674,9 +674,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          double dx1 = ( noise . noise ( x . x + delta , x . y , x . z ) - noise . noise ( x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( noise . noise ( x . x , x . y + delta , x . z ) - noise . noise ( x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( noise . noise ( x . x , x . y , x . z + delta ) - noise . noise ( x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -727,9 +727,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          LVect3d vx1 = new LVect3d ( noise . noise ( x . x + delta , x . y , x . z ) , noise . noise ( x . x + delta + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x + delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vx2 = new LVect3d ( noise . noise ( x . x - delta , x . y , x . z ) , noise . noise ( x . x - delta + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x - delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vy1 = new LVect3d ( noise . noise ( x . x , x . y + delta , x . z ) , noise . noise ( x . x + 100 , x . y + delta + 100 , x . z + 100 ) , noise . noise ( x . x + 300 , x . y + delta + 300 , x . z + 300 ) ) . normal ( ) ;
@@ -780,9 +780,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          LVect3d vx1 = new LVect3d ( noise . noise ( x . x + delta , x . y , x . z ) , noise . noise ( x . x + delta + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x + delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vx2 = new LVect3d ( noise . noise ( x . x - delta , x . y , x . z ) , noise . noise ( x . x - delta + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x - delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vy1 = new LVect3d ( noise . noise ( x . x , x . y + delta , x . z ) , noise . noise ( x . x + 100 , x . y + delta + 100 , x . z + 100 ) , noise . noise ( x . x + 300 , x . y + delta + 300 , x . z + 300 ) ) . normal ( ) ;
@@ -833,9 +833,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          double dx1 = ( noise . noise ( x . x + delta , x . y , x . z ) - noise . noise ( x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( noise . noise ( x . x , x . y + delta , x . z ) - noise . noise ( x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( noise . noise ( x . x , x . y , x . z + delta ) - noise . noise ( x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -883,9 +883,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          double dx1 = ( noise . noise ( x . x + delta , x . y , x . z ) - noise . noise ( x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( noise . noise ( x . x , x . y + delta , x . z ) - noise . noise ( x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( noise . noise ( x . x , x . y , x . z + delta ) - noise . noise ( x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -933,9 +933,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          LVect2d vx1 = new LVect2d ( noise . noise ( x . x + delta , x . y , x . z ) , noise . noise ( x . x + delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( noise . noise ( x . x - delta , x . y , x . z ) , noise . noise ( x . x - delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( noise . noise ( x . x , x . y + delta , x . z ) , noise . noise ( x . x + 100 , x . y + delta + 100 , x . z + 100 ) ) . normal ( ) ;
@@ -986,9 +986,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          LVect2d vx1 = new LVect2d ( noise . noise ( x . x + delta , x . y , x . z ) , noise . noise ( x . x + delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( noise . noise ( x . x - delta , x . y , x . z ) , noise . noise ( x . x - delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( noise . noise ( x . x , x . y + delta , x . z ) , noise . noise ( x . x + 100 , x . y + delta + 100 , x . z + 100 ) ) . normal ( ) ;
@@ -1039,9 +1039,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          double dx1 = ( noise . noise ( x . x + delta , x . y , x . z ) - noise . noise ( x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( noise . noise ( x . x , x . y + delta , x . z ) - noise . noise ( x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( noise . noise ( x . x , x . y , x . z + delta ) - noise . noise ( x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -1092,9 +1092,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          double dx1 = ( noise . noise ( x . x + delta , x . y , x . z ) - noise . noise ( x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( noise . noise ( x . x , x . y + delta , x . z ) - noise . noise ( x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( noise . noise ( x . x , x . y , x . z + delta ) - noise . noise ( x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -1145,9 +1145,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          LVect3d vx1 = new LVect3d ( noise . noise ( x . x + delta , x . y , x . z ) , noise . noise ( x . x + delta + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x + delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vx2 = new LVect3d ( noise . noise ( x . x - delta , x . y , x . z ) , noise . noise ( x . x - delta + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x - delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vy1 = new LVect3d ( noise . noise ( x . x , x . y + delta , x . z ) , noise . noise ( x . x + 100 , x . y + delta + 100 , x . z + 100 ) , noise . noise ( x . x + 300 , x . y + delta + 300 , x . z + 300 ) ) . normal ( ) ;
@@ -1198,9 +1198,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
          LVect3d vx1 = new LVect3d ( noise . noise ( x . x + delta , x . y , x . z ) , noise . noise ( x . x + delta + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x + delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vx2 = new LVect3d ( noise . noise ( x . x - delta , x . y , x . z ) , noise . noise ( x . x - delta + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x - delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vy1 = new LVect3d ( noise . noise ( x . x , x . y + delta , x . z ) , noise . noise ( x . x + 100 , x . y + delta + 100 , x . z + 100 ) , noise . noise ( x . x + 300 , x . y + delta + 300 , x . z + 300 ) ) . normal ( ) ;
@@ -1251,9 +1251,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         NoiseFunction noise = (NoiseFunction)inputs[1];
-         NoiseFractal fractal = (NoiseFractal)inputs[2];
+         final LVect2d x = (LVect2d)inputs[0];
+         final NoiseFunction noise = (NoiseFunction)inputs[1];
+         final NoiseFractal fractal = (NoiseFractal)inputs[2];
          double dx = ( fractal . evalFractal ( noise , x . x + delta , x . y , 0 ) - fractal . evalFractal ( noise , x . x - delta , x . y , 0 ) ) / ( 2 * delta ) ;
          double dy = ( fractal . evalFractal ( noise , x . x , x . y + delta , 0 ) - fractal . evalFractal ( noise , x . x , x . y - delta , 0 ) ) / ( 2 * delta ) ;
          return new LVect2d ( dx , dy ) ;
@@ -1296,9 +1296,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         NoiseFunction noise = (NoiseFunction)inputs[1];
-         NoiseFractal fractal = (NoiseFractal)inputs[2];
+         final LVect2d x = (LVect2d)inputs[0];
+         final NoiseFunction noise = (NoiseFunction)inputs[1];
+         final NoiseFractal fractal = (NoiseFractal)inputs[2];
          double dx = ( fractal . evalFractal ( noise , x . x + delta , x . y , 0 ) - fractal . evalFractal ( noise , x . x - delta , x . y , 0 ) ) / ( 2 * delta ) ;
          double dy = ( fractal . evalFractal ( noise , x . x , x . y + delta , 0 ) - fractal . evalFractal ( noise , x . x , x . y - delta , 0 ) ) / ( 2 * delta ) ;
          return new LVect2d ( dx , dy ) . normal ( ) ;
@@ -1341,9 +1341,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         NoiseFunction noise = (NoiseFunction)inputs[1];
-         NoiseFractal fractal = (NoiseFractal)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final NoiseFunction noise = (NoiseFunction)inputs[1];
+         final NoiseFractal fractal = (NoiseFractal)inputs[2];
          double dx = ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) - fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy = ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) - fractal . evalFractal ( noise , x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz = ( fractal . evalFractal ( noise , x . x , x . y , x . z + delta ) - fractal . evalFractal ( noise , x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -1387,9 +1387,9 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         NoiseFunction noise = (NoiseFunction)inputs[1];
-         NoiseFractal fractal = (NoiseFractal)inputs[2];
+         final LVect3d x = (LVect3d)inputs[0];
+         final NoiseFunction noise = (NoiseFunction)inputs[1];
+         final NoiseFractal fractal = (NoiseFractal)inputs[2];
          double dx = ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) - fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy = ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) - fractal . evalFractal ( noise , x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz = ( fractal . evalFractal ( noise , x . x , x . y , x . z + delta ) - fractal . evalFractal ( noise , x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -1435,10 +1435,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          double dx1 = ( fractal . evalFractal ( noise , x . x + delta , x . y , 0 ) - fractal . evalFractal ( noise , x . x - delta , x . y , 0 ) ) / ( 2 * delta ) ;
          double dy1 = ( fractal . evalFractal ( noise , x . x , x . y + delta , 0 ) - fractal . evalFractal ( noise , x . x , x . y - delta , 0 ) ) / ( 2 * delta ) ;
          double dx2 = ( fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , 100 ) - fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , 100 ) ) / ( 2 * delta ) ;
@@ -1486,10 +1486,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          double dx1 = ( fractal . evalFractal ( noise , x . x + delta , x . y , 0 ) - fractal . evalFractal ( noise , x . x - delta , x . y , 0 ) ) / ( 2 * delta ) ;
          double dy1 = ( fractal . evalFractal ( noise , x . x , x . y + delta , 0 ) - fractal . evalFractal ( noise , x . x , x . y - delta , 0 ) ) / ( 2 * delta ) ;
          double dx2 = ( fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , 100 ) - fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , 100 ) ) / ( 2 * delta ) ;
@@ -1537,10 +1537,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          LVect2d vx1 = new LVect2d ( fractal . evalFractal ( noise , x . x + delta , x . y , 0 ) , fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( fractal . evalFractal ( noise , x . x - delta , x . y , 0 ) , fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( fractal . evalFractal ( noise , x . x , x . y + delta , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + delta + 100 , 100 ) ) . normal ( ) ;
@@ -1590,10 +1590,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          LVect2d vx1 = new LVect2d ( fractal . evalFractal ( noise , x . x + delta , x . y , 0 ) , fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( fractal . evalFractal ( noise , x . x - delta , x . y , 0 ) , fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( fractal . evalFractal ( noise , x . x , x . y + delta , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + delta + 100 , 100 ) ) . normal ( ) ;
@@ -1643,10 +1643,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          double dx1 = ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) - fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) - fractal . evalFractal ( noise , x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( fractal . evalFractal ( noise , x . x , x . y , x . z + delta ) - fractal . evalFractal ( noise , x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -1696,10 +1696,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          double dx1 = ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) - fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) - fractal . evalFractal ( noise , x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( fractal . evalFractal ( noise , x . x , x . y , x . z + delta ) - fractal . evalFractal ( noise , x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -1749,10 +1749,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          LVect2d vx1 = new LVect2d ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + delta + 100 , x . z + 100 ) ) . normal ( ) ;
@@ -1805,10 +1805,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          LVect2d vx1 = new LVect2d ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + delta + 100 , x . z + 100 ) ) . normal ( ) ;
@@ -1861,10 +1861,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          double dx1 = ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) - fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) - fractal . evalFractal ( noise , x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( fractal . evalFractal ( noise , x . x , x . y , x . z + delta ) - fractal . evalFractal ( noise , x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -1917,10 +1917,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          double dx1 = ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) - fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) - fractal . evalFractal ( noise , x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( fractal . evalFractal ( noise , x . x , x . y , x . z + delta ) - fractal . evalFractal ( noise , x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -1973,10 +1973,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          LVect3d vx1 = new LVect3d ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vx2 = new LVect3d ( fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x - delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vy1 = new LVect3d ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + delta + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + delta + 300 , x . z + 300 ) ) . normal ( ) ;
@@ -2029,10 +2029,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          LVect3d vx1 = new LVect3d ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vx2 = new LVect3d ( fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x - delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vy1 = new LVect3d ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + delta + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + delta + 300 , x . z + 300 ) ) . normal ( ) ;
@@ -2085,10 +2085,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          double dx1 = ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) - fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) - fractal . evalFractal ( noise , x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( fractal . evalFractal ( noise , x . x , x . y , x . z + delta ) - fractal . evalFractal ( noise , x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -2138,10 +2138,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          double dx1 = ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) - fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) - fractal . evalFractal ( noise , x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( fractal . evalFractal ( noise , x . x , x . y , x . z + delta ) - fractal . evalFractal ( noise , x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -2191,10 +2191,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          LVect2d vx1 = new LVect2d ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + delta + 100 , x . z + 100 ) ) . normal ( ) ;
@@ -2247,10 +2247,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          LVect2d vx1 = new LVect2d ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vx2 = new LVect2d ( fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
          LVect2d vy1 = new LVect2d ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + delta + 100 , x . z + 100 ) ) . normal ( ) ;
@@ -2303,10 +2303,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          double dx1 = ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) - fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) - fractal . evalFractal ( noise , x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( fractal . evalFractal ( noise , x . x , x . y , x . z + delta ) - fractal . evalFractal ( noise , x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -2359,10 +2359,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          double dx1 = ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) - fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) ) / ( 2 * delta ) ;
          double dy1 = ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) - fractal . evalFractal ( noise , x . x , x . y - delta , x . z ) ) / ( 2 * delta ) ;
          double dz1 = ( fractal . evalFractal ( noise , x . x , x . y , x . z + delta ) - fractal . evalFractal ( noise , x . x , x . y , x . z - delta ) ) / ( 2 * delta ) ;
@@ -2415,10 +2415,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          LVect3d vx1 = new LVect3d ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vx2 = new LVect3d ( fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x - delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vy1 = new LVect3d ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + delta + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + delta + 300 , x . z + 300 ) ) . normal ( ) ;
@@ -2471,10 +2471,10 @@ public final class Noise1Grad implements AllComponents<ExpressionFunction>, Desc
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LVect3d y = (LVect3d)inputs[1];
-         NoiseFunction noise = (NoiseFunction)inputs[2];
-         NoiseFractal fractal = (NoiseFractal)inputs[3];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LVect3d y = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[2];
+         final NoiseFractal fractal = (NoiseFractal)inputs[3];
          LVect3d vx1 = new LVect3d ( fractal . evalFractal ( noise , x . x + delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x + delta + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vx2 = new LVect3d ( fractal . evalFractal ( noise , x . x - delta , x . y , x . z ) , fractal . evalFractal ( noise , x . x - delta + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x - delta + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          LVect3d vy1 = new LVect3d ( fractal . evalFractal ( noise , x . x , x . y + delta , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + delta + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + delta + 300 , x . z + 300 ) ) . normal ( ) ;

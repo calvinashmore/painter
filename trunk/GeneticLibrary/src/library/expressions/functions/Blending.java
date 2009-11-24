@@ -44,7 +44,7 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new Color ( Math . max ( Math . min ( x . r , 1 ) , 0 ) , Math . max ( Math . min ( x . g , 1 ) , 0 ) , Math . max ( Math . min ( x . b , 1 ) , 0 ) ) ;
       }
 
@@ -83,8 +83,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( ( x . r + y . r ) / 2 , ( x . g + y . g ) / 2 , ( x . b + y . b ) / 2 ) ;
       }
 
@@ -123,8 +123,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( 1 - ( 1 - x . r ) / ( y . r ) , 1 - ( 1 - x . g ) / ( y . g ) , 1 - ( 1 - x . b ) / ( y . b ) ) ;
       }
 
@@ -163,8 +163,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( x . r / ( 1 - y . r ) , x . g / ( 1 - y . g ) , x . b / ( 1 - y . b ) ) ;
       }
 
@@ -203,8 +203,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( Math . min ( x . r , y . r ) , Math . min ( x . g , y . g ) , Math . min ( x . b , y . b ) ) ;
       }
 
@@ -243,8 +243,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( Math . abs ( y . r - x . r ) , Math . abs ( y . g - x . g ) , Math . abs ( y . b - x . b ) ) ;
       }
 
@@ -283,8 +283,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( x . r + y . r - 2 * x . r * y . r , x . g + y . g - 2 * x . g * y . g , x . b + y . b - 2 * x . b * y . b ) ;
       }
 
@@ -323,8 +323,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          double lum = .2125 * y . r + .7154 * y . g + .0721 * y . b ;
          if ( lum < 0.45 ) {
          return new Color ( 2 * x . r * y . r , 2 * x . g * y . g , 2 * x . b * y . b ) ;
@@ -376,8 +376,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( 1 - Math . abs ( 1 - y . r - x . r ) , 1 - Math . abs ( 1 - y . g - x . g ) , 1 - Math . abs ( 1 - y . b - x . b ) ) ;
       }
 
@@ -416,8 +416,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( Math . max ( x . r , y . r ) , Math . max ( x . g , y . g ) , Math . max ( x . b , y . b ) ) ;
       }
 
@@ -456,8 +456,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( x . r * y . r , x . g * y . g , x . b * y . b ) ;
       }
 
@@ -496,8 +496,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          double lum = .2125 * x . r + .7154 * x . g + .0721 * x . b ;
          Color r1 = new Color ( 2 * x . r * y . r , 2 * x . g * y . g , 2 * x . b * y . b ) ;
          Color r2 = new Color ( 1 - 2 * ( 1 - x . r ) * ( 1 - y . r ) , 1 - 2 * ( 1 - x . g ) * ( 1 - y . g ) , 1 - 2 * ( 1 - x . b ) * ( 1 - y . b ) ) ;
@@ -541,8 +541,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          double lum = .2125 * x . r + .7154 * x . g + .0721 * x . b ;
          if ( lum < 0.45 ) {
          return new Color ( 2 * x . r * y . r , 2 * x . g * y . g , 2 * x . b * y . b ) ;
@@ -594,8 +594,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( 1 - ( 1 - x . r ) * ( 1 - y . r ) , 1 - ( 1 - x . g ) * ( 1 - y . g ) , 1 - ( 1 - x . b ) * ( 1 - y . b ) ) ;
       }
 
@@ -634,8 +634,8 @@ public final class Blending implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new Color ( 2 * x . r * y . r + x . r * x . r - 2 * x . r * x . r * y . r , 2 * x . g * y . g + x . g * x . g - 2 * x . g * x . g * y . g , 2 * x . b * y . b + x . b * x . b - 2 * x . b * x . b * y . b ) ;
       }
 

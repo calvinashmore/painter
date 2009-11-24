@@ -50,10 +50,10 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         LDouble u = (LDouble)inputs[0];
-         LDouble i = (LDouble)inputs[1];
-         LDouble j = (LDouble)inputs[2];
-         LDouble k = (LDouble)inputs[3];
+         final LDouble u = (LDouble)inputs[0];
+         final LDouble i = (LDouble)inputs[1];
+         final LDouble j = (LDouble)inputs[2];
+         final LDouble k = (LDouble)inputs[3];
          return new Quaternion ( u . val , i . val , j . val , k . val ) ;
       }
 
@@ -92,8 +92,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Complex a = (Complex)inputs[0];
-         Complex b = (Complex)inputs[1];
+         final Complex a = (Complex)inputs[0];
+         final Complex b = (Complex)inputs[1];
          return new Quaternion ( a . x , a . y , b . x , b . y ) ;
       }
 
@@ -132,8 +132,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         LDouble a = (LDouble)inputs[0];
-         LVect3d b = (LVect3d)inputs[1];
+         final LDouble a = (LDouble)inputs[0];
+         final LVect3d b = (LVect3d)inputs[1];
          return new Quaternion ( a . val , b . x , b . y , b . z ) ;
       }
 
@@ -172,8 +172,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Complex a = (Complex)inputs[0];
-         Complex b = (Complex)inputs[1];
+         final Complex a = (Complex)inputs[0];
+         final Complex b = (Complex)inputs[1];
          return new Quaternion ( a . x * b . x , a . y * b . x , b . y * a . x , a . y * b . y ) ;
       }
 
@@ -210,7 +210,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return new LDouble ( q . u ) ;
       }
 
@@ -247,7 +247,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return new LDouble ( q . i ) ;
       }
 
@@ -284,7 +284,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return new LDouble ( q . j ) ;
       }
 
@@ -321,7 +321,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return new LDouble ( q . k ) ;
       }
 
@@ -358,7 +358,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return new LDouble ( q . anglePart ( ) ) ;
       }
 
@@ -395,7 +395,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return new LDouble ( q . magnitude ( ) ) ;
       }
 
@@ -432,7 +432,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return new Complex ( q . u , q . i ) ;
       }
 
@@ -469,7 +469,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return new Complex ( q . u , q . j ) ;
       }
 
@@ -506,7 +506,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return new Complex ( q . u , q . k ) ;
       }
 
@@ -543,7 +543,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return q . vectorPart ( ) ;
       }
 
@@ -580,7 +580,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Quaternion q = (Quaternion)inputs[0];
+         final Quaternion q = (Quaternion)inputs[0];
          return new Color ( q . i , q . j , q . k ) ;
       }
 
@@ -619,8 +619,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
-         Quaternion b = (Quaternion)inputs[1];
+         final Quaternion a = (Quaternion)inputs[0];
+         final Quaternion b = (Quaternion)inputs[1];
          return a . add ( b ) ;
       }
 
@@ -659,8 +659,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
-         Quaternion b = (Quaternion)inputs[1];
+         final Quaternion a = (Quaternion)inputs[0];
+         final Quaternion b = (Quaternion)inputs[1];
          return a . sub ( b ) ;
       }
 
@@ -699,8 +699,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
-         Quaternion b = (Quaternion)inputs[1];
+         final Quaternion a = (Quaternion)inputs[0];
+         final Quaternion b = (Quaternion)inputs[1];
          return a . mult ( b ) ;
       }
 
@@ -739,8 +739,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
-         Quaternion b = (Quaternion)inputs[1];
+         final Quaternion a = (Quaternion)inputs[0];
+         final Quaternion b = (Quaternion)inputs[1];
          return a . div ( b ) ;
       }
 
@@ -779,8 +779,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
-         Quaternion b = (Quaternion)inputs[1];
+         final Quaternion a = (Quaternion)inputs[0];
+         final Quaternion b = (Quaternion)inputs[1];
          return a . pow ( b ) ;
       }
 
@@ -819,8 +819,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
-         LDouble b = (LDouble)inputs[1];
+         final Quaternion a = (Quaternion)inputs[0];
+         final LDouble b = (LDouble)inputs[1];
          return a . pow ( b . val ) ;
       }
 
@@ -857,7 +857,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . invert ( ) ;
       }
 
@@ -894,7 +894,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . mult ( a ) ;
       }
 
@@ -931,7 +931,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . exp ( ) ;
       }
 
@@ -968,7 +968,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . log ( ) ;
       }
 
@@ -1005,7 +1005,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . sin ( ) ;
       }
 
@@ -1042,7 +1042,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . cos ( ) ;
       }
 
@@ -1079,7 +1079,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . tan ( ) ;
       }
 
@@ -1116,7 +1116,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . sinh ( ) ;
       }
 
@@ -1153,7 +1153,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . cosh ( ) ;
       }
 
@@ -1190,7 +1190,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . tanh ( ) ;
       }
 
@@ -1227,7 +1227,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . arcsin ( ) ;
       }
 
@@ -1264,7 +1264,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . arccos ( ) ;
       }
 
@@ -1301,7 +1301,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . arctan ( ) ;
       }
 
@@ -1338,7 +1338,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . arcsinh ( ) ;
       }
 
@@ -1375,7 +1375,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . arccosh ( ) ;
       }
 
@@ -1412,7 +1412,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . arctanh ( ) ;
       }
 
@@ -1449,7 +1449,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return new Quaternion ( Math . sin ( a . u ) , Math . sin ( a . i ) , Math . sin ( a . j ) , Math . sin ( a . k ) ) ;
       }
 
@@ -1486,7 +1486,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return new Quaternion ( Math . cos ( a . u ) , Math . cos ( a . i ) , Math . cos ( a . j ) , Math . cos ( a . k ) ) ;
       }
 
@@ -1523,7 +1523,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return new Quaternion ( Math . tan ( a . u ) , Math . tan ( a . i ) , Math . tan ( a . j ) , Math . tan ( a . k ) ) ;
       }
 
@@ -1560,7 +1560,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return new Quaternion ( Math . exp ( a . u ) , Math . exp ( a . i ) , Math . exp ( a . j ) , Math . exp ( a . k ) ) ;
       }
 
@@ -1597,7 +1597,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return new Quaternion ( Math . log ( a . u ) , Math . log ( a . i ) , Math . log ( a . j ) , Math . log ( a . k ) ) ;
       }
 
@@ -1634,7 +1634,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return new Quaternion ( a . i , a . j , a . k , a . u ) ;
       }
 
@@ -1671,7 +1671,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return new Quaternion ( a . k , a . u , a . i , a . j ) ;
       }
 
@@ -1708,7 +1708,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return a . conj ( ) ;
       }
 
@@ -1747,8 +1747,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
-         Quaternion b = (Quaternion)inputs[1];
+         final Quaternion a = (Quaternion)inputs[0];
+         final Quaternion b = (Quaternion)inputs[1];
          return b . div ( a ) . mult ( a ) ;
       }
 
@@ -1787,8 +1787,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
-         Quaternion b = (Quaternion)inputs[1];
+         final Quaternion a = (Quaternion)inputs[0];
+         final Quaternion b = (Quaternion)inputs[1];
          return b . div ( a . conj ( ) ) . mult ( a ) ;
       }
 
@@ -1827,8 +1827,8 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
-         Quaternion b = (Quaternion)inputs[1];
+         final Quaternion a = (Quaternion)inputs[0];
+         final Quaternion b = (Quaternion)inputs[1];
          return a . normal ( ) . mult ( b . mult ( a . normal ( ) . conj ( ) ) ) ;
       }
 
@@ -1865,7 +1865,7 @@ public final class Quaternions implements AllComponents<ExpressionFunction>, Des
       }
 
       public Quaternion evaluate(Context context, Object[] inputs) {
-         Quaternion a = (Quaternion)inputs[0];
+         final Quaternion a = (Quaternion)inputs[0];
          return new Quaternion ( a . u - Math . floor ( a . u ) , a . i - Math . floor ( a . i ) , a . j - Math . floor ( a . j ) , a . k - Math . floor ( a . k ) ) ;
       }
 

@@ -386,3 +386,51 @@ fn mult_col {
     }
 }
 
+// *****************************************
+// ****** COMPOSITION
+// *****************************************
+
+fn compose_v2 {
+    fout CurveUtil.Curve_v2;
+    in CurveUtil.Curve_d x;
+    in CurveUtil.Curve_d y;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double t) {
+                return new LVect2d(x.getValue(t).val, y.getValue(t).val);
+            }
+        };
+    }
+}
+
+fn compose_col_rgb {
+    fout CurveUtil.Curve_col;
+    in CurveUtil.Curve_d x;
+    in CurveUtil.Curve_d y;
+    in CurveUtil.Curve_d z;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double t) {
+                return new Color(x.getValue(t).val, y.getValue(t).val, z.getValue(t).val);
+            }
+        };
+    }
+}
+
+fn compose_col_hsb {
+    fout CurveUtil.Curve_col;
+    in CurveUtil.Curve_d x;
+    in CurveUtil.Curve_d y;
+    in CurveUtil.Curve_d z;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double t) {
+                return Color.makeHSB(x.getValue(t).val, y.getValue(t).val, z.getValue(t).val);
+            }
+        };
+    }
+}
+

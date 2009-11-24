@@ -44,7 +44,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return new Complex ( Math . sin ( x . x ) * Math . cosh ( x . y ) , Math . cos ( x . x ) * Math . sinh ( x . y ) ) ;
       }
 
@@ -81,7 +81,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return new Complex ( Math . cos ( x . x ) * Math . cosh ( x . y ) , - Math . sin ( x . x ) * Math . sinh ( x . y ) ) ;
       }
 
@@ -118,7 +118,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return new Complex ( Math . sinh ( x . y ) * Math . cosh ( x . y ) , Math . sin ( x . x ) * Math . cos ( x . x ) ) . mult ( 1.0 / ( Math . cos ( x . x ) * Math . cos ( x . x ) + Math . sinh ( x . y ) * Math . sinh ( x . y ) ) ) ;
       }
 
@@ -155,7 +155,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return new Complex ( Math . sinh ( x . x ) * Math . cos ( x . y ) , Math . cosh ( x . x ) * Math . sin ( x . y ) ) ;
       }
 
@@ -192,7 +192,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return new Complex ( Math . cosh ( x . x ) * Math . cos ( x . y ) , Math . sinh ( x . x ) * Math . sin ( x . y ) ) ;
       }
 
@@ -229,7 +229,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return new Complex ( Math . sinh ( x . x ) * Math . cosh ( x . x ) , Math . sin ( x . y ) * Math . cos ( x . y ) ) . mult ( 1.0 / ( Math . cos ( x . y ) * Math . cos ( x . y ) + Math . sinh ( x . x ) * Math . sinh ( x . x ) ) ) ;
       }
 
@@ -266,7 +266,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          Complex r = new Complex ( - x . y , x . x ) . add ( new Complex ( 1 - x . x * x . x + x . y * x . y , - 2 * x . x * x . y ) . pow ( .5 ) ) . log ( ) ;
          Complex p = new Complex ( r . y , - r . x ) ;
          return p ;
@@ -305,7 +305,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          Complex r = new Complex ( - x . y , x . x ) . add ( new Complex ( 1 - x . x * x . x + x . y * x . y , - 2 * x . x * x . y ) . pow ( .5 ) ) . log ( ) ;
          Complex p = new Complex ( Math . PI / 2 - r . y , r . x ) ;
          return p ;
@@ -344,7 +344,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          Complex r = new Complex ( 1 + x . y , - x . x ) . log ( ) ;
          Complex s = new Complex ( 1 - x . y , x . x ) . log ( ) ;
          Complex t = r . add ( s ) ;
@@ -387,8 +387,8 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
-         Complex y = (Complex)inputs[1];
+         final Complex x = (Complex)inputs[0];
+         final Complex y = (Complex)inputs[1];
          Complex xlog = new Complex ( Math . log ( x . magnitude ( ) ) , x . theta ( ) ) ;
          Complex ymul = new Complex ( xlog . x * y . x - xlog . y * y . y , xlog . x * y . y + xlog . y * y . x ) ;
          Complex z = new Complex ( Math . exp ( ymul . x ) * Math . cos ( ymul . y ) , Math . exp ( ymul . x ) * Math . sin ( ymul . y ) ) ;
@@ -430,8 +430,8 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
-         Complex y = (Complex)inputs[1];
+         final Complex x = (Complex)inputs[0];
+         final Complex y = (Complex)inputs[1];
          Complex z = new Complex ( ) ;
          z . x = x . x * y . x + x . y * y . y ;
          z . y = x . y * y . x - x . x * y . y ;
@@ -472,7 +472,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return x . exp ( ) ;
       }
 
@@ -509,7 +509,7 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
+         final Complex x = (Complex)inputs[0];
          return x . log ( ) ;
       }
 
@@ -548,8 +548,8 @@ public final class Complexfn implements AllComponents<ExpressionFunction>, Descr
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         Complex x = (Complex)inputs[0];
-         Complex y = (Complex)inputs[1];
+         final Complex x = (Complex)inputs[0];
+         final Complex y = (Complex)inputs[1];
          Complex c = new Complex ( ) ;
          c . x = - x . x ;
          c . y = x . y + y . theta ( ) ;

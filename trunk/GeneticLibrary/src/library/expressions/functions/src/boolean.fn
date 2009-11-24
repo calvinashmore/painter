@@ -2,6 +2,7 @@ package library.expressions.functions;
 group BooleanOperations;
 type Expression;
 
+import utils.linear.*;
 
 description "Boolean operations, such as logical operators and comparisons.";
 
@@ -41,5 +42,90 @@ fn not {
     
     eval {
         return !x;
+    }
+}
+
+fn lessThan {
+    in LDouble x;
+    in LDouble y;
+    fout Boolean;
+
+    eval {
+        return x.val < y.val;
+    }
+}
+
+fn greaterThan {
+    in LDouble x;
+    in LDouble y;
+    fout Boolean;
+
+    eval {
+        return x.val > y.val;
+    }
+}
+
+fn nearTo {
+    in LDouble x;
+    in LDouble y;
+    in LDouble epsilon;
+    fout Boolean;
+
+    eval {
+        return Math.abs(x.val - y.val) < epsilon.val;
+    }
+}
+
+fn modulo1_i1 {
+    in Integer x;
+    fout Boolean;
+
+    parameter int mod;
+    init {
+        mod = 1 + (int)(6*Math.random());
+    }
+
+    eval {
+        return x % mod == 0;
+    }
+}
+
+fn modulo1_i2 {
+    in Integer x;
+    in Integer mod;
+    fout Boolean;
+
+    eval {
+        if(mod == 0)
+            return false;
+        return x % mod == 0;
+    }
+}
+
+fn modulo2_i1 {
+    in Integer x;
+    in Integer y;
+    fout Boolean;
+
+    parameter int mod;
+    init {
+        mod = 1 + (int)(6*Math.random());
+    }
+
+    eval {
+        return (x - y) % mod == 0;
+    }
+}
+
+fn modulo2_i2 {
+    in Integer x;
+    in Integer y;
+    in Integer mod;
+    fout Boolean;
+
+    eval {
+        if(mod == 0)
+            return false;
+        return (x - y) % mod == 0;
     }
 }

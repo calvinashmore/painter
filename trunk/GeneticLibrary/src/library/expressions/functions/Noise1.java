@@ -47,8 +47,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new LDouble ( noise . noise ( x . val , 0 , 0 ) ) ;
       }
 
@@ -87,8 +87,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new LDouble ( noise . noise ( x . val , 0 , 0 ) ) . normal ( ) ;
       }
 
@@ -127,8 +127,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new LVect2d ( noise . noise ( x . val , 0 , 0 ) , noise . noise ( x . val + 100 , 100 , 100 ) ) ;
       }
 
@@ -167,8 +167,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new LVect2d ( noise . noise ( x . val , 0 , 0 ) , noise . noise ( x . val + 100 , 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -207,8 +207,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new Complex ( noise . noise ( x . val , 0 , 0 ) , noise . noise ( x . val + 100 , 100 , 100 ) ) ;
       }
 
@@ -247,8 +247,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new Complex ( noise . noise ( x . val , 0 , 0 ) , noise . noise ( x . val + 100 , 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -287,8 +287,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new LVect3d ( noise . noise ( x . val , 0 , 0 ) , noise . noise ( x . val + 100 , 100 , 100 ) , noise . noise ( x . val + 300 , 300 , 300 ) ) ;
       }
 
@@ -327,8 +327,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new LVect3d ( noise . noise ( x . val , 0 , 0 ) , noise . noise ( x . val + 100 , 100 , 100 ) , noise . noise ( x . val + 300 , 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -367,8 +367,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new Color ( .5 + .5 * noise . noise ( x . val , 0 , 0 ) , .5 + .5 * noise . noise ( x . val + 100 , 100 , 100 ) , .5 + .5 * noise . noise ( x . val + 300 , 300 , 300 ) ) ;
       }
 
@@ -407,8 +407,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new Color ( .5 + .5 * noise . noise ( x . val , 0 , 0 ) , .5 + .5 * noise . noise ( x . val + 100 , 100 , 100 ) , .5 + .5 * noise . noise ( x . val + 300 , 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -447,8 +447,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return Color . makeHSB ( noise . noise ( x . val , 0 , 0 ) , .5 + .5 * noise . noise ( x . val + 100 , 100 , 100 ) , .5 + .5 * noise . noise ( x . val + 300 , 300 , 300 ) ) ;
       }
 
@@ -487,8 +487,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          LVect3d v = new LVect3d ( noise . noise ( x . val , 0 , 0 ) , .5 + .5 * noise . noise ( x . val + 100 , 100 , 100 ) , .5 + .5 * noise . noise ( x . val + 300 , 300 , 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -528,8 +528,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new Color ( noise . noise ( x . val , 0 , 0 ) , noise . noise ( x . val + 100 , 100 , 100 ) , noise . noise ( x . val + 300 , 300 , 300 ) ) ;
       }
 
@@ -568,8 +568,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return new Color ( noise . noise ( x . val , 0 , 0 ) , noise . noise ( x . val + 100 , 100 , 100 ) , noise . noise ( x . val + 300 , 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -608,8 +608,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          return Color . makeHSB ( noise . noise ( x . val , 0 , 0 ) , noise . noise ( x . val + 100 , 100 , 100 ) , noise . noise ( x . val + 300 , 300 , 300 ) ) ;
       }
 
@@ -648,8 +648,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LDouble x = (LDouble)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LDouble x = (LDouble)inputs[1];
          LVect3d v = new LVect3d ( noise . noise ( x . val , 0 , 0 ) , noise . noise ( x . val + 100 , 100 , 100 ) , noise . noise ( x . val + 300 , 300 , 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -689,8 +689,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new LDouble ( noise . noise ( x . x , x . y , 0 ) ) ;
       }
 
@@ -729,8 +729,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new LDouble ( noise . noise ( x . x , x . y , 0 ) ) . normal ( ) ;
       }
 
@@ -769,8 +769,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new LVect2d ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) ) ;
       }
 
@@ -809,8 +809,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new LVect2d ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -849,8 +849,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new Complex ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) ) ;
       }
 
@@ -889,8 +889,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new Complex ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -929,8 +929,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new LVect3d ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -969,8 +969,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new LVect3d ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -1009,8 +1009,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new Color ( .5 + .5 * noise . noise ( x . x , x . y , 0 ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -1049,8 +1049,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new Color ( .5 + .5 * noise . noise ( x . x , x . y , 0 ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -1089,8 +1089,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return Color . makeHSB ( noise . noise ( x . x , x . y , 0 ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -1129,8 +1129,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          LVect3d v = new LVect3d ( noise . noise ( x . x , x . y , 0 ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -1170,8 +1170,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new Color ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -1210,8 +1210,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return new Color ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -1250,8 +1250,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          return Color . makeHSB ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -1290,8 +1290,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect2d x = (LVect2d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect2d x = (LVect2d)inputs[1];
          LVect3d v = new LVect3d ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -1331,8 +1331,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new LDouble ( noise . noise ( x . x , x . y , 0 ) ) ;
       }
 
@@ -1371,8 +1371,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new LDouble ( noise . noise ( x . x , x . y , 0 ) ) . normal ( ) ;
       }
 
@@ -1411,8 +1411,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new LVect2d ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) ) ;
       }
 
@@ -1451,8 +1451,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new LVect2d ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -1491,8 +1491,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new Complex ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) ) ;
       }
 
@@ -1531,8 +1531,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new Complex ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -1571,8 +1571,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new LVect3d ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -1611,8 +1611,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new LVect3d ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -1651,8 +1651,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new Color ( .5 + .5 * noise . noise ( x . x , x . y , 0 ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -1691,8 +1691,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new Color ( .5 + .5 * noise . noise ( x . x , x . y , 0 ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -1731,8 +1731,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return Color . makeHSB ( noise . noise ( x . x , x . y , 0 ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -1771,8 +1771,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          LVect3d v = new LVect3d ( noise . noise ( x . x , x . y , 0 ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -1812,8 +1812,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new Color ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -1852,8 +1852,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return new Color ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -1892,8 +1892,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          return Color . makeHSB ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -1932,8 +1932,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         Complex x = (Complex)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final Complex x = (Complex)inputs[1];
          LVect3d v = new LVect3d ( noise . noise ( x . x , x . y , 0 ) , noise . noise ( x . x + 100 , x . y + 100 , 100 ) , noise . noise ( x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -1973,8 +1973,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new LDouble ( noise . noise ( x . x , x . y , x . z ) ) ;
       }
 
@@ -2013,8 +2013,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new LDouble ( noise . noise ( x . x , x . y , x . z ) ) . normal ( ) ;
       }
 
@@ -2053,8 +2053,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new LVect2d ( noise . noise ( x . x , x . y , x . z ) , noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) ) ;
       }
 
@@ -2093,8 +2093,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new LVect2d ( noise . noise ( x . x , x . y , x . z ) , noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
       }
 
@@ -2133,8 +2133,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new Complex ( noise . noise ( x . x , x . y , x . z ) , noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) ) ;
       }
 
@@ -2173,8 +2173,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new Complex ( noise . noise ( x . x , x . y , x . z ) , noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
       }
 
@@ -2213,8 +2213,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new LVect3d ( noise . noise ( x . x , x . y , x . z ) , noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x + 300 , x . y + 300 , x . z + 300 ) ) ;
       }
 
@@ -2253,8 +2253,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new LVect3d ( noise . noise ( x . x , x . y , x . z ) , noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
       }
 
@@ -2293,8 +2293,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new Color ( .5 + .5 * noise . noise ( x . x , x . y , x . z ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , x . z + 300 ) ) ;
       }
 
@@ -2333,8 +2333,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new Color ( .5 + .5 * noise . noise ( x . x , x . y , x . z ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
       }
 
@@ -2373,8 +2373,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return Color . makeHSB ( noise . noise ( x . x , x . y , x . z ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , x . z + 300 ) ) ;
       }
 
@@ -2413,8 +2413,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          LVect3d v = new LVect3d ( noise . noise ( x . x , x . y , x . z ) , .5 + .5 * noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) , .5 + .5 * noise . noise ( x . x + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -2454,8 +2454,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new Color ( noise . noise ( x . x , x . y , x . z ) , noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x + 300 , x . y + 300 , x . z + 300 ) ) ;
       }
 
@@ -2494,8 +2494,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return new Color ( noise . noise ( x . x , x . y , x . z ) , noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
       }
 
@@ -2534,8 +2534,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          return Color . makeHSB ( noise . noise ( x . x , x . y , x . z ) , noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x + 300 , x . y + 300 , x . z + 300 ) ) ;
       }
 
@@ -2574,8 +2574,8 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         LVect3d x = (LVect3d)inputs[1];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final LVect3d x = (LVect3d)inputs[1];
          LVect3d v = new LVect3d ( noise . noise ( x . x , x . y , x . z ) , noise . noise ( x . x + 100 , x . y + 100 , x . z + 100 ) , noise . noise ( x . x + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -2617,9 +2617,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new LDouble ( fractal . evalFractal ( noise , x . val , 0 , 0 ) ) ;
       }
 
@@ -2660,9 +2660,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new LDouble ( fractal . evalFractal ( noise , x . val , 0 , 0 ) ) . normal ( ) ;
       }
 
@@ -2703,9 +2703,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new LVect2d ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) ) ;
       }
 
@@ -2746,9 +2746,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new LVect2d ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -2789,9 +2789,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new Complex ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) ) ;
       }
 
@@ -2832,9 +2832,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new Complex ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -2875,9 +2875,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new LVect3d ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) , fractal . evalFractal ( noise , x . val + 300 , 300 , 300 ) ) ;
       }
 
@@ -2918,9 +2918,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new LVect3d ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) , fractal . evalFractal ( noise , x . val + 300 , 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -2961,9 +2961,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new Color ( .5 + .5 * fractal . evalFractal ( noise , x . val , 0 , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . val + 300 , 300 , 300 ) ) ;
       }
 
@@ -3004,9 +3004,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new Color ( .5 + .5 * fractal . evalFractal ( noise , x . val , 0 , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . val + 300 , 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -3047,9 +3047,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return Color . makeHSB ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . val + 300 , 300 , 300 ) ) ;
       }
 
@@ -3090,9 +3090,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          LVect3d v = new LVect3d ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . val + 300 , 300 , 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -3134,9 +3134,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new Color ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) , fractal . evalFractal ( noise , x . val + 300 , 300 , 300 ) ) ;
       }
 
@@ -3177,9 +3177,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return new Color ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) , fractal . evalFractal ( noise , x . val + 300 , 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -3220,9 +3220,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          return Color . makeHSB ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) , fractal . evalFractal ( noise , x . val + 300 , 300 , 300 ) ) ;
       }
 
@@ -3263,9 +3263,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LDouble x = (LDouble)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LDouble x = (LDouble)inputs[2];
          LVect3d v = new LVect3d ( fractal . evalFractal ( noise , x . val , 0 , 0 ) , fractal . evalFractal ( noise , x . val + 100 , 100 , 100 ) , fractal . evalFractal ( noise , x . val + 300 , 300 , 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -3307,9 +3307,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new LDouble ( fractal . evalFractal ( noise , x . x , x . y , 0 ) ) ;
       }
 
@@ -3350,9 +3350,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new LDouble ( fractal . evalFractal ( noise , x . x , x . y , 0 ) ) . normal ( ) ;
       }
 
@@ -3393,9 +3393,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new LVect2d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) ) ;
       }
 
@@ -3436,9 +3436,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new LVect2d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -3479,9 +3479,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new Complex ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) ) ;
       }
 
@@ -3522,9 +3522,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new Complex ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -3565,9 +3565,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -3608,9 +3608,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -3651,9 +3651,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new Color ( .5 + .5 * fractal . evalFractal ( noise , x . x , x . y , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -3694,9 +3694,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new Color ( .5 + .5 * fractal . evalFractal ( noise , x . x , x . y , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -3737,9 +3737,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return Color . makeHSB ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -3780,9 +3780,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          LVect3d v = new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
          ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
@@ -3825,9 +3825,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new Color ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -3868,9 +3868,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return new Color ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -3911,9 +3911,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          return Color . makeHSB ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -3954,9 +3954,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect2d x = (LVect2d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect2d x = (LVect2d)inputs[2];
          LVect3d v = new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
          ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
@@ -3999,9 +3999,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new LDouble ( fractal . evalFractal ( noise , x . x , x . y , 0 ) ) ;
       }
 
@@ -4042,9 +4042,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new LDouble ( fractal . evalFractal ( noise , x . x , x . y , 0 ) ) . normal ( ) ;
       }
 
@@ -4085,9 +4085,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new LVect2d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) ) ;
       }
 
@@ -4128,9 +4128,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new LVect2d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -4171,9 +4171,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new Complex ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) ) ;
       }
 
@@ -4214,9 +4214,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new Complex ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) ) . normal ( ) ;
       }
 
@@ -4257,9 +4257,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -4300,9 +4300,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -4343,9 +4343,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new Color ( .5 + .5 * fractal . evalFractal ( noise , x . x , x . y , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -4386,9 +4386,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new Color ( .5 + .5 * fractal . evalFractal ( noise , x . x , x . y , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -4429,9 +4429,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return Color . makeHSB ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -4472,9 +4472,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          LVect3d v = new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -4516,9 +4516,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new Color ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -4559,9 +4559,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return new Color ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
       }
 
@@ -4602,9 +4602,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          return Color . makeHSB ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) ;
       }
 
@@ -4645,9 +4645,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         Complex x = (Complex)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final Complex x = (Complex)inputs[2];
          LVect3d v = new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , 0 ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -4689,9 +4689,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new LDouble ( fractal . evalFractal ( noise , x . x , x . y , x . z ) ) ;
       }
 
@@ -4732,9 +4732,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new LDouble ( fractal . evalFractal ( noise , x . x , x . y , x . z ) ) . normal ( ) ;
       }
 
@@ -4775,9 +4775,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new LVect2d ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) ) ;
       }
 
@@ -4818,9 +4818,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new LVect2d ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
       }
 
@@ -4861,9 +4861,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new Complex ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) ) ;
       }
 
@@ -4904,9 +4904,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Complex evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new Complex ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) ) . normal ( ) ;
       }
 
@@ -4947,9 +4947,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , x . z + 300 ) ) ;
       }
 
@@ -4990,9 +4990,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
       }
 
@@ -5033,9 +5033,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new Color ( .5 + .5 * fractal . evalFractal ( noise , x . x , x . y , x . z ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , x . z + 300 ) ) ;
       }
 
@@ -5076,9 +5076,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new Color ( .5 + .5 * fractal . evalFractal ( noise , x . x , x . y , x . z ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
       }
 
@@ -5119,9 +5119,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return Color . makeHSB ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , x . z + 300 ) ) ;
       }
 
@@ -5162,9 +5162,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          LVect3d v = new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) , .5 + .5 * fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }
@@ -5206,9 +5206,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new Color ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , x . z + 300 ) ) ;
       }
 
@@ -5249,9 +5249,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return new Color ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
       }
 
@@ -5292,9 +5292,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          return Color . makeHSB ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , x . z + 300 ) ) ;
       }
 
@@ -5335,9 +5335,9 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         NoiseFunction noise = (NoiseFunction)inputs[0];
-         NoiseFractal fractal = (NoiseFractal)inputs[1];
-         LVect3d x = (LVect3d)inputs[2];
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         final LVect3d x = (LVect3d)inputs[2];
          LVect3d v = new LVect3d ( fractal . evalFractal ( noise , x . x , x . y , x . z ) , fractal . evalFractal ( noise , x . x + 100 , x . y + 100 , x . z + 100 ) , fractal . evalFractal ( noise , x . x + 300 , x . y + 300 , x . z + 300 ) ) . normal ( ) ;
          return Color . makeHSB ( v . x , v . y , v . z ) ;
       }

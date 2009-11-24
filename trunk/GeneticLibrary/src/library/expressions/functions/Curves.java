@@ -245,8 +245,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_d evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new CurveUtil . Curve_d_wrap ( new SegmentCurve ( x , y ) ) ;
       }
 
@@ -285,8 +285,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LVect2d y = (LVect2d)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LVect2d y = (LVect2d)inputs[1];
          return new CurveUtil . Curve_v2_wrap ( new SegmentCurve ( x , y ) ) ;
       }
 
@@ -325,8 +325,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         Color y = (Color)inputs[1];
+         final Color x = (Color)inputs[0];
+         final Color y = (Color)inputs[1];
          return new CurveUtil . Curve_col_wrap ( new SegmentCurve ( x , y ) ) ;
       }
 
@@ -545,8 +545,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
-         LVect2d center = (LVect2d)inputs[0];
-         LDouble radius = (LDouble)inputs[1];
+         final LVect2d center = (LVect2d)inputs[0];
+         final LDouble radius = (LDouble)inputs[1];
          return new CurveUtil . Curve_v2_wrap ( new Circle ( center , radius . val ) ) ;
       }
 
@@ -621,7 +621,7 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
-         LVect2d center = (LVect2d)inputs[0];
+         final LVect2d center = (LVect2d)inputs[0];
          return new CurveUtil . Curve_v2_wrap ( new Circle ( center , radius . val ) ) ;
       }
 
@@ -961,8 +961,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_d evaluate(Context context, Object[] inputs) {
-         CurveUtil . Curve_d x = (CurveUtil . Curve_d)inputs[0];
-         CurveUtil . Curve_d y = (CurveUtil . Curve_d)inputs[1];
+         final CurveUtil . Curve_d x = (CurveUtil . Curve_d)inputs[0];
+         final CurveUtil . Curve_d y = (CurveUtil . Curve_d)inputs[1];
          return new CurveUtil . Curve_d_wrap ( CurveUtil . add ( x , y ) ) ;
       }
 
@@ -1001,8 +1001,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_d evaluate(Context context, Object[] inputs) {
-         CurveUtil . Curve_d x = (CurveUtil . Curve_d)inputs[0];
-         CurveUtil . Curve_d y = (CurveUtil . Curve_d)inputs[1];
+         final CurveUtil . Curve_d x = (CurveUtil . Curve_d)inputs[0];
+         final CurveUtil . Curve_d y = (CurveUtil . Curve_d)inputs[1];
          return new CurveUtil . Curve_d_wrap ( CurveUtil . sub ( x , y ) ) ;
       }
 
@@ -1041,8 +1041,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_d evaluate(Context context, Object[] inputs) {
-         CurveUtil . Curve_d x = (CurveUtil . Curve_d)inputs[0];
-         LDouble c = (LDouble)inputs[1];
+         final CurveUtil . Curve_d x = (CurveUtil . Curve_d)inputs[0];
+         final LDouble c = (LDouble)inputs[1];
          return new CurveUtil . Curve_d_wrap ( CurveUtil . mult ( x , c . val ) ) ;
       }
 
@@ -1081,8 +1081,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
-         CurveUtil . Curve_v2 x = (CurveUtil . Curve_v2)inputs[0];
-         CurveUtil . Curve_v2 y = (CurveUtil . Curve_v2)inputs[1];
+         final CurveUtil . Curve_v2 x = (CurveUtil . Curve_v2)inputs[0];
+         final CurveUtil . Curve_v2 y = (CurveUtil . Curve_v2)inputs[1];
          return new CurveUtil . Curve_v2_wrap ( CurveUtil . add ( x , y ) ) ;
       }
 
@@ -1121,8 +1121,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
-         CurveUtil . Curve_v2 x = (CurveUtil . Curve_v2)inputs[0];
-         CurveUtil . Curve_v2 y = (CurveUtil . Curve_v2)inputs[1];
+         final CurveUtil . Curve_v2 x = (CurveUtil . Curve_v2)inputs[0];
+         final CurveUtil . Curve_v2 y = (CurveUtil . Curve_v2)inputs[1];
          return new CurveUtil . Curve_v2_wrap ( CurveUtil . sub ( x , y ) ) ;
       }
 
@@ -1161,8 +1161,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
-         CurveUtil . Curve_v2 x = (CurveUtil . Curve_v2)inputs[0];
-         LDouble c = (LDouble)inputs[1];
+         final CurveUtil . Curve_v2 x = (CurveUtil . Curve_v2)inputs[0];
+         final LDouble c = (LDouble)inputs[1];
          return new CurveUtil . Curve_v2_wrap ( CurveUtil . mult ( x , c . val ) ) ;
       }
 
@@ -1201,8 +1201,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
-         CurveUtil . Curve_col x = (CurveUtil . Curve_col)inputs[0];
-         CurveUtil . Curve_col y = (CurveUtil . Curve_col)inputs[1];
+         final CurveUtil . Curve_col x = (CurveUtil . Curve_col)inputs[0];
+         final CurveUtil . Curve_col y = (CurveUtil . Curve_col)inputs[1];
          return new CurveUtil . Curve_col_wrap ( CurveUtil . add ( x , y ) ) ;
       }
 
@@ -1241,8 +1241,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
-         CurveUtil . Curve_col x = (CurveUtil . Curve_col)inputs[0];
-         CurveUtil . Curve_col y = (CurveUtil . Curve_col)inputs[1];
+         final CurveUtil . Curve_col x = (CurveUtil . Curve_col)inputs[0];
+         final CurveUtil . Curve_col y = (CurveUtil . Curve_col)inputs[1];
          return new CurveUtil . Curve_col_wrap ( CurveUtil . sub ( x , y ) ) ;
       }
 
@@ -1281,9 +1281,150 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       }
 
       public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
-         CurveUtil . Curve_col x = (CurveUtil . Curve_col)inputs[0];
-         LDouble c = (LDouble)inputs[1];
+         final CurveUtil . Curve_col x = (CurveUtil . Curve_col)inputs[0];
+         final LDouble c = (LDouble)inputs[1];
          return new CurveUtil . Curve_col_wrap ( CurveUtil . mult ( x , c . val ) ) ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_col.class;
+      }
+
+   }
+
+   public static class compose_v2 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return CurveUtil . Curve_d.class;
+            case 1: return CurveUtil . Curve_d.class;
+            default: return null;
+         }
+
+      }
+
+      public compose_v2() {
+         addGroupMeta(this);
+      }
+
+      public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
+         final CurveUtil . Curve_d x = (CurveUtil . Curve_d)inputs[0];
+         final CurveUtil . Curve_d y = (CurveUtil . Curve_d)inputs[1];
+         return new CurveUtil . Curve_v2 ( ) {
+         public LVect2d getValue ( double t ) {
+         return new LVect2d ( x . getValue ( t ) . val , y . getValue ( t ) . val ) ;
+         }
+         }
+         ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_v2.class;
+      }
+
+   }
+
+   public static class compose_col_rgb extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            case 2: return "z";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return CurveUtil . Curve_d.class;
+            case 1: return CurveUtil . Curve_d.class;
+            case 2: return CurveUtil . Curve_d.class;
+            default: return null;
+         }
+
+      }
+
+      public compose_col_rgb() {
+         addGroupMeta(this);
+      }
+
+      public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
+         final CurveUtil . Curve_d x = (CurveUtil . Curve_d)inputs[0];
+         final CurveUtil . Curve_d y = (CurveUtil . Curve_d)inputs[1];
+         final CurveUtil . Curve_d z = (CurveUtil . Curve_d)inputs[2];
+         return new CurveUtil . Curve_col ( ) {
+         public Color getValue ( double t ) {
+         return new Color ( x . getValue ( t ) . val , y . getValue ( t ) . val , z . getValue ( t ) . val ) ;
+         }
+         }
+         ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_col.class;
+      }
+
+   }
+
+   public static class compose_col_hsb extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "x";
+            case 1: return "y";
+            case 2: return "z";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return CurveUtil . Curve_d.class;
+            case 1: return CurveUtil . Curve_d.class;
+            case 2: return CurveUtil . Curve_d.class;
+            default: return null;
+         }
+
+      }
+
+      public compose_col_hsb() {
+         addGroupMeta(this);
+      }
+
+      public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
+         final CurveUtil . Curve_d x = (CurveUtil . Curve_d)inputs[0];
+         final CurveUtil . Curve_d y = (CurveUtil . Curve_d)inputs[1];
+         final CurveUtil . Curve_d z = (CurveUtil . Curve_d)inputs[2];
+         return new CurveUtil . Curve_col ( ) {
+         public Color getValue ( double t ) {
+         return Color . makeHSB ( x . getValue ( t ) . val , y . getValue ( t ) . val , z . getValue ( t ) . val ) ;
+         }
+         }
+         ;
       }
 
       public Class getReturnType() {
@@ -1325,6 +1466,9 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       r.add(new add_col());
       r.add(new sub_col());
       r.add(new mult_col());
+      r.add(new compose_v2());
+      r.add(new compose_col_rgb());
+      r.add(new compose_col_hsb());
       return r;
    }
 

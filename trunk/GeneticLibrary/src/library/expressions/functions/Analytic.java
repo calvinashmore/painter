@@ -44,7 +44,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return new LVect2d ( gauss ( x . x ) , gauss ( x . y ) ) ;
       }
 
@@ -81,7 +81,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return new LVect2d ( squash ( x . x ) , squash ( x . y ) ) ;
       }
 
@@ -120,8 +120,8 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LVect2d x = (LVect2d)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LVect2d ( squash ( x . x , y . val ) , squash ( x . y , y . val ) ) ;
       }
 
@@ -158,7 +158,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LVect2d evaluate(Context context, Object[] inputs) {
-         LVect2d x = (LVect2d)inputs[0];
+         final LVect2d x = (LVect2d)inputs[0];
          return new LVect2d ( squash ( x . x ) , squash ( x . y ) ) ;
       }
 
@@ -195,7 +195,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          return new LVect3d ( gauss ( x . x ) , gauss ( x . y ) , gauss ( x . z ) ) ;
       }
 
@@ -232,7 +232,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          return new LVect3d ( squash ( x . x ) , squash ( x . y ) , squash ( x . z ) ) ;
       }
 
@@ -271,8 +271,8 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LVect3d x = (LVect3d)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LVect3d ( squash ( x . x , y . val ) , squash ( x . y , y . val ) , squash ( x . z , y . val ) ) ;
       }
 
@@ -309,7 +309,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LVect3d evaluate(Context context, Object[] inputs) {
-         LVect3d x = (LVect3d)inputs[0];
+         final LVect3d x = (LVect3d)inputs[0];
          return new LVect3d ( squash ( x . x ) , squash ( x . y ) , squash ( x . z ) ) ;
       }
 
@@ -346,7 +346,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new Color ( gauss ( x . r ) , gauss ( x . g ) , gauss ( x . b ) ) ;
       }
 
@@ -383,7 +383,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new Color ( squash ( x . r ) , squash ( x . g ) , squash ( x . b ) ) ;
       }
 
@@ -422,8 +422,8 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final Color x = (Color)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new Color ( squash ( x . r , y . val ) , squash ( x . g , y . val ) , squash ( x . b , y . val ) ) ;
       }
 
@@ -460,7 +460,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public Color evaluate(Context context, Object[] inputs) {
-         Color x = (Color)inputs[0];
+         final Color x = (Color)inputs[0];
          return new Color ( squash ( x . r ) , squash ( x . g ) , squash ( x . b ) ) ;
       }
 
@@ -497,7 +497,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . abs ( x . val ) ) ;
       }
 
@@ -572,7 +572,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( ( int ) ( x . val * steps ) / ( double ) steps ) ;
       }
 
@@ -647,7 +647,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          double x1 = x . val * steps ;
          double xbase = Math . floor ( x1 ) ;
          return new LDouble ( x1 - xbase ) ;
@@ -686,7 +686,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( 1 / x . val ) ;
       }
 
@@ -723,7 +723,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( x . val * x . val ) ;
       }
 
@@ -760,7 +760,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( x . val * x . val * x . val ) ;
       }
 
@@ -797,7 +797,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . sqrt ( x . val ) ) ;
       }
 
@@ -834,7 +834,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . cbrt ( x . val ) ) ;
       }
 
@@ -871,7 +871,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( gauss ( x . val ) ) ;
       }
 
@@ -908,7 +908,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( squash ( x . val ) ) ;
       }
 
@@ -947,8 +947,8 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
-         LDouble y = (LDouble)inputs[1];
+         final LDouble x = (LDouble)inputs[0];
+         final LDouble y = (LDouble)inputs[1];
          return new LDouble ( squash ( x . val , y . val ) ) ;
       }
 
@@ -985,7 +985,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( squash ( x . val ) ) ;
       }
 
@@ -1022,7 +1022,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . exp ( x . val ) ) ;
       }
 
@@ -1059,7 +1059,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . log ( x . val ) ) ;
       }
 
@@ -1096,7 +1096,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . sin ( x . val ) ) ;
       }
 
@@ -1133,7 +1133,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . cos ( x . val ) ) ;
       }
 
@@ -1170,7 +1170,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . tan ( x . val ) ) ;
       }
 
@@ -1207,7 +1207,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . sinh ( x . val ) ) ;
       }
 
@@ -1244,7 +1244,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . cosh ( x . val ) ) ;
       }
 
@@ -1281,7 +1281,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . tanh ( x . val ) ) ;
       }
 
@@ -1318,7 +1318,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . asin ( x . val ) ) ;
       }
 
@@ -1355,7 +1355,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . acos ( x . val ) ) ;
       }
 
@@ -1392,7 +1392,7 @@ public final class Analytic implements AllComponents<ExpressionFunction>, Descri
       }
 
       public LDouble evaluate(Context context, Object[] inputs) {
-         LDouble x = (LDouble)inputs[0];
+         final LDouble x = (LDouble)inputs[0];
          return new LDouble ( Math . atan ( x . val ) ) ;
       }
 

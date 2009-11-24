@@ -94,11 +94,11 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       }
 
       public void execute(Context context, Object[] inputs) {
-         CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
-         Color color = (Color)inputs[1];
-         Brush brush = (Brush)inputs[2];
-         Stroke stroke = (Stroke)inputs[3];
-         SegmentRenderer renderer = (SegmentRenderer)inputs[4];
+         final CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
+         final Color color = (Color)inputs[1];
+         final Brush brush = (Brush)inputs[2];
+         final Stroke stroke = (Stroke)inputs[3];
+         final SegmentRenderer renderer = (SegmentRenderer)inputs[4];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          stroke . render ( brush , new ConstantCurve < LDouble > ( width ) , position , new ConstantCurve < Color > ( color ) , canvas , renderer ) ;
       }
@@ -178,11 +178,11 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       }
 
       public void execute(Context context, Object[] inputs) {
-         CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
-         CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
-         Brush brush = (Brush)inputs[2];
-         Stroke stroke = (Stroke)inputs[3];
-         SegmentRenderer renderer = (SegmentRenderer)inputs[4];
+         final CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final Brush brush = (Brush)inputs[2];
+         final Stroke stroke = (Stroke)inputs[3];
+         final SegmentRenderer renderer = (SegmentRenderer)inputs[4];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          stroke . render ( brush , new ConstantCurve < LDouble > ( width ) , position , color , canvas , renderer ) ;
       }
@@ -226,12 +226,12 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       }
 
       public void execute(Context context, Object[] inputs) {
-         CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
-         CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
-         LDouble width = (LDouble)inputs[2];
-         Brush brush = (Brush)inputs[3];
-         Stroke stroke = (Stroke)inputs[4];
-         SegmentRenderer renderer = (SegmentRenderer)inputs[5];
+         final CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final LDouble width = (LDouble)inputs[2];
+         final Brush brush = (Brush)inputs[3];
+         final Stroke stroke = (Stroke)inputs[4];
+         final SegmentRenderer renderer = (SegmentRenderer)inputs[5];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          stroke . render ( brush , new ConstantCurve < LDouble > ( width ) , position , color , canvas , renderer ) ;
       }
@@ -275,12 +275,12 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       }
 
       public void execute(Context context, Object[] inputs) {
-         CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
-         CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
-         CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[2];
-         Brush brush = (Brush)inputs[3];
-         Stroke stroke = (Stroke)inputs[4];
-         SegmentRenderer renderer = (SegmentRenderer)inputs[5];
+         final CurveUtil . Curve_v2 position = (CurveUtil . Curve_v2)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[2];
+         final Brush brush = (Brush)inputs[3];
+         final Stroke stroke = (Stroke)inputs[4];
+         final SegmentRenderer renderer = (SegmentRenderer)inputs[5];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          stroke . render ( brush , width , position , color , canvas , renderer ) ;
       }
@@ -368,13 +368,13 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       }
 
       public void execute(Context context, Object[] inputs) {
-         CurveUtil . Curve_v2 position1 = (CurveUtil . Curve_v2)inputs[0];
-         CurveUtil . Curve_v2 position2 = (CurveUtil . Curve_v2)inputs[1];
-         CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[2];
-         CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[3];
-         Brush brush = (Brush)inputs[4];
-         Stroke stroke = (Stroke)inputs[5];
-         SegmentRenderer renderer = (SegmentRenderer)inputs[6];
+         final CurveUtil . Curve_v2 position1 = (CurveUtil . Curve_v2)inputs[0];
+         final CurveUtil . Curve_v2 position2 = (CurveUtil . Curve_v2)inputs[1];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[2];
+         final CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[3];
+         final Brush brush = (Brush)inputs[4];
+         final Stroke stroke = (Stroke)inputs[5];
+         final SegmentRenderer renderer = (SegmentRenderer)inputs[6];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          for ( int i = 0 ;
          i < middlePoints ;
@@ -468,13 +468,13 @@ public final class StrokeCommands implements AllComponents<Command>, Described {
       }
 
       public void execute(Context context, Object[] inputs) {
-         CurveUtil . Curve_v2 position1 = (CurveUtil . Curve_v2)inputs[0];
-         CurveUtil . Curve_v2 position2 = (CurveUtil . Curve_v2)inputs[1];
-         CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[2];
-         CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[3];
-         Brush brush = (Brush)inputs[4];
-         Stroke stroke = (Stroke)inputs[5];
-         SegmentRenderer renderer = (SegmentRenderer)inputs[6];
+         final CurveUtil . Curve_v2 position1 = (CurveUtil . Curve_v2)inputs[0];
+         final CurveUtil . Curve_v2 position2 = (CurveUtil . Curve_v2)inputs[1];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[2];
+         final CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[3];
+         final Brush brush = (Brush)inputs[4];
+         final Stroke stroke = (Stroke)inputs[5];
+         final SegmentRenderer renderer = (SegmentRenderer)inputs[6];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          for ( int i = 0 ;
          i < middlePoints ;

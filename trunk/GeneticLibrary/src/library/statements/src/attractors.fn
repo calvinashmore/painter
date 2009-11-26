@@ -1,0 +1,41 @@
+package library.statements;
+group Attractors;
+type Statement;
+
+import utils.linear.*;
+import utils.pointfield.attractor.*;
+
+description "Loops through strange attractors.";
+
+fn attractorLoop_v2 {
+    description "this loops through the attractor and gives variables indicating direction and gradient";
+    exin Attractor2 attractorExpression;
+    slin body;
+
+    cvar LVect2d v;
+    cvar LVect2d direction;
+    cvar LDouble derivative;
+    cvar LDouble t;
+
+    exec {
+        Attractor2 attractor = (Attractor2) attractorExpression.evaluate(context);
+
+        LVect2d lastv = null;
+        int count = 0;
+        List<APoint2d> points = (List<APoint2d>) attractor.getQuadtree().getPoints();
+        for(APoint2d a : points) {
+            v = new LVect2d(a.x,a.y);
+            if(count > 0) {
+                direction = v.sub(lastv);
+                derivative = new LDouble(attractor.getFunction().derivMagnitude(a));
+                t = new LDouble(1.0*count / points.size());
+
+                body.execute(context);
+
+            }
+            lastv = v;
+            count++;
+        }
+    }
+}
+

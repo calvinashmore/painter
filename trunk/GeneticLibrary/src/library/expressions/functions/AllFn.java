@@ -18,6 +18,7 @@ public class AllFn implements AllComponents<ExpressionFunction> {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
       r.addAll(new Algebraic().allInstances(cm));
       r.addAll(new Analytic().allInstances(cm));
+      r.addAll(new Attractors().allInstances(cm));
       r.addAll(new Blending().allInstances(cm));
       r.addAll(new BooleanOperations().allInstances(cm));
       r.addAll(new ColorOp().allInstances(cm));

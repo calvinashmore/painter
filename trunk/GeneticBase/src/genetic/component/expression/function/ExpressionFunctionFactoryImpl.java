@@ -30,10 +30,11 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
 
     public ExpressionFunction selectByOutput(Class outputClass, ContextModel cm, boolean seekTerminal) throws BuildException {
 
+        List<ExpressionFunction> allByType = Foundation.getInstance().getAllExpressionFunctions().allFunctionsByType(outputClass, cm);
+
         List<ExpressionFunction> matches = new ArrayList<ExpressionFunction>();
-        for (ExpressionFunction nf : Foundation.getInstance().getAllExpressionFunctions().allInstances(cm)) {
-            if (nf.getReturnType() == outputClass &&
-                    (!seekTerminal || nf.getNumberInputs() == 0)) {
+        for (ExpressionFunction nf : allByType) {
+            if ((!seekTerminal || nf.getNumberInputs() == 0)) {
                 matches.add(nf);
             }
         }
@@ -41,11 +42,7 @@ public class ExpressionFunctionFactoryImpl extends AbstractFactory<ExpressionFun
         // if we are seeking a terminal, and there are no possible terminals, go ahead and
         // just select from all possible outputs
         if (matches.size() == 0 && seekTerminal) {
-            for (ExpressionFunction nf : Foundation.getInstance().getAllExpressionFunctions().allInstances(cm)) {
-                if (nf.getReturnType() == outputClass) {
-                    matches.add(nf);
-                }
-            }
+            matches.addAll(allByType);
         }
 
         if (matches.size() == 0) {

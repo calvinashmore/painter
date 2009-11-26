@@ -163,17 +163,19 @@ public class Quadtree<PointType extends Point> implements java.io.Serializable {
         
         float minRangeX;
         //double midRangeX;
+        float midRangeX;
         float maxRangeX;
         float minRangeY;
         //double midRangeY;
+        float midRangeY;
         float maxRangeY;
         
         public float getMinRangeX() {return minRangeX;}
         public float getMaxRangeX() {return maxRangeX;}
-        public float getMidRangeX() {return (maxRangeX+minRangeX)/2;}
+        public float getMidRangeX() {return midRangeX;}
         public float getMinRangeY() {return minRangeY;}
         public float getMaxRangeY() {return maxRangeY;}
-        public float getMidRangeY() {return (maxRangeY+minRangeY)/2;}
+        public float getMidRangeY() {return midRangeY;}
         public int getDepth() {return depth;}
         public int getCount() {return count;}
         
@@ -182,21 +184,27 @@ public class Quadtree<PointType extends Point> implements java.io.Serializable {
         public TreeCell getC01() {return c01;}
         public TreeCell getC11() {return c11;}
         
-        public TreeCell(int depth, float minX, float maxX, float minY, float maxY) {
+        TreeCell(int depth, float minX, float maxX, float minY, float maxY) {
             this.depth = (byte)depth;
             this.minRangeX = minX;
             this.maxRangeX = maxX;
             this.minRangeY = minY;
             this.maxRangeY = maxY;
+            this.midRangeX = (minX + maxX)/2;
+            this.midRangeY = (minY + maxY)/2;
             
             if( depth == maxDepth )
                 numberSmallCells++;
                 
         }
         
-        /*public boolean isTerminal() {
+        /**
+         * returns true if this cell is at the lowest level.
+         * @return
+         */
+        public boolean isTerminal() {
             return depth == maxDepth;
-        }*/
+        }
         
         public int getOrdinal(double x, double y) {
             if(depth == maxDepth)
@@ -213,22 +221,38 @@ public class Quadtree<PointType extends Point> implements java.io.Serializable {
                 else                    return offset*3 + c11.getOrdinal(x,y);
             }
         }
-        
-        public void addPoint(double x, double y) {
+
+        /**
+         * Adds the given point to the cell.
+         * @param x
+         * @param y
+         */
+        void addPoint(double x, double y) {
             count++;
             if(depth == maxDepth)
                 return;
             
-            if(x < getMidRangeX()) {
-                if( y < getMidRangeY()) makeC00().addPoint(x,y);
-                else                    makeC01().addPoint(x,y);
+            if (x < midRangeX) {
+                if (y < midRangeY) {
+                    makeC00().addPoint(x, y);
+                } else {
+                    makeC01().addPoint(x, y);
+                }
             } else {
-                if( y < getMidRangeY()) makeC10().addPoint(x,y);
-                else                    makeC11().addPoint(x,y);
+                if (y < midRangeY) {
+                    makeC10().addPoint(x, y);
+                } else {
+                    makeC11().addPoint(x, y);
+                }
             }
         }
-        
-        public int makeIndexBounds(int start) {
+
+        /**
+         * Calculates the bounds of the cell for building a sublist of the main point list.
+         * @param start
+         * @return
+         */
+        int makeIndexBounds(int start) {
             minIndex = start;
             maxIndex = (start+count);
             
@@ -243,6 +267,23 @@ public class Quadtree<PointType extends Point> implements java.io.Serializable {
             return maxIndex;
         }
         
+        /**
+         * Returns all of the points that are in this cell
+         * @return
+         */
+        public List<PointType> getContents() {
+            return points.subList(minIndex,maxIndex);
+        }
+
+        /**
+         * Return all of the points that are within a certain radius of this point.
+         * This fills the list provided with the contents of this cell which are around the point.
+         * It does not actually affect the contents of the cell itself!
+         * @param currentList
+         * @param x
+         * @param y
+         * @param radius
+         */
         public void addContents(List<PointType> currentList, double x, double y, double radius) {
             
             if(depth == maxDepth || isFullyInBubble(x,y,radius))
@@ -260,17 +301,30 @@ public class Quadtree<PointType extends Point> implements java.io.Serializable {
                 
                 if(c11 != null && c11.isInBubble(x,y,radius))
                     c11.addContents(currentList,x,y,radius);
-                
             }
         }
-                
+
+        /**
+         * Returns true if this cell is at least partially in the bubble given by the radius.
+         * @param x
+         * @param y
+         * @param radius
+         * @return
+         */
         public boolean isInBubble(double x, double y, double radius) {
             return (
                     minRangeX - radius <= x && maxRangeX + radius >= x &&
                     minRangeY - radius <= y && maxRangeY + radius >= y
                     );
         }
-        
+
+        /**
+         * returns true if this cell is entirely in the bubble given by the radius.
+         * @param x
+         * @param y
+         * @param radius
+         * @return
+         */
         public boolean isFullyInBubble(double x, double y, double radius) {
             return (
                     x - radius <= minRangeX && x + radius >= maxRangeX &&
@@ -278,7 +332,7 @@ public class Quadtree<PointType extends Point> implements java.io.Serializable {
                     );
         }
         
-        public TreeCell makeC00() {
+        TreeCell makeC00() {
             if(c00 == null)
                 c00 = new TreeCell(
                     depth+1,
@@ -290,7 +344,7 @@ public class Quadtree<PointType extends Point> implements java.io.Serializable {
             return c00;
         }
         
-        public TreeCell makeC10() {
+        TreeCell makeC10() {
             if(c10 == null)
                 c10 = new TreeCell(
                     depth+1,
@@ -302,7 +356,7 @@ public class Quadtree<PointType extends Point> implements java.io.Serializable {
             return c10;
         }
         
-        public TreeCell makeC01() {
+        TreeCell makeC01() {
             if(c01 == null)
                 c01 = new TreeCell(
                     depth+1,
@@ -314,7 +368,7 @@ public class Quadtree<PointType extends Point> implements java.io.Serializable {
             return c01;
         }
         
-        public TreeCell makeC11() {
+        TreeCell makeC11() {
             if(c11 == null)
                 c11 = new TreeCell(
                     depth+1,

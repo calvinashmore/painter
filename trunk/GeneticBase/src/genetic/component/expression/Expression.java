@@ -122,7 +122,8 @@ public class Expression implements Parameterized, GeneticComponent {
             }
 
             if (output == null) {
-                throw new IllegalStateException("function " + function.getClass().getName() + " created a null output!");
+                throw new IllegalStateException("function " + function.getClass().getName() + " created a null output! " +
+                        "Return type: " + function.getReturnType());
             }
 
             output = Foundation.getInstance().getTypeSystem().checkInvalid(output);

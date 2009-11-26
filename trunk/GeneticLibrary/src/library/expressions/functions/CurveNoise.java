@@ -43,6 +43,7 @@ public final class CurveNoise implements AllComponents<ExpressionFunction>, Desc
 
       public basicnoise_d() {
          addGroupMeta(this);
+         addMeta("selectionWeight", 5);
       }
 
       public CurveUtil . Curve_d evaluate(Context context, Object[] inputs) {
@@ -85,6 +86,7 @@ public final class CurveNoise implements AllComponents<ExpressionFunction>, Desc
 
       public basicnoise_v2() {
          addGroupMeta(this);
+         addMeta("selectionWeight", 5);
       }
 
       public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
@@ -127,6 +129,7 @@ public final class CurveNoise implements AllComponents<ExpressionFunction>, Desc
 
       public basicnoise_v2_n() {
          addGroupMeta(this);
+         addMeta("selectionWeight", 5);
       }
 
       public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
@@ -169,6 +172,7 @@ public final class CurveNoise implements AllComponents<ExpressionFunction>, Desc
 
       public basicnoise_col() {
          addGroupMeta(this);
+         addMeta("selectionWeight", 5);
       }
 
       public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
@@ -211,6 +215,7 @@ public final class CurveNoise implements AllComponents<ExpressionFunction>, Desc
 
       public basicnoise_col_n() {
          addGroupMeta(this);
+         addMeta("selectionWeight", 5);
       }
 
       public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
@@ -255,6 +260,7 @@ public final class CurveNoise implements AllComponents<ExpressionFunction>, Desc
 
       public basicfractal_d() {
          addGroupMeta(this);
+         addMeta("selectionWeight", 5);
       }
 
       public CurveUtil . Curve_d evaluate(Context context, Object[] inputs) {
@@ -300,6 +306,7 @@ public final class CurveNoise implements AllComponents<ExpressionFunction>, Desc
 
       public basicfractal_v2() {
          addGroupMeta(this);
+         addMeta("selectionWeight", 5);
       }
 
       public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
@@ -345,6 +352,7 @@ public final class CurveNoise implements AllComponents<ExpressionFunction>, Desc
 
       public basicfractal_v2_n() {
          addGroupMeta(this);
+         addMeta("selectionWeight", 5);
       }
 
       public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
@@ -390,6 +398,7 @@ public final class CurveNoise implements AllComponents<ExpressionFunction>, Desc
 
       public basicfractal_col() {
          addGroupMeta(this);
+         addMeta("selectionWeight", 5);
       }
 
       public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
@@ -435,6 +444,7 @@ public final class CurveNoise implements AllComponents<ExpressionFunction>, Desc
 
       public basicfractal_col_n() {
          addGroupMeta(this);
+         addMeta("selectionWeight", 5);
       }
 
       public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {

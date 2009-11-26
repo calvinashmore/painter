@@ -6,7 +6,6 @@ import utils.linear.*;
 
 description "Statements that use some looping structure.";
 
-// the wombat function has mystical wombat powers.
 fn loop_parameter {
     description "Loops n times. The parameter n is initialized to a value between 10 and 20.";
 

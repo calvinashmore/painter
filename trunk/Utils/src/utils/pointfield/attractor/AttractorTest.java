@@ -28,24 +28,24 @@ public class AttractorTest {
     /** Creates a new instance of AttractorTest */
     public AttractorTest() {
         
-        Attractor attractor = new Attractor();
-        
-        boolean ok = false;
-        
-        APoint3d startVals = new APoint3d();
-        /*startVals.x = Math.random()-.5;
-        startVals.y = Math.random()-.5;
-        startVals.z = Math.random()-.5;*/
-        //new gen.functions.Attractors().build((Class<geneticimage.NodeFunction>)(Class.forName("gen.functions.Attractors.Quadratic3")));
-        AttractorFunction function = new Quadratic3();
-        
-        // MAKE adjustParameters or whatever method
-        
-        quadtree = new Attractor().makeQuadtree(function,startVals);
-        System.out.println("done?");
-        /*showPointPlot(500);
-        showPointPlot2(500);
-        showPointPlot3(500);*/
+//        Attractor attractor = new Attractor();
+//
+//        boolean ok = false;
+//
+//        APoint3d startVals = new APoint3d();
+//        /*startVals.x = Math.random()-.5;
+//        startVals.y = Math.random()-.5;
+//        startVals.z = Math.random()-.5;*/
+//        //new gen.functions.Attractors().build((Class<geneticimage.NodeFunction>)(Class.forName("gen.functions.Attractors.Quadratic3")));
+//        AttractorFunction function = new Quadratic3();
+//
+//        // MAKE adjustParameters or whatever method
+//
+//        quadtree = new Attractor().makeQuadtree(function,startVals);
+//        System.out.println("done?");
+//        /*showPointPlot(500);
+//        showPointPlot2(500);
+//        showPointPlot3(500);*/
     }
     
     private class PeterDeJong extends AttractorFunction2 {
@@ -483,27 +483,27 @@ public class AttractorTest {
         new ShowFrame().setVisible(true);
     }*/
 
-    private void recursiveDrawQTree(Quadtree.TreeCell cell, java.awt.Graphics g, int res) {
-        
-        double minx = (cell.getMinRangeX() - quadtree.getMinX()) / (quadtree.getMaxX() - quadtree.getMinX());
-        double miny = (cell.getMinRangeY() - quadtree.getMinY()) / (quadtree.getMaxY() - quadtree.getMinY());
-        double maxx = (cell.getMaxRangeX() - quadtree.getMinX()) / (quadtree.getMaxX() - quadtree.getMinX());
-        double maxy = (cell.getMaxRangeY() - quadtree.getMinY()) / (quadtree.getMaxY() - quadtree.getMinY());
-        
-        int iminx = Math.max( Math.min((int)(minx*res), res-1), 0);
-        int iminy = Math.max( Math.min((int)(miny*res), res-1), 0);
-        int imaxx = Math.max( Math.min((int)(maxx*res), res-1), 0);
-        int imaxy = Math.max( Math.min((int)(maxy*res), res-1), 0);
-        
-        int col = 255*cell.getDepth() / quadtree.getMaxDepth();
-        
-        col = Math.min(col,255);
-        g.setColor(new java.awt.Color(col,col,col));
-        g.fillRect(iminx, iminy, imaxx-iminx, imaxy-iminy);
-        
-        if(cell.getC00() != null) recursiveDrawQTree(cell.makeC00(), g, res);
-        if(cell.getC01() != null) recursiveDrawQTree(cell.makeC01(), g, res);
-        if(cell.getC10() != null) recursiveDrawQTree(cell.makeC10(), g, res);
-        if(cell.getC11() != null) recursiveDrawQTree(cell.makeC11(), g, res);
-    }
+//    private void recursiveDrawQTree(Quadtree.TreeCell cell, java.awt.Graphics g, int res) {
+//
+//        double minx = (cell.getMinRangeX() - quadtree.getMinX()) / (quadtree.getMaxX() - quadtree.getMinX());
+//        double miny = (cell.getMinRangeY() - quadtree.getMinY()) / (quadtree.getMaxY() - quadtree.getMinY());
+//        double maxx = (cell.getMaxRangeX() - quadtree.getMinX()) / (quadtree.getMaxX() - quadtree.getMinX());
+//        double maxy = (cell.getMaxRangeY() - quadtree.getMinY()) / (quadtree.getMaxY() - quadtree.getMinY());
+//
+//        int iminx = Math.max( Math.min((int)(minx*res), res-1), 0);
+//        int iminy = Math.max( Math.min((int)(miny*res), res-1), 0);
+//        int imaxx = Math.max( Math.min((int)(maxx*res), res-1), 0);
+//        int imaxy = Math.max( Math.min((int)(maxy*res), res-1), 0);
+//
+//        int col = 255*cell.getDepth() / quadtree.getMaxDepth();
+//
+//        col = Math.min(col,255);
+//        g.setColor(new java.awt.Color(col,col,col));
+//        g.fillRect(iminx, iminy, imaxx-iminx, imaxy-iminy);
+//
+//        if(cell.getC00() != null) recursiveDrawQTree(cell.makeC00(), g, res);
+//        if(cell.getC01() != null) recursiveDrawQTree(cell.makeC01(), g, res);
+//        if(cell.getC10() != null) recursiveDrawQTree(cell.makeC10(), g, res);
+//        if(cell.getC11() != null) recursiveDrawQTree(cell.makeC11(), g, res);
+//    }
 }

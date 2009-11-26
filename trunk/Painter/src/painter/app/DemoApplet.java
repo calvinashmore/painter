@@ -32,7 +32,7 @@ import painter.tools.canvas.CanvasImpl;
  */
 public class DemoApplet extends JApplet {
 
-    private static final int RESOLUTION = 500;
+    private static final int RESOLUTION = 800;
     private ImageThing imageLabel;
     private JLabel captionLabel;
     private boolean isCalculating;

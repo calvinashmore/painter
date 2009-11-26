@@ -22,4 +22,5 @@ import java.util.*;
 public interface AllExpressionFunctions extends AllComponents<ExpressionFunction> {
     public VariableExpressionFunction getVariableFunction(Class type, ContextModel cm) throws BuildException;
     public ConstantExpressionFunction getConstantFunction(Class type) throws BuildException;
+    public List<ExpressionFunction> allFunctionsByType(Class type, ContextModel cm) throws BuildException;
 }

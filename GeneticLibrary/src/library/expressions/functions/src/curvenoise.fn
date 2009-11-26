@@ -19,6 +19,8 @@ fn basicnoise_d {
     fout CurveUtil.Curve_d;
     in NoiseFunction noise;
 
+    meta selectionWeight 5;
+
     eval {
         return new CurveUtil.Curve_d() {
             public LDouble getValue(double t) {
@@ -31,6 +33,8 @@ fn basicnoise_d {
 fn basicnoise_v2 {
     fout CurveUtil.Curve_v2;
     in NoiseFunction noise;
+
+    meta selectionWeight 5;
 
     eval {
         return new CurveUtil.Curve_v2() {
@@ -45,6 +49,8 @@ fn basicnoise_v2_n {
     fout CurveUtil.Curve_v2;
     in NoiseFunction noise;
 
+    meta selectionWeight 5;
+
     eval {
         return new CurveUtil.Curve_v2() {
             public LVect2d getValue(double t) {
@@ -58,6 +64,8 @@ fn basicnoise_col {
     fout CurveUtil.Curve_col;
     in NoiseFunction noise;
 
+    meta selectionWeight 5;
+
     eval {
         return new CurveUtil.Curve_col() {
             public Color getValue(double t) {
@@ -70,6 +78,8 @@ fn basicnoise_col {
 fn basicnoise_col_n {
     fout CurveUtil.Curve_col;
     in NoiseFunction noise;
+
+    meta selectionWeight 5;
 
     eval {
         return new CurveUtil.Curve_col() {
@@ -85,6 +95,8 @@ fn basicfractal_d {
     in NoiseFunction noise;
     in NoiseFractal fractal;
 
+    meta selectionWeight 5;
+
     eval {
         return new CurveUtil.Curve_d() {
             public LDouble getValue(double t) {
@@ -98,6 +110,8 @@ fn basicfractal_v2 {
     fout CurveUtil.Curve_v2;
     in NoiseFunction noise;
     in NoiseFractal fractal;
+
+    meta selectionWeight 5;
 
     eval {
         return new CurveUtil.Curve_v2() {
@@ -113,6 +127,8 @@ fn basicfractal_v2_n {
     in NoiseFunction noise;
     in NoiseFractal fractal;
 
+    meta selectionWeight 5;
+
     eval {
         return new CurveUtil.Curve_v2() {
             public LVect2d getValue(double t) {
@@ -127,6 +143,8 @@ fn basicfractal_col {
     in NoiseFunction noise;
     in NoiseFractal fractal;
 
+    meta selectionWeight 5;
+
     eval {
         return new CurveUtil.Curve_col() {
             public Color getValue(double t) {
@@ -140,6 +158,8 @@ fn basicfractal_col_n {
     fout CurveUtil.Curve_col;
     in NoiseFunction noise;
     in NoiseFractal fractal;
+
+    meta selectionWeight 5;
 
     eval {
         return new CurveUtil.Curve_col() {

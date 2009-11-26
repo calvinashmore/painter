@@ -10,8 +10,8 @@
 package utils.pointfield.attractor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import utils.pointfield.Point;
 import utils.pointfield.Quadtree;
 
 /**
@@ -22,12 +22,12 @@ public class AttractorResult<PointType extends APoint> {
     
     private List<PointType> values;
     //private int dims;
-    private int numberValues;
+    //private int numberValues;
     
     private APoint minVals;
     private APoint maxVals;
     
-    private Quadtree<PointType> quadtree;
+    //private Quadtree<PointType> quadtree;
     
     // all attractor results have the following shared properties:
     // the attractors are N-dimensional, but always
@@ -37,7 +37,7 @@ public class AttractorResult<PointType extends APoint> {
     /** Creates a new instance of AttractorResult */
     public AttractorResult(AttractorFunction f, int numberValues) {
         //this.dims = dims;
-        this.numberValues = numberValues;
+        //this.numberValues = numberValues;
         values = new ArrayList(numberValues);
         
         for(int i=0;i<numberValues;i++)
@@ -54,6 +54,10 @@ public class AttractorResult<PointType extends APoint> {
         values.set(index,(PointType) val.clone());
         minVals.minimize(val);
         maxVals.maximize(val);
+    }
+
+    public List<PointType> getValues() {
+        return Collections.unmodifiableList(values);
     }
     
     public APoint getValue(int index) {

@@ -1,0 +1,144 @@
+package library.statements;
+group Quadtrees;
+type Statement;
+
+import utils.linear.*;
+import utils.pointfield.*;
+import utils.pointfield.attractor.*;
+
+description "Loops and tree iterations through quadtrees.";
+
+fn qt2_treeorder {
+
+    exin QT2d qt;
+    slin body;
+
+    cvar LVect2d v;
+    cvar LDouble x;
+    cvar LDouble y;
+    cvar LDouble t;
+
+    exec {
+        QT2d quadtree = (QT2d)qt.evaluate(context);
+        List<APoint2d> points = quadtree.getPoints();
+        int i=0;
+        for(APoint2d point : points) {
+            t = new LDouble((double)i / points.size());
+
+            double px = point.x;
+            double py = point.y;
+            px = (px - quadtree.getMinX())/(quadtree.getMaxX() - quadtree.getMinX());
+            py = (py - quadtree.getMinY())/(quadtree.getMaxY() - quadtree.getMinY());
+
+            x = new LDouble(px);
+            y = new LDouble(py);
+            v = new LVect2d(px, py);
+            body.execute(context);
+            i++;
+        }
+    }
+}
+
+fn qt2_cellsearch {
+
+    exin QT2d qt;
+    slin body;
+
+    cvar LVect2d mid;
+    cvar LDouble minx;
+    cvar LDouble midy;
+    cvar LDouble miny;
+    cvar LDouble maxx;
+    cvar LDouble midx;
+    cvar LDouble maxy;
+    cvar LDouble depth;
+
+    exec {
+        QT2d quadtree = (QT2d)qt.evaluate(context);
+
+        List<Quadtree.TreeCell> cells = new ArrayList<Quadtree.TreeCell>();
+        cells.add(quadtree.getTreeRoot());
+        while(!cells.isEmpty()) {
+            Quadtree.TreeCell cell = cells.remove(0);
+
+            depth = new LDouble((double)cell.getDepth() / quadtree.getMaxDepth());
+            minx = new LDouble(cell.getMinRangeX());
+            midx = new LDouble(cell.getMidRangeX());
+            maxx = new LDouble(cell.getMaxRangeX());
+            miny = new LDouble(cell.getMinRangeY());
+            midy = new LDouble(cell.getMidRangeY());
+            maxy = new LDouble(cell.getMaxRangeY());
+            mid = new LVect2d(cell.getMidRangeX(), cell.getMidRangeY());
+
+            body.execute(context);
+
+            if(cell.getC00() != null)
+                cells.add(cell.getC00());
+            if(cell.getC01() != null)
+                cells.add(cell.getC01());
+            if(cell.getC10() != null)
+                cells.add(cell.getC10());
+            if(cell.getC11() != null)
+                cells.add(cell.getC11());
+        }
+    }
+}
+
+
+fn qt_brute_2d {
+    description "Loops n times in two dimensions. The parameter n is initialized to a value between 10 and 20.";
+
+    parameter Integer n;
+    parameter LDouble radius;
+    cvar Integer i;
+    cvar Integer j;
+    cvar LDouble density;
+    cvar LDouble nearest;
+    cvar LVect2d v;
+    slin body;
+    exin QT2d qt;
+
+    init {
+        n = 20+new Random().nextInt(20);
+        radius = new LDouble(.05 + .1*Math.random());
+    }
+
+    exec {
+        QT2d quadtree = (QT2d) qt.evaluate(context);
+
+        i = 0;
+        j = 0;
+        while(i < n) {
+            double x = 1.0*i/n;
+            j = 0;
+            while(j < n) {
+                double y = 1.0*j/n;
+                v = new LVect2d(x, y);
+
+                List<APoint2d> points = quadtree.getContents(x,y,radius.val);
+
+                if(points.size() > 0) {
+                    double dist = 1000;
+                    for(APoint2d point : points) {
+                        double dx = (point.x - v.x);
+                        double dy = (point.y - v.y);
+                        double d = Math.sqrt(dx*dx + dy*dy);
+                        dist = Math.min(d, dist);
+                    }
+
+                    nearest = new LDouble(dist);
+                } else {
+                    nearest = new LDouble(0);
+                }
+
+                density = new LDouble(1.0*points.size() / quadtree.getMaxDensity());
+
+                body.execute(context);
+                j = j+1;
+            }
+            i = i+1;
+        }
+    }
+}
+
+

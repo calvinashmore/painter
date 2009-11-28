@@ -608,7 +608,8 @@ void FnType(ASTFnDefinition fn) : {
 }{
     ( (t = <OUT>)
 |   (t = <INTERFACE>)
-|   (t = <SLIN>) )        // and this are kind of cheap, they are not strictly types.
+|   (t = <SLIN>)         // and this are kind of cheap, they are not strictly types.
+|   (t = <EXTENDS>) )
     
     type = FnTypeBody() 
     <SEMICOLON>

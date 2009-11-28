@@ -129,8 +129,10 @@ public class Expression implements Parameterized, GeneticComponent {
             output = Foundation.getInstance().getTypeSystem().checkInvalid(output);
         } catch (ClassCastException e) {
             output = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
+            throw e;
         } catch (NullPointerException e) {
             output = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
+            throw e;
         }
 
         return output;

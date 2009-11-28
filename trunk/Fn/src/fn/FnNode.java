@@ -368,7 +368,12 @@ abstract public class FnNode /*implements Compilable*/ {
      * @return
      */
     ClassDescriptor make_class() {
-        ClassDescriptor fnClass = new ClassDescriptor(getFn().getName(), getSuperclassName());
+
+        String superClassName = getSuperclassName();
+        if(!getFn().getTypes("extends").isEmpty())
+            superClassName = getFn().getTypes("extends").get(0).dumpTokens();
+
+        ClassDescriptor fnClass = new ClassDescriptor(getFn().getName(), superClassName);
         fnClass.addClassModifier("public");
         fnClass.addClassModifier("static");
         fnClass.setIsNested(true);

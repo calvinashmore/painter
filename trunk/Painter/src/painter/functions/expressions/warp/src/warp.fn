@@ -1,0 +1,29 @@
+package painter.functions.expressions.warp;
+group Warp;
+type Expression;
+
+import utils.linear.*;
+import painter.foundation.warp.*;
+
+
+fn warp_d_d {
+    extends WarpFunction<LDouble, LDouble>;
+    parameter LDouble offset;
+    parameter LDouble scale;
+    fout LDouble;
+
+    init {
+        offset = new LDouble(2*Math.random() - 1);
+        scale = new LDouble(2*Math.random() - 1);
+    }
+    public Class getVariableType() {return LDouble.class;}
+
+    public LDouble warp(LDouble value) {
+        return new LDouble(offset.val + scale.val * value.val);
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+
+

@@ -6,9 +6,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package genetic.component.expression.function;
 
+import genetic.BuildException;
 import genetic.component.context.Context;
 
 /**
@@ -19,25 +19,60 @@ public class ConstantExpressionFunction<Type> extends ExpressionFunction {
 
     private Type value;
     private Class<Type> type;
+
     public ConstantExpressionFunction(Type value, Class<Type> type) {
         this.value = value;
         this.type = type;
     }
-    
+
+    @Override
+    public ConstantExpressionFunction<Type> cloneFunction() throws BuildException {
+        ConstantExpressionFunction<Type> clone = new ConstantExpressionFunction(value, type);
+        clone.setup();
+        return clone;
+    }
+
     public Object evaluate(Context context, Object[] inputs) {
         return value;
     }
 
-    public int getNumberParameters() {return 1;}
-    public Object getParameter(int i) {if(i == 0) return value; else return null;}
-    public String getParameterName(int i) {if(i == 0) return "constant value"; else return null;}
-    public Class getParameterType(int i) {if(i == 0) return value.getClass(); else return null;}
+    public int getNumberParameters() {
+        return 1;
+    }
 
-    public int getNumberInputs() {return 0;}
-    public Class getInputType(int i) {return null;}
+    public Object getParameter(int i) {
+        if (i == 0) {
+            return value;
+        } else {
+            return null;
+        }
+    }
+
+    public String getParameterName(int i) {
+        if (i == 0) {
+            return "constant value";
+        } else {
+            return null;
+        }
+    }
+
+    public Class getParameterType(int i) {
+        if (i == 0) {
+            return value.getClass();
+        } else {
+            return null;
+        }
+    }
+
+    public int getNumberInputs() {
+        return 0;
+    }
+
+    public Class getInputType(int i) {
+        return null;
+    }
 
     public Class getReturnType() {
         return type;
     }
-
 }

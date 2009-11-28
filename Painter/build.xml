@@ -30,6 +30,14 @@
                 <arg value="src/painter/functions/expressions/src"/>
                 <arg value="src/painter/functions/expressions"/>
         </java>
+        <java
+            classname="fn.FnCompiler"
+            classpath="../Fn/dist/Fn.jar"
+            dir="."
+            fork="true">
+                <arg value="src/painter/functions/expressions/warp/src"/>
+                <arg value="src/painter/functions/expressions/warp"/>
+        </java>
         <!--<echo> *** processing statements... </echo>
         <java
             classname="fn.FnCompiler"

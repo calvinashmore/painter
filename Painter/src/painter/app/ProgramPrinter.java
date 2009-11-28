@@ -18,6 +18,7 @@ import genetic.component.statement.function.CommandStatementFunction;
 import genetic.component.statement.function.StatementFunction;
 import genetic.component.statementlist.StatementList;
 import java.util.Map.Entry;
+import painter.foundation.warp.WarpFunction;
 
 /**
  *
@@ -145,6 +146,11 @@ public class ProgramPrinter {
 
             String name = ef.getClass().getSimpleName();
             sb.append(name + "(");
+
+            if(ef instanceof WarpFunction) {
+                WarpFunction warp = (WarpFunction) ef;
+                sb.append(warp.getVariableName());
+            }
 
             if (ef instanceof ContextDependentExpressionFunction) {
                 ContextDependentExpressionFunction cxef = (ContextDependentExpressionFunction) ef;

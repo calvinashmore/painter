@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import painter.foundation.warp.WarpFunction;
 
 /**
  *
@@ -56,6 +57,28 @@ public class Foundation extends GeneticFoundationImpl {
         return painterEFs;
     }
 
+    private List<ExpressionFunction> getWarpEFs(ContextModel cm) {
+        List<ExpressionFunction> allWarps = new painter.functions.expressions.warp.AllFn().allInstances(cm);
+        List<ExpressionFunction> validWarps = new ArrayList<ExpressionFunction>();
+        for (ExpressionFunction warp : allWarps) {
+            WarpFunction warpFunction = (WarpFunction) warp;
+            if(warpFunction.setupVariable(cm))
+                validWarps.add(warp);
+        }
+        return validWarps;
+    }
+
+    private List<ExpressionFunction> getWarpEFsByType(Class type, ContextModel cm) {
+        List<ExpressionFunction> warps = getWarpEFs(cm);
+        List<ExpressionFunction> warpsByType = new ArrayList<ExpressionFunction>();
+        for (ExpressionFunction warp : warps) {
+            if (warp.getReturnType() == type) {
+                warpsByType.add(warp);
+            }
+        }
+        return warpsByType;
+    }
+
     private List<ExpressionFunction> getPainterEFsByType(Class type) {
         if (painterEFsByType == null) {
             painterEFsByType = new HashMap<Class, List<ExpressionFunction>>();
@@ -70,8 +93,9 @@ public class Foundation extends GeneticFoundationImpl {
         }
 
         List<ExpressionFunction> types = painterEFsByType.get(type);
-        if(types == null)
+        if (types == null) {
             return Collections.emptyList();
+        }
         return types;
     }
 
@@ -83,6 +107,7 @@ public class Foundation extends GeneticFoundationImpl {
             public List<ExpressionFunction> allInstances(ContextModel cm) {
                 List<ExpressionFunction> allInstances = super.allInstances(cm);
                 allInstances.addAll(getPainterEFs());
+                allInstances.addAll(getWarpEFs(cm));
                 return allInstances;
             }
 
@@ -90,6 +115,7 @@ public class Foundation extends GeneticFoundationImpl {
             public List<ExpressionFunction> allFunctionsByType(Class type, ContextModel cm) throws BuildException {
                 List<ExpressionFunction> allFunctionsByType = super.allFunctionsByType(type, cm);
                 allFunctionsByType.addAll(getPainterEFsByType(type));
+                allFunctionsByType.addAll(getWarpEFsByType(type, cm));
                 return allFunctionsByType;
             }
         };
@@ -137,6 +163,19 @@ public class Foundation extends GeneticFoundationImpl {
                 }
                 return super.getWeight(cm, nf);
             }
+
+            @Override
+            public ExpressionFunction build(Class<? extends ExpressionFunction> t, ContextModel cm) throws BuildException {
+                ExpressionFunction result = super.build(t, cm);
+                if(result instanceof WarpFunction) {
+                    WarpFunction warp = (WarpFunction) result;
+                    if(!warp.setupVariable(cm))
+                        throw new BuildException("Cannot find a variable of type "+warp.getVariableType()+" in context model");
+                }
+                return result;
+            }
+
+
         };
     }
 

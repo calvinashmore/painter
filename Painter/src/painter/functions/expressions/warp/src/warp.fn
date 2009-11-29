@@ -5,6 +5,11 @@ type Expression;
 import utils.linear.*;
 import painter.foundation.warp.*;
 
+description "Warps transform a variable and have no input. They can be used effectively to get the most leverage out of variables, transforming them into other types.";
+
+///////////////////////////////////
+/////// RETURN LDouble
+///////////////////////////////////
 
 fn warp_d_d {
     extends WarpFunction<LDouble, LDouble>;
@@ -26,4 +31,363 @@ fn warp_d_d {
 }
 
 
+///////////////////////////////////
+/////// RETURN LVect2d
+///////////////////////////////////
+
+
+/// INTYPE: LDouble
+
+fn warp_d_v2_line {
+    extends WarpFunction<LDouble, LVect2d>;
+    parameter LVect2d center;
+    parameter LVect2d direction;
+    fout LVect2d;
+
+    init {
+        center = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        direction = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        direction.normalv();
+    }
+    public Class getVariableType() {return LDouble.class;}
+
+    public LVect2d warp(LDouble value) {
+        return center.add(direction.mult(value.val));
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+fn warp_d_v2_circle {
+    extends WarpFunction<LDouble, LVect2d>;
+    parameter LVect2d center;
+    parameter LDouble radius;
+    parameter LDouble offset;
+    fout LVect2d;
+
+    init {
+        center = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        radius = new LDouble(.2+.8*Math.random());
+        offset = new LDouble(Math.random());
+    }
+    public Class getVariableType() {return LDouble.class;}
+
+    public LVect2d warp(LDouble value) {
+        LVect2d pos = new LVect2d();
+        double t = 2*Math.PI*(value.val + offset.val);
+        pos.x = center.x + radius.val*Math.cos(t);
+        pos.y = center.y + radius.val*Math.sin(t);
+        return pos;
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+/// INTYPE: LVect2d
+
+fn warp_v2_v2 {
+    extends WarpFunction<LVect2d, LVect2d>;
+    parameter LVect2d a; // x term
+    parameter LVect2d b; // y term
+    parameter LVect2d c; // constant term
+    fout LVect2d;
+
+    init {
+        a = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        b = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        c = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+    }
+    public Class getVariableType() {return LVect2d.class;}
+
+    public LVect2d warp(LVect2d value) {
+        double x = a.dot(value);
+        double y = b.dot(value);
+        double z = c.dot(value);
+        return new LVect2d(x+z, y+z);
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+///////////////////////////////////
+/////// RETURN Complex
+///////////////////////////////////
+
+
+/// INTYPE: LDouble
+
+fn warp_d_c_line {
+    extends WarpFunction<LDouble, Complex>;
+    parameter Complex center;
+    parameter Complex direction;
+    fout Complex;
+
+    init {
+        center = new Complex(2*Math.random()-1, 2*Math.random()-1);
+        direction = new Complex(2*Math.random()-1, 2*Math.random()-1);
+        direction.normalv();
+    }
+    public Class getVariableType() {return LDouble.class;}
+
+    public Complex warp(LDouble value) {
+        return center.add(direction.mult(value.val));
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+fn warp_d_c_circle {
+    extends WarpFunction<LDouble, Complex>;
+    parameter Complex center;
+    parameter LDouble radius;
+    parameter LDouble offset;
+    fout Complex;
+
+    init {
+        center = new Complex(2*Math.random()-1, 2*Math.random()-1);
+        radius = new LDouble(.2+.8*Math.random());
+        offset = new LDouble(Math.random());
+    }
+    public Class getVariableType() {return LDouble.class;}
+
+    public Complex warp(LDouble value) {
+        Complex pos = new Complex();
+        double t = 2*Math.PI*(value.val + offset.val);
+        pos.x = center.x + radius.val*Math.cos(t);
+        pos.y = center.y + radius.val*Math.sin(t);
+        return pos;
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+/// INTYPE: LVect2d
+
+fn warp_v2_c {
+    extends WarpFunction<LVect2d, Complex>;
+    parameter LVect2d a; // x term
+    parameter LVect2d b; // y term
+    parameter LVect2d c; // constant term
+    fout Complex;
+
+    init {
+        a = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        b = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        c = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+    }
+    public Class getVariableType() {return LVect2d.class;}
+
+    public Complex warp(LVect2d value) {
+        double x = a.dot(value);
+        double y = b.dot(value);
+        double z = c.dot(value);
+        return new Complex(x+z, y+z);
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+
+///////////////////////////////////
+/////// RETURN LVect3d
+///////////////////////////////////
+
+/// INTYPE: LDouble
+
+fn warp_d_v3_line {
+    extends WarpFunction<LDouble, LVect3d>;
+    parameter LVect3d center;
+    parameter LVect3d direction;
+    fout LVect3d;
+
+    init {
+        center = new LVect3d(2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1);
+        direction = new LVect3d(2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1);
+        direction.normalv();
+    }
+    public Class getVariableType() {return LDouble.class;}
+
+    public LVect3d warp(LDouble value) {
+        return center.add(direction.mult(value.val));
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+/// INTYPE: LVect2d
+
+fn warp_v2_v3_plane {
+    extends WarpFunction<LVect2d, LVect3d>;
+    parameter LVect3d center;
+    parameter LVect3d u;
+    parameter LVect3d v;
+    fout LVect3d;
+
+    init {
+        center = new LVect3d(2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1);
+        u = new LVect3d(2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1);
+        v = new LVect3d(2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1);
+        u.normalv();
+        v.normalv();
+    }
+    public Class getVariableType() {return LVect2d.class;}
+
+    public LVect3d warp(LVect2d value) {
+        return center.add(u.mult(value.x)).add(v.mult(value.y));
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+
+///////////////////////////////////
+/////// RETURN Color
+///////////////////////////////////
+
+/// INTYPE: LDouble
+
+fn warp_d_col_line_rgb {
+    extends WarpFunction<LDouble, Color>;
+    parameter Color center;
+    parameter Color direction;
+    fout Color;
+
+    init {
+        center = new Color(Math.random(), Math.random(), Math.random());
+        direction = new Color(Math.random(), Math.random(), Math.random());
+        direction.normalv();
+    }
+    public Class getVariableType() {return LDouble.class;}
+
+    public Color warp(LDouble value) {
+        return center.add(direction.mult(value.val));
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+fn warp_d_col_line_hsb {
+    extends WarpFunction<LDouble, Color>;
+    parameter Color center;
+    parameter Color direction;
+    fout Color;
+
+    init {
+        center = new Color(Math.random(), Math.random(), Math.random());
+        direction = new Color(Math.random(), Math.random(), Math.random());
+        direction.normalv();
+    }
+    public Class getVariableType() {return LDouble.class;}
+
+    public Color warp(LDouble value) {
+        // NOTE: this is a trick to get HSB easily. The parameters center and direction
+        // are not REALLY Colors, they are HSB values.
+        Color hsb = center.add(direction.mult(value.val));
+        return Color.makeHSB(hsb.r, hsb.g, hsb.b);
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+/// INTYPE: LVect2d
+
+fn warp_v2_col_plane_rgb {
+    extends WarpFunction<LVect2d, Color>;
+    parameter Color center;
+    parameter Color u;
+    parameter Color v;
+    fout Color;
+
+    init {
+        center = new Color(Math.random(), Math.random(), Math.random());
+        u = new Color(Math.random(), Math.random(), Math.random());
+        v = new Color(Math.random(), Math.random(), Math.random());
+        u.normalv();
+        v.normalv();
+    }
+    public Class getVariableType() {return LVect2d.class;}
+
+    public Color warp(LVect2d value) {
+        return center.add(u.mult(value.x)).add(v.mult(value.y));
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+fn warp_v2_col_plane_hsb {
+    extends WarpFunction<LVect2d, Color>;
+    parameter Color center;
+    parameter Color u;
+    parameter Color v;
+    fout Color;
+
+    init {
+        center = new Color(Math.random(), Math.random(), Math.random());
+        u = new Color(Math.random(), Math.random(), Math.random());
+        v = new Color(Math.random(), Math.random(), Math.random());
+        u.normalv();
+        v.normalv();
+    }
+    public Class getVariableType() {return LVect2d.class;}
+
+    public Color warp(LVect2d value) {
+        // NOTE: this is a trick to get HSB easily. The parameters center, u, and v
+        // are not REALLY Colors, they are HSB values.
+        Color hsb = center.add(u.mult(value.x)).add(v.mult(value.y));
+        return Color.makeHSB(hsb.r, hsb.g, hsb.b);
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+///////////////////////////////////
+/////// RETURN Quaternion
+///////////////////////////////////
+
+/// INTYPE: LDouble
+
+fn warp_d_q_line {
+    extends WarpFunction<LDouble, Quaternion>;
+    parameter Quaternion center;
+    parameter Quaternion direction;
+    fout Quaternion;
+
+    init {
+        center = new Quaternion(2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1);
+        direction = new Quaternion(2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1);
+        direction.normalv();
+    }
+    public Class getVariableType() {return LDouble.class;}
+
+    public Quaternion warp(LDouble value) {
+        return center.add(direction.mult(value.val));
+    }
+
+    eval {return super.evaluate(context);}
+}
+
+/// INTYPE: LVect2d
+
+fn warp_v2_q_plane {
+    extends WarpFunction<LVect2d, Quaternion>;
+    parameter Quaternion center;
+    parameter Quaternion u;
+    parameter Quaternion v;
+    fout Quaternion;
+
+    init {
+        center = new Quaternion(2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1);
+        u = new Quaternion(2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1);
+        v = new Quaternion(2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1, 2*Math.random()-1);
+        u.normalv();
+        v.normalv();
+    }
+    public Class getVariableType() {return LVect2d.class;}
+
+    public Quaternion warp(LVect2d value) {
+        return center.add(u.mult(value.x)).add(v.mult(value.y));
+    }
+
+    eval {return super.evaluate(context);}
+}
 

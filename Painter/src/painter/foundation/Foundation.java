@@ -158,7 +158,7 @@ public class Foundation extends GeneticFoundationImpl {
 
             @Override
             public double getWeight(ContextModel cm, ExpressionFunction nf) {
-                if (nf.getClass().getName().contains("Variable")) {
+                if (nf.getClass().getName().contains("Variable") || nf instanceof WarpFunction) {
                     return 3;
                 }
                 return super.getWeight(cm, nf);

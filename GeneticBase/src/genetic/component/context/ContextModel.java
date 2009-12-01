@@ -10,6 +10,7 @@ package genetic.component.context;
 
 import genetic.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -57,13 +58,13 @@ public class ContextModel {
     public ContextModel(ContextModel parent) {
         this.parent = parent;
         this.topLevel = parent.topLevel;
-        variableTypes = new Hashtable<String, ContextModel.VariableDefinition>();
+        variableTypes = new HashMap<String, ContextModel.VariableDefinition>();
     }
 
     public ContextModel(GeneticTopLevel topLevel) {
         this.parent = null;
         this.topLevel = topLevel;
-        variableTypes = new Hashtable<String, ContextModel.VariableDefinition>();
+        variableTypes = new HashMap<String, ContextModel.VariableDefinition>();
     }
 
     public void setParent(ContextModel parent) {
@@ -114,11 +115,12 @@ public class ContextModel {
     }
 
     public Class getType(String name) {
-        if (variableTypes.get(name) == null && parent != null) {
+        VariableDefinition var = variableTypes.get(name);
+        if (var == null && parent != null) {
             return parent.getType(name);
         }
-        if (variableTypes.get(name) != null) {
-            return variableTypes.get(name).type;
+        if (var != null) {
+            return var.type;
         }
         return null;
     }

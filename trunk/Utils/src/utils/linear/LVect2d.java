@@ -92,7 +92,7 @@ public class LVect2d implements FiniteLinear<LVect2d> {
     }
 
     @Override
-    public LVect2d clone() {
+    final public LVect2d clone() {
         return new LVect2d(this);
     }
 

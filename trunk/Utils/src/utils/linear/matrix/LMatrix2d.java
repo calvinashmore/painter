@@ -111,7 +111,7 @@ public class LMatrix2d implements FiniteMatrix<LMatrix2d, LVect2d> {
     }
 
     @Override
-    public LMatrix2d clone() {
+    final public LMatrix2d clone() {
         return new LMatrix2d(this);
     }
 

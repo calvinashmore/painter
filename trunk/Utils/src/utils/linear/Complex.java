@@ -138,7 +138,7 @@ public class Complex implements Linear<Complex> {
     }
 
     @Override
-    public Complex clone() {
+    final public Complex clone() {
         return new Complex(this);
     }
 

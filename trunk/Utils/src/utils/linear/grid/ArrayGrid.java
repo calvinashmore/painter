@@ -460,7 +460,7 @@ public class ArrayGrid<T extends Linear<T>>
     }
 
     @Override
-    public Grid<T> clone() {
+    final public Grid<T> clone() {
         return new ArrayGrid(this);
     }
 

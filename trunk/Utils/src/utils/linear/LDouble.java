@@ -71,7 +71,7 @@ public class LDouble implements Linear<LDouble> {
     }
 
     @Override
-    public LDouble clone() {
+    final public LDouble clone() {
         return new LDouble(this);
     }
 

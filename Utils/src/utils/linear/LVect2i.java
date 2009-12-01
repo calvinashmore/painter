@@ -40,6 +40,7 @@ public class LVect2i {
     
     public double magnitude() {return Math.sqrt(x*x + y*y);}
     
+    @Override
     public String toString() {
         return "< "+ x + " , " + y + " >";
     }

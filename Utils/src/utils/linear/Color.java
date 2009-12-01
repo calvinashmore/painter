@@ -218,7 +218,7 @@ public class Color implements Linear<Color> {
     }
 
     @Override
-    public Color clone() {
+    final public Color clone() {
         return new Color(this);
     }
 

@@ -239,7 +239,7 @@ public class Quaternion implements Linear<Quaternion> {
     }
 
     @Override
-    public Quaternion clone() {
+    final public Quaternion clone() {
         return new Quaternion(this);
     }
 

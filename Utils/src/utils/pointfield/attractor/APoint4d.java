@@ -66,7 +66,7 @@ public class APoint4d extends APoint {
     public double z;
     public double w;
     
-    public APoint4d clone() {
+    final public APoint4d clone() {
         return new APoint4d(this);
     }
 }

@@ -59,7 +59,7 @@ public class APoint3d extends APoint {
     
     public double z;
     
-    public APoint3d clone() {
+    final public APoint3d clone() {
         return new APoint3d(this);
     }
 }

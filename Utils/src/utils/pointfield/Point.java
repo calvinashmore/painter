@@ -13,7 +13,7 @@ package utils.pointfield;
  *
  * @author Calvin Ashmore
  */
-abstract public class Point implements java.io.Serializable {
+abstract public class Point implements java.io.Serializable, Cloneable {
     
     public Point() {}
     public Point(double x, double y) {

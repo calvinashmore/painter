@@ -53,7 +53,7 @@ public class APoint2d extends APoint {
         y = Math.max(y, point1.y);
     }
     
-    public APoint2d clone() {
+    final public APoint2d clone() {
         return new APoint2d(this);
     }
 }

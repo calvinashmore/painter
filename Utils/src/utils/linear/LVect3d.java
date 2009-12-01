@@ -105,7 +105,7 @@ public class LVect3d implements Linear<LVect3d> {
     }
 
     @Override
-    public LVect3d clone() {
+    final public LVect3d clone() {
         return new LVect3d(this);
     }
 

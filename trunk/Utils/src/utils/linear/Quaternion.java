@@ -229,7 +229,7 @@ public class Quaternion implements Linear<Quaternion> {
 
     public static Quaternion parse(String s) {
         s = s.replaceAll("[ijk ]", "");
-        String sa[] = s.split("+");
+        String sa[] = s.split("\\+");
         //String sa[] = s.split("ijk+ ");
         return new Quaternion(
                 Double.parseDouble(sa[0]),

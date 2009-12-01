@@ -23,13 +23,11 @@ public class SimpleBrush implements Brush {
         this.radiusMultiplier = radiusMultiplier;
     }
 
-
-
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
         Graphics2D graphics = canvas.getGraphics();
 
-        radius = Math.abs(radius);
+        radius = Math.abs(radius * radiusMultiplier);
 
         graphics.setColor(new java.awt.Color(color.toARGB()));
         graphics.fillOval(

@@ -69,14 +69,16 @@ public class Foundation extends GeneticFoundationImpl {
     }
 
     private List<ExpressionFunction> getWarpEFsByType(Class type, ContextModel cm) {
-        List<ExpressionFunction> warps = getWarpEFs(cm);
-        List<ExpressionFunction> warpsByType = new ArrayList<ExpressionFunction>();
-        for (ExpressionFunction warp : warps) {
-            if (warp.getReturnType() == type) {
-                warpsByType.add(warp);
-            }
+        List<ExpressionFunction> allWarps = new painter.functions.expressions.warp.AllFn().allInstances(cm);
+        List<ExpressionFunction> validWarps = new ArrayList<ExpressionFunction>();
+        for (ExpressionFunction warp : allWarps) {
+            WarpFunction warpFunction = (WarpFunction) warp;
+            // check the return type BEFORE checking whether we can get the variable
+            // by and large the first check is much faster.
+            if(warpFunction.getReturnType() == type && warpFunction.setupVariable(cm))
+                validWarps.add(warp);
         }
-        return warpsByType;
+        return validWarps;
     }
 
     private List<ExpressionFunction> getPainterEFsByType(Class type) {

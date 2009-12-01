@@ -19,36 +19,38 @@ public class CellularDistance implements java.io.Serializable {
     private CellularDistance() {}
     
     public static CellularDistance getEuclidean() {
-        return (new CellularDistance()).new Euclidean();
+        return new Euclidean();
     }
     
     public static CellularDistance getManhattan() {
-        return (new CellularDistance()).new Manhattan();
+        return new Manhattan();
     }
     
     public static CellularDistance getEuclideanStretched(double X, double Y, double Z) {
-        return (new CellularDistance()).new EuclideanStretched(X,Y,Z);
+        return new EuclideanStretched(X,Y,Z);
     }
     
     public static CellularDistance getHyperQuadratic(double X, double Y, double Z) {
-        return (new CellularDistance()).new HyperQuadratic(X,Y,Z);
+        return new HyperQuadratic(X,Y,Z);
     }
     
     public double distance(double dx, double dy, double dz) {return 0;}
     
-    public class Euclidean extends CellularDistance {
+    public static class Euclidean extends CellularDistance {
+        @Override
         public double distance(double dx, double dy, double dz) {
             return dx*dx + dy*dy + dz*dz;
         }
     }
     
-    public class Manhattan extends CellularDistance {
+    public static class Manhattan extends CellularDistance {
+        @Override
         public double distance(double dx, double dy, double dz) {
             return Math.abs(dx) + Math.abs(dy) + Math.abs(dz);
         }
     }
     
-    public class EuclideanStretched extends CellularDistance {
+    public static class EuclideanStretched extends CellularDistance {
         
         private double X,Y,Z;
         
@@ -62,12 +64,13 @@ public class CellularDistance implements java.io.Serializable {
             this.Z = Z;
         }
         
+        @Override
         public double distance(double dx, double dy, double dz) {
             return X*dx*dx + Y*dy*dy + Z*dz*dz;
         }
     }
     
-    public class HyperQuadratic extends CellularDistance {
+    public static class HyperQuadratic extends CellularDistance {
         
         private double X,Y,Z;
         
@@ -81,6 +84,7 @@ public class CellularDistance implements java.io.Serializable {
             this.Z = Z;
         }
         
+        @Override
         public double distance(double dx, double dy, double dz) {
             //return X*dx*dx + Y*dy*dy + Z*dz*dz;
             return Math.pow(Math.abs(dx), X) + Math.pow(Math.abs(dy), Y) + Math.pow(Math.abs(dz), Z);

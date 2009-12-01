@@ -47,18 +47,18 @@ public class Mutator<T extends GeneticComponent> {
     }
 
     protected double getWeight(MutatorAction action) {
-        if (action instanceof Metadata) {
-            Object weight = ((Metadata) action).getMeta("selectionWeight");
-            if (weight != null) {
-                if (weight instanceof Double) {
-                    return (Double) weight;
-                } else if (weight instanceof Float) {
-                    return (Float) weight;
-                } else if (weight instanceof Integer) {
-                    return (Integer) weight;
-                }
+        //if (action instanceof Metadata) {
+        Object weight = ((Metadata) action).getMeta("selectionWeight");
+        if (weight != null) {
+            if (weight instanceof Double) {
+                return (Double) weight;
+            } else if (weight instanceof Float) {
+                return (Float) weight;
+            } else if (weight instanceof Integer) {
+                return (Integer) weight;
             }
         }
+        //}
 
         return 1.0;
     }

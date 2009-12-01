@@ -51,7 +51,6 @@ public class CellularAutomata1d_cont implements java.io.Serializable {
     }
     
     public CellularAutomata1d_cont(int inputSize, double[] weights) {
-        this.data = data;
         this.inputSize = inputSize;
         //this.colors = colors;
         

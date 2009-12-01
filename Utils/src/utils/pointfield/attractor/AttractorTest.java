@@ -48,7 +48,7 @@ public class AttractorTest {
 //        showPointPlot3(500);*/
     }
     
-    private class PeterDeJong extends AttractorFunction2 {
+    private static class PeterDeJong extends AttractorFunction2 {
         
         private double a,b,c,d;
         
@@ -81,7 +81,7 @@ public class AttractorTest {
         public int getIdealIterations() {return super.getIdealIterations()*4;}
     }
     
-    private class Clifford extends AttractorFunction2 {
+    private static class Clifford extends AttractorFunction2 {
         
         private double a,b,c,d;
         
@@ -114,7 +114,7 @@ public class AttractorTest {
         public int getIdealIterations() {return super.getIdealIterations()*4;}
     }
     
-    private class Quadratic2_x1 extends AttractorFunction2 {
+    private static class Quadratic2_x1 extends AttractorFunction2 {
         
         private double a[];
         private double b[];
@@ -156,7 +156,7 @@ public class AttractorTest {
         public int getIdealIterations() {return super.getIdealIterations()/2;}
     }
     
-    private class Quadratic2 extends AttractorFunction2 {
+    private static class Quadratic2 extends AttractorFunction2 {
         
         private double a[];
         private double b[];
@@ -199,7 +199,7 @@ public class AttractorTest {
     }
     
     
-    private class Quadratic3 extends AttractorFunction3 {
+    private static class Quadratic3 extends AttractorFunction3 {
         
         private double a[];
         private double b[];
@@ -309,7 +309,7 @@ public class AttractorTest {
         }
     }*/
     
-    private class Cubic2 extends AttractorFunction2 {
+    private static class Cubic2 extends AttractorFunction2 {
         
         private double a[];
         private double b[];

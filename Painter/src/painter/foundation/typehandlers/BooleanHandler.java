@@ -14,8 +14,10 @@ import painter.foundation.TypeHandler;
  */
 public class BooleanHandler implements TypeHandler<Boolean> {
 
+    private static final Random random = new Random();
+
     public Boolean perturbValue(Boolean obj) {
-        return new Random().nextBoolean();
+        return random.nextBoolean();
     }
 
     public Boolean checkInvalid(Boolean obj) {
@@ -27,6 +29,6 @@ public class BooleanHandler implements TypeHandler<Boolean> {
     }
 
     public Boolean createRandom() {
-        return new Random().nextBoolean();
+        return random.nextBoolean();
     }
 }

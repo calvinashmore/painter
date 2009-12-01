@@ -25,7 +25,7 @@ public class ContextDependentExpressionProxy implements GeneticComponent {
     private int depth;
 
     public ContextDependentExpressionProxy(ContextDependentExpressionFunction function, Expression parent) {
-        assert (parent instanceof Expression);
+        //assert (parent instanceof Expression);
         this.depth = parent.getDepth()+1;
         this.parent = parent;
         this.function = function;

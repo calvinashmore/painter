@@ -130,7 +130,7 @@ public class Complex implements Linear<Complex> {
 
     public static Complex parse(String s) {
         s = s.replaceAll("[i ]", "");
-        String sa[] = s.split("+");
+        String sa[] = s.split("\\+");
         //String sa[] = s.split("i+ ");
         return new Complex(
                 Double.parseDouble(sa[0]),

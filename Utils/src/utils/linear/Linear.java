@@ -10,7 +10,7 @@ package utils.linear;
  *
  * @author Calvin Ashmore
  */
-public interface Linear<T> extends java.io.Serializable
+public interface Linear<T> extends Cloneable
 {
     // Every implementation of Linear *ought*
     // to have a zero argument constructor, and a copy constructor

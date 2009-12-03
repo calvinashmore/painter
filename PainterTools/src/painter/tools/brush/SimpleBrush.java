@@ -15,11 +15,17 @@ import utils.linear.Color;
 public class SimpleBrush implements Brush {
 
     private double radiusMultiplier = 1;
+    private BrushPositionPolicy positionPolicy;
+    private BrushSizePolicy sizePolicy;
 
-    public SimpleBrush() {
+    public SimpleBrush(BrushPositionPolicy positionPolicy, BrushSizePolicy sizePolicy) {
+        this.positionPolicy = positionPolicy;
+        this.sizePolicy = sizePolicy;
     }
 
-    public SimpleBrush(double radiusMultiplier) {
+    public SimpleBrush(BrushPositionPolicy positionPolicy, BrushSizePolicy sizePolicy, double radiusMultiplier) {
+        this.positionPolicy = positionPolicy;
+        this.sizePolicy = sizePolicy;
         this.radiusMultiplier = radiusMultiplier;
     }
 
@@ -28,12 +34,18 @@ public class SimpleBrush implements Brush {
         Graphics2D graphics = canvas.getGraphics();
 
         radius = Math.abs(radius * radiusMultiplier);
+        
+        double width = radius * canvas.getHeight();
+        //double height = radius * canvas.getHeight();
+
+        x = positionPolicy.getX(x, y, canvas) + sizePolicy.getXOffset(width);
+        y = positionPolicy.getY(x, y, canvas) + sizePolicy.getYOffset(width);
 
         graphics.setColor(new java.awt.Color(color.toARGB()));
         graphics.fillOval(
-                (int) (x * canvas.getWidth()),
-                (int) (y * canvas.getHeight()),
-                (int) (radius * canvas.getWidth()),
-                (int) (radius * canvas.getHeight()));
+                (int) (x),
+                (int) (y),
+                (int) (width),
+                (int) (width));
     }
 }

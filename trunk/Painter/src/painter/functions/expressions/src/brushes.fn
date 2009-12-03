@@ -9,14 +9,18 @@ description "expressions to generate brushes";
 
 fn simpleBrush1 {
     fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
 
     eval {
-        return new SimpleBrush();
+        return new SimpleBrush(positionPolicy, sizePolicy);
     }
 }
 
 fn simpleBrush2 {
     fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
 
     parameter LDouble radiusMultiplier;
     init {
@@ -24,45 +28,42 @@ fn simpleBrush2 {
     }
 
     eval {
-        return new SimpleBrush(radiusMultiplier.val);
+        return new SimpleBrush(positionPolicy, sizePolicy, radiusMultiplier.val);
     }
 }
 
 fn simpleBrush3 {
     fout Brush;
     in LDouble radiusMultiplier;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
 
     eval {
-        return new SimpleBrush(radiusMultiplier.val);
+        return new SimpleBrush(positionPolicy, sizePolicy, radiusMultiplier.val);
     }
 }
 
 fn hollowCircleBrush {
     fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
 
     eval {
-        return new HollowCircleBrush();
-    }
-}
-
-fn cyclingBrush {
-    fout Brush;
-    in Brush brush;
-
-    eval {
-        return new CyclingBrush(brush);
+        return new HollowCircleBrush(positionPolicy, sizePolicy);
     }
 }
 
 fn penBrush {
     fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
 
     eval {
-        return new PenBrush();
+        return new PenBrush(positionPolicy, sizePolicy);
     }
 }
 
-fn sweepBrush1 {
+/*fn sweepBrush1 {
     fout Brush;
     parameter int numberDots;
     parameter double dotSize;
@@ -75,7 +76,7 @@ fn sweepBrush1 {
     eval {
         return new SweepBrush(numberDots, dotSize, new SimpleBrush());
     }
-}
+}*/
 
 fn sweepBrush2 {
     fout Brush;
@@ -94,3 +95,75 @@ fn sweepBrush2 {
     }
 }
 
+// ********************************
+// Brush Policies
+// ********************************
+
+fn simplePositionPolicy {
+    fout BrushPositionPolicy;
+    parameter LDouble xAnchor;
+    parameter LDouble yAnchor;
+    parameter LDouble xDirection;
+    parameter LDouble yDirection;
+
+    init {
+        if(Math.random() < .5) {
+            // positive x direction
+            xAnchor = new LDouble( Math.random() < .5 ? 0 : -1);
+            xDirection = new LDouble( Math.random() < .5 ? 1 : .5);
+        } else {
+            // negative x direction
+            xAnchor = new LDouble( Math.random() < .5 ? 0 : 1);
+            xDirection = new LDouble( Math.random() < .5 ? -1 : -.5);
+        }
+
+        if(Math.random() < .5) {
+            // positive y direction
+            yAnchor = new LDouble( Math.random() < .5 ? 0 : -1);
+            yDirection = new LDouble( Math.random() < .5 ? 1 : .5);
+        } else {
+            // negative y direction
+            yAnchor = new LDouble( Math.random() < .5 ? 0 : 1);
+            yDirection = new LDouble( Math.random() < .5 ? -1 : -.5);
+        }
+    }
+
+    eval {return new SimpleBrushPositionPolicy(xAnchor.val, yAnchor.val, xDirection.val, yDirection.val);}
+}
+
+fn cyclePositionPolicy {
+    fout BrushPositionPolicy;
+    in BrushPositionPolicy policy;
+    eval {
+        return new CycleBrushPositionPolicy(policy);
+    }
+}
+
+fn simpleBrushSizePolicy {
+    fout BrushSizePolicy;
+    parameter LDouble xOffset;
+    parameter LDouble yOffset;
+
+    init {
+        double xv = Math.random();
+        double yv = Math.random();
+
+        if(xv < .33333) {
+            xOffset = new LDouble(0);
+        } else if(xv < .66666) {
+            xOffset = new LDouble(.5);
+        } else {
+            xOffset = new LDouble(1);
+        }
+
+        if(yv < .33333) {
+            yOffset = new LDouble(0);
+        } else if(yv < .66666) {
+            yOffset = new LDouble(.5);
+        } else {
+            yOffset = new LDouble(1);
+        }
+    }
+
+    eval {return new SimpleBrushSizePolicy(xOffset.val, yOffset.val);}
+}

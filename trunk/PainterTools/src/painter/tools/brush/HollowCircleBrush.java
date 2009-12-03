@@ -14,17 +14,31 @@ import utils.linear.Color;
  */
 public class HollowCircleBrush implements Brush {
 
+    private BrushPositionPolicy positionPolicy;
+    private BrushSizePolicy sizePolicy;
+
+    public HollowCircleBrush(BrushPositionPolicy positionPolicy, BrushSizePolicy sizePolicy) {
+        this.positionPolicy = positionPolicy;
+        this.sizePolicy = sizePolicy;
+    }
+
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
         Graphics2D graphics = canvas.getGraphics();
 
         radius = Math.abs(radius);
 
+        double width = radius * canvas.getHeight();
+        //double height = radius * canvas.getHeight();
+
+        x = positionPolicy.getX(x, y, canvas) + sizePolicy.getXOffset(width);
+        y = positionPolicy.getY(x, y, canvas) + sizePolicy.getYOffset(width);
+
         graphics.setColor(new java.awt.Color(color.toARGB()));
         graphics.drawOval(
-                (int) (x * canvas.getWidth()),
-                (int) (y * canvas.getHeight()),
-                (int) (radius * canvas.getWidth()),
-                (int) (radius * canvas.getHeight()));
+                (int) (x),
+                (int) (y),
+                (int) (width),
+                (int) (width));
     }
 }

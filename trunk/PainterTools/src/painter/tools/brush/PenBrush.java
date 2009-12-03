@@ -15,6 +15,14 @@ import utils.linear.Color;
  */
 public class PenBrush implements Brush {
 
+    private BrushPositionPolicy positionPolicy;
+    private BrushSizePolicy sizePolicy;
+
+    public PenBrush(BrushPositionPolicy positionPolicy, BrushSizePolicy sizePolicy) {
+        this.positionPolicy = positionPolicy;
+        this.sizePolicy = sizePolicy;
+    }
+
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
         Graphics2D graphics = canvas.getGraphics();
@@ -25,10 +33,18 @@ public class PenBrush implements Brush {
         graphics.setColor(new java.awt.Color(color.toARGB()));
         graphics.setStroke(new BasicStroke((float) (radius * canvas.getWidth())));
 
+        double width = radius * canvas.getHeight();
+        //double height = radius * canvas.getHeight();
+
+        double x1 = positionPolicy.getX(x, y, canvas) + sizePolicy.getXOffset(width);
+        double y1 = positionPolicy.getY(x, y, canvas) + sizePolicy.getYOffset(width);
+        double x2 = positionPolicy.getY(x + dx, y + dy, canvas) + sizePolicy.getYOffset(width);
+        double y2 = positionPolicy.getY(x + dx, y + dy, canvas) + sizePolicy.getYOffset(width);
+
         graphics.drawLine(
-                (int) (x * canvas.getWidth()),
-                (int) (y * canvas.getHeight()),
-                (int) ((x + dx) * canvas.getWidth()),
-                (int) ((y + dy) * canvas.getHeight()));
+                (int) (x1),
+                (int) (y1),
+                (int) (x2),
+                (int) (y2));
     }
 }

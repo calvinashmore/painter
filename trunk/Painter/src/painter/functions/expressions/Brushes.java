@@ -20,13 +20,36 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    public static class simpleBrush1 extends ExpressionFunction {
 
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            default: return null;
+         }
+
+      }
+
       public simpleBrush1() {
          addGroupMeta(this);
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
-
-         return new SimpleBrush ( ) ;
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         return new SimpleBrush ( positionPolicy , sizePolicy ) ;
       }
 
       public Class getReturnType() {
@@ -74,14 +97,37 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
       }
 
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            default: return null;
+         }
+
+      }
+
       public simpleBrush2() {
          addGroupMeta(this);
          radiusMultiplier = new LDouble ( .2 * Math . random ( ) * .5 ) ;
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
-
-         return new SimpleBrush ( radiusMultiplier . val ) ;
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         return new SimpleBrush ( positionPolicy , sizePolicy , radiusMultiplier . val ) ;
       }
 
       public Class getReturnType() {
@@ -93,12 +139,14 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
    public static class simpleBrush3 extends ExpressionFunction {
 
       public int getNumberInputs() {
-         return 1;
+         return 3;
       }
 
       public String getInputName(int i) {
          switch(i) {
             case 0: return "radiusMultiplier";
+            case 1: return "positionPolicy";
+            case 2: return "sizePolicy";
             default: return null;
          }
 
@@ -107,6 +155,8 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       public Class getInputType(int i) {
          switch(i) {
             case 0: return LDouble.class;
+            case 1: return BrushPositionPolicy.class;
+            case 2: return BrushSizePolicy.class;
             default: return null;
          }
 
@@ -118,7 +168,9 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
       public Brush evaluate(Context context, Object[] inputs) {
          final LDouble radiusMultiplier = (LDouble)inputs[0];
-         return new SimpleBrush ( radiusMultiplier . val ) ;
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[1];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[2];
+         return new SimpleBrush ( positionPolicy , sizePolicy , radiusMultiplier . val ) ;
       }
 
       public Class getReturnType() {
@@ -129,30 +181,14 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    public static class hollowCircleBrush extends ExpressionFunction {
 
-      public hollowCircleBrush() {
-         addGroupMeta(this);
-      }
-
-      public Brush evaluate(Context context, Object[] inputs) {
-
-         return new HollowCircleBrush ( ) ;
-      }
-
-      public Class getReturnType() {
-         return Brush.class;
-      }
-
-   }
-
-   public static class cyclingBrush extends ExpressionFunction {
-
       public int getNumberInputs() {
-         return 1;
+         return 2;
       }
 
       public String getInputName(int i) {
          switch(i) {
-            case 0: return "brush";
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
             default: return null;
          }
 
@@ -160,19 +196,21 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
       public Class getInputType(int i) {
          switch(i) {
-            case 0: return Brush.class;
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
             default: return null;
          }
 
       }
 
-      public cyclingBrush() {
+      public hollowCircleBrush() {
          addGroupMeta(this);
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
-         final Brush brush = (Brush)inputs[0];
-         return new CyclingBrush ( brush ) ;
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         return new HollowCircleBrush ( positionPolicy , sizePolicy ) ;
       }
 
       public Class getReturnType() {
@@ -183,73 +221,36 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    public static class penBrush extends ExpressionFunction {
 
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            default: return null;
+         }
+
+      }
+
       public penBrush() {
          addGroupMeta(this);
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
-
-         return new PenBrush ( ) ;
-      }
-
-      public Class getReturnType() {
-         return Brush.class;
-      }
-
-   }
-
-   public static class sweepBrush1 extends ExpressionFunction {
-
-      private int numberDots;private double dotSize;
-      public int getNumberParameters() {
-         return 2;
-      }
-
-      public Object getParameter(int i) {
-         switch(i) {
-            case 0: return numberDots;
-            case 1: return dotSize;
-            default: return null;
-         }
-
-      }
-
-      public String getParameterName(int i) {
-         switch(i) {
-            case 0: return "numberDots";
-            case 1: return "dotSize";
-            default: return null;
-         }
-
-      }
-
-      public Class getParameterType(int i) {
-         switch(i) {
-            case 0: return int.class;
-            case 1: return double.class;
-            default: return null;
-         }
-
-      }
-
-      public void setParameter(int i, Object value) {
-         switch(i) {
-            case 0: numberDots = (Integer) value; return;
-            case 1: dotSize = (Double) value; return;
-            default: return;
-         }
-
-      }
-
-      public sweepBrush1() {
-         addGroupMeta(this);
-         dotSize = .2 + .8 * Math . random ( ) ;
-         numberDots = ( int ) ( 3 + 5 * Math . random ( ) ) ;
-      }
-
-      public Brush evaluate(Context context, Object[] inputs) {
-
-         return new SweepBrush ( numberDots , dotSize , new SimpleBrush ( ) ) ;
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         return new PenBrush ( positionPolicy , sizePolicy ) ;
       }
 
       public Class getReturnType() {
@@ -338,6 +339,203 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class simplePositionPolicy extends ExpressionFunction {
+
+      private LDouble xAnchor;private LDouble yAnchor;private LDouble xDirection;private LDouble yDirection;
+      public int getNumberParameters() {
+         return 4;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return xAnchor;
+            case 1: return yAnchor;
+            case 2: return xDirection;
+            case 3: return yDirection;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "xAnchor";
+            case 1: return "yAnchor";
+            case 2: return "xDirection";
+            case 3: return "yDirection";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return LDouble.class;
+            case 2: return LDouble.class;
+            case 3: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: xAnchor = (LDouble) value; return;
+            case 1: yAnchor = (LDouble) value; return;
+            case 2: xDirection = (LDouble) value; return;
+            case 3: yDirection = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public simplePositionPolicy() {
+         addGroupMeta(this);
+         if ( Math . random ( ) < .5 ) {
+         xAnchor = new LDouble ( Math . random ( ) < .5 ? 0 : - 1 ) ;
+         xDirection = new LDouble ( Math . random ( ) < .5 ? 1 : .5 ) ;
+         }
+         else {
+         xAnchor = new LDouble ( Math . random ( ) < .5 ? 0 : 1 ) ;
+         xDirection = new LDouble ( Math . random ( ) < .5 ? - 1 : - .5 ) ;
+         }
+         if ( Math . random ( ) < .5 ) {
+         yAnchor = new LDouble ( Math . random ( ) < .5 ? 0 : - 1 ) ;
+         yDirection = new LDouble ( Math . random ( ) < .5 ? 1 : .5 ) ;
+         }
+         else {
+         yAnchor = new LDouble ( Math . random ( ) < .5 ? 0 : 1 ) ;
+         yDirection = new LDouble ( Math . random ( ) < .5 ? - 1 : - .5 ) ;
+         }
+      }
+
+      public BrushPositionPolicy evaluate(Context context, Object[] inputs) {
+
+         return new SimpleBrushPositionPolicy ( xAnchor . val , yAnchor . val , xDirection . val , yDirection . val ) ;
+      }
+
+      public Class getReturnType() {
+         return BrushPositionPolicy.class;
+      }
+
+   }
+
+   public static class cyclePositionPolicy extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "policy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            default: return null;
+         }
+
+      }
+
+      public cyclePositionPolicy() {
+         addGroupMeta(this);
+      }
+
+      public BrushPositionPolicy evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy policy = (BrushPositionPolicy)inputs[0];
+         return new CycleBrushPositionPolicy ( policy ) ;
+      }
+
+      public Class getReturnType() {
+         return BrushPositionPolicy.class;
+      }
+
+   }
+
+   public static class simpleBrushSizePolicy extends ExpressionFunction {
+
+      private LDouble xOffset;private LDouble yOffset;
+      public int getNumberParameters() {
+         return 2;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return xOffset;
+            case 1: return yOffset;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "xOffset";
+            case 1: return "yOffset";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: xOffset = (LDouble) value; return;
+            case 1: yOffset = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public simpleBrushSizePolicy() {
+         addGroupMeta(this);
+         double xv = Math . random ( ) ;
+         double yv = Math . random ( ) ;
+         if ( xv < .33333 ) {
+         xOffset = new LDouble ( 0 ) ;
+         }
+         else if ( xv < .66666 ) {
+         xOffset = new LDouble ( .5 ) ;
+         }
+         else {
+         xOffset = new LDouble ( 1 ) ;
+         }
+         if ( yv < .33333 ) {
+         yOffset = new LDouble ( 0 ) ;
+         }
+         else if ( yv < .66666 ) {
+         yOffset = new LDouble ( .5 ) ;
+         }
+         else {
+         yOffset = new LDouble ( 1 ) ;
+         }
+      }
+
+      public BrushSizePolicy evaluate(Context context, Object[] inputs) {
+
+         return new SimpleBrushSizePolicy ( xOffset . val , yOffset . val ) ;
+      }
+
+      public Class getReturnType() {
+         return BrushSizePolicy.class;
+      }
+
+   }
+
    public String getDescription() {
       return "expressions to generate brushes";
    }
@@ -348,10 +546,11 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new simpleBrush2());
       r.add(new simpleBrush3());
       r.add(new hollowCircleBrush());
-      r.add(new cyclingBrush());
       r.add(new penBrush());
-      r.add(new sweepBrush1());
       r.add(new sweepBrush2());
+      r.add(new simplePositionPolicy());
+      r.add(new cyclePositionPolicy());
+      r.add(new simpleBrushSizePolicy());
       return r;
    }
 

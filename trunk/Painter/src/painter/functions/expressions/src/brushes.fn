@@ -4,6 +4,7 @@ type Expression;
 
 import utils.linear.*;
 import painter.tools.brush.*;
+import painter.tools.canvas.*;
 
 description "expressions to generate brushes";
 
@@ -60,6 +61,16 @@ fn penBrush {
 
     eval {
         return new PenBrush(positionPolicy, sizePolicy);
+    }
+}
+
+fn penBrush2 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+
+    eval {
+        return new DistortingPenBrush(positionPolicy, sizePolicy);
     }
 }
 
@@ -129,6 +140,65 @@ fn simplePositionPolicy {
     }
 
     eval {return new SimpleBrushPositionPolicy(xAnchor.val, yAnchor.val, xDirection.val, yDirection.val);}
+}
+
+fn rotationPositionPolicy {
+    fout BrushPositionPolicy;
+    description "This is a policy that treats zero as centered, but rotates the canvas direction an arbitrary amount";
+    parameter LDouble theta;
+    interface BrushPositionPolicy;
+
+    private double m00, m01, m10, m11;
+
+    init {
+        theta = new LDouble(Math.random() * 2 * Math.PI);
+    }
+
+    setup {
+        m00 = Math.cos(theta.val);
+        m01 = Math.sin(theta.val);
+        m10 = -Math.sin(theta.val);
+        m11 = Math.cos(theta.val);
+    }
+
+    public double getX(double x, double y, Canvas canvas) {
+        return (.5 + x*m00 + y*m01) * canvas.getWidth();
+    }
+
+    public double getY(double x, double y, Canvas canvas) {
+        return (.5 + x*m10 + y*m11) * canvas.getHeight();
+    }
+
+    eval {return this;}
+}
+
+fn skewPositionPolicy {
+    fout BrushPositionPolicy;
+    description "This is a policy that creates an arbitrary skew";
+    parameter LDouble theta;
+    interface BrushPositionPolicy;
+
+    parameter LDouble m00;
+    parameter LDouble m01;
+    parameter LDouble m10;
+    parameter LDouble m11;
+
+    init {
+        m00 = new LDouble(2*Math.random()-1);
+        m01 = new LDouble(2*Math.random()-1);
+        m10 = new LDouble(2*Math.random()-1);
+        m11 = new LDouble(2*Math.random()-1);
+    }
+
+    public double getX(double x, double y, Canvas canvas) {
+        return (.5 + x*m00.val + y*m01.val) * canvas.getWidth();
+    }
+
+    public double getY(double x, double y, Canvas canvas) {
+        return (.5 + x*m10.val + y*m11.val) * canvas.getHeight();
+    }
+
+    eval {return this;}
 }
 
 fn cyclePositionPolicy {

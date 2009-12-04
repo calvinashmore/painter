@@ -38,6 +38,6 @@ public class SimpleBrushPositionPolicy implements BrushPositionPolicy {
     }
 
     public double getY(double x, double y, Canvas canvas) {
-        return (yAnchor + x * yDirection) * canvas.getHeight();
+        return (yAnchor + y * yDirection) * canvas.getHeight();
     }
 }

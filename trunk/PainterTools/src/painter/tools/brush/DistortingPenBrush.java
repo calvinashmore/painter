@@ -13,12 +13,12 @@ import utils.linear.Color;
  *
  * @author Calvin Ashmore
  */
-public class PenBrush implements Brush {
+public class DistortingPenBrush implements Brush {
 
     private BrushPositionPolicy positionPolicy;
     private BrushSizePolicy sizePolicy;
 
-    public PenBrush(BrushPositionPolicy positionPolicy, BrushSizePolicy sizePolicy) {
+    public DistortingPenBrush(BrushPositionPolicy positionPolicy, BrushSizePolicy sizePolicy) {
         this.positionPolicy = positionPolicy;
         this.sizePolicy = sizePolicy;
     }
@@ -38,7 +38,7 @@ public class PenBrush implements Brush {
 
         double x1 = positionPolicy.getX(x, y, canvas) + sizePolicy.getXOffset(width);
         double y1 = positionPolicy.getY(x, y, canvas) + sizePolicy.getYOffset(width);
-        double x2 = positionPolicy.getX(x + dx, y + dy, canvas) + sizePolicy.getYOffset(width);
+        double x2 = positionPolicy.getY(x + dx, y + dy, canvas) + sizePolicy.getYOffset(width);
         double y2 = positionPolicy.getY(x + dx, y + dy, canvas) + sizePolicy.getYOffset(width);
 
         graphics.drawLine(

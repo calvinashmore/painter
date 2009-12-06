@@ -13,6 +13,7 @@ import genetic.component.program.*;
 import genetic.component.statement.*;
 import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
+import java.awt.image.*;
 import utils.linear.*;
 import painter.tools.brush.*;
 import painter.tools.canvas.*;
@@ -380,6 +381,49 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class imageOpBrush extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "op";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return BufferedImageOp.class;
+            default: return null;
+         }
+
+      }
+
+      public imageOpBrush() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final BufferedImageOp op = (BufferedImageOp)inputs[2];
+         return new ImageOpBrush ( op , positionPolicy , sizePolicy ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class simplePositionPolicy extends ExpressionFunction {
 
       private LDouble xAnchor;private LDouble yAnchor;private LDouble xDirection;private LDouble yDirection;
@@ -735,6 +779,7 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new penBrush());
       r.add(new penBrush2());
       r.add(new sweepBrush2());
+      r.add(new imageOpBrush());
       r.add(new simplePositionPolicy());
       r.add(new rotationPositionPolicy());
       r.add(new skewPositionPolicy());

@@ -1,0 +1,480 @@
+package painter.functions.expressions;
+group ImageOps;
+type Expression;
+
+import java.awt.image.*;
+import utils.linear.*;
+import painter.tools.brush.*;
+import painter.tools.canvas.*;
+
+description "expressions for image operations";
+
+
+// *********************
+// **** BLURS
+// *********************
+
+fn BoxBlur {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/9;
+        float[] matrix = new float[] {
+            v, v, v,
+            v, v, v,
+            v, v, v
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn CrossBlur {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/5;
+        float[] matrix = new float[] {
+            0, v, 0,
+            v, v, v,
+            0, v, 0
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn XBlur {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/5;
+        float[] matrix = new float[] {
+            v, 0, v,
+            0, v, 0,
+            v, 0, v
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn VBlur {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/3;
+        float[] matrix = new float[] {
+            0, v, 0,
+            0, v, 0,
+            0, v, 0
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn HBlur {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/3;
+        float[] matrix = new float[] {
+            0, 0, 0,
+            v, v, v,
+            0, 0, 0
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+// *********************
+// **** SHARPENS
+// *********************
+
+fn CrossSharpen {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/5;
+        float[] matrix = new float[] {
+            0, -v, 0,
+            -v, 1+4*v, -v,
+            0, -v, 0
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn BoxSharpen1 {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/5;
+        float[] matrix = new float[] {
+            -v, -v, -v,
+            -v, 1+9*v, -v,
+            -v, -v, -v
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn BoxSharpen2 {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/5;
+        float[] matrix = new float[] {
+            -.5f*v, -v, -0.5f*v,
+            -v, 1+6*v, -v,
+            -0.5f*v, -v, -0.5f*v
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+// *********************
+// **** FIND EDGES
+// *********************
+
+fn FindEdgesV1 {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/3;
+        float[] matrix = new float[] {
+            0, 0, 0,
+            -v, 1+2*v, -v,
+            0, 0, 0
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn FindEdgesV2 {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/3;
+        float[] matrix = new float[] {
+            0, v, 0,
+            -v, 1, -v,
+            0, v, 0
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn FindEdgesH1 {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/3;
+        float[] matrix = new float[] {
+            0, -v, 0,
+            0, 1+2*v, 0,
+            0, -v, 0
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn FindEdgesH2 {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/3;
+        float[] matrix = new float[] {
+            0, -v, 0,
+            v, 1, v,
+            0, -v, 0
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn FindEdgesZig1 {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/3;
+        float[] matrix = new float[] {
+            -v, 0, 0,
+            0, 1+2*v, 0,
+            0, 0, -v
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn FindEdgesZig2 {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/3;
+        float[] matrix = new float[] {
+            -v, 0, v,
+            0, 1, 0,
+            v, 0, -v
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn FindEdgesZag1 {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/3;
+        float[] matrix = new float[] {
+            0, 0, -v,
+            0, 1+2*v, 0,
+            -v, 0, 0
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn FindEdgesZag2 {
+    fout BufferedImageOp;
+    eval {
+        float v = 1.0f/3;
+        float[] matrix = new float[] {
+            v, 0, -v,
+            0, 1, 0,
+            -v, 0, v
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+// *********************
+// **** TRANSFORMS
+// *********************
+
+fn TransformHueOffset1 {
+
+    parameter LDouble hueOffset;
+    fout BufferedImageOp;
+
+    init {
+        hueOffset = new LDouble(Math.random());
+    }
+
+    eval {
+        LookupTable lookupTable = new LookupTable(0, 4) {
+            public int[] lookupPixel(int[] src, int[] dst) {
+                if (dst == null) {
+                    // Need to alloc a new destination array
+                    dst = new int[src.length];
+                }
+
+                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
+                double[] hsbvals = c.hsbvals();
+
+                // PERFORM THE OFFSET
+                hsbvals[0] += hueOffset.val;
+
+                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
+                dst[0] = (int)(255*c.r);
+                dst[1] = (int)(255*c.g);
+                dst[2] = (int)(255*c.b);
+                if(src.length >= 4)
+                    dst[3] = src[3];
+                return dst;
+            }
+        };
+
+        return new LookupOp(lookupTable, null);
+    }
+}
+
+fn TransformHueOffset2 {
+
+    in LDouble hueOffset;
+    fout BufferedImageOp;
+
+    eval {
+        LookupTable lookupTable = new LookupTable(0, 4) {
+            public int[] lookupPixel(int[] src, int[] dst) {
+                if (dst == null) {
+                    // Need to alloc a new destination array
+                    dst = new int[src.length];
+                }
+
+                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
+                double[] hsbvals = c.hsbvals();
+
+                // PERFORM THE OFFSET
+                hsbvals[0] += hueOffset.val;
+
+                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
+                dst[0] = (int)(255*c.r);
+                dst[1] = (int)(255*c.g);
+                dst[2] = (int)(255*c.b);
+                if(src.length >= 4)
+                    dst[3] = src[3];
+                return dst;
+            }
+        };
+
+        return new LookupOp(lookupTable, null);
+    }
+}
+
+fn TransformSetHue1 {
+
+    parameter LDouble hueOffset;
+    fout BufferedImageOp;
+
+    init {
+        hueOffset = new LDouble(Math.random());
+    }
+
+    eval {
+        LookupTable lookupTable = new LookupTable(0, 4) {
+            public int[] lookupPixel(int[] src, int[] dst) {
+                if (dst == null) {
+                    // Need to alloc a new destination array
+                    dst = new int[src.length];
+                }
+
+                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
+                double[] hsbvals = c.hsbvals();
+
+                // PERFORM THE OFFSET
+                hsbvals[0] = hueOffset.val;
+
+                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
+                dst[0] = (int)(255*c.r);
+                dst[1] = (int)(255*c.g);
+                dst[2] = (int)(255*c.b);
+                if(src.length >= 4)
+                    dst[3] = src[3];
+                return dst;
+            }
+        };
+
+        return new LookupOp(lookupTable, null);
+    }
+}
+
+fn TransformSetHue2 {
+
+    in LDouble hueOffset;
+    fout BufferedImageOp;
+
+    eval {
+        LookupTable lookupTable = new LookupTable(0, 4) {
+            public int[] lookupPixel(int[] src, int[] dst) {
+                if (dst == null) {
+                    // Need to alloc a new destination array
+                    dst = new int[src.length];
+                }
+
+                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
+                double[] hsbvals = c.hsbvals();
+
+                // PERFORM THE OFFSET
+                hsbvals[0] = hueOffset.val;
+
+                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
+                dst[0] = (int)(255*c.r);
+                dst[1] = (int)(255*c.g);
+                dst[2] = (int)(255*c.b);
+                if(src.length >= 4)
+                    dst[3] = src[3];
+                return dst;
+            }
+        };
+
+        return new LookupOp(lookupTable, null);
+    }
+}
+
+fn TransformSetSaturation1 {
+
+    parameter LDouble satOffset;
+    fout BufferedImageOp;
+
+    init {
+        satOffset = new LDouble(Math.random());
+    }
+
+    eval {
+        LookupTable lookupTable = new LookupTable(0, 4) {
+            public int[] lookupPixel(int[] src, int[] dst) {
+                if (dst == null) {
+                    // Need to alloc a new destination array
+                    dst = new int[src.length];
+                }
+
+                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
+                double[] hsbvals = c.hsbvals();
+
+                // PERFORM THE OFFSET
+                hsbvals[1] = satOffset.val;
+
+                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
+                dst[0] = (int)(255*c.r);
+                dst[1] = (int)(255*c.g);
+                dst[2] = (int)(255*c.b);
+                if(src.length >= 4)
+                    dst[3] = src[3];
+                return dst;
+            }
+        };
+
+        return new LookupOp(lookupTable, null);
+    }
+}
+
+fn TransformSetSaturation2 {
+
+    in LDouble satOffset;
+    fout BufferedImageOp;
+
+    eval {
+        LookupTable lookupTable = new LookupTable(0, 4) {
+            public int[] lookupPixel(int[] src, int[] dst) {
+                if (dst == null) {
+                    // Need to alloc a new destination array
+                    dst = new int[src.length];
+                }
+
+                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
+                double[] hsbvals = c.hsbvals();
+
+                // PERFORM THE OFFSET
+                hsbvals[0] = satOffset.val;
+
+                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
+                dst[0] = (int)(255*c.r);
+                dst[1] = (int)(255*c.g);
+                dst[2] = (int)(255*c.b);
+                if(src.length >= 4)
+                    dst[3] = src[3];
+                return dst;
+            }
+        };
+
+        return new LookupOp(lookupTable, null);
+    }
+}
+
+
+

@@ -1,0 +1,20 @@
+package painter.functions.commands;
+group ImageOps;
+type Command;
+
+import java.awt.image.*;
+import utils.linear.*;
+import painter.tools.canvas.*;
+
+description "BufferedImage operation commands";
+
+
+fn ApplyOp {
+    in BufferedImageOp op;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        BufferedImage result = op.filter(canvas.makeImage(), null);
+        canvas.getGraphics().drawImage(result, 0, 0, null);
+    }
+}

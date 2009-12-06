@@ -17,6 +17,7 @@ public class AllFn implements AllComponents<ExpressionFunction> {
    public List<ExpressionFunction> allInstances(ContextModel cm) {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
       r.addAll(new Brushes().allInstances(cm));
+      r.addAll(new ImageOps().allInstances(cm));
       r.addAll(new Strokes().allInstances(cm));
       return r;
    }

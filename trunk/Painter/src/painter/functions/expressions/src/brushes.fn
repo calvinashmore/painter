@@ -2,6 +2,7 @@ package painter.functions.expressions;
 group Brushes;
 type Expression;
 
+import java.awt.image.*;
 import utils.linear.*;
 import painter.tools.brush.*;
 import painter.tools.canvas.*;
@@ -103,6 +104,17 @@ fn sweepBrush2 {
 
     eval {
         return new SweepBrush(numberDots, dotSize, brush);
+    }
+}
+
+fn imageOpBrush {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImageOp op;
+
+    eval {
+        return new ImageOpBrush(op, positionPolicy, sizePolicy);
     }
 }
 

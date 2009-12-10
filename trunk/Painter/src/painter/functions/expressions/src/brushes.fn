@@ -75,21 +75,6 @@ fn penBrush2 {
     }
 }
 
-/*fn sweepBrush1 {
-    fout Brush;
-    parameter int numberDots;
-    parameter double dotSize;
-
-    init {
-        dotSize = .2+.8*Math.random();
-        numberDots = (int)(3+5*Math.random());
-    }
-
-    eval {
-        return new SweepBrush(numberDots, dotSize, new SimpleBrush());
-    }
-}*/
-
 fn sweepBrush2 {
     fout Brush;
     parameter int numberDots;
@@ -104,6 +89,109 @@ fn sweepBrush2 {
 
     eval {
         return new SweepBrush(numberDots, dotSize, brush);
+    }
+}
+
+fn spatterBrush1 {
+    fout Brush;
+    in Brush brush;
+    parameter LVect2d[] points;
+    parameter LDouble size;
+    parameter Boolean orient;
+    parameter Boolean sizePoints;
+
+    init {
+        Random r = new Random();
+
+        int numberPoints = 4+r.nextInt(20);
+        points = new LVect2d[numberPoints];
+        size = new LDouble(.1*Math.random() + .05);
+
+        for(int i=0;i<numberPoints;i++) {
+            points[i] = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        }
+
+        orient = r.nextBoolean();
+        sizePoints = r.nextBoolean();
+    }
+
+    eval {
+        SpatterBrush spatter = new SpatterBrush(brush, points, size.val);
+        spatter.setOrient(orient);
+        spatter.setSizePoints(sizePoints);
+        return spatter;
+    }
+}
+
+fn spatterBrush2 {
+    fout Brush;
+    in Brush brush;
+    parameter LVect2d[] points;
+    parameter double[] sizes;
+    parameter Boolean orient;
+    parameter Boolean sizePoints;
+
+    init {
+        Random r = new Random();
+
+        int numberPoints = 4+r.nextInt(20);
+        points = new LVect2d[numberPoints];
+        sizes = new double[numberPoints];
+
+        for(int i=0;i<numberPoints;i++) {
+            points[i] = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+            sizes[i] = .1*Math.random() + .05;
+        }
+
+        orient = r.nextBoolean();
+        sizePoints = r.nextBoolean();
+    }
+
+    eval {
+        SpatterBrush spatter = new SpatterBrush(brush, points, sizes);
+        spatter.setOrient(orient);
+        spatter.setSizePoints(sizePoints);
+        return spatter;
+    }
+}
+
+fn spatterBrush3 {
+    fout Brush;
+    in Brush brush;
+    parameter LVect2d[] points;
+    parameter double[] sizes;
+    parameter Color[] colorOffsets;
+    parameter LDouble colorMultiplier;
+    parameter Boolean orient;
+    parameter Boolean sizePoints;
+
+    meta selectionWeight 10;
+
+    init {
+        Random r = new Random();
+
+        int numberPoints = 4+r.nextInt(20);
+        points = new LVect2d[numberPoints];
+        sizes = new double[numberPoints];
+        colorOffsets = new Color[numberPoints];
+        colorMultiplier = new LDouble(Math.random()*.3 + .1);
+
+        for(int i=0;i<numberPoints;i++) {
+            points[i] = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+            sizes[i] = .1*Math.random() + .05;
+            colorOffsets[i] = new Color(Math.random(), Math.random(), Math.random());
+        }
+
+        orient = r.nextBoolean();
+        sizePoints = r.nextBoolean();
+    }
+
+    eval {
+        SpatterBrush spatter = new SpatterBrush(brush, points, sizes);
+        spatter.setOrient(orient);
+        spatter.setSizePoints(sizePoints);
+        spatter.setColorOffsets(colorOffsets, colorMultiplier.val);
+        return spatter;
     }
 }
 

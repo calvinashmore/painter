@@ -381,6 +381,321 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class spatterBrush1 extends ExpressionFunction {
+
+      private LVect2d [ ] points;private LDouble size;private Boolean orient;private Boolean sizePoints;
+      public int getNumberParameters() {
+         return 4;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return points;
+            case 1: return size;
+            case 2: return orient;
+            case 3: return sizePoints;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "points";
+            case 1: return "size";
+            case 2: return "orient";
+            case 3: return "sizePoints";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LVect2d [ ].class;
+            case 1: return LDouble.class;
+            case 2: return Boolean.class;
+            case 3: return Boolean.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: points = (LVect2d [ ]) value; return;
+            case 1: size = (LDouble) value; return;
+            case 2: orient = (Boolean) value; return;
+            case 3: sizePoints = (Boolean) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public spatterBrush1() {
+         addGroupMeta(this);
+         Random r = new Random ( ) ;
+         int numberPoints = 4 + r . nextInt ( 20 ) ;
+         points = new LVect2d [ numberPoints ] ;
+         size = new LDouble ( .1 * Math . random ( ) + .05 ) ;
+         for ( int i = 0 ;
+         i < numberPoints ;
+         i ++ ) {
+         points [ i ] = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         }
+         orient = r . nextBoolean ( ) ;
+         sizePoints = r . nextBoolean ( ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         SpatterBrush spatter = new SpatterBrush ( brush , points , size . val ) ;
+         spatter . setOrient ( orient ) ;
+         spatter . setSizePoints ( sizePoints ) ;
+         return spatter ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class spatterBrush2 extends ExpressionFunction {
+
+      private LVect2d [ ] points;private double [ ] sizes;private Boolean orient;private Boolean sizePoints;
+      public int getNumberParameters() {
+         return 4;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return points;
+            case 1: return sizes;
+            case 2: return orient;
+            case 3: return sizePoints;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "points";
+            case 1: return "sizes";
+            case 2: return "orient";
+            case 3: return "sizePoints";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LVect2d [ ].class;
+            case 1: return double [ ].class;
+            case 2: return Boolean.class;
+            case 3: return Boolean.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: points = (LVect2d [ ]) value; return;
+            case 1: sizes = (double [ ]) value; return;
+            case 2: orient = (Boolean) value; return;
+            case 3: sizePoints = (Boolean) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public spatterBrush2() {
+         addGroupMeta(this);
+         Random r = new Random ( ) ;
+         int numberPoints = 4 + r . nextInt ( 20 ) ;
+         points = new LVect2d [ numberPoints ] ;
+         sizes = new double [ numberPoints ] ;
+         for ( int i = 0 ;
+         i < numberPoints ;
+         i ++ ) {
+         points [ i ] = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         sizes [ i ] = .1 * Math . random ( ) + .05 ;
+         }
+         orient = r . nextBoolean ( ) ;
+         sizePoints = r . nextBoolean ( ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         SpatterBrush spatter = new SpatterBrush ( brush , points , sizes ) ;
+         spatter . setOrient ( orient ) ;
+         spatter . setSizePoints ( sizePoints ) ;
+         return spatter ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class spatterBrush3 extends ExpressionFunction {
+
+      private LVect2d [ ] points;private double [ ] sizes;private Color [ ] colorOffsets;private LDouble colorMultiplier;private Boolean orient;private Boolean sizePoints;
+      public int getNumberParameters() {
+         return 6;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return points;
+            case 1: return sizes;
+            case 2: return colorOffsets;
+            case 3: return colorMultiplier;
+            case 4: return orient;
+            case 5: return sizePoints;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "points";
+            case 1: return "sizes";
+            case 2: return "colorOffsets";
+            case 3: return "colorMultiplier";
+            case 4: return "orient";
+            case 5: return "sizePoints";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LVect2d [ ].class;
+            case 1: return double [ ].class;
+            case 2: return Color [ ].class;
+            case 3: return LDouble.class;
+            case 4: return Boolean.class;
+            case 5: return Boolean.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: points = (LVect2d [ ]) value; return;
+            case 1: sizes = (double [ ]) value; return;
+            case 2: colorOffsets = (Color [ ]) value; return;
+            case 3: colorMultiplier = (LDouble) value; return;
+            case 4: orient = (Boolean) value; return;
+            case 5: sizePoints = (Boolean) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public spatterBrush3() {
+         addGroupMeta(this);
+         addMeta("selectionWeight", 10);
+         Random r = new Random ( ) ;
+         int numberPoints = 4 + r . nextInt ( 20 ) ;
+         points = new LVect2d [ numberPoints ] ;
+         sizes = new double [ numberPoints ] ;
+         colorOffsets = new Color [ numberPoints ] ;
+         colorMultiplier = new LDouble ( Math . random ( ) * .3 + .1 ) ;
+         for ( int i = 0 ;
+         i < numberPoints ;
+         i ++ ) {
+         points [ i ] = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         sizes [ i ] = .1 * Math . random ( ) + .05 ;
+         colorOffsets [ i ] = new Color ( Math . random ( ) , Math . random ( ) , Math . random ( ) ) ;
+         }
+         orient = r . nextBoolean ( ) ;
+         sizePoints = r . nextBoolean ( ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         SpatterBrush spatter = new SpatterBrush ( brush , points , sizes ) ;
+         spatter . setOrient ( orient ) ;
+         spatter . setSizePoints ( sizePoints ) ;
+         spatter . setColorOffsets ( colorOffsets , colorMultiplier . val ) ;
+         return spatter ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class imageOpBrush extends ExpressionFunction {
 
       public int getNumberInputs() {
@@ -779,6 +1094,9 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new penBrush());
       r.add(new penBrush2());
       r.add(new sweepBrush2());
+      r.add(new spatterBrush1());
+      r.add(new spatterBrush2());
+      r.add(new spatterBrush3());
       r.add(new imageOpBrush());
       r.add(new simplePositionPolicy());
       r.add(new rotationPositionPolicy());

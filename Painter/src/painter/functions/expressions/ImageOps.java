@@ -443,10 +443,14 @@ public final class ImageOps implements AllComponents<ExpressionFunction>, Descri
          double [ ] hsbvals = c . hsbvals ( ) ;
          hsbvals [ 0 ] += hueOffset . val ;
          c = Color . makeHSB ( hsbvals [ 0 ] , hsbvals [ 1 ] , hsbvals [ 2 ] ) ;
-         dst [ 0 ] = ( int ) ( 255 * c . r ) ;
-         dst [ 1 ] = ( int ) ( 255 * c . g ) ;
-         dst [ 2 ] = ( int ) ( 255 * c . b ) ;
-         if ( src . length >= 4 ) dst [ 3 ] = src [ 3 ] ;
+         float alpha = 1 ;
+         if ( src . length >= 4 ) {
+         dst [ 3 ] = src [ 3 ] ;
+         alpha = src [ 3 ] / 255f ;
+         }
+         dst [ 0 ] = ( int ) ( 255 * c . r * alpha + ( 1 - alpha ) * src [ 0 ] ) ;
+         dst [ 1 ] = ( int ) ( 255 * c . g * alpha + ( 1 - alpha ) * src [ 1 ] ) ;
+         dst [ 2 ] = ( int ) ( 255 * c . b * alpha + ( 1 - alpha ) * src [ 2 ] ) ;
          return dst ;
          }
          }
@@ -497,10 +501,14 @@ public final class ImageOps implements AllComponents<ExpressionFunction>, Descri
          double [ ] hsbvals = c . hsbvals ( ) ;
          hsbvals [ 0 ] += hueOffset . val ;
          c = Color . makeHSB ( hsbvals [ 0 ] , hsbvals [ 1 ] , hsbvals [ 2 ] ) ;
-         dst [ 0 ] = ( int ) ( 255 * c . r ) ;
-         dst [ 1 ] = ( int ) ( 255 * c . g ) ;
-         dst [ 2 ] = ( int ) ( 255 * c . b ) ;
-         if ( src . length >= 4 ) dst [ 3 ] = src [ 3 ] ;
+         float alpha = 1 ;
+         if ( src . length >= 4 ) {
+         dst [ 3 ] = src [ 3 ] ;
+         alpha = src [ 3 ] / 255f ;
+         }
+         dst [ 0 ] = ( int ) ( 255 * c . r * alpha + ( 1 - alpha ) * src [ 0 ] ) ;
+         dst [ 1 ] = ( int ) ( 255 * c . g * alpha + ( 1 - alpha ) * src [ 1 ] ) ;
+         dst [ 2 ] = ( int ) ( 255 * c . b * alpha + ( 1 - alpha ) * src [ 2 ] ) ;
          return dst ;
          }
          }
@@ -569,10 +577,14 @@ public final class ImageOps implements AllComponents<ExpressionFunction>, Descri
          double [ ] hsbvals = c . hsbvals ( ) ;
          hsbvals [ 0 ] = hueOffset . val ;
          c = Color . makeHSB ( hsbvals [ 0 ] , hsbvals [ 1 ] , hsbvals [ 2 ] ) ;
-         dst [ 0 ] = ( int ) ( 255 * c . r ) ;
-         dst [ 1 ] = ( int ) ( 255 * c . g ) ;
-         dst [ 2 ] = ( int ) ( 255 * c . b ) ;
-         if ( src . length >= 4 ) dst [ 3 ] = src [ 3 ] ;
+         float alpha = 1 ;
+         if ( src . length >= 4 ) {
+         dst [ 3 ] = src [ 3 ] ;
+         alpha = src [ 3 ] / 255f ;
+         }
+         dst [ 0 ] = ( int ) ( 255 * c . r * alpha + ( 1 - alpha ) * src [ 0 ] ) ;
+         dst [ 1 ] = ( int ) ( 255 * c . g * alpha + ( 1 - alpha ) * src [ 1 ] ) ;
+         dst [ 2 ] = ( int ) ( 255 * c . b * alpha + ( 1 - alpha ) * src [ 2 ] ) ;
          return dst ;
          }
          }
@@ -623,10 +635,14 @@ public final class ImageOps implements AllComponents<ExpressionFunction>, Descri
          double [ ] hsbvals = c . hsbvals ( ) ;
          hsbvals [ 0 ] = hueOffset . val ;
          c = Color . makeHSB ( hsbvals [ 0 ] , hsbvals [ 1 ] , hsbvals [ 2 ] ) ;
-         dst [ 0 ] = ( int ) ( 255 * c . r ) ;
-         dst [ 1 ] = ( int ) ( 255 * c . g ) ;
-         dst [ 2 ] = ( int ) ( 255 * c . b ) ;
-         if ( src . length >= 4 ) dst [ 3 ] = src [ 3 ] ;
+         float alpha = 1 ;
+         if ( src . length >= 4 ) {
+         dst [ 3 ] = src [ 3 ] ;
+         alpha = src [ 3 ] / 255f ;
+         }
+         dst [ 0 ] = ( int ) ( 255 * c . r * alpha + ( 1 - alpha ) * src [ 0 ] ) ;
+         dst [ 1 ] = ( int ) ( 255 * c . g * alpha + ( 1 - alpha ) * src [ 1 ] ) ;
+         dst [ 2 ] = ( int ) ( 255 * c . b * alpha + ( 1 - alpha ) * src [ 2 ] ) ;
          return dst ;
          }
          }
@@ -695,10 +711,14 @@ public final class ImageOps implements AllComponents<ExpressionFunction>, Descri
          double [ ] hsbvals = c . hsbvals ( ) ;
          hsbvals [ 1 ] = satOffset . val ;
          c = Color . makeHSB ( hsbvals [ 0 ] , hsbvals [ 1 ] , hsbvals [ 2 ] ) ;
-         dst [ 0 ] = ( int ) ( 255 * c . r ) ;
-         dst [ 1 ] = ( int ) ( 255 * c . g ) ;
-         dst [ 2 ] = ( int ) ( 255 * c . b ) ;
-         if ( src . length >= 4 ) dst [ 3 ] = src [ 3 ] ;
+         float alpha = 1 ;
+         if ( src . length >= 4 ) {
+         dst [ 3 ] = src [ 3 ] ;
+         alpha = src [ 3 ] / 255f ;
+         }
+         dst [ 0 ] = ( int ) ( 255 * c . r * alpha + ( 1 - alpha ) * src [ 0 ] ) ;
+         dst [ 1 ] = ( int ) ( 255 * c . g * alpha + ( 1 - alpha ) * src [ 1 ] ) ;
+         dst [ 2 ] = ( int ) ( 255 * c . b * alpha + ( 1 - alpha ) * src [ 2 ] ) ;
          return dst ;
          }
          }
@@ -749,10 +769,14 @@ public final class ImageOps implements AllComponents<ExpressionFunction>, Descri
          double [ ] hsbvals = c . hsbvals ( ) ;
          hsbvals [ 0 ] = satOffset . val ;
          c = Color . makeHSB ( hsbvals [ 0 ] , hsbvals [ 1 ] , hsbvals [ 2 ] ) ;
-         dst [ 0 ] = ( int ) ( 255 * c . r ) ;
-         dst [ 1 ] = ( int ) ( 255 * c . g ) ;
-         dst [ 2 ] = ( int ) ( 255 * c . b ) ;
-         if ( src . length >= 4 ) dst [ 3 ] = src [ 3 ] ;
+         float alpha = 1 ;
+         if ( src . length >= 4 ) {
+         dst [ 3 ] = src [ 3 ] ;
+         alpha = src [ 3 ] / 255f ;
+         }
+         dst [ 0 ] = ( int ) ( 255 * c . r * alpha + ( 1 - alpha ) * src [ 0 ] ) ;
+         dst [ 1 ] = ( int ) ( 255 * c . g * alpha + ( 1 - alpha ) * src [ 1 ] ) ;
+         dst [ 2 ] = ( int ) ( 255 * c . b * alpha + ( 1 - alpha ) * src [ 2 ] ) ;
          return dst ;
          }
          }

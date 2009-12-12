@@ -195,6 +195,43 @@ fn spatterBrush3 {
     }
 }
 
+fn dashBrush1 {
+    fout Brush;
+    parameter LDouble angle;
+    parameter Boolean orient;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+
+    init {
+        orient = new Random().nextBoolean();
+        angle = new LDouble(Math.random());
+    }
+
+    eval {
+        DashBrush brush = new DashBrush(angle.val, positionPolicy, sizePolicy);
+        brush.setOrient(orient);
+        return brush;
+    }
+}
+
+fn dashBrush2 {
+    fout Brush;
+    in LDouble angle;
+    parameter Boolean orient;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+
+    init {
+        orient = new Random().nextBoolean();
+    }
+
+    eval {
+        DashBrush brush = new DashBrush(angle.val, positionPolicy, sizePolicy);
+        brush.setOrient(orient);
+        return brush;
+    }
+}
+
 fn imageOpBrush {
     fout Brush;
     in BrushPositionPolicy positionPolicy;

@@ -696,6 +696,174 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class dashBrush1 extends ExpressionFunction {
+
+      private LDouble angle;private Boolean orient;
+      public int getNumberParameters() {
+         return 2;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return angle;
+            case 1: return orient;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "angle";
+            case 1: return "orient";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return Boolean.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: angle = (LDouble) value; return;
+            case 1: orient = (Boolean) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            default: return null;
+         }
+
+      }
+
+      public dashBrush1() {
+         addGroupMeta(this);
+         orient = new Random ( ) . nextBoolean ( ) ;
+         angle = new LDouble ( Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         DashBrush brush = new DashBrush ( angle . val , positionPolicy , sizePolicy ) ;
+         brush . setOrient ( orient ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class dashBrush2 extends ExpressionFunction {
+
+      private Boolean orient;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return orient;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "orient";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Boolean.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: orient = (Boolean) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "angle";
+            case 1: return "positionPolicy";
+            case 2: return "sizePolicy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return BrushPositionPolicy.class;
+            case 2: return BrushSizePolicy.class;
+            default: return null;
+         }
+
+      }
+
+      public dashBrush2() {
+         addGroupMeta(this);
+         orient = new Random ( ) . nextBoolean ( ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final LDouble angle = (LDouble)inputs[0];
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[1];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[2];
+         DashBrush brush = new DashBrush ( angle . val , positionPolicy , sizePolicy ) ;
+         brush . setOrient ( orient ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class imageOpBrush extends ExpressionFunction {
 
       public int getNumberInputs() {
@@ -1097,6 +1265,8 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new spatterBrush1());
       r.add(new spatterBrush2());
       r.add(new spatterBrush3());
+      r.add(new dashBrush1());
+      r.add(new dashBrush2());
       r.add(new imageOpBrush());
       r.add(new simplePositionPolicy());
       r.add(new rotationPositionPolicy());

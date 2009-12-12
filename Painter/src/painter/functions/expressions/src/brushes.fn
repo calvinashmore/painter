@@ -232,6 +232,43 @@ fn dashBrush2 {
     }
 }
 
+fn smudgeBrush1 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    parameter Boolean orient;
+    parameter LVect2d smudgeDirection;
+    parameter LDouble smudgeAmount;
+
+    init {
+        orient = new Random().nextBoolean();
+        smudgeDirection = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        smudgeAmount = new LDouble(3*Math.random()+1);
+    }
+
+    eval {
+        return new SmudgeBrush(smudgeDirection, smudgeAmount.val, positionPolicy, sizePolicy);
+    }
+}
+
+fn smudgeBrush2 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    parameter Boolean orient;
+    in LVect2d smudgeDirection;
+    in LDouble smudgeAmount;
+
+    init {
+        orient = new Random().nextBoolean();
+    }
+
+    eval {
+        return new SmudgeBrush(smudgeDirection, smudgeAmount.val, positionPolicy, sizePolicy);
+    }
+}
+
+
 fn imageOpBrush {
     fout Brush;
     in BrushPositionPolicy positionPolicy;

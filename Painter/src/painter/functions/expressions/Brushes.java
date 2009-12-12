@@ -864,6 +864,178 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class smudgeBrush1 extends ExpressionFunction {
+
+      private Boolean orient;private LVect2d smudgeDirection;private LDouble smudgeAmount;
+      public int getNumberParameters() {
+         return 3;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return orient;
+            case 1: return smudgeDirection;
+            case 2: return smudgeAmount;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "orient";
+            case 1: return "smudgeDirection";
+            case 2: return "smudgeAmount";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Boolean.class;
+            case 1: return LVect2d.class;
+            case 2: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: orient = (Boolean) value; return;
+            case 1: smudgeDirection = (LVect2d) value; return;
+            case 2: smudgeAmount = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            default: return null;
+         }
+
+      }
+
+      public smudgeBrush1() {
+         addGroupMeta(this);
+         orient = new Random ( ) . nextBoolean ( ) ;
+         smudgeDirection = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         smudgeAmount = new LDouble ( 3 * Math . random ( ) + 1 ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         return new SmudgeBrush ( smudgeDirection , smudgeAmount . val , positionPolicy , sizePolicy ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class smudgeBrush2 extends ExpressionFunction {
+
+      private Boolean orient;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return orient;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "orient";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Boolean.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: orient = (Boolean) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "smudgeDirection";
+            case 3: return "smudgeAmount";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LVect2d.class;
+            case 3: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public smudgeBrush2() {
+         addGroupMeta(this);
+         orient = new Random ( ) . nextBoolean ( ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LVect2d smudgeDirection = (LVect2d)inputs[2];
+         final LDouble smudgeAmount = (LDouble)inputs[3];
+         return new SmudgeBrush ( smudgeDirection , smudgeAmount . val , positionPolicy , sizePolicy ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class imageOpBrush extends ExpressionFunction {
 
       public int getNumberInputs() {
@@ -1267,6 +1439,8 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new spatterBrush3());
       r.add(new dashBrush1());
       r.add(new dashBrush2());
+      r.add(new smudgeBrush1());
+      r.add(new smudgeBrush2());
       r.add(new imageOpBrush());
       r.add(new simplePositionPolicy());
       r.add(new rotationPositionPolicy());

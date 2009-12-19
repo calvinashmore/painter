@@ -107,7 +107,7 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          StatementList body = (StatementList) inputs.get(0);
          final String __i = getContextVariableActualName("i");
          Integer i;
@@ -177,7 +177,7 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression n = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __i = getContextVariableActualName("i");
@@ -293,7 +293,7 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          StatementList body = (StatementList) inputs.get(0);
          final String __i = getContextVariableActualName("i");
          Integer i;
@@ -423,7 +423,7 @@ public final class Loops implements AllComponents<StatementFunction>, Described 
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          StatementList body = (StatementList) inputs.get(0);
          final String __i = getContextVariableActualName("i");
          Integer i;

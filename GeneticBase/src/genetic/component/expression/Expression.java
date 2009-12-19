@@ -103,7 +103,9 @@ public class Expression implements Parameterized, GeneticComponent {
         return function;
     }
 
-    public Object evaluate(Context context) {
+    public Object evaluate(Context context) throws TerminationException {
+        if(context.getTopLevel().getTerminationFlag())
+            throw new TerminationException();
 
         Object output;
 

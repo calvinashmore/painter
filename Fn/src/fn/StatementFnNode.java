@@ -133,6 +133,8 @@ public class StatementFnNode extends ContextFnNode {
         method.addArgument("Context", "context");
         method.addArgument("List<GeneticComponent>", "inputs");
 
+        method.addThrowsClause("TerminationException");
+
         // we run the risk of dead assignments, but oh well.
         method.addToBlockBody(make_inputDeclarations());
         method.addToBlockBody(make_contextVariableDeclarations());

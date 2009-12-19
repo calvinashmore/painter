@@ -5,6 +5,7 @@
 
 package genetic.component.expression.function.cx;
 
+import genetic.TerminationException;
 import genetic.component.context.Context;
 import genetic.component.context.ContextModel;
 import genetic.component.expression.Expression;
@@ -29,7 +30,7 @@ abstract public class ContextDependentExpressionFunction extends ExpressionFunct
     protected ContextModel getContextModel() {return contextModel;}
     public void setContextModel(ContextModel contextModel) {this.contextModel = contextModel;}
 
-    abstract public Object evaluate(Context context, Object inputs[], List<Expression> contextExpressions);
+    abstract public Object evaluate(Context context, Object inputs[], List<Expression> contextExpressions) throws TerminationException;
     public int getNumberContextInputs() {return 0;}
     public Class getContextInputType(int i) {return null;}
     public String getContextInputName(int i) {return "context input "+i;}

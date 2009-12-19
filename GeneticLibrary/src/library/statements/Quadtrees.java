@@ -73,7 +73,7 @@ public final class Quadtrees implements AllComponents<StatementFunction>, Descri
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression qt = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __v = getContextVariableActualName("v");
@@ -165,7 +165,7 @@ public final class Quadtrees implements AllComponents<StatementFunction>, Descri
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression qt = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __mid = getContextVariableActualName("mid");
@@ -310,7 +310,7 @@ public final class Quadtrees implements AllComponents<StatementFunction>, Descri
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression qt = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __i = getContextVariableActualName("i");

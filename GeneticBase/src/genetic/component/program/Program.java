@@ -11,8 +11,6 @@ package genetic.component.program;
 
 import genetic.component.context.Context;
 import genetic.component.context.ContextModel;
-import genetic.GeneticTopLevel;
-import genetic.GeneticComponent;
 import genetic.*;
 import genetic.component.method.Method;
 import genetic.BuildException;
@@ -43,6 +41,7 @@ public class Program implements GeneticTopLevel {
     private Context context;
     
     private boolean isSetup;
+    private volatile boolean terminationFlag;
 
     public int getDepth() {
         return 0;
@@ -79,7 +78,7 @@ public class Program implements GeneticTopLevel {
         return method;
     }
     
-    public void callMethod(String name, Object... parameters) {
+    public void callMethod(String name, Object... parameters) throws TerminationException {
         
         Method eventFunction = methods.get(name);
         List<Object> lparameters = new ArrayList<Object>();
@@ -187,6 +186,17 @@ public class Program implements GeneticTopLevel {
 
     public boolean hasMethod(String name) {
         return methods.containsKey(name);
+    }
+
+    /**
+     * Forces the program to stop.
+     */
+    public void terminate() {
+        terminationFlag = true;
+    }
+
+    public boolean getTerminationFlag() {
+        return terminationFlag;
     }
 
 }

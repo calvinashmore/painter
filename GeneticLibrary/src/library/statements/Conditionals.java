@@ -47,7 +47,7 @@ public final class Conditionals implements AllComponents<StatementFunction> {
          addGroupMeta(this);
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression condition = (Expression) inputs.get(0);
          StatementList result_true = (StatementList) inputs.get(1);
          StatementList result_false = (StatementList) inputs.get(2);
@@ -91,7 +91,7 @@ public final class Conditionals implements AllComponents<StatementFunction> {
          addGroupMeta(this);
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression condition = (Expression) inputs.get(0);
          StatementList result_true = (StatementList) inputs.get(1);
 
@@ -173,7 +173,7 @@ public final class Conditionals implements AllComponents<StatementFunction> {
          return "about";
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression value = (Expression) inputs.get(0);
          StatementList result_true = (StatementList) inputs.get(1);
 

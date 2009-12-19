@@ -9,6 +9,7 @@
 package genetic.component.statement.function;
 
 import genetic.GeneticComponent;
+import genetic.TerminationException;
 import genetic.component.context.Context;
 import genetic.component.context.ContextModel;
 import genetic.Foundation;
@@ -35,7 +36,7 @@ public class AssignmentStatementFunction extends StatementFunction {
     public Class getVariableType() {
         return variableType;
     }
-    
+
     public void setVariable(String variableName, Class variableType) {
         this.variableName = variableName;
         this.variableType = variableType;
@@ -55,7 +56,7 @@ public class AssignmentStatementFunction extends StatementFunction {
             variableName = variables.get(Foundation.getInstance().getBuilderRandom().nextInt(variables.size()));
             variableType = contextModel.getType(variableName);
         }
-        
+
         //content = Foundation.getInstance().getExpressionBuilder().makeTree(variableType, getContextModel(), this);
         //addChild(content);
         super.setup();
@@ -81,7 +82,7 @@ public class AssignmentStatementFunction extends StatementFunction {
     }
 
     @Override
-    public void execute(Context context, List<GeneticComponent> inputs) {
+    public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
         Expression content = (Expression) inputs.get(0);
 
         Object expressionResult = content.evaluate(context);

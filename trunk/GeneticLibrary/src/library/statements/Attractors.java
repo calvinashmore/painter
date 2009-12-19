@@ -76,7 +76,7 @@ public final class Attractors implements AllComponents<StatementFunction>, Descr
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression attractorExpression = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __v = getContextVariableActualName("v");

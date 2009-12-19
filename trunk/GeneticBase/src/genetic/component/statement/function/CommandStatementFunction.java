@@ -9,6 +9,7 @@
 package genetic.component.statement.function;
 
 import genetic.GeneticComponent;
+import genetic.TerminationException;
 import genetic.component.statement.*;
 import genetic.component.context.Context;
 import genetic.Foundation;
@@ -78,7 +79,7 @@ public class CommandStatementFunction extends StatementFunction {
     }
 
     @Override
-    public void execute(Context context, List<GeneticComponent> inputs) {
+    public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
         if (inputs.size() > 0) {
             Object objects[] = new Object[inputs.size()];
             for (int i = 0; i < inputs.size(); i++) {

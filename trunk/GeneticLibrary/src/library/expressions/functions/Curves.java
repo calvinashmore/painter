@@ -44,7 +44,7 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
 
       }
 
-      public CurveUtil . Curve_d evaluate(final Context context, final Object[] inputs, final List<Expression> contextExpressions) {
+      public CurveUtil . Curve_d evaluate(final Context context, final Object[] inputs, final List<Expression> contextExpressions) throws TerminationException {
 
          final Expression f = (Expression) contextExpressions.get(0);
          final String __x = getContextVariableActualName("x");
@@ -110,7 +110,7 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
 
       }
 
-      public CurveUtil . Curve_v2 evaluate(final Context context, final Object[] inputs, final List<Expression> contextExpressions) {
+      public CurveUtil . Curve_v2 evaluate(final Context context, final Object[] inputs, final List<Expression> contextExpressions) throws TerminationException {
 
          final Expression f = (Expression) contextExpressions.get(0);
          final String __x = getContextVariableActualName("x");
@@ -176,7 +176,7 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
 
       }
 
-      public CurveUtil . Curve_col evaluate(final Context context, final Object[] inputs, final List<Expression> contextExpressions) {
+      public CurveUtil . Curve_col evaluate(final Context context, final Object[] inputs, final List<Expression> contextExpressions) throws TerminationException {
 
          final Expression f = (Expression) contextExpressions.get(0);
          final String __x = getContextVariableActualName("x");

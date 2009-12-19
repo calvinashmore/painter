@@ -4,6 +4,7 @@
  */
 package painter.tools.brush;
 
+import genetic.TerminationException;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
@@ -36,6 +37,10 @@ public class SmudgeBrush implements Brush {
 
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
+        if(Thread.interrupted()) {
+            throw new TerminationException();
+        }
+        
         double smudgeX, smudgeY;
 
         if (orient) {

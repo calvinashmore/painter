@@ -4,6 +4,7 @@
  */
 package painter.tools.brush;
 
+import genetic.TerminationException;
 import java.awt.Graphics2D;
 import painter.tools.canvas.Canvas;
 import utils.linear.Color;
@@ -31,6 +32,10 @@ public class SimpleBrush implements Brush {
 
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
+        if(Thread.interrupted()) {
+            throw new TerminationException();
+        }
+        
         Graphics2D graphics = canvas.getGraphics();
 
         radius = Math.abs(radius * radiusMultiplier);

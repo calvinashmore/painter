@@ -83,7 +83,7 @@ public class Method implements GeneticComponent {
         return r;
     }
     
-    public void execute(Context parentContext, List<Object> arguments) {
+    public void execute(Context parentContext, List<Object> arguments) throws TerminationException {
         Context context = contextModel.createContext(parentContext);
         body.execute(context);
     }

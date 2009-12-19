@@ -11,7 +11,6 @@ package genetic.component.statementlist;
 
 import genetic.component.context.Context;
 import genetic.component.context.ContextModel;
-import genetic.GeneticComponent;
 import genetic.*;
 import genetic.component.statement.Statement;
 import genetic.Foundation;
@@ -107,7 +106,7 @@ public class StatementList implements GeneticComponent {
         return clone;
     }
     
-    public void execute(Context parentContext) {
+    public void execute(Context parentContext) throws TerminationException {
         Context context = contextModel.createContext(parentContext);
         for(Statement statement : statements) {
             try{

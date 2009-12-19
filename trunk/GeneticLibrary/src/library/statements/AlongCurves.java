@@ -111,7 +111,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression curve = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __i = getContextVariableActualName("i");
@@ -223,7 +223,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression curve = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __i = getContextVariableActualName("i");
@@ -335,7 +335,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression curve = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __i = getContextVariableActualName("i");
@@ -447,7 +447,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression curve = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __i = getContextVariableActualName("i");
@@ -559,7 +559,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression curve = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __i = getContextVariableActualName("i");
@@ -671,7 +671,7 @@ public final class AlongCurves implements AllComponents<StatementFunction>, Desc
 
       }
 
-      public void execute(Context context, List<GeneticComponent> inputs) {
+      public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
          Expression curve = (Expression) inputs.get(0);
          StatementList body = (StatementList) inputs.get(1);
          final String __i = getContextVariableActualName("i");

@@ -15,6 +15,7 @@ import genetic.component.expression.Expression;
 import genetic.component.statementlist.StatementList;
 import genetic.BuildException;
 import genetic.Described;
+import genetic.TerminationException;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -87,7 +88,7 @@ abstract public class StatementFunction implements
     public int getNumberInputs() {return 0;}
     public String getInputName(int i) {return null;}
     public InputSignature getInputSignature(int i) {return null;}
-    abstract public void execute(Context context, List<GeneticComponent> inputs);
+    abstract public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException;
     
     public int getNumberContextVariables() {return 0;}
     public String getContextVariableIntendedName(int i) {return null;}

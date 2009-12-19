@@ -16,10 +16,16 @@ import java.util.Map;
 public interface GeneticTopLevel extends GeneticComponent {
     
     public Method createMethod(String name, Class... parameters);
-    public void callMethod(String name, Object... parameters);
+    public void callMethod(String name, Object... parameters) throws TerminationException;
     public Map<String, Method> getMethods();
 
     public Context getContext();
+
+    /**
+     * Returns true if the program has been signaled to stop.
+     * @return
+     */
+    public boolean getTerminationFlag();
     
     /*public void createCommand(String name, Command command);
     public void createAccessor(String name, Accessor accessor);

@@ -11,7 +11,6 @@ package genetic.component.statement;
 
 import genetic.component.context.Context;
 import genetic.component.context.ContextModel;
-import genetic.GeneticComponent;
 import genetic.component.statementlist.StatementList;
 import genetic.*;
 import genetic.component.statement.function.MethodStatementFunction;
@@ -71,7 +70,8 @@ public class Statement implements GeneticComponent {
     public StatementList getParent() {return parent;}
     public Statement clone(GeneticComponent newParent) throws BuildException {
         assert(newParent instanceof StatementList) : "Attempt to assign "+newParent+" as parent of a clone of "+this;
-        
+
+        // TODO: This should actually use StatementBuilder to build an empty statement?
         Statement clone = new Statement(function.cloneFunction(parent.getContextModel()), newParent);
         
         for(GeneticComponent child : children)
@@ -99,7 +99,9 @@ public class Statement implements GeneticComponent {
         return true;
     }
     
-    public void execute(Context context) {
+    public void execute(Context context) throws TerminationException {
+        if(context.getTopLevel().getTerminationFlag())
+            throw new TerminationException();
         function.execute(context, children);
     }
     

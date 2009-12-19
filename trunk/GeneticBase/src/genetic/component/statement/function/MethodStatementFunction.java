@@ -5,15 +5,17 @@
 
 package genetic.component.statement.function;
 
-import genetic.component.statement.*;
 import genetic.component.context.Context;
 import genetic.component.context.ContextModel;
 import genetic.GeneticComponent;
 import genetic.component.expression.Expression;
 import genetic.component.method.Method;
 import genetic.BuildException;
+import genetic.TerminationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -66,7 +68,7 @@ public class MethodStatementFunction extends StatementFunction {
     }
 
     @Override
-    public void execute(Context context, List<GeneticComponent> inputs) {
+    public void execute(Context context, List<GeneticComponent> inputs) throws TerminationException {
         
         Method method = getContextModel().getTopLevel().getMethods().get(methodName);
         
@@ -75,7 +77,14 @@ public class MethodStatementFunction extends StatementFunction {
             Expression expression = (Expression) input;
             parameters.add(expression.evaluate(context));
         }
-        method.execute(context, parameters);
+
+        try {
+            method.execute(context, parameters);
+        } catch (TerminationException ex) {
+            // termination occurred while the method was executing.
+            // we may safely ignore, as termination will likely pull the program out of the next statement.
+            return;
+        }
     }
     
 }

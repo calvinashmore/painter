@@ -48,6 +48,7 @@ public class ExpressionContextDependentFnNode extends ContextFnNode {
         method.addArgument("final Context", "context");
         method.addArgument("final Object[]", "inputs");
         method.addArgument("final List<Expression>", "contextExpressions");
+        method.addThrowsClause("TerminationException");
 
         // we run the risk of dead assignments, but oh well.
         method.addToBlockBody(make_inputDeclarations());

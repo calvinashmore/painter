@@ -20,6 +20,7 @@ public class PainterProgramQueue {
     private Queue<PainterProgram> queue = new ConcurrentLinkedQueue<PainterProgram>();
     private Canvas canvas;
     private boolean fetching;
+    private static final int CACHE_SIZE = 10;
 
     public PainterProgramQueue(Canvas canvas) {
         this.canvas = canvas;
@@ -28,7 +29,7 @@ public class PainterProgramQueue {
 
     public synchronized PainterProgram pop() {
 
-        if (queue.isEmpty()) {
+        if (queue.size() < CACHE_SIZE/2) {
             // start fetching if we're empty
             startFetch();
         }
@@ -68,8 +69,19 @@ public class PainterProgramQueue {
     }
 
     private void doFetch() {
-        for (int i = 0; i < 10; i++) {
-            PainterProgram newProgram = build();
+        for (int i = 0; i < CACHE_SIZE; i++) {
+
+            PainterProgram newProgram;
+            try {
+                newProgram = build();
+            } catch(OutOfMemoryError ex) {
+                // occasionally, not very often, the system will generate a program that is
+                // far far too taxing on memory. If this happens, we reject that program and continue.
+                // we log, attempt to recover, and continue.
+                Logger.getLogger(PainterProgramQueue.class.getName()).log(Level.SEVERE, null, ex);
+                Runtime.getRuntime().gc();
+                continue;
+            }
 
             boolean filledQueue = false;
             if (queue.isEmpty()) {

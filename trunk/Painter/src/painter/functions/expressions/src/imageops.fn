@@ -5,6 +5,7 @@ type Expression;
 import java.awt.image.*;
 import utils.linear.*;
 import painter.tools.brush.*;
+import painter.tools.misc.*;
 import painter.tools.canvas.*;
 
 description "expressions for image operations";
@@ -262,6 +263,145 @@ fn FindEdgesZag2 {
     }
 }
 
+
+// *********************
+// **** INPUT BASED CONVOLUTIONS
+// *********************
+
+fn Blurry1 {
+    fout BufferedImageOp;
+    description "this takes 9 inputs for the convolution, uses their absolute values, averages them so the output weight is 1, and uses the result";
+    in LDouble v00;
+    in LDouble v01;
+    in LDouble v02;
+    in LDouble v10;
+    in LDouble v11;
+    in LDouble v12;
+    in LDouble v20;
+    in LDouble v21;
+    in LDouble v22;
+    eval {
+        float m00 = (float) Math.abs(v00.val);
+        float m01 = (float) Math.abs(v01.val);
+        float m02 = (float) Math.abs(v02.val);
+        float m10 = (float) Math.abs(v10.val);
+        float m11 = (float) Math.abs(v11.val);
+        float m12 = (float) Math.abs(v12.val);
+        float m20 = (float) Math.abs(v20.val);
+        float m21 = (float) Math.abs(v21.val);
+        float m22 = (float) Math.abs(v22.val);
+
+        float sum = m00 + m01 + m02 + m10 + m11 + m12 + m20 + m21 + m22;
+        
+        float[] matrix = new float[] {
+            m00/sum, m01/sum, m02/sum,
+            m10/sum, m11/sum, m12/sum,
+            m20/sum, m21/sum, m22/sum,
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn Blurry2 {
+    fout BufferedImageOp;
+    description "this takes 3 LVect3d inputs for the convolution, uses their absolute values, averages them so the output weight is 1, and uses the result";
+    in LVect3d v1;
+    in LVect3d v2;
+    in LVect3d v3;
+    eval {
+        float m00 = (float) Math.abs(v1.x);
+        float m01 = (float) Math.abs(v1.y);
+        float m02 = (float) Math.abs(v1.z);
+        float m10 = (float) Math.abs(v2.x);
+        float m11 = (float) Math.abs(v2.y);
+        float m12 = (float) Math.abs(v2.z);
+        float m20 = (float) Math.abs(v3.x);
+        float m21 = (float) Math.abs(v3.y);
+        float m22 = (float) Math.abs(v3.z);
+
+        float sum = m00 + m01 + m02 + m10 + m11 + m12 + m20 + m21 + m22;
+
+        float[] matrix = new float[] {
+            m00/sum, m01/sum, m02/sum,
+            m10/sum, m11/sum, m12/sum,
+            m20/sum, m21/sum, m22/sum,
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+
+fn Sharpy1 {
+    fout BufferedImageOp;
+    description "This takes 9 inputs and uses the average of their sum without taking the absolute value";
+    in LDouble v00;
+    in LDouble v01;
+    in LDouble v02;
+    in LDouble v10;
+    in LDouble v11;
+    in LDouble v12;
+    in LDouble v20;
+    in LDouble v21;
+    in LDouble v22;
+    eval {
+        float m00 = (float) v00.val;
+        float m01 = (float) v01.val;
+        float m02 = (float) v02.val;
+        float m10 = (float) v10.val;
+        float m11 = (float) v11.val;
+        float m12 = (float) v12.val;
+        float m20 = (float) v20.val;
+        float m21 = (float) v21.val;
+        float m22 = (float) v22.val;
+
+        float sum = m00 + m01 + m02 + m10 + m11 + m12 + m20 + m21 + m22;
+
+        float[] matrix = new float[] {
+            m00/sum, m01/sum, m02/sum,
+            m10/sum, m11/sum, m12/sum,
+            m20/sum, m21/sum, m22/sum,
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn Sharpy2 {
+    fout BufferedImageOp;
+    description "this takes 3 LVect3d inputs and uses the average of their sum without taking the absolute value";
+    in LVect3d v1;
+    in LVect3d v2;
+    in LVect3d v3;
+    eval {
+        float m00 = (float) v1.x;
+        float m01 = (float) v1.y;
+        float m02 = (float) v1.z;
+        float m10 = (float) v2.x;
+        float m11 = (float) v2.y;
+        float m12 = (float) v2.z;
+        float m20 = (float) v3.x;
+        float m21 = (float) v3.y;
+        float m22 = (float) v3.z;
+
+        float sum = m00 + m01 + m02 + m10 + m11 + m12 + m20 + m21 + m22;
+
+        float[] matrix = new float[] {
+            m00/sum, m01/sum, m02/sum,
+            m10/sum, m11/sum, m12/sum,
+            m20/sum, m21/sum, m22/sum,
+        };
+        Kernel kernel = new Kernel(3,3, matrix);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+
 // *********************
 // **** TRANSFORMS
 // *********************
@@ -276,31 +416,14 @@ fn TransformHueOffset1 {
     }
 
     eval {
-        LookupTable lookupTable = new LookupTable(0, 4) {
-            public int[] lookupPixel(int[] src, int[] dst) {
-                if (dst == null) {
-                    // Need to alloc a new destination array
-                    dst = new int[src.length];
-                }
+        LookupTable lookupTable = new ColorTransformer() {
+            public void transformPixel(int[] src, int[] dst) {
+                double[] hsbvals = toHSB(src);
 
-                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
-                double[] hsbvals = c.hsbvals();
-
-                // PERFORM THE OFFSET
                 hsbvals[0] += hueOffset.val;
-
-                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
-                float alpha = 1;
-                if(src.length >= 4) {
-                    dst[3] = src[3];
-                    alpha = src[3]/255f;
-                }
-                dst[0] = (int)(255*c.r*alpha + (1-alpha)*src[0]);
-                dst[1] = (int)(255*c.g*alpha + (1-alpha)*src[1]);
-                dst[2] = (int)(255*c.b*alpha + (1-alpha)*src[2]);
-                return dst;
+                toRGB(hsbvals, dst);
             }
-        };
+        }.createLookup();
 
         return new LookupOp(lookupTable, null);
     }
@@ -312,31 +435,14 @@ fn TransformHueOffset2 {
     fout BufferedImageOp;
 
     eval {
-        LookupTable lookupTable = new LookupTable(0, 4) {
-            public int[] lookupPixel(int[] src, int[] dst) {
-                if (dst == null) {
-                    // Need to alloc a new destination array
-                    dst = new int[src.length];
-                }
+        LookupTable lookupTable = new ColorTransformer() {
+            public void transformPixel(int[] src, int[] dst) {
+                double[] hsbvals = toHSB(src);
 
-                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
-                double[] hsbvals = c.hsbvals();
-
-                // PERFORM THE OFFSET
                 hsbvals[0] += hueOffset.val;
-
-                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
-                float alpha = 1;
-                if(src.length >= 4) {
-                    dst[3] = src[3];
-                    alpha = src[3]/255f;
-                }
-                dst[0] = (int)(255*c.r*alpha + (1-alpha)*src[0]);
-                dst[1] = (int)(255*c.g*alpha + (1-alpha)*src[1]);
-                dst[2] = (int)(255*c.b*alpha + (1-alpha)*src[2]);
-                return dst;
+                toRGB(hsbvals, dst);
             }
-        };
+        }.createLookup();
 
         return new LookupOp(lookupTable, null);
     }
@@ -344,39 +450,22 @@ fn TransformHueOffset2 {
 
 fn TransformSetHue1 {
 
-    parameter LDouble hueOffset;
+    parameter LDouble hueSet;
     fout BufferedImageOp;
 
     init {
-        hueOffset = new LDouble(Math.random());
+        hueSet = new LDouble(Math.random());
     }
 
     eval {
-        LookupTable lookupTable = new LookupTable(0, 4) {
-            public int[] lookupPixel(int[] src, int[] dst) {
-                if (dst == null) {
-                    // Need to alloc a new destination array
-                    dst = new int[src.length];
-                }
+        LookupTable lookupTable = new ColorTransformer() {
+            public void transformPixel(int[] src, int[] dst) {
+                double[] hsbvals = toHSB(src);
 
-                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
-                double[] hsbvals = c.hsbvals();
-
-                // PERFORM THE OFFSET
-                hsbvals[0] = hueOffset.val;
-
-                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
-                float alpha = 1;
-                if(src.length >= 4) {
-                    dst[3] = src[3];
-                    alpha = src[3]/255f;
-                }
-                dst[0] = (int)(255*c.r*alpha + (1-alpha)*src[0]);
-                dst[1] = (int)(255*c.g*alpha + (1-alpha)*src[1]);
-                dst[2] = (int)(255*c.b*alpha + (1-alpha)*src[2]);
-                return dst;
+                hsbvals[0] = hueSet.val;
+                toRGB(hsbvals, dst);
             }
-        };
+        }.createLookup();
 
         return new LookupOp(lookupTable, null);
     }
@@ -384,35 +473,18 @@ fn TransformSetHue1 {
 
 fn TransformSetHue2 {
 
-    in LDouble hueOffset;
+    in LDouble hueSet;
     fout BufferedImageOp;
 
     eval {
-        LookupTable lookupTable = new LookupTable(0, 4) {
-            public int[] lookupPixel(int[] src, int[] dst) {
-                if (dst == null) {
-                    // Need to alloc a new destination array
-                    dst = new int[src.length];
-                }
+        LookupTable lookupTable = new ColorTransformer() {
+            public void transformPixel(int[] src, int[] dst) {
+                double[] hsbvals = toHSB(src);
 
-                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
-                double[] hsbvals = c.hsbvals();
-
-                // PERFORM THE OFFSET
-                hsbvals[0] = hueOffset.val;
-
-                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
-                float alpha = 1;
-                if(src.length >= 4) {
-                    dst[3] = src[3];
-                    alpha = src[3]/255f;
-                }
-                dst[0] = (int)(255*c.r*alpha + (1-alpha)*src[0]);
-                dst[1] = (int)(255*c.g*alpha + (1-alpha)*src[1]);
-                dst[2] = (int)(255*c.b*alpha + (1-alpha)*src[2]);
-                return dst;
+                hsbvals[0] = hueSet.val;
+                toRGB(hsbvals, dst);
             }
-        };
+        }.createLookup();
 
         return new LookupOp(lookupTable, null);
     }
@@ -420,39 +492,22 @@ fn TransformSetHue2 {
 
 fn TransformSetSaturation1 {
 
-    parameter LDouble satOffset;
+    parameter LDouble satSet;
     fout BufferedImageOp;
 
     init {
-        satOffset = new LDouble(Math.random());
+        satSet = new LDouble(Math.random());
     }
 
     eval {
-        LookupTable lookupTable = new LookupTable(0, 4) {
-            public int[] lookupPixel(int[] src, int[] dst) {
-                if (dst == null) {
-                    // Need to alloc a new destination array
-                    dst = new int[src.length];
-                }
+        LookupTable lookupTable = new ColorTransformer() {
+            public void transformPixel(int[] src, int[] dst) {
+                double[] hsbvals = toHSB(src);
 
-                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
-                double[] hsbvals = c.hsbvals();
-
-                // PERFORM THE OFFSET
-                hsbvals[1] = satOffset.val;
-
-                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
-                float alpha = 1;
-                if(src.length >= 4) {
-                    dst[3] = src[3];
-                    alpha = src[3]/255f;
-                }
-                dst[0] = (int)(255*c.r*alpha + (1-alpha)*src[0]);
-                dst[1] = (int)(255*c.g*alpha + (1-alpha)*src[1]);
-                dst[2] = (int)(255*c.b*alpha + (1-alpha)*src[2]);
-                return dst;
+                hsbvals[0] = satSet.val;
+                toRGB(hsbvals, dst);
             }
-        };
+        }.createLookup();
 
         return new LookupOp(lookupTable, null);
     }
@@ -460,35 +515,18 @@ fn TransformSetSaturation1 {
 
 fn TransformSetSaturation2 {
 
-    in LDouble satOffset;
+    in LDouble satSet;
     fout BufferedImageOp;
 
     eval {
-        LookupTable lookupTable = new LookupTable(0, 4) {
-            public int[] lookupPixel(int[] src, int[] dst) {
-                if (dst == null) {
-                    // Need to alloc a new destination array
-                    dst = new int[src.length];
-                }
+        LookupTable lookupTable = new ColorTransformer() {
+            public void transformPixel(int[] src, int[] dst) {
+                double[] hsbvals = toHSB(src);
 
-                Color c = new Color(src[0]/255f, src[1]/255f, src[2]/255f);
-                double[] hsbvals = c.hsbvals();
-
-                // PERFORM THE OFFSET
-                hsbvals[0] = satOffset.val;
-
-                c = Color.makeHSB(hsbvals[0], hsbvals[1], hsbvals[2]);
-                float alpha = 1;
-                if(src.length >= 4) {
-                    dst[3] = src[3];
-                    alpha = src[3]/255f;
-                }
-                dst[0] = (int)(255*c.r*alpha + (1-alpha)*src[0]);
-                dst[1] = (int)(255*c.g*alpha + (1-alpha)*src[1]);
-                dst[2] = (int)(255*c.b*alpha + (1-alpha)*src[2]);
-                return dst;
+                hsbvals[0] = satSet.val;
+                toRGB(hsbvals, dst);
             }
-        };
+        }.createLookup();
 
         return new LookupOp(lookupTable, null);
     }

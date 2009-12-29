@@ -55,7 +55,7 @@ public class CurvyBrush implements  Brush {
                 x+v2.x*width, y+v2.y*width,
                 x+v3.x*width, y+v3.y*width,
                 x+v4.x*width, y+v4.y*width);
-        
+
         graphics.draw(shape);
     }
 }

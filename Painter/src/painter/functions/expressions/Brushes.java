@@ -562,10 +562,10 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
       public curvyBrush2() {
          addGroupMeta(this);
-         v1 = new LVect2d ( Math . random ( ) , Math . random ( ) ) ;
-         v2 = new LVect2d ( Math . random ( ) , Math . random ( ) ) ;
-         v3 = new LVect2d ( Math . random ( ) , Math . random ( ) ) ;
-         v4 = new LVect2d ( Math . random ( ) , Math . random ( ) ) ;
+         v1 = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         v2 = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         v3 = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         v4 = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
       }
 
       public Brush evaluate(Context context, Object[] inputs) {

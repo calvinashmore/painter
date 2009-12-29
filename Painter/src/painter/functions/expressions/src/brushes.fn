@@ -129,10 +129,10 @@ fn curvyBrush2 {
     parameter LVect2d v4;
 
     init {
-        v1 = new LVect2d(Math.random(), Math.random());
-        v2 = new LVect2d(Math.random(), Math.random());
-        v3 = new LVect2d(Math.random(), Math.random());
-        v4 = new LVect2d(Math.random(), Math.random());
+        v1 = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        v2 = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        v3 = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+        v4 = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
     }
 
     eval {

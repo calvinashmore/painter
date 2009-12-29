@@ -889,6 +889,118 @@ public final class ImageOps implements AllComponents<ExpressionFunction>, Descri
 
    }
 
+   public static class TransformSaturationOffset1 extends ExpressionFunction {
+
+      private LDouble satOffset;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return satOffset;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "satOffset";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: satOffset = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public TransformSaturationOffset1() {
+         addGroupMeta(this);
+         satOffset = new LDouble ( Math . random ( ) ) ;
+      }
+
+      public BufferedImageOp evaluate(Context context, Object[] inputs) {
+
+         LookupTable lookupTable = new ColorTransformer ( ) {
+         public void transformPixel ( int [ ] src , int [ ] dst ) {
+         double [ ] hsbvals = toHSB ( src ) ;
+         hsbvals [ 1 ] += satOffset . val ;
+         hsbvals [ 1 ] %= 1.0 ;
+         if ( hsbvals [ 1 ] < 0 ) hsbvals [ 1 ] += 1 ;
+         toRGB ( hsbvals , dst ) ;
+         }
+         }
+         . createLookup ( ) ;
+         return new LookupOp ( lookupTable , null ) ;
+      }
+
+      public Class getReturnType() {
+         return BufferedImageOp.class;
+      }
+
+   }
+
+   public static class TransformSaturationOffset2 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "satOffset";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public TransformSaturationOffset2() {
+         addGroupMeta(this);
+      }
+
+      public BufferedImageOp evaluate(Context context, Object[] inputs) {
+         final LDouble satOffset = (LDouble)inputs[0];
+         LookupTable lookupTable = new ColorTransformer ( ) {
+         public void transformPixel ( int [ ] src , int [ ] dst ) {
+         double [ ] hsbvals = toHSB ( src ) ;
+         hsbvals [ 1 ] += satOffset . val ;
+         hsbvals [ 1 ] %= 1.0 ;
+         if ( hsbvals [ 1 ] < 0 ) hsbvals [ 1 ] += 1 ;
+         toRGB ( hsbvals , dst ) ;
+         }
+         }
+         . createLookup ( ) ;
+         return new LookupOp ( lookupTable , null ) ;
+      }
+
+      public Class getReturnType() {
+         return BufferedImageOp.class;
+      }
+
+   }
+
    public static class TransformSetSaturation1 extends ExpressionFunction {
 
       private LDouble satSet;
@@ -938,7 +1050,7 @@ public final class ImageOps implements AllComponents<ExpressionFunction>, Descri
          LookupTable lookupTable = new ColorTransformer ( ) {
          public void transformPixel ( int [ ] src , int [ ] dst ) {
          double [ ] hsbvals = toHSB ( src ) ;
-         hsbvals [ 0 ] = satSet . val ;
+         hsbvals [ 1 ] = satSet . val ;
          toRGB ( hsbvals , dst ) ;
          }
          }
@@ -983,8 +1095,122 @@ public final class ImageOps implements AllComponents<ExpressionFunction>, Descri
          LookupTable lookupTable = new ColorTransformer ( ) {
          public void transformPixel ( int [ ] src , int [ ] dst ) {
          double [ ] hsbvals = toHSB ( src ) ;
-         hsbvals [ 0 ] = satSet . val ;
+         hsbvals [ 1 ] = satSet . val ;
          toRGB ( hsbvals , dst ) ;
+         }
+         }
+         . createLookup ( ) ;
+         return new LookupOp ( lookupTable , null ) ;
+      }
+
+      public Class getReturnType() {
+         return BufferedImageOp.class;
+      }
+
+   }
+
+   public static class TransformOffsetColor1 extends ExpressionFunction {
+
+      private Color color;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return color;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "color";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Color.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: color = (Color) value; return;
+            default: return;
+         }
+
+      }
+
+      public TransformOffsetColor1() {
+         addGroupMeta(this);
+         color = new Color ( Math . random ( ) , Math . random ( ) , Math . random ( ) ) ;
+      }
+
+      public BufferedImageOp evaluate(Context context, Object[] inputs) {
+
+         final int cr = ( int ) ( 255 * color . r ) ;
+         final int cg = ( int ) ( 255 * color . g ) ;
+         final int cb = ( int ) ( 255 * color . b ) ;
+         LookupTable lookupTable = new ColorTransformer ( ) {
+         public void transformPixel ( int [ ] src , int [ ] dst ) {
+         dst [ 0 ] = ( src [ 0 ] + cr ) % 255 ;
+         dst [ 1 ] = ( src [ 1 ] + cr ) % 255 ;
+         dst [ 2 ] = ( src [ 2 ] + cr ) % 255 ;
+         }
+         }
+         . createLookup ( ) ;
+         return new LookupOp ( lookupTable , null ) ;
+      }
+
+      public Class getReturnType() {
+         return BufferedImageOp.class;
+      }
+
+   }
+
+   public static class TransformOffsetColor2 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "color";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Color.class;
+            default: return null;
+         }
+
+      }
+
+      public TransformOffsetColor2() {
+         addGroupMeta(this);
+      }
+
+      public BufferedImageOp evaluate(Context context, Object[] inputs) {
+         final Color color = (Color)inputs[0];
+         final int cr = ( int ) ( 255 * color . r ) ;
+         final int cg = ( int ) ( 255 * color . g ) ;
+         final int cb = ( int ) ( 255 * color . b ) ;
+         LookupTable lookupTable = new ColorTransformer ( ) {
+         public void transformPixel ( int [ ] src , int [ ] dst ) {
+         dst [ 0 ] = ( src [ 0 ] + cr ) % 255 ;
+         dst [ 1 ] = ( src [ 1 ] + cr ) % 255 ;
+         dst [ 2 ] = ( src [ 2 ] + cr ) % 255 ;
          }
          }
          . createLookup ( ) ;
@@ -1027,8 +1253,12 @@ public final class ImageOps implements AllComponents<ExpressionFunction>, Descri
       r.add(new TransformHueOffset2());
       r.add(new TransformSetHue1());
       r.add(new TransformSetHue2());
+      r.add(new TransformSaturationOffset1());
+      r.add(new TransformSaturationOffset2());
       r.add(new TransformSetSaturation1());
       r.add(new TransformSetSaturation2());
+      r.add(new TransformOffsetColor1());
+      r.add(new TransformOffsetColor2());
       return r;
    }
 

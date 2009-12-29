@@ -490,6 +490,56 @@ fn TransformSetHue2 {
     }
 }
 
+fn TransformSaturationOffset1 {
+
+    parameter LDouble satOffset;
+    fout BufferedImageOp;
+
+    init {
+        satOffset = new LDouble(Math.random());
+    }
+
+    eval {
+        LookupTable lookupTable = new ColorTransformer() {
+            public void transformPixel(int[] src, int[] dst) {
+                double[] hsbvals = toHSB(src);
+
+                hsbvals[1] += satOffset.val;
+                hsbvals[1] %= 1.0;
+                if(hsbvals[1] < 0)
+                    hsbvals[1] += 1;
+
+                toRGB(hsbvals, dst);
+            }
+        }.createLookup();
+
+        return new LookupOp(lookupTable, null);
+    }
+}
+
+fn TransformSaturationOffset2 {
+
+    in LDouble satOffset;
+    fout BufferedImageOp;
+
+    eval {
+        LookupTable lookupTable = new ColorTransformer() {
+            public void transformPixel(int[] src, int[] dst) {
+                double[] hsbvals = toHSB(src);
+
+                hsbvals[1] += satOffset.val;
+                hsbvals[1] %= 1.0;
+                if(hsbvals[1] < 0)
+                    hsbvals[1] += 1;
+
+                toRGB(hsbvals, dst);
+            }
+        }.createLookup();
+
+        return new LookupOp(lookupTable, null);
+    }
+}
+
 fn TransformSetSaturation1 {
 
     parameter LDouble satSet;
@@ -504,7 +554,7 @@ fn TransformSetSaturation1 {
             public void transformPixel(int[] src, int[] dst) {
                 double[] hsbvals = toHSB(src);
 
-                hsbvals[0] = satSet.val;
+                hsbvals[1] = satSet.val;
                 toRGB(hsbvals, dst);
             }
         }.createLookup();
@@ -523,7 +573,7 @@ fn TransformSetSaturation2 {
             public void transformPixel(int[] src, int[] dst) {
                 double[] hsbvals = toHSB(src);
 
-                hsbvals[0] = satSet.val;
+                hsbvals[1] = satSet.val;
                 toRGB(hsbvals, dst);
             }
         }.createLookup();
@@ -532,5 +582,53 @@ fn TransformSetSaturation2 {
     }
 }
 
+fn TransformOffsetColor1 {
 
+    parameter Color color;
+    fout BufferedImageOp;
+
+    init {
+        color = new Color(Math.random(), Math.random(), Math.random());
+    }
+
+    eval {
+        final int cr = (int)(255 * color.r);
+        final int cg = (int)(255 * color.g);
+        final int cb = (int)(255 * color.b);
+
+        LookupTable lookupTable = new ColorTransformer() {
+            public void transformPixel(int[] src, int[] dst) {
+
+                dst[0] = (src[0] + cr) % 255;
+                dst[1] = (src[1] + cr) % 255;
+                dst[2] = (src[2] + cr) % 255;
+            }
+        }.createLookup();
+
+        return new LookupOp(lookupTable, null);
+    }
+}
+
+fn TransformOffsetColor2 {
+
+    in Color color;
+    fout BufferedImageOp;
+
+    eval {
+        final int cr = (int)(255 * color.r);
+        final int cg = (int)(255 * color.g);
+        final int cb = (int)(255 * color.b);
+
+        LookupTable lookupTable = new ColorTransformer() {
+            public void transformPixel(int[] src, int[] dst) {
+
+                dst[0] = (src[0] + cr) % 255;
+                dst[1] = (src[1] + cr) % 255;
+                dst[2] = (src[2] + cr) % 255;
+            }
+        }.createLookup();
+
+        return new LookupOp(lookupTable, null);
+    }
+}
 

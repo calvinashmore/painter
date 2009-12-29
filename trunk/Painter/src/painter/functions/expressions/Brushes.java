@@ -221,6 +221,365 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class hollowArcBrush1 extends ExpressionFunction {
+
+      private LDouble arcSize;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return arcSize;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "arcSize";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: arcSize = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "startAngle";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public hollowArcBrush1() {
+         addGroupMeta(this);
+         arcSize = new LDouble ( Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LDouble startAngle = (LDouble)inputs[2];
+         HollowArcBrush brush = new HollowArcBrush ( positionPolicy , sizePolicy ) ;
+         brush . setAngles ( startAngle . val , startAngle . val + arcSize . val ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class hollowArcBrush2 extends ExpressionFunction {
+
+      private LDouble startAngle;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return startAngle;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "startAngle";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: startAngle = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "arcSize";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public hollowArcBrush2() {
+         addGroupMeta(this);
+         startAngle = new LDouble ( Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LDouble arcSize = (LDouble)inputs[2];
+         HollowArcBrush brush = new HollowArcBrush ( positionPolicy , sizePolicy ) ;
+         brush . setAngles ( startAngle . val , startAngle . val + arcSize . val ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class hollowArcBrush3 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "startAngle";
+            case 3: return "arcSize";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LDouble.class;
+            case 3: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public hollowArcBrush3() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LDouble startAngle = (LDouble)inputs[2];
+         final LDouble arcSize = (LDouble)inputs[3];
+         HollowArcBrush brush = new HollowArcBrush ( positionPolicy , sizePolicy ) ;
+         brush . setAngles ( startAngle . val , startAngle . val + arcSize . val ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class curvyBrush1 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 6;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "v1";
+            case 3: return "v2";
+            case 4: return "v3";
+            case 5: return "v4";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LVect2d.class;
+            case 3: return LVect2d.class;
+            case 4: return LVect2d.class;
+            case 5: return LVect2d.class;
+            default: return null;
+         }
+
+      }
+
+      public curvyBrush1() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LVect2d v1 = (LVect2d)inputs[2];
+         final LVect2d v2 = (LVect2d)inputs[3];
+         final LVect2d v3 = (LVect2d)inputs[4];
+         final LVect2d v4 = (LVect2d)inputs[5];
+         return new CurvyBrush ( positionPolicy , sizePolicy , v1 , v2 , v3 , v4 ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class curvyBrush2 extends ExpressionFunction {
+
+      private LVect2d v1;private LVect2d v2;private LVect2d v3;private LVect2d v4;
+      public int getNumberParameters() {
+         return 4;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return v1;
+            case 1: return v2;
+            case 2: return v3;
+            case 3: return v4;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "v1";
+            case 1: return "v2";
+            case 2: return "v3";
+            case 3: return "v4";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LVect2d.class;
+            case 1: return LVect2d.class;
+            case 2: return LVect2d.class;
+            case 3: return LVect2d.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: v1 = (LVect2d) value; return;
+            case 1: v2 = (LVect2d) value; return;
+            case 2: v3 = (LVect2d) value; return;
+            case 3: v4 = (LVect2d) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            default: return null;
+         }
+
+      }
+
+      public curvyBrush2() {
+         addGroupMeta(this);
+         v1 = new LVect2d ( Math . random ( ) , Math . random ( ) ) ;
+         v2 = new LVect2d ( Math . random ( ) , Math . random ( ) ) ;
+         v3 = new LVect2d ( Math . random ( ) , Math . random ( ) ) ;
+         v4 = new LVect2d ( Math . random ( ) , Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         return new CurvyBrush ( positionPolicy , sizePolicy , v1 , v2 , v3 , v4 ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class penBrush extends ExpressionFunction {
 
       public int getNumberInputs() {
@@ -1431,6 +1790,11 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new simpleBrush2());
       r.add(new simpleBrush3());
       r.add(new hollowCircleBrush());
+      r.add(new hollowArcBrush1());
+      r.add(new hollowArcBrush2());
+      r.add(new hollowArcBrush3());
+      r.add(new curvyBrush1());
+      r.add(new curvyBrush2());
       r.add(new penBrush());
       r.add(new penBrush2());
       r.add(new sweepBrush2());

@@ -55,6 +55,91 @@ fn hollowCircleBrush {
     }
 }
 
+fn hollowArcBrush1 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in LDouble startAngle;
+    parameter LDouble arcSize;
+
+    init {
+        arcSize = new LDouble(Math.random());
+    }
+
+    eval {
+        HollowArcBrush brush = new HollowArcBrush(positionPolicy, sizePolicy);
+        brush.setAngles(startAngle.val, startAngle.val + arcSize.val);
+        return brush;
+    }
+}
+
+fn hollowArcBrush2 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    parameter LDouble startAngle;
+    in LDouble arcSize;
+
+    init {
+        startAngle = new LDouble(Math.random());
+    }
+
+    eval {
+        HollowArcBrush brush = new HollowArcBrush(positionPolicy, sizePolicy);
+        brush.setAngles(startAngle.val, startAngle.val + arcSize.val);
+        return brush;
+    }
+}
+
+fn hollowArcBrush3 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in LDouble startAngle;
+    in LDouble arcSize;
+
+    eval {
+        HollowArcBrush brush = new HollowArcBrush(positionPolicy, sizePolicy);
+        brush.setAngles(startAngle.val, startAngle.val + arcSize.val);
+        return brush;
+    }
+}
+
+fn curvyBrush1 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in LVect2d v1;
+    in LVect2d v2;
+    in LVect2d v3;
+    in LVect2d v4;
+
+    eval {
+        return new CurvyBrush(positionPolicy, sizePolicy, v1, v2, v3, v4);
+    }
+}
+
+fn curvyBrush2 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    parameter LVect2d v1;
+    parameter LVect2d v2;
+    parameter LVect2d v3;
+    parameter LVect2d v4;
+
+    init {
+        v1 = new LVect2d(Math.random(), Math.random());
+        v2 = new LVect2d(Math.random(), Math.random());
+        v3 = new LVect2d(Math.random(), Math.random());
+        v4 = new LVect2d(Math.random(), Math.random());
+    }
+
+    eval {
+        return new CurvyBrush(positionPolicy, sizePolicy, v1, v2, v3, v4);
+    }
+}
+
 fn penBrush {
     fout Brush;
     in BrushPositionPolicy positionPolicy;

@@ -1,0 +1,126 @@
+package library.expressions.functions;
+group Randoms;
+type Expression;
+
+import utils.linear.*;
+
+description "Expressions that generate random numbers. These are based on seeds, so they can be reproduced.";
+
+
+fn Random_d {
+    fout LDouble;
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand1 = new Random();
+        seed = rand1.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    eval {
+        return new LDouble(random.nextDouble()*2 - 1);
+    }
+}
+
+
+fn Random_i {
+    fout Integer;
+    parameter Integer seed;
+    private Random random;
+    parameter Integer limit;
+
+    init {
+        Random rand1 = new Random();
+        seed = rand1.nextInt();
+
+        limit = 10+rand1.nextInt(100);
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    eval {
+        return random.nextInt(limit);
+    }
+}
+
+fn Random_bool {
+    fout Boolean;
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand1 = new Random();
+        seed = rand1.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    eval {
+        return random.nextBoolean();
+    }
+}
+
+fn Random_v2 {
+    fout LVect2d;
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand1 = new Random();
+        seed = rand1.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    eval {
+        return new LVect2d(random.nextDouble()*2 - 1, random.nextDouble()*2 - 1);
+    }
+}
+
+fn Random_v3 {
+    fout LVect3d;
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand1 = new Random();
+        seed = rand1.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    eval {
+        return new LVect3d(random.nextDouble()*2 - 1, random.nextDouble()*2 - 1, random.nextDouble()*2 - 1);
+    }
+}
+
+fn Random_col {
+    fout Color;
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand1 = new Random();
+        seed = rand1.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    eval {
+        return new Color(random.nextDouble(), random.nextDouble(), random.nextDouble());
+    }
+}

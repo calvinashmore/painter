@@ -40,7 +40,6 @@ fn exCurve_v2 {
     eval {
         return new CurveUtil.Curve_v2() {
             public LVect2d getValue(double t) {
-                //x = new LDouble(t);
                 context.setVariable(__x, new LDouble(t));
                 return (LVect2d) f.evaluate(context);
             }
@@ -58,8 +57,61 @@ fn exCurve_col {
     eval {
         return new CurveUtil.Curve_col() {
             public Color getValue(double t) {
-                //x = new LDouble(t);
                 context.setVariable(__x, new LDouble(t));
+                return (Color) f.evaluate(context);
+            }
+        };
+    }
+}
+
+fn exCurve_curve_d {
+
+    exin LDouble f;
+    fout CurveUtil.Curve_d;
+
+    cvar LDouble x;
+    in CurveUtil.Curve_d curve;
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double t) {
+                context.setVariable(__x, curve.getValue(t));
+                return (LDouble) f.evaluate(context);
+            }
+        };
+    }
+}
+
+fn exCurve_curve_v2 {
+
+    exin LVect2d f;
+    fout CurveUtil.Curve_v2;
+
+    cvar LVect2d x;
+    in CurveUtil.Curve_v2 curve;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double t) {
+                context.setVariable(__x, curve.getValue(t));
+                return (LVect2d) f.evaluate(context);
+            }
+        };
+    }
+}
+
+fn exCurve_curve_col {
+
+    exin Color f;
+    fout CurveUtil.Curve_col;
+
+    cvar Color x;
+    in CurveUtil.Curve_col curve;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double t) {
+                context.setVariable(__x, curve.getValue(t));
                 return (Color) f.evaluate(context);
             }
         };
@@ -390,7 +442,7 @@ fn mult_col {
 // ****** COMPOSITION
 // *****************************************
 
-fn compose_v2 {
+fn compose_v2_d_d {
     fout CurveUtil.Curve_v2;
     in CurveUtil.Curve_d x;
     in CurveUtil.Curve_d y;

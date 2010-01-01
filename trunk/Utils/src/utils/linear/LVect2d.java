@@ -114,4 +114,9 @@ public class LVect2d implements FiniteLinear<LVect2d> {
         this.x = a.x;
         this.y = a.y;
     }
+
+    public void setTo(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 }

@@ -1,0 +1,1322 @@
+
+package library.expressions.functions;
+group SheepVariations;
+type Expression;
+
+
+import utils.linear.*;
+import utils.ifs.*;
+
+description "V2->V2 Variations identified from Scott Draves' paper describing the Fractal Flame algorithm";
+
+// these are the "Variations" described in the paper "The Fractal Flame Algorithm"
+// by Scott Draves and Erik Reckase (http://flam3.com/flame.pdf)
+
+
+// Variation 0, the identity mapping is not included.
+
+fn Sinusoidal {
+    // variation 1
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        dest.setTo(Math.sin(v.x), Math.sin(v.y));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Spherical {
+    // variation 2
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double invR2 = 1.0/(v.x*v.x + v.y*v.y);
+        dest.setTo(invR2*v.x, invR2*v.y);
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Swirl {
+    // variation 3
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r2 = v.x*v.x + v.y*v.y;
+        double sr2 = Math.sin(r2);
+        double cr2 = Math.cos(r2);
+        dest.setTo(v.x*sr2 - v.y*cr2, v.x*cr2 + v.y*sr2);
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Horseshoe {
+    // variation 4
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double invR = 1.0/v.magnitude();
+        dest.setTo(invR*(v.x-v.y)*(v.x+v.y),invR*2*v.x*v.y);
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Polar {
+    // variation 5
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+        dest.setTo(theta/Math.PI, r-1);
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Handkerchief {
+    // variation 6
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+        dest.setTo(r*Math.sin(theta+r), r*Math.cos(theta-r));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Heart {
+    // variation 6
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+        dest.setTo(r*Math.sin(theta*r), -r*Math.cos(theta*r));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Disc {
+    // variation 8
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x) / Math.PI;
+        dest.setTo(theta*Math.sin(Math.PI*r), theta*Math.cos(Math.PI*r));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Spiral {
+    // variation 9
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double invR = 1.0/r;
+        double theta = Math.atan2(v.y, v.x);
+        dest.setTo(invR*(Math.cos(theta)+Math.sin(r)), invR*(Math.sin(theta)-Math.cos(r)));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Hyperbolic {
+    // variation 10
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+        dest.setTo(Math.sin(theta)/r, r*Math.cos(theta));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Diamond {
+    // variation 11
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+        dest.setTo(Math.sin(theta)*Math.cos(r), Math.cos(theta)*Math.sin(r));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Ex {
+    // variation 12
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+        double p0 = Math.pow(Math.sin(theta+r),3);
+        double p1 = Math.pow(Math.cos(theta-r),3);
+        dest.setTo(r*(p0+p1), r*(p0-p1));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Julia {
+    // variation 13
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        // this doesn't really have anything to do with a Julia set
+        double rRoot = Math.sqrt(v.magnitude());
+        double theta = Math.atan2(v.y, v.x);
+        double omega = random.nextBoolean() ? 0 : Math.PI;
+        dest.setTo(rRoot*Math.cos(theta/2+omega), rRoot*Math.sin(theta/2+omega));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Bent {
+    // variation 14
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        if(v.x >= 0) {
+            if(v.y >= 0) {
+                dest.setTo(v);
+            } else {
+                dest.setTo(v.x, v.y*.5);
+            }
+        } else {
+            if(v.y >= 0) {
+                dest.setTo(v.x*2, v.y);
+            } else {
+                dest.setTo(v.x*2, v.y*.5);
+            }
+        }
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Waves {
+    // variation 15
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble b;
+    parameter LDouble c;
+    parameter LDouble e;
+    parameter LDouble f;
+
+    init {
+        b = new LDouble(2*Math.random()-1);
+        e = new LDouble(2*Math.random()-1);
+        c = new LDouble(Math.pow(2*Math.random()-1,-2));
+        f = new LDouble(Math.pow(2*Math.random()-1,-2));
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        dest.setTo(
+            v.x + b.val*Math.sin(v.y*c.val),
+            v.y + e.val*Math.sin(v.x*f.val));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Fisheye {
+    // variation 16
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double scale = 2.0/(r+1);
+        // note that x and y are reversed
+        dest.setTo(scale*v.y, scale*v.x);
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Popcorn {
+    // variation 17
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble c;
+    parameter LDouble f;
+
+    init {
+        c = new LDouble(2*Math.random()-1);
+        f = new LDouble(2*Math.random()-1);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        dest.setTo(
+            v.x + c.val * Math.sin(Math.tan(3*v.y)),
+            v.y + f.val * Math.sin(Math.tan(3*v.x))
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Exponential {
+    // variation 18
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double scale = Math.exp(v.x-1);
+        dest.setTo(scale*Math.cos(Math.PI*v.y), scale*Math.sin(Math.PI*v.y));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Power {
+    // variation 19
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+        double scale = r * Math.sin(theta);
+        dest.setTo(scale*Math.cos(theta), scale*Math.sin(theta));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Cosine {
+    // variation 20
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        dest.setTo(
+            Math.cos(Math.PI*v.x) * Math.cosh(v.y),
+            -Math.sin(Math.PI*v.x) * Math.sinh(v.y)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Rings {
+    // variation 21
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble c;
+
+    init {
+        c = new LDouble(Math.pow(Math.random(),2));
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double scale = ((r+c.val)%(2*c.val)) - c.val + r*(1-c.val);
+        double theta = Math.atan2(v.y, v.x);
+        dest.setTo(
+            scale * Math.cos(theta), scale * Math.sin(theta)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Fan {
+    // variation 22
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble t;
+    parameter LDouble f;
+
+    init {
+        t = new LDouble(Math.PI*Math.pow(Math.random(),2));
+        f = new LDouble(2*Math.random()-1);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+
+        if( (theta+f.val) % t.val > t.val/2) {
+            double thetaMinus = theta - t.val/2;
+            dest.setTo(r*Math.cos(thetaMinus), r*Math.sin(thetaMinus));
+        } else {
+            double thetaPlus = theta + t.val/2;
+            dest.setTo(r*Math.cos(thetaPlus), r*Math.sin(thetaPlus));
+        }
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Blob {
+    // variation 23
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble p1;
+    parameter LDouble p2;
+    parameter Integer p3;
+
+    init {
+        p1 = new LDouble(.5*Math.random());
+        p2 = new LDouble(Math.random());
+        p3 = (int) (3+5*Math.random());
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+        double scale = r * (p2.val+.5*(p1.val+p2.val)*(Math.sin(p3*theta)+1));
+        dest.setTo(
+            scale * Math.cos(theta), scale * Math.sin(theta)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn PDJ {
+    // variation 24
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble p1;
+    parameter LDouble p2;
+    parameter LDouble p3;
+    parameter LDouble p4;
+
+    // this is a Peter deJong style system
+    init {
+        p1 = new LDouble(Math.random());
+        p2 = new LDouble(Math.random());
+        p3 = new LDouble(Math.random());
+        p4 = new LDouble(Math.random());
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        dest.setTo(
+            Math.sin(p1.val*v.y) - Math.cos(p2.val*v.x),
+            Math.sin(p3.val*v.x) - Math.cos(p4.val*v.y)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Fan2 {
+    // variation 25
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble p1;
+    parameter LDouble p2;
+
+    init {
+        p1 = new LDouble(Math.PI*Math.pow(Math.random(),2));
+        p2 = new LDouble(Math.random());
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+        double trunc = Math.floor(2*theta*p2.val/p1.val);
+        double t = theta + p2.val - p1.val*trunc;
+
+        if(t > p1.val/2) {
+            dest.setTo(r*Math.sin(theta-p1.val/2), r*Math.cos(theta-p1.val/2));
+        } else {
+            dest.setTo(r*Math.sin(theta+p1.val/2), r*Math.cos(theta+p1.val/2));
+        }
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Rings2 {
+    // variation 26
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble p;
+
+    init {
+        p = new LDouble(Math.pow(Math.random(),2));
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double theta = Math.atan2(v.y, v.x);
+        double trunc = Math.floor((r+p.val)/(2*p.val));
+        double t = r - 2*p.val*trunc + r*(1-p.val);
+
+        dest.setTo(
+            t*Math.sin(theta), t*Math.cos(theta)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Eyefish {
+    // variation 27
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double scale = 2.0/(r+1);
+        dest.setTo(scale*v.x, scale*v.y);
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Bubble {
+    // variation 28
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+        double scale = 4.0/(r*r+4);
+        dest.setTo(scale*v.x, scale*v.y);
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Cylinder {
+    // variation 29
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        dest.setTo(Math.sin(v.x), v.y);
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Perspective {
+    // variation 30
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble p1;
+    parameter LDouble p2;
+
+    init {
+        p1 = new LDouble(Math.random());
+        p2 = new LDouble(Math.random());
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double scale = p2.val / (p2.val - v.y*Math.sin(p1.val));
+        dest.setTo(v.x, v.y * Math.cos(p1.val));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Noise {
+    // variation 31
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double psi1 = random.nextDouble();
+        double psi2 = random.nextDouble();
+
+        dest.setTo(
+            psi1 * v.x * Math.cos(2*Math.PI*psi2),
+            psi1 * v.y * Math.sin(2*Math.PI*psi2)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn JuliaN {
+    // variation 32
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble p1;
+    parameter LDouble p2;
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+
+        p1 = new LDouble(3+5*Math.random());
+        p2 = new LDouble(Math.random());
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double psi = random.nextDouble();
+        double phi = Math.atan2(v.x, v.y);
+        double r = v.magnitude();
+        double p3 = Math.floor(Math.abs(p1.val) * psi);
+        double t = (phi + 2*Math.PI*p3)/p1.val;
+        double scale = Math.pow(r, p2.val/p1.val);
+
+        dest.setTo(
+            scale*Math.cos(t), scale*Math.sin(t)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn JuliaScope {
+    // variation 33
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble p1;
+    parameter LDouble p2;
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+
+        p1 = new LDouble(3+5*Math.random());
+        p2 = new LDouble(Math.random());
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double psi = random.nextDouble();
+        double phi = Math.atan2(v.x, v.y);
+        double r = v.magnitude();
+        double p3 = Math.floor(Math.abs(p1.val) * psi);
+        double lambda = random.nextBoolean() ? 1 : 0;
+        double t = (phi*lambda + 2*Math.PI*p3)/p1.val;
+        double scale = Math.pow(r, p2.val/p1.val);
+
+        dest.setTo(
+            scale*Math.cos(t), scale*Math.sin(t)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Blur {
+    // variation 34
+    fout LVect2d;
+    //in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double psi1 = random.nextDouble();
+        double psi2 = random.nextDouble();
+        // this function actually discards the input
+        dest.setTo(
+            psi1*Math.cos(2*Math.PI*psi2), psi1*Math.sin(2*Math.PI*psi2)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(null, new LVect2d());
+    }
+}
+
+fn Gaussian {
+    // variation 35
+    fout LVect2d;
+    //in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double scale = -2;
+        for(int i=0;i<4;i++) {
+            scale += random.nextDouble();
+        }
+
+        double psi = random.nextDouble();
+        // this function actually discards the input
+        dest.setTo(
+            scale*Math.cos(2*Math.PI*psi), scale*Math.sin(2*Math.PI*psi)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(null, new LVect2d());
+    }
+}
+
+fn RadialBlur {
+    // variation 36
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+    parameter LDouble p1;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+
+        p1 = new LDouble(Math.random()*Math.PI/2);
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double t1 = -2;
+        for(int i=0;i<4;i++)
+            t1 += random.nextDouble();
+
+        double phi = Math.atan2(v.x, v.y);
+        double t2 = phi + t1*Math.sin(p1.val);
+        double t3 = t1*Math.cos(p1.val)-1;
+        double r = v.magnitude();
+
+        dest.setTo(
+            r*Math.cos(t2) + t3*v.x, r*Math.sin(t2) + t3*v.y
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Pie {
+    // variation 37
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+    parameter LDouble p1;
+    parameter LDouble p2;
+    parameter LDouble p3;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+
+        p1 = new LDouble(3+5*Math.random());
+        p2 = new LDouble(Math.PI*Math.random());
+        p3 = new LDouble(Math.random());
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double t1 = Math.floor(random.nextDouble()*p1.val + .5);
+        double t2 = p2.val + (2*Math.PI/p1.val)*(t1 + random.nextDouble()*p3.val);
+        double r = random.nextDouble();
+
+        dest.setTo(
+            r*Math.cos(t2), r*Math.sin(t2)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Ngon {
+    // variation 38
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble p1;
+    parameter LDouble p2;
+    parameter LDouble p3;
+    parameter LDouble p4;
+
+    init {
+        p1 = new LDouble(1+4*Math.random());
+        p2 = new LDouble(2*Math.PI/(3+5*Math.random()));
+        p3 = new LDouble(Math.random());
+        p4 = new LDouble(Math.random());
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double phi = Math.atan2(v.x, v.y);
+        double r = v.magnitude();
+        double t3 = phi - p2.val * Math.floor(phi/p2.val);
+        double t4 = t3 > p2.val / 2 ? t3 : t3 - p2.val;
+        double k = (p3.val * (1.0/Math.cos(t4)-1) + p4.val) / Math.pow(r, p1.val);
+        dest.setTo(k*v.x, k*v.y);
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Curl {
+    // variation 39
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble p1;
+    parameter LDouble p2;
+
+    init {
+        p1 = new LDouble(Math.random());
+        p2 = new LDouble(Math.random());
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double t1 = 1 + p1.val*v.x + p2.val*(v.x*v.x + v.y*v.y);
+        double t2 = p1.val*v.y + 2*p2.val*v.x*v.y;
+        double scale = 1.0 / (t1*t1 + t2*t2);
+        dest.setTo(scale*(v.x*t1 + v.y*t2), scale*(v.y*t1 - v.x*t2));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Rectangles {
+    // variation 40
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter LDouble p1;
+    parameter LDouble p2;
+
+    init {
+        p1 = new LDouble(Math.random());
+        p2 = new LDouble(Math.random());
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        dest.setTo(
+            (2*Math.floor(v.x/p1.val)+1)*p1.val - v.x,
+            (2*Math.floor(v.y/p2.val)+1)*p2.val - v.y
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Arch {
+    // variation 41
+    fout LVect2d;
+    //in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double psi = Math.PI*random.nextDouble();
+
+        dest.setTo(
+            Math.sin(psi),
+            Math.pow(Math.sin(psi), 2)/Math.cos(psi)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(null, new LVect2d());
+    }
+}
+
+fn Tangent {
+    // variation 42
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        dest.setTo(
+            Math.sin(v.x)/Math.cos(v.y),
+            Math.tan(v.y)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Square {
+    // variation 43
+    fout LVect2d;
+    //in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double psi1 = random.nextDouble();
+        double psi2 = random.nextDouble();
+
+        dest.setTo(
+            psi1 - .5,
+            psi2 - .5
+            );
+        return dest;
+    }
+
+    eval {
+        return map(null, new LVect2d());
+    }
+}
+
+fn Rays {
+    // variation 44
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double psi = Math.PI*random.nextDouble();
+        double scale = Math.tan(psi)/(v.x*v.x + v.y*v.y);
+
+        dest.setTo(
+            scale*Math.cos(v.x), scale*Math.sin(v.y));
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Blade {
+    // variation 45
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double psi = random.nextDouble();
+        double rpsi = psi*v.magnitude();
+
+        dest.setTo(
+            v.x*(Math.cos(rpsi) + Math.sin(rpsi)),
+            Math.cos(rpsi) - Math.sin(rpsi)
+            );
+
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Secant {
+    // variation 46
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double r = v.magnitude();
+
+        dest.setTo(
+            v.x, 1.0 / Math.cos(r)
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Twintrain {
+    // variation 47
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    parameter Integer seed;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double psi = random.nextDouble();
+        double rpsi = psi*v.magnitude();
+        double t = 2*Math.log(Math.abs(Math.sin(rpsi))) + Math.cos(rpsi);
+
+        dest.setTo(
+            v.x*t,
+            v.x*(t-Math.PI*Math.sin(rpsi))
+            );
+
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+
+fn Cross {
+    // variation 48
+    fout LVect2d;
+    in LVect2d v;
+
+    interface Mapping<LVect2d>;
+
+    public LVect2d map(LVect2d v, LVect2d dest) {
+        double scale = 1.0/Math.abs(v.x*v.x-v.y*v.y);
+
+        dest.setTo(
+            scale*v.x, scale*v.y
+            );
+        return dest;
+    }
+
+    eval {
+        return map(v, new LVect2d());
+    }
+}
+

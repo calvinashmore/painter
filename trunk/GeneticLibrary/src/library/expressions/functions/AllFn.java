@@ -33,7 +33,9 @@ public class AllFn implements AllComponents<ExpressionFunction> {
       r.addAll(new Noise3().allInstances(cm));
       r.addAll(new ColorPaint().allInstances(cm));
       r.addAll(new Quaternions().allInstances(cm));
+      r.addAll(new Randoms().allInstances(cm));
       r.addAll(new RandomValues().allInstances(cm));
+      r.addAll(new SheepVariations().allInstances(cm));
       r.addAll(new VectorSwitch().allInstances(cm));
       return r;
    }

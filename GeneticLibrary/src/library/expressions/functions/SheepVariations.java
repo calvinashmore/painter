@@ -4950,7 +4950,7 @@ public final class SheepVariations implements AllComponents<ExpressionFunction>,
 
       public LVect2d evaluate(Context context, Object[] inputs) {
          final LVect2d v = (LVect2d)inputs[0];
-         return function . map ( null , new LVect2d ( ) ) ;
+         return function . map ( v , new LVect2d ( ) ) ;
       }
 
       public Class getReturnType() {

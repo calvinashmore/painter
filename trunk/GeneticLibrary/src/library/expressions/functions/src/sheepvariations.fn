@@ -1393,7 +1393,7 @@ fn Secant_f {
     setup {
         function = new Secant();
     }
-    eval {return function.map(null, new LVect2d());}
+    eval {return function.map(v, new LVect2d());}
 }
 fn Secant_v {
     fout IFSUtil.Mapping_v2;

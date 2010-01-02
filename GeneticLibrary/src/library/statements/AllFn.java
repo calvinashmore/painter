@@ -19,6 +19,7 @@ public class AllFn implements AllComponents<StatementFunction> {
       r.addAll(new AlongCurves().allInstances(cm));
       r.addAll(new Attractors().allInstances(cm));
       r.addAll(new Conditionals().allInstances(cm));
+      r.addAll(new IFSStatements().allInstances(cm));
       r.addAll(new Loops().allInstances(cm));
       r.addAll(new Quadtrees().allInstances(cm));
       return r;

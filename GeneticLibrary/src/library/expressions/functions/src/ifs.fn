@@ -1,0 +1,8 @@
+package library.expressions.functions;
+group IFSExpressions;
+type Expression;
+
+import utils.linear.*;
+import utils.ifs.*;
+
+description "expressions for IFS systems";

@@ -63,7 +63,7 @@ public class Test {
         g.setColor(Color.white);
         g.fillRect(0, 0, resolution, resolution);
 
-        for(int i=0;i<100000;i++) {
+        for(int i=0;i<5000;i++) {
 
             LVect2d v = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
             LVect2d result = ifs.applyRepeatedly(v, 20, rand);

@@ -11,7 +11,7 @@ import utils.linear.LVect2d;
  *
  * @author Calvin Ashmore
  */
-public class LinearMapping_v2 implements Mapping<LVect2d> {
+public class LinearMapping_v2 implements IFSUtil.Mapping_v2 {
 
     private double a, b, c, d, e, f;
 

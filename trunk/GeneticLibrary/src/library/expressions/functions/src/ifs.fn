@@ -6,3 +6,81 @@ import utils.linear.*;
 import utils.ifs.*;
 
 description "expressions for IFS systems";
+
+fn LinearIFS_v2 {
+    fout IFSUtil.IFS_v2;
+
+    parameter Integer seed;
+    private IFSUtil.IFS_v2 ifs;
+    private Random random;
+
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    private Mapping<LVect2d> createMapping() {
+        double contractScale = .9;
+        double contractOffset = .3;
+        return new LinearMapping_v2(
+                contractScale*(2*random.nextDouble()-1), contractScale*(2*random.nextDouble()-1), contractOffset*(2*random.nextDouble()-1),
+                contractScale*(2*random.nextDouble()-1), contractScale*(2*random.nextDouble()-1), contractOffset*(2*random.nextDouble()-1)
+                );
+    }
+
+    setup {
+        random = new Random(seed);
+
+        ifs = new IFSUtil.IFS_v2();
+
+        int samples = 2 + random.nextInt(3);
+        for(int i=0;i<samples;i++) {
+            Mapping<LVect2d> mapping = createMapping();
+            double weight = random.nextDouble();
+            ifs.addMapping(mapping, weight);
+        }
+    }
+
+    eval {
+        return ifs;
+    }
+}
+
+fn FlameIFS_3_v2 {
+    fout IFSUtil.IFS_v2;
+
+    in IFSUtil.Mapping_v2 map1;
+    in IFSUtil.Mapping_v2 map2;
+    in IFSUtil.Mapping_v2 map3;
+
+    parameter Integer seed;
+    private Random random;
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    setup {
+        random = new Random(seed);
+    }
+
+    private Mapping<LVect2d> wrapMapping(Mapping<LVect2d> mapping) {
+        double contractScale = .9;
+        double contractOffset = .3;
+        return new LinearWrap_v2(
+                mapping,
+                contractScale*(2*random.nextDouble()-1), contractScale*(2*random.nextDouble()-1), contractOffset*(2*random.nextDouble()-1),
+                contractScale*(2*random.nextDouble()-1), contractScale*(2*random.nextDouble()-1), contractOffset*(2*random.nextDouble()-1)
+                );
+    }
+
+    eval {
+        IFSUtil.IFS_v2 ifs = new IFSUtil.IFS_v2();
+
+        ifs.addMapping(wrapMapping(map1), random.nextDouble());
+        ifs.addMapping(wrapMapping(map2), random.nextDouble());
+        ifs.addMapping(wrapMapping(map3), random.nextDouble());
+
+        return ifs;
+    }
+}

@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JPanel;
 import painter.tools.canvas.CanvasImpl;
 
-class CanvasPanel extends JPanel {
+public class CanvasPanel extends JPanel {
 
     private CanvasImpl canvas;
     private ScheduledExecutorService executor;

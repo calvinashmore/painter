@@ -90,7 +90,7 @@ public final class Attractors implements AllComponents<StatementFunction>, Descr
          Attractor2 attractor = ( Attractor2 ) attractorExpression . evaluate ( context ) ;
          LVect2d lastv = null ;
          int count = 0 ;
-         List < APoint2d > points = ( List < APoint2d > ) attractor . getQuadtree ( ) . getPoints ( ) ;
+         List < APoint2d > points = ( List < APoint2d > ) attractor . getResult ( ) . getValues ( ) ;
          for ( APoint2d a : points ) {
          v = new LVect2d ( a . x , a . y ) ; context.setVariable(__v, v);
          if ( count > 0 ) {

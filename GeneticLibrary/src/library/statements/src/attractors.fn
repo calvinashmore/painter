@@ -22,7 +22,7 @@ fn attractorLoop_v2 {
 
         LVect2d lastv = null;
         int count = 0;
-        List<APoint2d> points = (List<APoint2d>) attractor.getQuadtree().getPoints();
+        List<APoint2d> points = (List<APoint2d>) attractor.getResult().getValues(); //attractor.getQuadtree().getPoints();
         for(APoint2d a : points) {
             v = new LVect2d(a.x,a.y);
             if(count > 0) {

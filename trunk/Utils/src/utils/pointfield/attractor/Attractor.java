@@ -21,6 +21,7 @@ public class Attractor<Function extends AttractorFunction> {
     private Function f;
     private Quadtree quadtree;
     private APoint startPoint;
+    private AttractorResult result;
 
     public Attractor(Function f, APoint startPoint) {
         maxIterations = 2000;
@@ -28,8 +29,13 @@ public class Attractor<Function extends AttractorFunction> {
 
         this.f = f;
         this.startPoint = startPoint;
+    }
 
-        quadtree = makeQuadtree(f, startPoint);
+    public AttractorResult getResult() {
+        if (result == null) {
+            result = makeResult(f, startPoint);
+        }
+        return result;
     }
 
     public Function getFunction() {
@@ -37,11 +43,37 @@ public class Attractor<Function extends AttractorFunction> {
     }
 
     public Quadtree getQuadtree() {
+        if (quadtree == null) {
+            quadtree = makeQuadtree(f, startPoint);
+        }
         return quadtree;
     }
 
     public APoint getStartPoint() {
         return startPoint;
+    }
+
+    private AttractorResult makeResult(Function f, APoint startPoint) {
+
+        for (int i = 0; i < 1000; i++) {
+
+            // The function!
+            //attractor.setFunction( function );
+            this.f = f;
+            f.adjustParameters();
+
+            double lyapunov = getLyapunov(startPoint);
+
+            if (lyapunov > f.getMinLyapunov() &&
+                    lyapunov < f.getMaxLyapunov()) {
+
+                result = execute(startPoint.clone());
+                return result;
+            }
+        }
+
+        result = execute(startPoint.clone());
+        return result;
     }
 
     /**
@@ -64,7 +96,7 @@ public class Attractor<Function extends AttractorFunction> {
             if (lyapunov > f.getMinLyapunov() &&
                     lyapunov < f.getMaxLyapunov()) {
 
-                AttractorResult result = execute(startPoint.clone());
+                result = execute(startPoint.clone());
                 Quadtree qtree = f.makeQuadtree();
                 result.configureQuadtree(qtree);
                 if (qtree.getNumberSmallCells() < f.getMinimumCells()) {
@@ -87,7 +119,7 @@ public class Attractor<Function extends AttractorFunction> {
     private Quadtree makeQuadtreeRaw(Function f, APoint startPoint) {
 
         this.f = f;
-        AttractorResult result = execute(startPoint.clone());
+        result = execute(startPoint.clone());
         Quadtree qtree = f.makeQuadtree();
         result.configureQuadtree(qtree);
 

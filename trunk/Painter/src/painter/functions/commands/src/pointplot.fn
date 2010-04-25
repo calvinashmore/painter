@@ -1,0 +1,134 @@
+package painter.functions.commands;
+group PointPlot;
+type Command;
+
+import utils.linear.*;
+import utils.curves.*;
+import utils.pointfield.attractor.*;
+import utils.ifs.*;
+import painter.tools.canvas.*;
+import painter.tools.brush.*;
+
+
+description "Plots out points";
+
+// iterates through IFS or attractor results and plots with basic coordinates?
+
+fn PlotAttractor1 {
+    in Attractor2 attractor;
+    in Brush brush;
+    in Color color;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint2d minVals = (APoint2d)result.getMinVals();
+        APoint2d maxVals = (APoint2d)result.getMaxVals();
+        double spanx = 1.0/(maxVals.x - minVals.x);
+        double spany = 1.0/(maxVals.y - minVals.y);
+
+        List<APoint2d> points = (List<APoint2d>) result.getValues();
+        for(APoint2d a : points) {
+            double x = (a.x - minVals.x) * spanx;
+            double y = (a.y - minVals.y) * spanx;
+            brush.paint(x, y,0,0, .02, color, canvas);
+        }
+    }
+}
+
+fn PlotAttractor2 {
+    in Attractor2 attractor;
+    in Brush brush;
+    in Color color;
+    in LDouble radius;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint2d minVals = (APoint2d)result.getMinVals();
+        APoint2d maxVals = (APoint2d)result.getMaxVals();
+        double spanx = 1.0/(maxVals.x - minVals.x);
+        double spany = 1.0/(maxVals.y - minVals.y);
+
+        List<APoint2d> points = (List<APoint2d>) result.getValues();
+        for(APoint2d a : points) {
+            double x = (a.x - minVals.x) * spanx;
+            double y = (a.y - minVals.y) * spanx;
+            brush.paint(x, y,0,0, radius.val, color, canvas);
+        }
+    }
+}
+
+fn PlotAttractor_curve_col {
+    in Attractor2 attractor;
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint2d minVals = (APoint2d)result.getMinVals();
+        APoint2d maxVals = (APoint2d)result.getMaxVals();
+        double spanx = 1.0/(maxVals.x - minVals.x);
+        double spany = 1.0/(maxVals.y - minVals.y);
+
+        List<APoint2d> points = (List<APoint2d>) result.getValues();
+        for(int i=0;i<points.size();i++) {
+            APoint2d a = points.get(i);
+            double t = (double)i/points.size();
+            double x = (a.x - minVals.x) * spanx;
+            double y = (a.y - minVals.y) * spanx;
+            brush.paint(x, y,0,0, .02, color.getValue(t), canvas);
+        }
+    }
+}
+
+fn PlotIFS {
+    in IFSUtil.IFS_v2 ifs;
+    in Brush brush;
+    in Color color;
+
+    parameter Integer seed;
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        Random random = new Random(seed);
+
+        for(int i=0;i<5000;i++) {
+            LVect2d start = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+            LVect2d result = ifs.applyRepeatedly(start, 20, random);
+            brush.paint(result.x, result.y,0,0, .02, color, canvas);
+        }
+    }
+}
+
+fn PlotIFS_curve_col {
+    in IFSUtil.IFS_v2 ifs;
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+
+    parameter Integer seed;
+    init {
+        Random rand = new Random();
+        seed = rand.nextInt();
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        Random random = new Random(seed);
+
+        for(int i=0;i<5000;i++) {
+            double t = (double)i/5000;
+            LVect2d start = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+            LVect2d result = ifs.applyRepeatedly(start, 20, random);
+            brush.paint(result.x, result.y,0,0, .02, color.getValue(t), canvas);
+        }
+    }
+}

@@ -221,6 +221,107 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class ellipseBrush1 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 6;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "xScale";
+            case 3: return "yScale";
+            case 4: return "theta";
+            case 5: return "hollow";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LDouble.class;
+            case 3: return LDouble.class;
+            case 4: return LDouble.class;
+            case 5: return Boolean.class;
+            default: return null;
+         }
+
+      }
+
+      public ellipseBrush1() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LDouble xScale = (LDouble)inputs[2];
+         final LDouble yScale = (LDouble)inputs[3];
+         final LDouble theta = (LDouble)inputs[4];
+         final Boolean hollow = (Boolean)inputs[5];
+         return new EllipseBrush ( positionPolicy , sizePolicy , xScale . val , yScale . val , theta . val , hollow ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class ellipseBrushv extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 5;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "v";
+            case 3: return "theta";
+            case 4: return "hollow";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LVect2d.class;
+            case 3: return LDouble.class;
+            case 4: return Boolean.class;
+            default: return null;
+         }
+
+      }
+
+      public ellipseBrushv() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LVect2d v = (LVect2d)inputs[2];
+         final LDouble theta = (LDouble)inputs[3];
+         final Boolean hollow = (Boolean)inputs[4];
+         return new EllipseBrush ( positionPolicy , sizePolicy , v . x , v . y , theta . val , hollow ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class hollowArcBrush1 extends ExpressionFunction {
 
       private LDouble arcSize;
@@ -1790,6 +1891,8 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new simpleBrush2());
       r.add(new simpleBrush3());
       r.add(new hollowCircleBrush());
+      r.add(new ellipseBrush1());
+      r.add(new ellipseBrushv());
       r.add(new hollowArcBrush1());
       r.add(new hollowArcBrush2());
       r.add(new hollowArcBrush3());

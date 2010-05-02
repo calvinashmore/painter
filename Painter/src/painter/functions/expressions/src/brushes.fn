@@ -307,6 +307,126 @@ fn spatterBrush3 {
     }
 }
 
+fn multiBrush_2 {
+    fout Brush;
+    in Brush brush1;
+    in Brush brush2;
+
+    private final static int SUB_BRUSHES = 2;
+
+    parameter LVect2d[] offsets;
+    parameter LDouble[] sizes;
+    parameter Color[] colorOffsets;
+    parameter LDouble colorMultiplier;
+
+
+    init {
+        Random r = new Random();
+
+        offsets = new LVect2d[SUB_BRUSHES];
+        sizes = new LDouble[SUB_BRUSHES];
+        colorOffsets = new Color[SUB_BRUSHES];
+
+        for(int i=0;i<SUB_BRUSHES;i++) {
+            offsets[i] = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+            sizes[i] = new LDouble(.5+Math.random());
+            colorOffsets[i] = new Color(Math.random(),Math.random(),Math.random());
+        }
+        colorMultiplier = new LDouble(Math.random());
+    }
+
+    eval {
+        MultiBrush multi = new MultiBrush();
+        multi.setColorMultiplier(colorMultiplier.val);
+        multi.addBrush(brush1, offsets[0].x, offsets[0].y, sizes[0].val, colorOffsets[0]);
+        multi.addBrush(brush2, offsets[1].x, offsets[1].y, sizes[1].val, colorOffsets[1]);
+
+        return multi;
+    }
+}
+
+fn multiBrush_3 {
+    fout Brush;
+    in Brush brush1;
+    in Brush brush2;
+    in Brush brush3;
+
+    private final static int SUB_BRUSHES = 3;
+
+    parameter LVect2d[] offsets;
+    parameter LDouble[] sizes;
+    parameter Color[] colorOffsets;
+    parameter LDouble colorMultiplier;
+
+
+    init {
+        Random r = new Random();
+
+        offsets = new LVect2d[SUB_BRUSHES];
+        sizes = new LDouble[SUB_BRUSHES];
+        colorOffsets = new Color[SUB_BRUSHES];
+
+        for(int i=0;i<SUB_BRUSHES;i++) {
+            offsets[i] = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+            sizes[i] = new LDouble(.5+Math.random());
+            colorOffsets[i] = new Color(Math.random(),Math.random(),Math.random());
+        }
+        colorMultiplier = new LDouble(Math.random());
+    }
+
+    eval {
+        MultiBrush multi = new MultiBrush();
+        multi.setColorMultiplier(colorMultiplier.val);
+        multi.addBrush(brush1, offsets[0].x, offsets[0].y, sizes[0].val, colorOffsets[0]);
+        multi.addBrush(brush2, offsets[1].x, offsets[1].y, sizes[1].val, colorOffsets[1]);
+        multi.addBrush(brush3, offsets[2].x, offsets[2].y, sizes[2].val, colorOffsets[2]);
+
+        return multi;
+    }
+}
+
+fn multiBrush_4 {
+    fout Brush;
+    in Brush brush1;
+    in Brush brush2;
+    in Brush brush3;
+    in Brush brush4;
+
+    private final static int SUB_BRUSHES = 4;
+
+    parameter LVect2d[] offsets;
+    parameter LDouble[] sizes;
+    parameter Color[] colorOffsets;
+    parameter LDouble colorMultiplier;
+
+
+    init {
+        Random r = new Random();
+
+        offsets = new LVect2d[SUB_BRUSHES];
+        sizes = new LDouble[SUB_BRUSHES];
+        colorOffsets = new Color[SUB_BRUSHES];
+
+        for(int i=0;i<SUB_BRUSHES;i++) {
+            offsets[i] = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+            sizes[i] = new LDouble(.5+Math.random());
+            colorOffsets[i] = new Color(Math.random(),Math.random(),Math.random());
+        }
+        colorMultiplier = new LDouble(Math.random());
+    }
+
+    eval {
+        MultiBrush multi = new MultiBrush();
+        multi.setColorMultiplier(colorMultiplier.val);
+        multi.addBrush(brush1, offsets[0].x, offsets[0].y, sizes[0].val, colorOffsets[0]);
+        multi.addBrush(brush2, offsets[1].x, offsets[1].y, sizes[1].val, colorOffsets[1]);
+        multi.addBrush(brush3, offsets[2].x, offsets[2].y, sizes[2].val, colorOffsets[2]);
+        multi.addBrush(brush4, offsets[3].x, offsets[3].y, sizes[3].val, colorOffsets[3]);
+
+        return multi;
+    }
+}
+
 fn dashBrush1 {
     fout Brush;
     parameter LDouble angle;

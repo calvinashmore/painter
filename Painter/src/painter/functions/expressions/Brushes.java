@@ -1156,6 +1156,333 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class multiBrush_2 extends ExpressionFunction {
+      private final static int SUB_BRUSHES = 2 ;
+      private LVect2d [ ] offsets;private LDouble [ ] sizes;private Color [ ] colorOffsets;private LDouble colorMultiplier;
+      public int getNumberParameters() {
+         return 4;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return offsets;
+            case 1: return sizes;
+            case 2: return colorOffsets;
+            case 3: return colorMultiplier;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "offsets";
+            case 1: return "sizes";
+            case 2: return "colorOffsets";
+            case 3: return "colorMultiplier";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LVect2d [ ].class;
+            case 1: return LDouble [ ].class;
+            case 2: return Color [ ].class;
+            case 3: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: offsets = (LVect2d [ ]) value; return;
+            case 1: sizes = (LDouble [ ]) value; return;
+            case 2: colorOffsets = (Color [ ]) value; return;
+            case 3: colorMultiplier = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush1";
+            case 1: return "brush2";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public multiBrush_2() {
+         addGroupMeta(this);
+         Random r = new Random ( ) ;
+         offsets = new LVect2d [ SUB_BRUSHES ] ;
+         sizes = new LDouble [ SUB_BRUSHES ] ;
+         colorOffsets = new Color [ SUB_BRUSHES ] ;
+         for ( int i = 0 ;
+         i < SUB_BRUSHES ;
+         i ++ ) {
+         offsets [ i ] = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         sizes [ i ] = new LDouble ( .5 + Math . random ( ) ) ;
+         colorOffsets [ i ] = new Color ( Math . random ( ) , Math . random ( ) , Math . random ( ) ) ;
+         }
+         colorMultiplier = new LDouble ( Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final Brush brush1 = (Brush)inputs[0];
+         final Brush brush2 = (Brush)inputs[1];
+         MultiBrush multi = new MultiBrush ( ) ;
+         multi . setColorMultiplier ( colorMultiplier . val ) ;
+         multi . addBrush ( brush1 , offsets [ 0 ] . x , offsets [ 0 ] . y , sizes [ 0 ] . val , colorOffsets [ 0 ] ) ;
+         multi . addBrush ( brush2 , offsets [ 1 ] . x , offsets [ 1 ] . y , sizes [ 1 ] . val , colorOffsets [ 1 ] ) ;
+         return multi ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class multiBrush_3 extends ExpressionFunction {
+      private final static int SUB_BRUSHES = 3 ;
+      private LVect2d [ ] offsets;private LDouble [ ] sizes;private Color [ ] colorOffsets;private LDouble colorMultiplier;
+      public int getNumberParameters() {
+         return 4;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return offsets;
+            case 1: return sizes;
+            case 2: return colorOffsets;
+            case 3: return colorMultiplier;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "offsets";
+            case 1: return "sizes";
+            case 2: return "colorOffsets";
+            case 3: return "colorMultiplier";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LVect2d [ ].class;
+            case 1: return LDouble [ ].class;
+            case 2: return Color [ ].class;
+            case 3: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: offsets = (LVect2d [ ]) value; return;
+            case 1: sizes = (LDouble [ ]) value; return;
+            case 2: colorOffsets = (Color [ ]) value; return;
+            case 3: colorMultiplier = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush1";
+            case 1: return "brush2";
+            case 2: return "brush3";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return Brush.class;
+            case 2: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public multiBrush_3() {
+         addGroupMeta(this);
+         Random r = new Random ( ) ;
+         offsets = new LVect2d [ SUB_BRUSHES ] ;
+         sizes = new LDouble [ SUB_BRUSHES ] ;
+         colorOffsets = new Color [ SUB_BRUSHES ] ;
+         for ( int i = 0 ;
+         i < SUB_BRUSHES ;
+         i ++ ) {
+         offsets [ i ] = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         sizes [ i ] = new LDouble ( .5 + Math . random ( ) ) ;
+         colorOffsets [ i ] = new Color ( Math . random ( ) , Math . random ( ) , Math . random ( ) ) ;
+         }
+         colorMultiplier = new LDouble ( Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final Brush brush1 = (Brush)inputs[0];
+         final Brush brush2 = (Brush)inputs[1];
+         final Brush brush3 = (Brush)inputs[2];
+         MultiBrush multi = new MultiBrush ( ) ;
+         multi . setColorMultiplier ( colorMultiplier . val ) ;
+         multi . addBrush ( brush1 , offsets [ 0 ] . x , offsets [ 0 ] . y , sizes [ 0 ] . val , colorOffsets [ 0 ] ) ;
+         multi . addBrush ( brush2 , offsets [ 1 ] . x , offsets [ 1 ] . y , sizes [ 1 ] . val , colorOffsets [ 1 ] ) ;
+         multi . addBrush ( brush3 , offsets [ 2 ] . x , offsets [ 2 ] . y , sizes [ 2 ] . val , colorOffsets [ 2 ] ) ;
+         return multi ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class multiBrush_4 extends ExpressionFunction {
+      private final static int SUB_BRUSHES = 4 ;
+      private LVect2d [ ] offsets;private LDouble [ ] sizes;private Color [ ] colorOffsets;private LDouble colorMultiplier;
+      public int getNumberParameters() {
+         return 4;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return offsets;
+            case 1: return sizes;
+            case 2: return colorOffsets;
+            case 3: return colorMultiplier;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "offsets";
+            case 1: return "sizes";
+            case 2: return "colorOffsets";
+            case 3: return "colorMultiplier";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LVect2d [ ].class;
+            case 1: return LDouble [ ].class;
+            case 2: return Color [ ].class;
+            case 3: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: offsets = (LVect2d [ ]) value; return;
+            case 1: sizes = (LDouble [ ]) value; return;
+            case 2: colorOffsets = (Color [ ]) value; return;
+            case 3: colorMultiplier = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush1";
+            case 1: return "brush2";
+            case 2: return "brush3";
+            case 3: return "brush4";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return Brush.class;
+            case 2: return Brush.class;
+            case 3: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public multiBrush_4() {
+         addGroupMeta(this);
+         Random r = new Random ( ) ;
+         offsets = new LVect2d [ SUB_BRUSHES ] ;
+         sizes = new LDouble [ SUB_BRUSHES ] ;
+         colorOffsets = new Color [ SUB_BRUSHES ] ;
+         for ( int i = 0 ;
+         i < SUB_BRUSHES ;
+         i ++ ) {
+         offsets [ i ] = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
+         sizes [ i ] = new LDouble ( .5 + Math . random ( ) ) ;
+         colorOffsets [ i ] = new Color ( Math . random ( ) , Math . random ( ) , Math . random ( ) ) ;
+         }
+         colorMultiplier = new LDouble ( Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final Brush brush1 = (Brush)inputs[0];
+         final Brush brush2 = (Brush)inputs[1];
+         final Brush brush3 = (Brush)inputs[2];
+         final Brush brush4 = (Brush)inputs[3];
+         MultiBrush multi = new MultiBrush ( ) ;
+         multi . setColorMultiplier ( colorMultiplier . val ) ;
+         multi . addBrush ( brush1 , offsets [ 0 ] . x , offsets [ 0 ] . y , sizes [ 0 ] . val , colorOffsets [ 0 ] ) ;
+         multi . addBrush ( brush2 , offsets [ 1 ] . x , offsets [ 1 ] . y , sizes [ 1 ] . val , colorOffsets [ 1 ] ) ;
+         multi . addBrush ( brush3 , offsets [ 2 ] . x , offsets [ 2 ] . y , sizes [ 2 ] . val , colorOffsets [ 2 ] ) ;
+         multi . addBrush ( brush4 , offsets [ 3 ] . x , offsets [ 3 ] . y , sizes [ 3 ] . val , colorOffsets [ 3 ] ) ;
+         return multi ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class dashBrush1 extends ExpressionFunction {
 
       private LDouble angle;private Boolean orient;
@@ -1904,6 +2231,9 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new spatterBrush1());
       r.add(new spatterBrush2());
       r.add(new spatterBrush3());
+      r.add(new multiBrush_2());
+      r.add(new multiBrush_3());
+      r.add(new multiBrush_4());
       r.add(new dashBrush1());
       r.add(new dashBrush2());
       r.add(new smudgeBrush1());

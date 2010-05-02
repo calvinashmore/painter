@@ -55,6 +55,33 @@ fn hollowCircleBrush {
     }
 }
 
+fn ellipseBrush1 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in LDouble xScale;
+    in LDouble yScale;
+    in LDouble theta;
+    in Boolean hollow;
+
+    eval {
+        return new EllipseBrush(positionPolicy, sizePolicy, xScale.val, yScale.val, theta.val, hollow);
+    }
+}
+
+fn ellipseBrushv {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in LVect2d v;
+    in LDouble theta;
+    in Boolean hollow;
+
+    eval {
+        return new EllipseBrush(positionPolicy, sizePolicy, v.x, v.y, theta.val, hollow);
+    }
+}
+
 fn hollowArcBrush1 {
     fout Brush;
     in BrushPositionPolicy positionPolicy;

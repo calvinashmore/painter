@@ -18,4 +18,5 @@ import utils.linear.LVect2d;
 public interface Stroke {
 
     public void render(Brush brush, Curve<LDouble> size, Curve<LVect2d> position, Curve<Color> color, Canvas canvas, SegmentRenderer renderer);
+    public void setSteps(int steps);
 }

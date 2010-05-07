@@ -17,11 +17,11 @@ import utils.linear.LVect2d;
  */
 public class BasicStroke implements Stroke {
 
-    private static int baseSteps = 1000;
+    private int baseSteps = 1000;
     private double stepsMultiplier = 1;
 
-    public static void setBaseSteps(int baseSteps) {
-        BasicStroke.baseSteps = baseSteps;
+    public void setSteps(int steps) {
+        baseSteps = steps;
     }
 
     public void render(Brush brush, Curve<LDouble> size, Curve<LVect2d> position, Curve<Color> color, Canvas canvas, SegmentRenderer renderer) {

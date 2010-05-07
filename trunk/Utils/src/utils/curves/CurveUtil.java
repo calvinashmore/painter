@@ -67,6 +67,15 @@ public class CurveUtil {
         }
     }
 
+    public static <T extends Linear<T>> Curve<T> subCurve(final Curve<T> a, final double start, final double length) {
+        return new Curve<T>() {
+
+            public T getValue(double t) {
+                return a.getValue(start + t * length);
+            }
+        };
+    }
+
     public static <T extends Linear<T>> Curve<T> add(final Curve<T> a, final Curve<T> b) {
         return new Curve<T>() {
 

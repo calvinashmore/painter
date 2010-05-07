@@ -8,6 +8,64 @@ import painter.tools.lsystem.*;
 
 description "expressions for creating L-Systems";
 
+fn PermuteAngles {
+    in LSystemString ls;
+    fout LSystemString;
+
+    parameter LDouble angleMultiplier;
+    init {
+        angleMultiplier = new LDouble(.6 + .8 * Math.random());
+    }
+
+    eval {
+        return new LSystemString(ls.getString(), angleMultiplier.val*ls.getAngle());
+    }
+}
+
+fn LevyC {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"+F--F+");
+        String out = lSystem.apply("F", 8);
+        return new LSystemString(out, Math.PI/4);
+    }
+}
+
+fn Pentigree {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"F-F++F+F-F-F");
+        String out = lSystem.apply("F-F-F-F-F", 4);
+        return new LSystemString(out, 2*Math.PI/5);
+    }
+}
+
+fn IslandLake {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"F-f+FF-F-FF-Ff-FF+f-FF+F+FF+Ff+FFF");
+        String out = lSystem.apply("F", 2);
+        return new LSystemString(out, Math.PI/2);
+    }
+}
+
+fn KochIsland1 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"F+F-F-FF+F+F-F");
+        String out = lSystem.apply("F", 3);
+        return new LSystemString(out, Math.PI/2);
+    }
+}
+
 fn Koch1 {
     fout LSystemString;
 
@@ -26,6 +84,62 @@ fn Koch2 {
         LSystem lSystem = new LSystem();
         lSystem.addRule('F',"F+F--F+F");
         String out = lSystem.apply("F", 5);
+        return new LSystemString(out, Math.PI/6);
+    }
+}
+
+fn Koch3 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"FF+F+F+F+F+F-F");
+        String out = lSystem.apply("F", 5);
+        return new LSystemString(out, Math.PI/2);
+    }
+}
+
+fn Koch4 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"FF+F++F+F");
+        String out = lSystem.apply("F+F+F+F", 5);
+        return new LSystemString(out, Math.PI/2);
+    }
+}
+
+fn Koch5 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"FF+F++F+F");
+        String out = lSystem.apply("F+F+F+F", 5);
+        return new LSystemString(out, 2*Math.PI/3);
+    }
+}
+
+fn Koch6 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"F+FF++F+F");
+        String out = lSystem.apply("F", 5);
+        return new LSystemString(out, Math.PI/2);
+    }
+}
+
+fn Serpinski1 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('A',"FB-FA-FB");
+        lSystem.addRule('B',"FA+FB+FA");
+        String out = lSystem.apply("A", 6);
         return new LSystemString(out, Math.PI/6);
     }
 }
@@ -54,4 +168,49 @@ fn Plant1 {
     }
 }
 
+fn Plant2 {
+    fout LSystemString;
 
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"F[+F]F[-F]F");
+        String out = lSystem.apply("X", 5);
+        return new LSystemString(out, Math.PI/7);
+    }
+}
+
+fn Plant3 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"FF+[+F-F-F]-[F+F+F]");
+        String out = lSystem.apply("X", 4);
+        return new LSystemString(out, Math.PI/8);
+    }
+}
+
+fn Plant4 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('X',"F[+X]F[-X]+X");
+        lSystem.addRule('F',"FF");
+        String out = lSystem.apply("X", 7);
+        return new LSystemString(out, Math.PI/9);
+    }
+}
+
+fn Spiral {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('A',"X+X+X+X+X+X+");
+        lSystem.addRule('X',"[F+F+F+F[---X-Y]+++++F++++++++F-F-F-F]");
+        lSystem.addRule('Y',"[F+F+F+F[---Y]+++++F++++++++F-F-F-F]");
+        String out = lSystem.apply("A", 5);
+        return new LSystemString(out, Math.PI/12);
+    }
+}

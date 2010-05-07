@@ -11,7 +11,7 @@ import painter.tools.stroke.*;
 
 description "LSystem commands";
 
-fn RenderLSystem {
+fn RenderLSystem1 {
     in LSystemString string;
     in Color color;
     in Brush brush;
@@ -47,3 +47,162 @@ fn RenderLSystem {
         }
     }
 }
+
+fn RenderLSystem2 {
+    in LSystemString string;
+    in CurveUtil.Curve_col color;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+    parameter LDouble width;
+    parameter LDouble initialTheta;
+    parameter LDouble scale;
+    parameter LVect2d initialPosition;
+
+    meta selectionWeight 5;
+
+    init {
+        width = new LDouble(Math.random()*.1);
+        initialTheta = new LDouble(Math.random()*Math.PI*2);
+        initialPosition = new LVect2d(Math.random(), Math.random());
+        scale = new LDouble(1+Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        LSystemRenderer lRenderer = new LSystemRenderer();
+        lRenderer.setRotateSize(string.getAngle());
+        lRenderer.setInitialCoordinates(initialPosition.x, initialPosition.y, initialTheta.val);
+        lRenderer.setScale(scale.val);
+
+        List<CurveUtil.Curve_v2> curves = lRenderer.process(string.getString());
+
+        for(CurveUtil.Curve_v2 position : curves) {
+            stroke.setSteps(100);
+            stroke.render(brush, new ConstantCurve<LDouble>(width), position, color, canvas, renderer);
+        }
+    }
+}
+
+fn RenderLSystem3 {
+    in LSystemString string;
+    in CurveUtil.Curve_col color;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+    in CurveUtil.Curve_d width;
+    parameter LDouble initialTheta;
+    parameter LDouble scale;
+    parameter LVect2d initialPosition;
+
+    meta selectionWeight 5;
+
+    init {
+        initialTheta = new LDouble(Math.random()*Math.PI*2);
+        initialPosition = new LVect2d(Math.random(), Math.random());
+        scale = new LDouble(1+Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        LSystemRenderer lRenderer = new LSystemRenderer();
+        lRenderer.setRotateSize(string.getAngle());
+        lRenderer.setInitialCoordinates(initialPosition.x, initialPosition.y, initialTheta.val);
+        lRenderer.setScale(scale.val);
+
+        List<CurveUtil.Curve_v2> curves = lRenderer.process(string.getString());
+
+        for(CurveUtil.Curve_v2 position : curves) {
+            stroke.setSteps(100);
+            stroke.render(brush, width, position, color, canvas, renderer);
+        }
+    }
+}
+
+fn RenderLSystem4 {
+    in LSystemString string;
+    in CurveUtil.Curve_col color;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+    parameter LDouble width;
+    parameter LDouble initialTheta;
+    parameter LDouble scale;
+    parameter LVect2d initialPosition;
+
+    meta selectionWeight 5;
+
+    init {
+        width = new LDouble(Math.random()*.1);
+        initialTheta = new LDouble(Math.random()*Math.PI*2);
+        initialPosition = new LVect2d(Math.random(), Math.random());
+        scale = new LDouble(1+Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        LSystemRenderer lRenderer = new LSystemRenderer();
+        lRenderer.setRotateSize(string.getAngle());
+        lRenderer.setInitialCoordinates(initialPosition.x, initialPosition.y, initialTheta.val);
+        lRenderer.setScale(scale.val);
+
+        List<CurveUtil.Curve_v2> curves = lRenderer.process(string.getString());
+
+        //for(CurveUtil.Curve_v2 position : curves) {
+        double span = 1.0 / curves.size();
+        for(int i=0; i<curves.size(); i++) {
+            CurveUtil.Curve_v2 position = curves.get(i);
+            double t = i*span;
+            Curve<Color> colorSegment = CurveUtil.subCurve(color, t, span);
+            stroke.setSteps(100);
+            stroke.render(brush, new ConstantCurve<LDouble>(width), position, colorSegment, canvas, renderer);
+        }
+    }
+}
+
+fn RenderLSystem5 {
+    in LSystemString string;
+    in CurveUtil.Curve_col color;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+    in CurveUtil.Curve_d width;
+    parameter LDouble initialTheta;
+    parameter LDouble scale;
+    parameter LVect2d initialPosition;
+
+    meta selectionWeight 5;
+
+    init {
+        initialTheta = new LDouble(Math.random()*Math.PI*2);
+        initialPosition = new LVect2d(Math.random(), Math.random());
+        scale = new LDouble(1+Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        LSystemRenderer lRenderer = new LSystemRenderer();
+        lRenderer.setRotateSize(string.getAngle());
+        lRenderer.setInitialCoordinates(initialPosition.x, initialPosition.y, initialTheta.val);
+        lRenderer.setScale(scale.val);
+
+        List<CurveUtil.Curve_v2> curves = lRenderer.process(string.getString());
+
+        //for(CurveUtil.Curve_v2 position : curves) {
+        double span = 1.0 / curves.size();
+        for(int i=0; i<curves.size(); i++) {
+            CurveUtil.Curve_v2 position = curves.get(i);
+            double t = i*span;
+            Curve<Color> colorSegment = CurveUtil.subCurve(color, t, span);
+            Curve<LDouble> widthSegment = CurveUtil.subCurve(width, t, span);
+            stroke.setSteps(100);
+            stroke.render(brush, widthSegment, position, colorSegment, canvas, renderer);
+        }
+    }
+}
+
+

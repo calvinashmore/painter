@@ -18,6 +18,7 @@ public class AllFn implements AllComponents<Command> {
       List<Command> r = new ArrayList<Command>();
       r.addAll(new BrushCommands().allInstances(cm));
       r.addAll(new ImageOps().allInstances(cm));
+      r.addAll(new LSystems().allInstances(cm));
       r.addAll(new PointPlot().allInstances(cm));
       r.addAll(new StrokeCommands().allInstances(cm));
       return r;

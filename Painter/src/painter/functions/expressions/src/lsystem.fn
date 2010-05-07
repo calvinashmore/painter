@@ -1,0 +1,57 @@
+package painter.functions.expressions;
+group LSystems;
+type Expression;
+
+import utils.lsystem.*;
+import utils.linear.*;
+import painter.tools.lsystem.*;
+
+description "expressions for creating L-Systems";
+
+fn Koch1 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"F+F-F-F+F");
+        String out = lSystem.apply("F", 5);
+        return new LSystemString(out, Math.PI/2);
+    }
+}
+
+fn Koch2 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('F',"F+F--F+F");
+        String out = lSystem.apply("F", 5);
+        return new LSystemString(out, Math.PI/6);
+    }
+}
+
+fn Dragon {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('X',"X+YF");
+        lSystem.addRule('Y',"FX-Y");
+        String out = lSystem.apply("FX", 10);
+        return new LSystemString(out, Math.PI/2);
+    }
+}
+
+fn Plant1 {
+    fout LSystemString;
+
+    eval {
+        LSystem lSystem = new LSystem();
+        lSystem.addRule('X',"F-[[X]+X]+F[+FX]-X");
+        lSystem.addRule('F',"FF");
+        String out = lSystem.apply("X", 5);
+        return new LSystemString(out, Math.PI*(25.0/180));
+    }
+}
+
+

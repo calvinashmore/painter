@@ -24,6 +24,10 @@ public class AlphaStroke implements Stroke {
     private Stroke baseStroke;
     private Curve<LDouble> alphaCurve;
 
+    public void setSteps(int steps) {
+        baseStroke.setSteps(steps);
+    }
+
     public AlphaStroke(Stroke baseStroke, Curve<LDouble> alphaCurve) {
         this.baseStroke = baseStroke;
         this.alphaCurve = alphaCurve;

@@ -122,9 +122,7 @@ public final class LSystems implements AllComponents<Command>, Described {
          lRenderer . setInitialCoordinates ( initialPosition . x , initialPosition . y , initialTheta . val ) ;
          lRenderer . setScale ( scale . val ) ;
          List < CurveUtil . Curve_v2 > curves = lRenderer . process ( string . getString ( ) ) ;
-         System . out . println ( "*****" ) ;
          for ( CurveUtil . Curve_v2 position : curves ) {
-         System . out . println ( "rendering " + position . getValue ( 0 ) + "-" + position . getValue ( 1 ) ) ;
          stroke . setSteps ( 100 ) ;
          stroke . render ( brush , new ConstantCurve < LDouble > ( width ) , position , new ConstantCurve < Color > ( color ) , canvas , renderer ) ;
          }

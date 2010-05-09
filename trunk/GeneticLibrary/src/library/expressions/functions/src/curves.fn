@@ -486,3 +486,43 @@ fn compose_col_hsb {
     }
 }
 
+
+// *****************************************
+// ****** SPLINES
+// *****************************************
+
+fn spline_d {
+    in LDouble a;
+    in LDouble b;
+    in LDouble c;
+    in LDouble d;
+    fout CurveUtil.Curve_d;
+
+    eval {
+        return new CurveUtil.Curve_d_wrap(new Spline<LDouble>(a,b,c,d));
+    }
+}
+
+fn spline_v2 {
+    in LVect2d a;
+    in LVect2d b;
+    in LVect2d c;
+    in LVect2d d;
+    fout CurveUtil.Curve_v2;
+
+    eval {
+        return new CurveUtil.Curve_v2_wrap(new Spline<LVect2d>(a,b,c,d));
+    }
+}
+
+fn spline_col {
+    in Color a;
+    in Color b;
+    in Color c;
+    in Color d;
+    fout CurveUtil.Curve_col;
+
+    eval {
+        return new CurveUtil.Curve_col_wrap(new Spline<Color>(a,b,c,d));
+    }
+}

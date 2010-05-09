@@ -1,0 +1,49 @@
+package painter.functions.statements;
+group LSystems;
+type Statement;
+
+import utils.lsystem.*;
+import utils.linear.*;
+import utils.curves.*;
+import painter.tools.lsystem.*;
+
+description "statements that iterate through L-Systems";
+
+fn LSystemLoop {
+    exin LSystemString stringExpression;
+    slin body;
+
+    cvar CurveUtil.Curve_v2 segment;
+    cvar LDouble t;
+    cvar LVect2d start;
+
+    parameter LDouble initialTheta;
+    parameter LDouble scale;
+    parameter LVect2d initialPosition;
+
+    init {
+        initialTheta = new LDouble(Math.random()*Math.PI*2);
+        initialPosition = new LVect2d(Math.random(), Math.random());
+        scale = new LDouble(1+Math.random());
+    }
+
+    exec {
+        LSystemString string = (LSystemString) stringExpression.evaluate(context);
+
+
+        LSystemRenderer lRenderer = new LSystemRenderer();
+        lRenderer.setRotateSize(string.getAngle());
+        lRenderer.setInitialCoordinates(initialPosition.x, initialPosition.y, initialTheta.val);
+        lRenderer.setScale(scale.val);
+
+        List<CurveUtil.Curve_v2> curves = lRenderer.process(string.getString());
+
+        for(int i=0; i<curves.size(); i++) {
+            segment = curves.get(i);
+            t = new LDouble((double)i / curves.size());
+            start = segment.getValue(0);
+
+            body.execute(context);
+        }
+    }
+}

@@ -131,7 +131,7 @@ public class Foundation extends GeneticFoundationImpl {
             public List<StatementFunction> allInstances(ContextModel cm) {
                 List<StatementFunction> allInstances = super.allInstances(cm);
                 allInstances.addAll(new library.statements.AllFn().allInstances(cm));
-                //allInstances.addAll(new painter.functions.statements.AllFn().allInstances(cm));
+                allInstances.addAll(new painter.functions.statements.AllFn().allInstances(cm));
                 return allInstances;
             }
         };

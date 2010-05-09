@@ -1691,6 +1691,52 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
 
    }
 
+   public static class spline_d extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "a";
+            case 1: return "b";
+            case 2: return "c";
+            case 3: return "d";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return LDouble.class;
+            case 2: return LDouble.class;
+            case 3: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public spline_d() {
+         addGroupMeta(this);
+      }
+
+      public CurveUtil . Curve_d evaluate(Context context, Object[] inputs) {
+         final LDouble a = (LDouble)inputs[0];
+         final LDouble b = (LDouble)inputs[1];
+         final LDouble c = (LDouble)inputs[2];
+         final LDouble d = (LDouble)inputs[3];
+         return new CurveUtil . Curve_d_wrap ( new Spline < LDouble > ( a , b , c , d ) ) ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_d.class;
+      }
+
+   }
+
    public String getDescription() {
       return "expressions to generate curves";
    }
@@ -1730,6 +1776,7 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       r.add(new compose_v2_d_d());
       r.add(new compose_col_rgb());
       r.add(new compose_col_hsb());
+      r.add(new spline_d());
       return r;
    }
 

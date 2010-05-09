@@ -500,7 +500,6 @@ fn smudgeBrush2 {
     }
 }
 
-
 fn imageOpBrush {
     fout Brush;
     in BrushPositionPolicy positionPolicy;
@@ -509,6 +508,64 @@ fn imageOpBrush {
 
     eval {
         return new ImageOpBrush(op, positionPolicy, sizePolicy);
+    }
+}
+
+fn rubberStampBrush1 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    parameter LVect2d offset;
+
+    init {
+        offset = new LVect2d(.5 * (Math.random()-.5), .5 * (Math.random()-.5));
+    }
+
+    eval {
+        return new RubberStampBrush(positionPolicy, sizePolicy, offset.x, offset.y);
+    }
+}
+
+fn rubberStampBrush2 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in LVect2d offset;
+
+    eval {
+        return new RubberStampBrush(positionPolicy, sizePolicy, offset.x, offset.y);
+    }
+}
+
+fn rubberStampBrush3 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImageOp op;
+    parameter LVect2d offset;
+
+    init {
+        offset = new LVect2d(.5 * (Math.random()-.5), .5 * (Math.random()-.5));
+    }
+
+    eval {
+        RubberStampBrush brush = new RubberStampBrush(positionPolicy, sizePolicy, offset.x, offset.y);
+        brush.setOp(op);
+        return brush;
+    }
+}
+
+fn rubberStampBrush4 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in LVect2d offset;
+    in BufferedImageOp op;
+
+    eval {
+        RubberStampBrush brush = new RubberStampBrush(positionPolicy, sizePolicy, offset.x, offset.y);
+        brush.setOp(op);
+        return brush;
     }
 }
 

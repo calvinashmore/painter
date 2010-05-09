@@ -1866,6 +1866,258 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class rubberStampBrush1 extends ExpressionFunction {
+
+      private LVect2d offset;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return offset;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "offset";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LVect2d.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: offset = (LVect2d) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            default: return null;
+         }
+
+      }
+
+      public rubberStampBrush1() {
+         addGroupMeta(this);
+         offset = new LVect2d ( .5 * ( Math . random ( ) - .5 ) , .5 * ( Math . random ( ) - .5 ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         return new RubberStampBrush ( positionPolicy , sizePolicy , offset . x , offset . y ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class rubberStampBrush2 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "offset";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LVect2d.class;
+            default: return null;
+         }
+
+      }
+
+      public rubberStampBrush2() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LVect2d offset = (LVect2d)inputs[2];
+         return new RubberStampBrush ( positionPolicy , sizePolicy , offset . x , offset . y ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class rubberStampBrush3 extends ExpressionFunction {
+
+      private LVect2d offset;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return offset;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "offset";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LVect2d.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: offset = (LVect2d) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "op";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return BufferedImageOp.class;
+            default: return null;
+         }
+
+      }
+
+      public rubberStampBrush3() {
+         addGroupMeta(this);
+         offset = new LVect2d ( .5 * ( Math . random ( ) - .5 ) , .5 * ( Math . random ( ) - .5 ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final BufferedImageOp op = (BufferedImageOp)inputs[2];
+         RubberStampBrush brush = new RubberStampBrush ( positionPolicy , sizePolicy , offset . x , offset . y ) ;
+         brush . setOp ( op ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class rubberStampBrush4 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "offset";
+            case 3: return "op";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LVect2d.class;
+            case 3: return BufferedImageOp.class;
+            default: return null;
+         }
+
+      }
+
+      public rubberStampBrush4() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LVect2d offset = (LVect2d)inputs[2];
+         final BufferedImageOp op = (BufferedImageOp)inputs[3];
+         RubberStampBrush brush = new RubberStampBrush ( positionPolicy , sizePolicy , offset . x , offset . y ) ;
+         brush . setOp ( op ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class simplePositionPolicy extends ExpressionFunction {
 
       private LDouble xAnchor;private LDouble yAnchor;private LDouble xDirection;private LDouble yDirection;
@@ -2239,6 +2491,10 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new smudgeBrush1());
       r.add(new smudgeBrush2());
       r.add(new imageOpBrush());
+      r.add(new rubberStampBrush1());
+      r.add(new rubberStampBrush2());
+      r.add(new rubberStampBrush3());
+      r.add(new rubberStampBrush4());
       r.add(new simplePositionPolicy());
       r.add(new rotationPositionPolicy());
       r.add(new skewPositionPolicy());

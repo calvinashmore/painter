@@ -42,7 +42,7 @@ fn RenderLSystem1 {
         List<CurveUtil.Curve_v2> curves = lRenderer.process(string.getString());
 
         for(CurveUtil.Curve_v2 position : curves) {
-            stroke.setSteps(100);
+            stroke.setSteps(20);
             stroke.render(brush, new ConstantCurve<LDouble>(width), position, new ConstantCurve<Color>(color), canvas, renderer);
         }
     }
@@ -79,7 +79,7 @@ fn RenderLSystem2 {
         List<CurveUtil.Curve_v2> curves = lRenderer.process(string.getString());
 
         for(CurveUtil.Curve_v2 position : curves) {
-            stroke.setSteps(100);
+            stroke.setSteps(20);
             stroke.render(brush, new ConstantCurve<LDouble>(width), position, color, canvas, renderer);
         }
     }
@@ -115,7 +115,7 @@ fn RenderLSystem3 {
         List<CurveUtil.Curve_v2> curves = lRenderer.process(string.getString());
 
         for(CurveUtil.Curve_v2 position : curves) {
-            stroke.setSteps(100);
+            stroke.setSteps(20);
             stroke.render(brush, width, position, color, canvas, renderer);
         }
     }
@@ -157,7 +157,7 @@ fn RenderLSystem4 {
             CurveUtil.Curve_v2 position = curves.get(i);
             double t = i*span;
             Curve<Color> colorSegment = CurveUtil.subCurve(color, t, span);
-            stroke.setSteps(100);
+            stroke.setSteps(20);
             stroke.render(brush, new ConstantCurve<LDouble>(width), position, colorSegment, canvas, renderer);
         }
     }
@@ -199,7 +199,7 @@ fn RenderLSystem5 {
             double t = i*span;
             Curve<Color> colorSegment = CurveUtil.subCurve(color, t, span);
             Curve<LDouble> widthSegment = CurveUtil.subCurve(width, t, span);
-            stroke.setSteps(100);
+            stroke.setSteps(20);
             stroke.render(brush, widthSegment, position, colorSegment, canvas, renderer);
         }
     }

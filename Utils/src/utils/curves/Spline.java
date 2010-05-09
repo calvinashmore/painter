@@ -14,7 +14,7 @@ public class Spline<T extends Linear<T>> implements Curve<T> {
 
     private T a[];
 
-    public Spline(T[] a) {
+    public Spline(T... a) {
         this.a = a;
     }
 

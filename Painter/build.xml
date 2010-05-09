@@ -38,7 +38,7 @@
                 <arg value="src/painter/functions/expressions/warp/src"/>
                 <arg value="src/painter/functions/expressions/warp"/>
         </java>
-        <!--<echo> *** processing statements... </echo>
+        <echo> *** processing statements... </echo>
         <java
             classname="fn.FnCompiler"
             classpath="../Fn/dist/Fn.jar"
@@ -46,7 +46,7 @@
             fork="true">
                 <arg value="src/painter/functions/statements/src"/>
                 <arg value="src/painter/functions/statements"/>
-        </java>-->
+        </java>
         <echo> *** completed Fn! </echo>
     </target>
     

@@ -123,7 +123,7 @@ public final class LSystems implements AllComponents<Command>, Described {
          lRenderer . setScale ( scale . val ) ;
          List < CurveUtil . Curve_v2 > curves = lRenderer . process ( string . getString ( ) ) ;
          for ( CurveUtil . Curve_v2 position : curves ) {
-         stroke . setSteps ( 100 ) ;
+         stroke . setSteps ( 20 ) ;
          stroke . render ( brush , new ConstantCurve < LDouble > ( width ) , position , new ConstantCurve < Color > ( color ) , canvas , renderer ) ;
          }
       }
@@ -231,7 +231,7 @@ public final class LSystems implements AllComponents<Command>, Described {
          lRenderer . setScale ( scale . val ) ;
          List < CurveUtil . Curve_v2 > curves = lRenderer . process ( string . getString ( ) ) ;
          for ( CurveUtil . Curve_v2 position : curves ) {
-         stroke . setSteps ( 100 ) ;
+         stroke . setSteps ( 20 ) ;
          stroke . render ( brush , new ConstantCurve < LDouble > ( width ) , position , color , canvas , renderer ) ;
          }
       }
@@ -337,7 +337,7 @@ public final class LSystems implements AllComponents<Command>, Described {
          lRenderer . setScale ( scale . val ) ;
          List < CurveUtil . Curve_v2 > curves = lRenderer . process ( string . getString ( ) ) ;
          for ( CurveUtil . Curve_v2 position : curves ) {
-         stroke . setSteps ( 100 ) ;
+         stroke . setSteps ( 20 ) ;
          stroke . render ( brush , width , position , color , canvas , renderer ) ;
          }
       }
@@ -451,7 +451,7 @@ public final class LSystems implements AllComponents<Command>, Described {
          CurveUtil . Curve_v2 position = curves . get ( i ) ;
          double t = i * span ;
          Curve < Color > colorSegment = CurveUtil . subCurve ( color , t , span ) ;
-         stroke . setSteps ( 100 ) ;
+         stroke . setSteps ( 20 ) ;
          stroke . render ( brush , new ConstantCurve < LDouble > ( width ) , position , colorSegment , canvas , renderer ) ;
          }
       }
@@ -564,7 +564,7 @@ public final class LSystems implements AllComponents<Command>, Described {
          double t = i * span ;
          Curve < Color > colorSegment = CurveUtil . subCurve ( color , t , span ) ;
          Curve < LDouble > widthSegment = CurveUtil . subCurve ( width , t , span ) ;
-         stroke . setSteps ( 100 ) ;
+         stroke . setSteps ( 20 ) ;
          stroke . render ( brush , widthSegment , position , colorSegment , canvas , renderer ) ;
          }
       }

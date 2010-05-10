@@ -22,7 +22,7 @@ public class Test {
         
         BufferedImage img = ImageIO.read(new File("painterfun.png"));
 
-        img = new MosaicFilter(11).filter(img, null);
+        img = new MosaicFilter(5).filter(img, null);
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

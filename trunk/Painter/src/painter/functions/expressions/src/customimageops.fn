@@ -1,0 +1,61 @@
+package painter.functions.expressions;
+group CustomImageOps;
+type Expression;
+
+import java.awt.image.*;
+import utils.linear.*;
+import painter.tools.brush.*;
+import painter.tools.misc.*;
+import painter.tools.canvas.*;
+import painter.tools.imageop.*;
+
+description "expressions for custom image operations";
+
+fn Mosaic1 {
+    fout BufferedImageOp;
+    parameter LDouble tileSize;
+
+    init {
+        tileSize = new LDouble(.01*Math.random()+.005);
+    }
+
+meta selectionWeight 10;
+
+    eval {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        int iTileSize = (int)Math.abs(tileSize.val * canvas.getHeight());
+        return new MosaicFilter(iTileSize);
+    }
+}
+
+fn Mosaic2 {
+    fout BufferedImageOp;
+    in LDouble tileSize;
+
+    eval {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        int iTileSize = (int)Math.abs(tileSize.val * canvas.getHeight());
+        if(iTileSize <= 1)
+            iTileSize = 3;
+        if(iTileSize >= canvas.getHeight()/5)
+            iTileSize = canvas.getHeight()/10;
+
+        return new MosaicFilter(iTileSize);
+    }
+}
+
+fn Mosaic3 {
+    fout BufferedImageOp;
+    in Integer tileSize;
+
+    eval {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        int iTileSize = tileSize;
+        if(iTileSize <= 1)
+            iTileSize = 3;
+        if(iTileSize >= canvas.getHeight()/5)
+            iTileSize = canvas.getHeight()/10;
+
+        return new MosaicFilter(iTileSize);
+    }
+}

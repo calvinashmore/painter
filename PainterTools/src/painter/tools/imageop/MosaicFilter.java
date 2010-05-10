@@ -54,7 +54,7 @@ public class MosaicFilter extends SimpleImageOp {
                 totalG = (totalG / k) & 0xff;
                 totalB = (totalB / k) & 0xff;
 
-                int averageRGB = (totalR) | (totalG << 8) | (totalB << 16);
+                int averageRGB = (totalR) | (totalG << 8) | (totalB << 16) | (0xff << 24);
                 Arrays.fill(dstRGB, averageRGB);
 
                 dest.setRGB(x, y, w, h, dstRGB, 0, w);

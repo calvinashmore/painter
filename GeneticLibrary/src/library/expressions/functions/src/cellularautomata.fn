@@ -1,0 +1,78 @@
+package library.expressions.functions;
+group CellularAutomata;
+type Expression;
+
+import utils.linear.*;
+import utils.linear.grid.*;
+import utils.cellularautomata.*;
+
+description "Cellular Automata";
+
+
+fn cellular_1d1_discrete {
+    fout Buffer_d;
+    parameter Integer numberInputs;
+    parameter Integer colors;
+
+    init {
+        Random rand = new Random();
+        numberInputs = 2+rand.nextInt(3);
+        colors = 2+rand.nextInt(3);
+    }
+
+    eval {
+        Buffer_d data = new Buffer_d(100, 100);
+        new CellularAutomata1d(data, numberInputs, colors);
+        return data;
+    }
+}
+
+fn cellular_1d2_discrete {
+    fout Buffer_d;
+    parameter Integer numberInputs;
+    parameter Integer colors;
+
+    init {
+        Random rand = new Random();
+        numberInputs = 2+rand.nextInt(3);
+        colors = 2+rand.nextInt(3);
+    }
+
+    eval {
+        Buffer_d data = new Buffer_d(100, 100);
+        new CellularAutomata1d2(data, numberInputs, colors);
+        return data;
+    }
+}
+
+fn cellular_1d1_cont {
+    fout Buffer_d;
+    parameter Integer numberInputs;
+
+    init {
+        Random rand = new Random();
+        numberInputs = 2+rand.nextInt(3);
+    }
+
+    eval {
+        Buffer_d data = new Buffer_d(100, 100);
+        new CellularAutomata1d_cont(data, numberInputs);
+        return data;
+    }
+}
+
+fn cellular_1d2_cont {
+    fout Buffer_d;
+    parameter Integer numberInputs;
+
+    init {
+        Random rand = new Random();
+        numberInputs = 2+rand.nextInt(3);
+    }
+
+    eval {
+        Buffer_d data = new Buffer_d(100, 100);
+        new CellularAutomata1d2_cont(data, numberInputs);
+        return data;
+    }
+}

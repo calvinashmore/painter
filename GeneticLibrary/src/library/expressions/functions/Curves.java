@@ -1737,6 +1737,98 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
 
    }
 
+   public static class spline_v2 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "a";
+            case 1: return "b";
+            case 2: return "c";
+            case 3: return "d";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return LVect2d.class;
+            case 1: return LVect2d.class;
+            case 2: return LVect2d.class;
+            case 3: return LVect2d.class;
+            default: return null;
+         }
+
+      }
+
+      public spline_v2() {
+         addGroupMeta(this);
+      }
+
+      public CurveUtil . Curve_v2 evaluate(Context context, Object[] inputs) {
+         final LVect2d a = (LVect2d)inputs[0];
+         final LVect2d b = (LVect2d)inputs[1];
+         final LVect2d c = (LVect2d)inputs[2];
+         final LVect2d d = (LVect2d)inputs[3];
+         return new CurveUtil . Curve_v2_wrap ( new Spline < LVect2d > ( a , b , c , d ) ) ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_v2.class;
+      }
+
+   }
+
+   public static class spline_col extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "a";
+            case 1: return "b";
+            case 2: return "c";
+            case 3: return "d";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Color.class;
+            case 1: return Color.class;
+            case 2: return Color.class;
+            case 3: return Color.class;
+            default: return null;
+         }
+
+      }
+
+      public spline_col() {
+         addGroupMeta(this);
+      }
+
+      public CurveUtil . Curve_col evaluate(Context context, Object[] inputs) {
+         final Color a = (Color)inputs[0];
+         final Color b = (Color)inputs[1];
+         final Color c = (Color)inputs[2];
+         final Color d = (Color)inputs[3];
+         return new CurveUtil . Curve_col_wrap ( new Spline < Color > ( a , b , c , d ) ) ;
+      }
+
+      public Class getReturnType() {
+         return CurveUtil . Curve_col.class;
+      }
+
+   }
+
    public String getDescription() {
       return "expressions to generate curves";
    }
@@ -1777,6 +1869,8 @@ public final class Curves implements AllComponents<ExpressionFunction>, Describe
       r.add(new compose_col_rgb());
       r.add(new compose_col_hsb());
       r.add(new spline_d());
+      r.add(new spline_v2());
+      r.add(new spline_col());
       return r;
    }
 

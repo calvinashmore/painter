@@ -1,0 +1,32 @@
+package library.statements;
+group Buffers;
+type Statement;
+
+import utils.linear.*;
+import utils.linear.grid.*;
+
+description "Loops through buffers.";
+
+fn loop_buffer_d {
+    cvar LVect2d pos;
+    cvar LDouble value;
+
+    exin Buffer_d bufferExpression;
+    slin body;
+
+    meta selectionWeight 3;
+
+    exec {
+        Buffer_d buffer = (Buffer_d) bufferExpression.evaluate(context);
+
+        int xRes = buffer.getXRes();
+        int yRes = buffer.getYRes();
+
+        for(int x=0; x<xRes; x++)
+        for(int y=0; y<yRes; y++) {
+            pos = new LVect2d((double)x/xRes, (double)y/yRes);
+            value = buffer.getValue(x,y);
+            body.execute(context);
+        }
+    }
+}

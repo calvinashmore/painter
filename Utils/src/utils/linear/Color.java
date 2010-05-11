@@ -159,6 +159,16 @@ public class Color implements Linear<Color> {
         return (A << 24) + (R << 16) + (G << 8) + (B);
     }
 
+    public static int toARGB(double r, double g, double b) {
+
+        int A = 255;
+        int R = Math.max(Math.min((int) (r * 255), 255), 0);
+        int G = Math.max(Math.min((int) (g * 255), 255), 0);
+        int B = Math.max(Math.min((int) (b * 255), 255), 0);
+
+        return (A << 24) + (R << 16) + (G << 8) + (B);
+    }
+
     public static Color fromRGB(int rgb) {
         int R = (rgb >> 16) & 0xff;
         int G = (rgb >> 8) & 0xff;

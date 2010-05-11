@@ -84,8 +84,6 @@ fn imageBrush_xformed2 {
     parameter LDouble rotation;
     parameter LVect2d offset;
 
-    meta selectionWeight 5;
-
     init {
         Random rand = new Random();
         round = rand.nextBoolean();
@@ -194,8 +192,6 @@ fn imageBrush_xformed4 {
     parameter LDouble scale;
     parameter LDouble rotation;
     parameter LVect2d offset;
-
-    meta selectionWeight 5;
 
     init {
         Random rand = new Random();

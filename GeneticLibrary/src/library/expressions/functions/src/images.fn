@@ -14,27 +14,131 @@ fn makeImage_monotone_buffer_d {
     in Buffer_d buffer;
     fout BufferedImage;
 
-    private transient BufferedImage image;
-    private void makeImage(Buffer_d buffer) {
-        ColorGrid cg = new ColorGrid(buffer.getXRes(), buffer.getYRes());
+    eval {
 
+        BufferedImage image = new BufferedImage(buffer.getXRes(), buffer.getYRes(), BufferedImage.TYPE_INT_ARGB);
         for (int x = 0; x < buffer.getXRes(); x++) {
             for (int y = 0; y < buffer.getYRes(); y++) {
                 double d = 1 - buffer.getValue(x, y).val;
-                cg.setValue(x, y, new Color(d, d, d));
+                image.setRGB(x,y, Color.toARGB(d,d,d));
             }
         }
 
-        image = cg.makeImage();
-    }
-
-    eval {
-        if(image == null)
-            makeImage(buffer);
         return image;
     }
 }
 
+fn makeImage_monochrome1_buffer_d {
+    in Buffer_d buffer;
+    fout BufferedImage;
+    in Color c;
+
+    eval {
+
+        BufferedImage image = new BufferedImage(buffer.getXRes(), buffer.getYRes(), BufferedImage.TYPE_INT_ARGB);
+        for (int x = 0; x < buffer.getXRes(); x++) {
+            for (int y = 0; y < buffer.getYRes(); y++) {
+                double d = 1 - buffer.getValue(x, y).val;
+                image.setRGB(x,y, c.mult(d).toARGB());
+            }
+        }
+
+        return image;
+    }
+}
+
+fn makeImage_monoalpha1_buffer_d {
+    in Buffer_d buffer;
+    fout BufferedImage;
+    in Color c;
+
+    eval {
+
+        BufferedImage image = new BufferedImage(buffer.getXRes(), buffer.getYRes(), BufferedImage.TYPE_INT_ARGB);
+        for (int x = 0; x < buffer.getXRes(); x++) {
+            for (int y = 0; y < buffer.getYRes(); y++) {
+                double d = 1 - buffer.getValue(x, y).val;
+
+                int A = Math.max(Math.min((int) (d * 255), 255), 0);
+                int R = Math.max(Math.min((int) (c.r * 255), 255), 0);
+                int G = Math.max(Math.min((int) (c.g * 255), 255), 0);
+                int B = Math.max(Math.min((int) (c.b * 255), 255), 0);
+
+                int argb = (A << 24) + (R << 16) + (G << 8) + (B);
+                image.setRGB(x,y, argb);
+            }
+        }
+
+        return image;
+    }
+}
+
+fn makeImage_monoalpha2_buffer_d {
+    in Buffer_d buffer;
+    fout BufferedImage;
+    in Color c;
+
+    eval {
+
+        BufferedImage image = new BufferedImage(buffer.getXRes(), buffer.getYRes(), BufferedImage.TYPE_INT_ARGB);
+        for (int x = 0; x < buffer.getXRes(); x++) {
+            for (int y = 0; y < buffer.getYRes(); y++) {
+                double d = buffer.getValue(x, y).val;
+
+                int A = Math.max(Math.min((int) (d * 255), 255), 0);
+                int R = Math.max(Math.min((int) (c.r * 255), 255), 0);
+                int G = Math.max(Math.min((int) (c.g * 255), 255), 0);
+                int B = Math.max(Math.min((int) (c.b * 255), 255), 0);
+
+                int argb = (A << 24) + (R << 16) + (G << 8) + (B);
+                image.setRGB(x,y, argb);
+            }
+        }
+
+        return image;
+    }
+}
+
+fn makeImage_monochrome2_buffer_d {
+    in Buffer_d buffer;
+    fout BufferedImage;
+    in Color c;
+
+    eval {
+
+        BufferedImage image = new BufferedImage(buffer.getXRes(), buffer.getYRes(), BufferedImage.TYPE_INT_ARGB);
+        for (int x = 0; x < buffer.getXRes(); x++) {
+            for (int y = 0; y < buffer.getYRes(); y++) {
+                double d = 1 - buffer.getValue(x, y).val;
+                image.setRGB(x,y, c.mult(d).add(new Color(1-d,1-d,1-d)).toARGB());
+            }
+        }
+
+        return image;
+    }
+}
+
+fn makeImage_dualchrome_buffer_d {
+    in Buffer_d buffer;
+    fout BufferedImage;
+    in Color c1;
+    in Color c2;
+
+    eval {
+
+        BufferedImage image = new BufferedImage(buffer.getXRes(), buffer.getYRes(), BufferedImage.TYPE_INT_ARGB);
+        for (int x = 0; x < buffer.getXRes(); x++) {
+            for (int y = 0; y < buffer.getYRes(); y++) {
+                double d = 1 - buffer.getValue(x, y).val;
+                image.setRGB(x,y, c1.mult(d).add(c2.mult(1-d)).toARGB());
+            }
+        }
+
+        return image;
+    }
+}
+
+/*
 fn makeImage_dualchrome_buffer_d {
     in Buffer_d buffer;
     parameter Color c1;
@@ -67,4 +171,36 @@ fn makeImage_dualchrome_buffer_d {
         return image;
     }
 }
+
+fn makeImage_monochrome1_buffer_d {
+    in Buffer_d buffer;
+    parameter Color c;
+    fout BufferedImage;
+
+    init {
+        c = new Color(Math.random(), Math.random(), Math.random());
+    }
+
+    private transient BufferedImage image;
+    private void makeImage(Buffer_d buffer) {
+        ColorGrid cg = new ColorGrid(buffer.getXRes(), buffer.getYRes());
+
+        for (int x = 0; x < buffer.getXRes(); x++) {
+            for (int y = 0; y < buffer.getYRes(); y++) {
+                double d = 1 - buffer.getValue(x, y).val;
+                Color color = c.mult(d);
+                cg.setValue(x, y, color);
+            }
+        }
+
+        image = cg.makeImage();
+    }
+
+    eval {
+        if(image == null)
+            makeImage(buffer);
+        return image;
+    }
+}
+*/
 

@@ -339,7 +339,6 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_xformed2() {
          addGroupMeta(this);
-         addMeta("selectionWeight", 5);
          Random rand = new Random ( ) ;
          round = rand . nextBoolean ( ) ;
          scaleImage = rand . nextBoolean ( ) ;
@@ -703,7 +702,6 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_xformed4() {
          addGroupMeta(this);
-         addMeta("selectionWeight", 5);
          Random rand = new Random ( ) ;
          round = rand . nextBoolean ( ) ;
          scaleImage = rand . nextBoolean ( ) ;

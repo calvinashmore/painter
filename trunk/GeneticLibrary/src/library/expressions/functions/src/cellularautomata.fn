@@ -14,22 +14,31 @@ fn cellular_1d1_discrete {
     fout Buffer_d;
     parameter Integer numberInputs;
     parameter Integer colors;
+    parameter Integer scaleFactor;
+    parameter Integer smoothRounds;
+    parameter LDouble smoothing;
+    parameter Integer dataSize;
 
     init {
         Random rand = new Random();
         numberInputs = 2+rand.nextInt(3);
         colors = 2+rand.nextInt(3);
+
+        dataSize = 10+rand.nextInt(10);
+        scaleFactor = 2+rand.nextInt(5);
+        smoothRounds = 1+rand.nextInt(4);
+        smoothing = new LDouble(1.1+1*rand.nextDouble());
     }
 
     private transient Buffer_d data;
 
     private void makeData() {
-        data = new Buffer_d(20, 20);
+        data = new Buffer_d(dataSize, dataSize);
         new CellularAutomata1d(data, numberInputs, colors);
 
         // scale
-        Buffer_d dataLarge = BlurTool.scaleBuffer(data, 100);
-        data = new BlurTool(2.0).process(dataLarge, 4);
+        Buffer_d dataLarge = BlurTool.scaleBuffer(data, dataSize*scaleFactor);
+        data = new BlurTool(smoothing.val).process(dataLarge, smoothRounds);
     }
 
     eval {
@@ -43,22 +52,31 @@ fn cellular_1d2_discrete {
     fout Buffer_d;
     parameter Integer numberInputs;
     parameter Integer colors;
+    parameter Integer scaleFactor;
+    parameter Integer smoothRounds;
+    parameter LDouble smoothing;
+    parameter Integer dataSize;
 
     init {
         Random rand = new Random();
         numberInputs = 2+rand.nextInt(3);
         colors = 2+rand.nextInt(3);
+
+        dataSize = 10+rand.nextInt(10);
+        scaleFactor = 2+rand.nextInt(5);
+        smoothRounds = 1+rand.nextInt(4);
+        smoothing = new LDouble(1.1+1*rand.nextDouble());
     }
 
     private transient Buffer_d data;
 
     private void makeData() {
-        data = new Buffer_d(100, 100);
+        data = new Buffer_d(dataSize, dataSize);
         new CellularAutomata1d2(data, numberInputs, colors);
 
         // scale
-        Buffer_d dataLarge = BlurTool.scaleBuffer(data, 100);
-        data = new BlurTool(2.0).process(dataLarge, 4);
+        Buffer_d dataLarge = BlurTool.scaleBuffer(data, dataSize*scaleFactor);
+        data = new BlurTool(smoothing.val).process(dataLarge, smoothRounds);
     }
 
     eval {
@@ -71,21 +89,30 @@ fn cellular_1d2_discrete {
 fn cellular_1d1_cont {
     fout Buffer_d;
     parameter Integer numberInputs;
+    parameter Integer scaleFactor;
+    parameter Integer smoothRounds;
+    parameter LDouble smoothing;
+    parameter Integer dataSize;
 
     init {
         Random rand = new Random();
         numberInputs = 2+rand.nextInt(3);
+
+        dataSize = 10+rand.nextInt(10);
+        scaleFactor = 2+rand.nextInt(5);
+        smoothRounds = 1+rand.nextInt(4);
+        smoothing = new LDouble(1.1+1*rand.nextDouble());
     }
 
     private transient Buffer_d data;
 
     private void makeData() {
-        data = new Buffer_d(100, 100);
+        data = new Buffer_d(dataSize, dataSize);
         new CellularAutomata1d_cont(data, numberInputs);
 
         // scale
-        Buffer_d dataLarge = BlurTool.scaleBuffer(data, 100);
-        data = new BlurTool(2.0).process(dataLarge, 4);
+        Buffer_d dataLarge = BlurTool.scaleBuffer(data, dataSize*scaleFactor);
+        data = new BlurTool(smoothing.val).process(dataLarge, smoothRounds);
     }
 
     eval {
@@ -98,21 +125,30 @@ fn cellular_1d1_cont {
 fn cellular_1d2_cont {
     fout Buffer_d;
     parameter Integer numberInputs;
+    parameter Integer scaleFactor;
+    parameter Integer smoothRounds;
+    parameter LDouble smoothing;
+    parameter Integer dataSize;
 
     init {
         Random rand = new Random();
         numberInputs = 2+rand.nextInt(3);
+
+        dataSize = 10+rand.nextInt(10);
+        scaleFactor = 2+rand.nextInt(5);
+        smoothRounds = 1+rand.nextInt(4);
+        smoothing = new LDouble(1.1+1*rand.nextDouble());
     }
 
     private transient Buffer_d data;
 
     private void makeData() {
-        data = new Buffer_d(100, 100);
+        data = new Buffer_d(dataSize, dataSize);
         new CellularAutomata1d2_cont(data, numberInputs);
 
         // scale
-        Buffer_d dataLarge = BlurTool.scaleBuffer(data, 100);
-        data = new BlurTool(2.0).process(dataLarge, 4);
+        Buffer_d dataLarge = BlurTool.scaleBuffer(data, dataSize*scaleFactor);
+        data = new BlurTool(smoothing.val).process(dataLarge, smoothRounds);
     }
 
     eval {

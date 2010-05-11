@@ -30,3 +30,63 @@ fn loop_buffer_d {
         }
     }
 }
+
+fn loop_critical1_buffer_d {
+    cvar LVect2d pos;
+    cvar LDouble value;
+    parameter LDouble critical;
+
+    exin Buffer_d bufferExpression;
+    slin body;
+
+    meta selectionWeight 3;
+
+    init {
+        critical = new LDouble(.2+.6*Math.random());
+    }
+
+    exec {
+        Buffer_d buffer = (Buffer_d) bufferExpression.evaluate(context);
+
+        int xRes = buffer.getXRes();
+        int yRes = buffer.getYRes();
+
+        for(int x=0; x<xRes; x++)
+        for(int y=0; y<yRes; y++) {
+            pos = new LVect2d((double)x/xRes, (double)y/yRes);
+            value = buffer.getValue(x,y);
+            if(value.val > critical.val)
+                body.execute(context);
+        }
+    }
+}
+
+fn loop_critical2_buffer_d {
+    cvar LVect2d pos;
+    cvar LDouble value;
+    parameter LDouble critical;
+
+    exin Buffer_d bufferExpression;
+    slin body;
+
+    meta selectionWeight 3;
+
+    init {
+        critical = new LDouble(.2+.6*Math.random());
+    }
+
+    exec {
+        Buffer_d buffer = (Buffer_d) bufferExpression.evaluate(context);
+
+        int xRes = buffer.getXRes();
+        int yRes = buffer.getYRes();
+
+        for(int x=0; x<xRes; x++)
+        for(int y=0; y<yRes; y++) {
+            pos = new LVect2d((double)x/xRes, (double)y/yRes);
+            value = buffer.getValue(x,y);
+            if(value.val < critical.val)
+                body.execute(context);
+        }
+    }
+}

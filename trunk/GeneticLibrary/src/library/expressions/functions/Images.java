@@ -20,7 +20,7 @@ import java.awt.image.*;
 public final class Images implements AllComponents<ExpressionFunction>, Described {
 
    public static class makeImage_monotone_buffer_d extends ExpressionFunction {
-      private transient BufferedImage image ;private void makeImage ( Buffer_d buffer ) { ColorGrid cg = new ColorGrid ( buffer . getXRes ( ) , buffer . getYRes ( ) ) ; for ( int x = 0 ; x < buffer . getXRes ( ) ; x ++ ) { for ( int y = 0 ; y < buffer . getYRes ( ) ; y ++ ) { double d = 1 - buffer . getValue ( x , y ) . val ; cg . setValue ( x , y , new Color ( d , d , d ) ) ; } } image = cg . makeImage ( ) ; }
+
       public int getNumberInputs() {
          return 1;
       }
@@ -47,7 +47,231 @@ public final class Images implements AllComponents<ExpressionFunction>, Describe
 
       public BufferedImage evaluate(Context context, Object[] inputs) {
          final Buffer_d buffer = (Buffer_d)inputs[0];
-         if ( image == null ) makeImage ( buffer ) ;
+         BufferedImage image = new BufferedImage ( buffer . getXRes ( ) , buffer . getYRes ( ) , BufferedImage . TYPE_INT_ARGB ) ;
+         for ( int x = 0 ;
+         x < buffer . getXRes ( ) ;
+         x ++ ) {
+         for ( int y = 0 ;
+         y < buffer . getYRes ( ) ;
+         y ++ ) {
+         double d = 1 - buffer . getValue ( x , y ) . val ;
+         image . setRGB ( x , y , Color . toARGB ( d , d , d ) ) ;
+         }
+         }
+         return image ;
+      }
+
+      public Class getReturnType() {
+         return BufferedImage.class;
+      }
+
+   }
+
+   public static class makeImage_monochrome1_buffer_d extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "buffer";
+            case 1: return "c";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Buffer_d.class;
+            case 1: return Color.class;
+            default: return null;
+         }
+
+      }
+
+      public makeImage_monochrome1_buffer_d() {
+         addGroupMeta(this);
+      }
+
+      public BufferedImage evaluate(Context context, Object[] inputs) {
+         final Buffer_d buffer = (Buffer_d)inputs[0];
+         final Color c = (Color)inputs[1];
+         BufferedImage image = new BufferedImage ( buffer . getXRes ( ) , buffer . getYRes ( ) , BufferedImage . TYPE_INT_ARGB ) ;
+         for ( int x = 0 ;
+         x < buffer . getXRes ( ) ;
+         x ++ ) {
+         for ( int y = 0 ;
+         y < buffer . getYRes ( ) ;
+         y ++ ) {
+         double d = 1 - buffer . getValue ( x , y ) . val ;
+         image . setRGB ( x , y , c . mult ( d ) . toARGB ( ) ) ;
+         }
+         }
+         return image ;
+      }
+
+      public Class getReturnType() {
+         return BufferedImage.class;
+      }
+
+   }
+
+   public static class makeImage_monoalpha1_buffer_d extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "buffer";
+            case 1: return "c";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Buffer_d.class;
+            case 1: return Color.class;
+            default: return null;
+         }
+
+      }
+
+      public makeImage_monoalpha1_buffer_d() {
+         addGroupMeta(this);
+      }
+
+      public BufferedImage evaluate(Context context, Object[] inputs) {
+         final Buffer_d buffer = (Buffer_d)inputs[0];
+         final Color c = (Color)inputs[1];
+         BufferedImage image = new BufferedImage ( buffer . getXRes ( ) , buffer . getYRes ( ) , BufferedImage . TYPE_INT_ARGB ) ;
+         for ( int x = 0 ;
+         x < buffer . getXRes ( ) ;
+         x ++ ) {
+         for ( int y = 0 ;
+         y < buffer . getYRes ( ) ;
+         y ++ ) {
+         double d = 1 - buffer . getValue ( x , y ) . val ;
+         int A = Math . max ( Math . min ( ( int ) ( d * 255 ) , 255 ) , 0 ) ;
+         int R = Math . max ( Math . min ( ( int ) ( c . r * 255 ) , 255 ) , 0 ) ;
+         int G = Math . max ( Math . min ( ( int ) ( c . g * 255 ) , 255 ) , 0 ) ;
+         int B = Math . max ( Math . min ( ( int ) ( c . b * 255 ) , 255 ) , 0 ) ;
+         int argb = ( A << 24 ) + ( R << 16 ) + ( G << 8 ) + ( B ) ;
+         image . setRGB ( x , y , argb ) ;
+         }
+         }
+         return image ;
+      }
+
+      public Class getReturnType() {
+         return BufferedImage.class;
+      }
+
+   }
+
+   public static class makeImage_monoalpha2_buffer_d extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "buffer";
+            case 1: return "c";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Buffer_d.class;
+            case 1: return Color.class;
+            default: return null;
+         }
+
+      }
+
+      public makeImage_monoalpha2_buffer_d() {
+         addGroupMeta(this);
+      }
+
+      public BufferedImage evaluate(Context context, Object[] inputs) {
+         final Buffer_d buffer = (Buffer_d)inputs[0];
+         final Color c = (Color)inputs[1];
+         BufferedImage image = new BufferedImage ( buffer . getXRes ( ) , buffer . getYRes ( ) , BufferedImage . TYPE_INT_ARGB ) ;
+         for ( int x = 0 ;
+         x < buffer . getXRes ( ) ;
+         x ++ ) {
+         for ( int y = 0 ;
+         y < buffer . getYRes ( ) ;
+         y ++ ) {
+         double d = buffer . getValue ( x , y ) . val ;
+         int A = Math . max ( Math . min ( ( int ) ( d * 255 ) , 255 ) , 0 ) ;
+         int R = Math . max ( Math . min ( ( int ) ( c . r * 255 ) , 255 ) , 0 ) ;
+         int G = Math . max ( Math . min ( ( int ) ( c . g * 255 ) , 255 ) , 0 ) ;
+         int B = Math . max ( Math . min ( ( int ) ( c . b * 255 ) , 255 ) , 0 ) ;
+         int argb = ( A << 24 ) + ( R << 16 ) + ( G << 8 ) + ( B ) ;
+         image . setRGB ( x , y , argb ) ;
+         }
+         }
+         return image ;
+      }
+
+      public Class getReturnType() {
+         return BufferedImage.class;
+      }
+
+   }
+
+   public static class makeImage_monochrome2_buffer_d extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "buffer";
+            case 1: return "c";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Buffer_d.class;
+            case 1: return Color.class;
+            default: return null;
+         }
+
+      }
+
+      public makeImage_monochrome2_buffer_d() {
+         addGroupMeta(this);
+      }
+
+      public BufferedImage evaluate(Context context, Object[] inputs) {
+         final Buffer_d buffer = (Buffer_d)inputs[0];
+         final Color c = (Color)inputs[1];
+         BufferedImage image = new BufferedImage ( buffer . getXRes ( ) , buffer . getYRes ( ) , BufferedImage . TYPE_INT_ARGB ) ;
+         for ( int x = 0 ;
+         x < buffer . getXRes ( ) ;
+         x ++ ) {
+         for ( int y = 0 ;
+         y < buffer . getYRes ( ) ;
+         y ++ ) {
+         double d = 1 - buffer . getValue ( x , y ) . val ;
+         image . setRGB ( x , y , c . mult ( d ) . add ( new Color ( 1 - d , 1 - d , 1 - d ) ) . toARGB ( ) ) ;
+         }
+         }
          return image ;
       }
 
@@ -58,55 +282,16 @@ public final class Images implements AllComponents<ExpressionFunction>, Describe
    }
 
    public static class makeImage_dualchrome_buffer_d extends ExpressionFunction {
-      private transient BufferedImage image ;private void makeImage ( Buffer_d buffer ) { ColorGrid cg = new ColorGrid ( buffer . getXRes ( ) , buffer . getYRes ( ) ) ; for ( int x = 0 ; x < buffer . getXRes ( ) ; x ++ ) { for ( int y = 0 ; y < buffer . getYRes ( ) ; y ++ ) { double d = 1 - buffer . getValue ( x , y ) . val ; Color color = c1 . mult ( d ) . add ( c2 . mult ( 1 - d ) ) ; cg . setValue ( x , y , color ) ; } } image = cg . makeImage ( ) ; }
-      private Color c1;private Color c2;
-      public int getNumberParameters() {
-         return 2;
-      }
-
-      public Object getParameter(int i) {
-         switch(i) {
-            case 0: return c1;
-            case 1: return c2;
-            default: return null;
-         }
-
-      }
-
-      public String getParameterName(int i) {
-         switch(i) {
-            case 0: return "c1";
-            case 1: return "c2";
-            default: return null;
-         }
-
-      }
-
-      public Class getParameterType(int i) {
-         switch(i) {
-            case 0: return Color.class;
-            case 1: return Color.class;
-            default: return null;
-         }
-
-      }
-
-      public void setParameter(int i, Object value) {
-         switch(i) {
-            case 0: c1 = (Color) value; return;
-            case 1: c2 = (Color) value; return;
-            default: return;
-         }
-
-      }
 
       public int getNumberInputs() {
-         return 1;
+         return 3;
       }
 
       public String getInputName(int i) {
          switch(i) {
             case 0: return "buffer";
+            case 1: return "c1";
+            case 2: return "c2";
             default: return null;
          }
 
@@ -115,6 +300,8 @@ public final class Images implements AllComponents<ExpressionFunction>, Describe
       public Class getInputType(int i) {
          switch(i) {
             case 0: return Buffer_d.class;
+            case 1: return Color.class;
+            case 2: return Color.class;
             default: return null;
          }
 
@@ -122,13 +309,23 @@ public final class Images implements AllComponents<ExpressionFunction>, Describe
 
       public makeImage_dualchrome_buffer_d() {
          addGroupMeta(this);
-         c1 = new Color ( Math . random ( ) , Math . random ( ) , Math . random ( ) ) ;
-         c2 = new Color ( Math . random ( ) , Math . random ( ) , Math . random ( ) ) ;
       }
 
       public BufferedImage evaluate(Context context, Object[] inputs) {
          final Buffer_d buffer = (Buffer_d)inputs[0];
-         if ( image == null ) makeImage ( buffer ) ;
+         final Color c1 = (Color)inputs[1];
+         final Color c2 = (Color)inputs[2];
+         BufferedImage image = new BufferedImage ( buffer . getXRes ( ) , buffer . getYRes ( ) , BufferedImage . TYPE_INT_ARGB ) ;
+         for ( int x = 0 ;
+         x < buffer . getXRes ( ) ;
+         x ++ ) {
+         for ( int y = 0 ;
+         y < buffer . getYRes ( ) ;
+         y ++ ) {
+         double d = 1 - buffer . getValue ( x , y ) . val ;
+         image . setRGB ( x , y , c1 . mult ( d ) . add ( c2 . mult ( 1 - d ) ) . toARGB ( ) ) ;
+         }
+         }
          return image ;
       }
 
@@ -145,6 +342,10 @@ public final class Images implements AllComponents<ExpressionFunction>, Describe
    public List<ExpressionFunction> allInstances(ContextModel cm) {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
       r.add(new makeImage_monotone_buffer_d());
+      r.add(new makeImage_monochrome1_buffer_d());
+      r.add(new makeImage_monoalpha1_buffer_d());
+      r.add(new makeImage_monoalpha2_buffer_d());
+      r.add(new makeImage_monochrome2_buffer_d());
       r.add(new makeImage_dualchrome_buffer_d());
       return r;
    }

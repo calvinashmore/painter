@@ -1,0 +1,341 @@
+package painter.functions.expressions;
+group ImageBrushes;
+type Expression;
+
+import java.awt.image.*;
+import utils.linear.*;
+import painter.tools.brush.*;
+import painter.tools.canvas.*;
+
+description "expressions to generate image brushes";
+
+fn imageBrush_simple {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+
+    eval {
+        return new ImageBrush(image, positionPolicy, sizePolicy);
+    }
+}
+
+fn imageBrush_simple_parameter1 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+
+    parameter Boolean round;
+    parameter Boolean scaleImage;
+    parameter Boolean stamp;
+
+    init {
+        Random rand = new Random();
+        round = rand.nextBoolean();
+        scaleImage = rand.nextBoolean();
+        stamp = rand.nextBoolean();
+    }
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setRound(round);
+        brush.setScaleImage(scaleImage);
+        brush.setStamp(stamp);
+        return brush;
+    }
+}
+
+fn imageBrush_xformed1 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+
+    parameter LDouble scale;
+    parameter LDouble rotation;
+    parameter LVect2d offset;
+
+    init {
+        scale = new LDouble(.5+2*Math.random());
+        rotation = new LDouble(Math.PI * Math.random());
+        offset = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+    }
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setScale(scale.val);
+        brush.setRotation(rotation.val);
+        brush.setOffset(offset.x, offset.y);
+        return brush;
+    }
+}
+
+fn imageBrush_xformed2 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+
+    parameter Boolean round;
+    parameter Boolean scaleImage;
+    parameter Boolean stamp;
+    parameter LDouble scale;
+    parameter LDouble rotation;
+    parameter LVect2d offset;
+
+    meta selectionWeight 5;
+
+    init {
+        Random rand = new Random();
+        round = rand.nextBoolean();
+        scaleImage = rand.nextBoolean();
+        stamp = rand.nextBoolean();
+        scale = new LDouble(.5+2*Math.random());
+        rotation = new LDouble(Math.PI * Math.random());
+        offset = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+    }
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setRound(round);
+        brush.setScaleImage(scaleImage);
+        brush.setStamp(stamp);
+        brush.setScale(scale.val);
+        brush.setRotation(rotation.val);
+        brush.setOffset(offset.x, offset.y);
+        return brush;
+    }
+}
+
+
+
+
+
+fn imageBrush_op {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+    in BufferedImageOp op;
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setOp(op);
+        return brush;
+    }
+}
+
+fn imageBrush_op_parameter {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+    in BufferedImageOp op;
+
+    parameter Boolean round;
+    parameter Boolean scaleImage;
+    parameter Boolean stamp;
+
+    init {
+        Random rand = new Random();
+        round = rand.nextBoolean();
+        scaleImage = rand.nextBoolean();
+        stamp = rand.nextBoolean();
+    }
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setRound(round);
+        brush.setScaleImage(scaleImage);
+        brush.setStamp(stamp);
+        brush.setOp(op);
+        return brush;
+    }
+}
+
+fn imageBrush_xformed3 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+    in BufferedImageOp op;
+
+    parameter LDouble scale;
+    parameter LDouble rotation;
+    parameter LVect2d offset;
+
+    init {
+        scale = new LDouble(.5+2*Math.random());
+        rotation = new LDouble(Math.PI * Math.random());
+        offset = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+    }
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setScale(scale.val);
+        brush.setRotation(rotation.val);
+        brush.setOffset(offset.x, offset.y);
+        brush.setOp(op);
+        return brush;
+    }
+}
+
+fn imageBrush_xformed4 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+    in BufferedImageOp op;
+
+    parameter Boolean round;
+    parameter Boolean scaleImage;
+    parameter Boolean stamp;
+    parameter LDouble scale;
+    parameter LDouble rotation;
+    parameter LVect2d offset;
+
+    meta selectionWeight 5;
+
+    init {
+        Random rand = new Random();
+        round = rand.nextBoolean();
+        scaleImage = rand.nextBoolean();
+        stamp = rand.nextBoolean();
+        scale = new LDouble(.5+2*Math.random());
+        rotation = new LDouble(Math.PI * Math.random());
+        offset = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
+    }
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setRound(round);
+        brush.setScaleImage(scaleImage);
+        brush.setStamp(stamp);
+        brush.setScale(scale.val);
+        brush.setRotation(rotation.val);
+        brush.setOffset(offset.x, offset.y);
+        brush.setOp(op);
+        return brush;
+    }
+}
+
+
+
+fn imageBrush_inxform1 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+
+    parameter Boolean round;
+    parameter Boolean scaleImage;
+    parameter Boolean stamp;
+    in LDouble scale;
+    in LDouble rotation;
+    in LVect2d offset;
+
+    init {
+        Random rand = new Random();
+        round = rand.nextBoolean();
+        scaleImage = rand.nextBoolean();
+        stamp = rand.nextBoolean();
+    }
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setRound(round);
+        brush.setScaleImage(scaleImage);
+        brush.setStamp(stamp);
+        brush.setScale(scale.val);
+        brush.setRotation(rotation.val);
+        brush.setOffset(offset.x, offset.y);
+        return brush;
+    }
+}
+
+fn imageBrush_inxform2 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+    in BufferedImageOp op;
+
+    parameter Boolean round;
+    parameter Boolean scaleImage;
+    parameter Boolean stamp;
+    in LDouble scale;
+    in LDouble rotation;
+    in LVect2d offset;
+
+    init {
+        Random rand = new Random();
+        round = rand.nextBoolean();
+        scaleImage = rand.nextBoolean();
+        stamp = rand.nextBoolean();
+    }
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setRound(round);
+        brush.setScaleImage(scaleImage);
+        brush.setStamp(stamp);
+        brush.setScale(scale.val);
+        brush.setRotation(rotation.val);
+        brush.setOffset(offset.x, offset.y);
+        brush.setOp(op);
+        return brush;
+    }
+}
+
+fn imageBrush_inxform3 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+
+    in Boolean round;
+    in Boolean scaleImage;
+    in Boolean stamp;
+    in LDouble scale;
+    in LDouble rotation;
+    in LVect2d offset;
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setRound(round);
+        brush.setScaleImage(scaleImage);
+        brush.setStamp(stamp);
+        brush.setScale(scale.val);
+        brush.setRotation(rotation.val);
+        brush.setOffset(offset.x, offset.y);
+        return brush;
+    }
+}
+
+fn imageBrush_inxform4 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in BufferedImage image;
+    in BufferedImageOp op;
+
+    in Boolean round;
+    in Boolean scaleImage;
+    in Boolean stamp;
+    in LDouble scale;
+    in LDouble rotation;
+    in LVect2d offset;
+
+    eval {
+        ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
+        brush.setRound(round);
+        brush.setScaleImage(scaleImage);
+        brush.setStamp(stamp);
+        brush.setScale(scale.val);
+        brush.setRotation(rotation.val);
+        brush.setOffset(offset.x, offset.y);
+        brush.setOp(op);
+        return brush;
+    }
+}

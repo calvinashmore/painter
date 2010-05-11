@@ -8,6 +8,7 @@ import utils.cellularautomata.*;
 
 description "Cellular Automata";
 
+// NOTE: THESE FUNCTIONS EVALUATE ONLY ONCE!
 
 fn cellular_1d1_discrete {
     fout Buffer_d;
@@ -20,9 +21,20 @@ fn cellular_1d1_discrete {
         colors = 2+rand.nextInt(3);
     }
 
-    eval {
-        Buffer_d data = new Buffer_d(100, 100);
+    private transient Buffer_d data;
+
+    private void makeData() {
+        data = new Buffer_d(20, 20);
         new CellularAutomata1d(data, numberInputs, colors);
+
+        // scale
+        Buffer_d dataLarge = BlurTool.scaleBuffer(data, 100);
+        data = new BlurTool(2.0).process(dataLarge, 4);
+    }
+
+    eval {
+        if(data == null)
+            makeData();
         return data;
     }
 }
@@ -38,9 +50,20 @@ fn cellular_1d2_discrete {
         colors = 2+rand.nextInt(3);
     }
 
-    eval {
-        Buffer_d data = new Buffer_d(100, 100);
+    private transient Buffer_d data;
+
+    private void makeData() {
+        data = new Buffer_d(100, 100);
         new CellularAutomata1d2(data, numberInputs, colors);
+
+        // scale
+        Buffer_d dataLarge = BlurTool.scaleBuffer(data, 100);
+        data = new BlurTool(2.0).process(dataLarge, 4);
+    }
+
+    eval {
+        if(data == null)
+            makeData();
         return data;
     }
 }
@@ -54,9 +77,20 @@ fn cellular_1d1_cont {
         numberInputs = 2+rand.nextInt(3);
     }
 
-    eval {
-        Buffer_d data = new Buffer_d(100, 100);
+    private transient Buffer_d data;
+
+    private void makeData() {
+        data = new Buffer_d(100, 100);
         new CellularAutomata1d_cont(data, numberInputs);
+
+        // scale
+        Buffer_d dataLarge = BlurTool.scaleBuffer(data, 100);
+        data = new BlurTool(2.0).process(dataLarge, 4);
+    }
+
+    eval {
+        if(data == null)
+            makeData();
         return data;
     }
 }
@@ -70,9 +104,20 @@ fn cellular_1d2_cont {
         numberInputs = 2+rand.nextInt(3);
     }
 
-    eval {
-        Buffer_d data = new Buffer_d(100, 100);
+    private transient Buffer_d data;
+
+    private void makeData() {
+        data = new Buffer_d(100, 100);
         new CellularAutomata1d2_cont(data, numberInputs);
+
+        // scale
+        Buffer_d dataLarge = BlurTool.scaleBuffer(data, 100);
+        data = new BlurTool(2.0).process(dataLarge, 4);
+    }
+
+    eval {
+        if(data == null)
+            makeData();
         return data;
     }
 }

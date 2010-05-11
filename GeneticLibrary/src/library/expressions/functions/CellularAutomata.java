@@ -20,7 +20,7 @@ import utils.cellularautomata.*;
 public final class CellularAutomata implements AllComponents<ExpressionFunction>, Described {
 
    public static class cellular_1d1_discrete extends ExpressionFunction {
-
+      private transient Buffer_d data ;private void makeData ( ) { data = new Buffer_d ( 20 , 20 ) ; new CellularAutomata1d ( data , numberInputs , colors ) ; Buffer_d dataLarge = BlurTool . scaleBuffer ( data , 100 ) ; data = new BlurTool ( 2.0 ) . process ( dataLarge , 4 ) ; }
       private Integer numberInputs;private Integer colors;
       public int getNumberParameters() {
          return 2;
@@ -71,8 +71,7 @@ public final class CellularAutomata implements AllComponents<ExpressionFunction>
 
       public Buffer_d evaluate(Context context, Object[] inputs) {
 
-         Buffer_d data = new Buffer_d ( 100 , 100 ) ;
-         new CellularAutomata1d ( data , numberInputs , colors ) ;
+         if ( data == null ) makeData ( ) ;
          return data ;
       }
 
@@ -83,7 +82,7 @@ public final class CellularAutomata implements AllComponents<ExpressionFunction>
    }
 
    public static class cellular_1d2_discrete extends ExpressionFunction {
-
+      private transient Buffer_d data ;private void makeData ( ) { data = new Buffer_d ( 100 , 100 ) ; new CellularAutomata1d2 ( data , numberInputs , colors ) ; Buffer_d dataLarge = BlurTool . scaleBuffer ( data , 100 ) ; data = new BlurTool ( 2.0 ) . process ( dataLarge , 4 ) ; }
       private Integer numberInputs;private Integer colors;
       public int getNumberParameters() {
          return 2;
@@ -134,8 +133,7 @@ public final class CellularAutomata implements AllComponents<ExpressionFunction>
 
       public Buffer_d evaluate(Context context, Object[] inputs) {
 
-         Buffer_d data = new Buffer_d ( 100 , 100 ) ;
-         new CellularAutomata1d2 ( data , numberInputs , colors ) ;
+         if ( data == null ) makeData ( ) ;
          return data ;
       }
 
@@ -146,7 +144,7 @@ public final class CellularAutomata implements AllComponents<ExpressionFunction>
    }
 
    public static class cellular_1d1_cont extends ExpressionFunction {
-
+      private transient Buffer_d data ;private void makeData ( ) { data = new Buffer_d ( 100 , 100 ) ; new CellularAutomata1d_cont ( data , numberInputs ) ; Buffer_d dataLarge = BlurTool . scaleBuffer ( data , 100 ) ; data = new BlurTool ( 2.0 ) . process ( dataLarge , 4 ) ; }
       private Integer numberInputs;
       public int getNumberParameters() {
          return 1;
@@ -192,8 +190,7 @@ public final class CellularAutomata implements AllComponents<ExpressionFunction>
 
       public Buffer_d evaluate(Context context, Object[] inputs) {
 
-         Buffer_d data = new Buffer_d ( 100 , 100 ) ;
-         new CellularAutomata1d_cont ( data , numberInputs ) ;
+         if ( data == null ) makeData ( ) ;
          return data ;
       }
 
@@ -204,7 +201,7 @@ public final class CellularAutomata implements AllComponents<ExpressionFunction>
    }
 
    public static class cellular_1d2_cont extends ExpressionFunction {
-
+      private transient Buffer_d data ;private void makeData ( ) { data = new Buffer_d ( 100 , 100 ) ; new CellularAutomata1d2_cont ( data , numberInputs ) ; Buffer_d dataLarge = BlurTool . scaleBuffer ( data , 100 ) ; data = new BlurTool ( 2.0 ) . process ( dataLarge , 4 ) ; }
       private Integer numberInputs;
       public int getNumberParameters() {
          return 1;
@@ -250,8 +247,7 @@ public final class CellularAutomata implements AllComponents<ExpressionFunction>
 
       public Buffer_d evaluate(Context context, Object[] inputs) {
 
-         Buffer_d data = new Buffer_d ( 100 , 100 ) ;
-         new CellularAutomata1d2_cont ( data , numberInputs ) ;
+         if ( data == null ) makeData ( ) ;
          return data ;
       }
 

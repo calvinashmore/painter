@@ -75,11 +75,8 @@ public class ImageBrush implements Brush {
 
         radius = Math.abs(radius);
 
-        double width = radius * canvas.getHeight();
+        double width = 5 * radius * canvas.getHeight();
         //double height = radius * canvas.getHeight();
-
-        x = positionPolicy.getX(x, y, canvas) + sizePolicy.getXOffset(width);
-        y = positionPolicy.getY(x, y, canvas) + sizePolicy.getYOffset(width);
 
         int stampX;
         int stampY;
@@ -91,6 +88,9 @@ public class ImageBrush implements Brush {
             stampX = (int) (offsetX * image.getWidth());
             stampY = (int) (offsetY * image.getWidth());
         }
+
+        x = positionPolicy.getX(x, y, canvas) + sizePolicy.getXOffset(width);
+        y = positionPolicy.getY(x, y, canvas) + sizePolicy.getYOffset(width);
 
         int stampWidth = (int) width;
         int stampHeight = (int) width;

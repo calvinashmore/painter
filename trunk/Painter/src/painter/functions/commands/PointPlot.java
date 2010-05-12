@@ -14,6 +14,7 @@ import genetic.component.statement.*;
 import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
 import utils.linear.*;
+import utils.linear.grid.*;
 import utils.curves.*;
 import utils.pointfield.attractor.*;
 import utils.ifs.*;
@@ -352,6 +353,345 @@ public final class PointPlot implements AllComponents<Command>, Described {
 
    }
 
+   public static class PlotBuffer_curve_col extends Command {
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            case 1: return "color";
+            case 2: return "buffer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return CurveUtil . Curve_col.class;
+            case 2: return Buffer_d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotBuffer_curve_col() {
+         addGroupMeta(this);
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final Buffer_d buffer = (Buffer_d)inputs[2];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         for ( int ix = 0 ;
+         ix < buffer . getXRes ( ) ;
+         ix ++ ) for ( int iy = 0 ;
+         iy < buffer . getYRes ( ) ;
+         iy ++ ) {
+         double x = ( double ) ix / buffer . getXRes ( ) ;
+         double y = ( double ) iy / buffer . getYRes ( ) ;
+         double value = buffer . getValue ( ix , iy ) . val ;
+         Color c = color . getValue ( value ) ;
+         brush . paint ( x , y , 0 , 0 , .02 , c , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotBuffer_curve_col2 extends Command {
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            case 1: return "color";
+            case 2: return "buffer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return CurveUtil . Curve_col.class;
+            case 2: return Buffer_d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotBuffer_curve_col2() {
+         addGroupMeta(this);
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final Buffer_d buffer = (Buffer_d)inputs[2];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         for ( int ix = 0 ;
+         ix < buffer . getXRes ( ) ;
+         ix ++ ) for ( int iy = 0 ;
+         iy < buffer . getYRes ( ) ;
+         iy ++ ) {
+         double x = ( double ) ix / buffer . getXRes ( ) ;
+         double y = ( double ) iy / buffer . getYRes ( ) ;
+         double value = buffer . getValue ( ix , iy ) . val ;
+         Color c = color . getValue ( value ) ;
+         brush . paint ( x , y , 0 , 0 , .1 * value , c , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotBuffer_curve_col_size extends Command {
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            case 1: return "color";
+            case 2: return "width";
+            case 3: return "buffer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return CurveUtil . Curve_col.class;
+            case 2: return CurveUtil . Curve_d.class;
+            case 3: return Buffer_d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotBuffer_curve_col_size() {
+         addGroupMeta(this);
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[2];
+         final Buffer_d buffer = (Buffer_d)inputs[3];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         for ( int ix = 0 ;
+         ix < buffer . getXRes ( ) ;
+         ix ++ ) for ( int iy = 0 ;
+         iy < buffer . getYRes ( ) ;
+         iy ++ ) {
+         double x = ( double ) ix / buffer . getXRes ( ) ;
+         double y = ( double ) iy / buffer . getYRes ( ) ;
+         double value = buffer . getValue ( ix , iy ) . val ;
+         Color c = color . getValue ( value ) ;
+         brush . paint ( x , y , 0 , 0 , .5 * width . getValue ( value ) . val , c , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotBuffer_thresh1_curve_col_size extends Command {
+
+      private LDouble threshold;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return threshold;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "threshold";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: threshold = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            case 1: return "color";
+            case 2: return "width";
+            case 3: return "buffer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return CurveUtil . Curve_col.class;
+            case 2: return CurveUtil . Curve_d.class;
+            case 3: return Buffer_d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotBuffer_thresh1_curve_col_size() {
+         addGroupMeta(this);
+         threshold = new LDouble ( .1 + .8 * Math . random ( ) ) ;
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[2];
+         final Buffer_d buffer = (Buffer_d)inputs[3];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         for ( int ix = 0 ;
+         ix < buffer . getXRes ( ) ;
+         ix ++ ) for ( int iy = 0 ;
+         iy < buffer . getYRes ( ) ;
+         iy ++ ) {
+         double x = ( double ) ix / buffer . getXRes ( ) ;
+         double y = ( double ) iy / buffer . getYRes ( ) ;
+         double value = buffer . getValue ( ix , iy ) . val ;
+         if ( value < threshold . val ) continue ;
+         value = ( value - threshold . val ) / ( 1 - threshold . val ) ;
+         Color c = color . getValue ( value ) ;
+         brush . paint ( x , y , 0 , 0 , .5 * width . getValue ( value ) . val , c , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotBuffer_thresh2_curve_col_size extends Command {
+
+      private LDouble threshold;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return threshold;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "threshold";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: threshold = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            case 1: return "color";
+            case 2: return "width";
+            case 3: return "buffer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return CurveUtil . Curve_col.class;
+            case 2: return CurveUtil . Curve_d.class;
+            case 3: return Buffer_d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotBuffer_thresh2_curve_col_size() {
+         addGroupMeta(this);
+         threshold = new LDouble ( .1 + .8 * Math . random ( ) ) ;
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[2];
+         final Buffer_d buffer = (Buffer_d)inputs[3];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         for ( int ix = 0 ;
+         ix < buffer . getXRes ( ) ;
+         ix ++ ) for ( int iy = 0 ;
+         iy < buffer . getYRes ( ) ;
+         iy ++ ) {
+         double x = ( double ) ix / buffer . getXRes ( ) ;
+         double y = ( double ) iy / buffer . getYRes ( ) ;
+         double value = buffer . getValue ( ix , iy ) . val ;
+         if ( value > threshold . val ) continue ;
+         value = ( value ) / ( threshold . val ) ;
+         Color c = color . getValue ( value ) ;
+         brush . paint ( x , y , 0 , 0 , .5 * width . getValue ( value ) . val , c , canvas ) ;
+         }
+      }
+
+   }
+
    public String getDescription() {
       return "Plots out points";
    }
@@ -363,6 +703,11 @@ public final class PointPlot implements AllComponents<Command>, Described {
       r.add(new PlotAttractor_curve_col());
       r.add(new PlotIFS());
       r.add(new PlotIFS_curve_col());
+      r.add(new PlotBuffer_curve_col());
+      r.add(new PlotBuffer_curve_col2());
+      r.add(new PlotBuffer_curve_col_size());
+      r.add(new PlotBuffer_thresh1_curve_col_size());
+      r.add(new PlotBuffer_thresh2_curve_col_size());
       return r;
    }
 

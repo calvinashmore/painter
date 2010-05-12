@@ -3,6 +3,7 @@ group PointPlot;
 type Command;
 
 import utils.linear.*;
+import utils.linear.grid.*;
 import utils.curves.*;
 import utils.pointfield.attractor.*;
 import utils.ifs.*;
@@ -129,6 +130,130 @@ fn PlotIFS_curve_col {
             LVect2d start = new LVect2d(2*Math.random()-1, 2*Math.random()-1);
             LVect2d result = ifs.applyRepeatedly(start, 20, random);
             brush.paint(result.x, result.y,0,0, .02, color.getValue(t), canvas);
+        }
+    }
+}
+
+fn PlotBuffer_curve_col {
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in Buffer_d buffer;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(int ix=0; ix<buffer.getXRes(); ix++)
+        for(int iy=0; iy<buffer.getYRes(); iy++) {
+            double x = (double)ix/buffer.getXRes();
+            double y = (double)iy/buffer.getYRes();
+            double value = buffer.getValue(ix,iy).val;
+
+            Color c = color.getValue(value);
+            brush.paint(x, y, 0, 0, .02, c, canvas);
+        }
+    }
+}
+
+fn PlotBuffer_curve_col2 {
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in Buffer_d buffer;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(int ix=0; ix<buffer.getXRes(); ix++)
+        for(int iy=0; iy<buffer.getYRes(); iy++) {
+            double x = (double)ix/buffer.getXRes();
+            double y = (double)iy/buffer.getYRes();
+            double value = buffer.getValue(ix,iy).val;
+
+            Color c = color.getValue(value);
+            brush.paint(x, y, 0, 0, .1*value, c, canvas);
+        }
+    }
+}
+
+fn PlotBuffer_curve_col_size {
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Buffer_d buffer;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(int ix=0; ix<buffer.getXRes(); ix++)
+        for(int iy=0; iy<buffer.getYRes(); iy++) {
+            double x = (double)ix/buffer.getXRes();
+            double y = (double)iy/buffer.getYRes();
+            double value = buffer.getValue(ix,iy).val;
+
+            Color c = color.getValue(value);
+            brush.paint(x, y, 0, 0, .5*width.getValue(value).val, c, canvas);
+        }
+    }
+}
+
+
+fn PlotBuffer_thresh1_curve_col_size {
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Buffer_d buffer;
+
+    parameter LDouble threshold;
+    init {
+        threshold = new LDouble(.1+.8*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(int ix=0; ix<buffer.getXRes(); ix++)
+        for(int iy=0; iy<buffer.getYRes(); iy++) {
+            double x = (double)ix/buffer.getXRes();
+            double y = (double)iy/buffer.getYRes();
+            double value = buffer.getValue(ix,iy).val;
+
+            if(value < threshold.val)
+                continue;
+
+            value = (value-threshold.val)/(1-threshold.val);
+
+            Color c = color.getValue(value);
+            brush.paint(x, y, 0, 0, .5*width.getValue(value).val, c, canvas);
+        }
+    }
+}
+
+fn PlotBuffer_thresh2_curve_col_size {
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Buffer_d buffer;
+
+    parameter LDouble threshold;
+    init {
+        threshold = new LDouble(.1+.8*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(int ix=0; ix<buffer.getXRes(); ix++)
+        for(int iy=0; iy<buffer.getYRes(); iy++) {
+            double x = (double)ix/buffer.getXRes();
+            double y = (double)iy/buffer.getYRes();
+            double value = buffer.getValue(ix,iy).val;
+
+            if(value > threshold.val)
+                continue;
+
+            value = (value)/(threshold.val);
+
+            Color c = color.getValue(value);
+            brush.paint(x, y, 0, 0, .5*width.getValue(value).val, c, canvas);
         }
     }
 }

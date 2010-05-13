@@ -1,0 +1,414 @@
+package library.expressions.functions;
+group NoiseCurves;
+type Expression;
+
+import utils.linear.*;
+import utils.curves.*;
+import utils.noise.*;
+
+description "expressions to generate curves based on Perlin noise";
+
+
+fn noisecurve_d {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_d;
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double v) {
+                return new LDouble(noise.noise(v, 0, 0));
+            }
+        };
+    }
+}
+
+fn noisecurve_d_scaled {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_d;
+
+    parameter LDouble scale;
+
+    init {
+        scale = new LDouble(1+3*Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double v) {
+                v = v*scale.val;
+                return new LDouble(noise.noise(v, 0, 0));
+            }
+        };
+    }
+}
+
+fn noisecurve_v2 {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_v2;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double v) {
+                return new LVect2d(noise.noise(v, 0, 0), noise.noise(v+100, 10, 10));
+            }
+        };
+    }
+}
+
+fn noisecurve_v2_scaled {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_v2;
+
+    parameter LDouble scale;
+
+    init {
+        scale = new LDouble(1+3*Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double v) {
+                v = v*scale.val;
+                return new LVect2d(noise.noise(v, 0, 0), noise.noise(v+100, 10, 10));
+            }
+        };
+    }
+}
+
+
+fn noisecurve_v2_n {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_v2;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double v) {
+                return new LVect2d(noise.noise(v, 0, 0), noise.noise(v+100, 10, 10)).normal();
+            }
+        };
+    }
+}
+
+fn noisecurve_v2_n_scaled {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_v2;
+
+    parameter LDouble scale;
+
+    init {
+        scale = new LDouble(1+3*Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double v) {
+                v = v*scale.val;
+                return new LVect2d(noise.noise(v, 0, 0), noise.noise(v+100, 10, 10)).normal();
+            }
+        };
+    }
+}
+
+fn noisecurve_col {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_col;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                return new Color(noise.noise(v, 0, 0), noise.noise(v+100, 10, 10), noise.noise(v+300, 30, 30));
+            }
+        };
+    }
+}
+
+fn noisecurve_col_scaled {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_col;
+
+    parameter LDouble scale;
+
+    init {
+        scale = new LDouble(1+3*Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                v = v*scale.val;
+                return new Color(noise.noise(v, 0, 0), noise.noise(v+100, 10, 10), noise.noise(v+300, 30, 30));
+            }
+        };
+    }
+}
+
+
+fn noisecurve_col_n {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_col;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                return new Color(noise.noise(v, 0, 0), noise.noise(v+100, 10, 10), noise.noise(v+300, 30, 30)).normal();
+            }
+        };
+    }
+}
+
+fn noisecurve_col_n_scaled {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_col;
+
+    parameter LDouble scale;
+
+    init {
+        scale = new LDouble(1+3*Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                v = v*scale.val;
+                return new Color(noise.noise(v, 0, 0), noise.noise(v+100, 10, 10), noise.noise(v+300, 30, 30)).normal();
+            }
+        };
+    }
+}
+
+fn noisecurve_col2 {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_col;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                return Color.makeHSB(noise.noise(v, 0, 0), noise.noise(v+100, 10, 10), noise.noise(v+300, 30, 30));
+            }
+        };
+    }
+}
+
+fn noisecurve_col3 {
+    in NoiseFunction noise;
+    fout CurveUtil.Curve_col;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                LVect3d a = new LVect3d(noise.noise(v, 0, 0), noise.noise(v+100, 10, 10), noise.noise(v+300, 30, 30)).normal();
+                return Color.makeHSB(a.x, a.y, a.z);
+            }
+        };
+    }
+}
+
+// **************************************
+// *** NOISE FRACTALS
+// **************************************
+
+fn fractalcurve_d {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_d;
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double v) {
+                return new LDouble(fractal.evalFractal(noise, v, 0, 0));
+            }
+        };
+    }
+}
+
+fn fractalcurve_d_scaled {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_d;
+
+    parameter LDouble scale;
+
+    init {
+        scale = new LDouble(1+3*Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_d() {
+            public LDouble getValue(double v) {
+                v = v*scale.val;
+                return new LDouble(fractal.evalFractal(noise, v, 0, 0));
+            }
+        };
+    }
+}
+
+fn fractalcurve_v2 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_v2;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double v) {
+                return new LVect2d(fractal.evalFractal(noise, v, 0, 0), fractal.evalFractal(noise, v+100, 10, 10));
+            }
+        };
+    }
+}
+
+fn fractalcurve_v2_scaled {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_v2;
+
+    parameter LDouble scale;
+
+    init {
+        scale = new LDouble(1+3*Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double v) {
+                v = v*scale.val;
+                return new LVect2d(fractal.evalFractal(noise, v, 0, 0), fractal.evalFractal(noise, v+100, 10, 10));
+            }
+        };
+    }
+}
+
+
+fn fractalcurve_v2_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_v2;
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double v) {
+                return new LVect2d(fractal.evalFractal(noise, v, 0, 0), fractal.evalFractal(noise, v+100, 10, 10)).normal();
+            }
+        };
+    }
+}
+
+fn fractalcurve_v2_n_scaled {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_v2;
+
+    parameter LDouble scale;
+
+    init {
+        scale = new LDouble(1+3*Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_v2() {
+            public LVect2d getValue(double v) {
+                v = v*scale.val;
+                return new LVect2d(fractal.evalFractal(noise, v, 0, 0), fractal.evalFractal(noise, v+100, 10, 10)).normal();
+            }
+        };
+    }
+}
+
+fn fractalcurve_col {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_col;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                return new Color(fractal.evalFractal(noise, v, 0, 0), fractal.evalFractal(noise, v+100, 10, 10), fractal.evalFractal(noise, v+300, 30, 30));
+            }
+        };
+    }
+}
+
+fn fractalcurve_col_scaled {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_col;
+
+    parameter LDouble scale;
+
+    init {
+        scale = new LDouble(1+3*Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                v = v*scale.val;
+                return new Color(fractal.evalFractal(noise, v, 0, 0), fractal.evalFractal(noise, v+100, 10, 10), fractal.evalFractal(noise, v+300, 30, 30));
+            }
+        };
+    }
+}
+
+
+fn fractalcurve_col_n {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_col;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                return new Color(fractal.evalFractal(noise, v, 0, 0), fractal.evalFractal(noise, v+100, 10, 10), fractal.evalFractal(noise, v+300, 30, 30)).normal();
+            }
+        };
+    }
+}
+
+fn fractalcurve_col_n_scaled {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_col;
+
+    parameter LDouble scale;
+
+    init {
+        scale = new LDouble(1+3*Math.random());
+    }
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                v = v*scale.val;
+                return new Color(fractal.evalFractal(noise, v, 0, 0), fractal.evalFractal(noise, v+100, 10, 10), fractal.evalFractal(noise, v+300, 30, 30)).normal();
+            }
+        };
+    }
+}
+
+fn fractalcurve_col2 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_col;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                return Color.makeHSB(fractal.evalFractal(noise, v, 0, 0), fractal.evalFractal(noise, v+100, 10, 10), fractal.evalFractal(noise, v+300, 30, 30));
+            }
+        };
+    }
+}
+
+fn fractalcurve_col3 {
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+    fout CurveUtil.Curve_col;
+
+    eval {
+        return new CurveUtil.Curve_col() {
+            public Color getValue(double v) {
+                LVect3d a = new LVect3d(fractal.evalFractal(noise, v, 0, 0), fractal.evalFractal(noise, v+100, 10, 10), fractal.evalFractal(noise, v+300, 30, 30)).normal();
+                return Color.makeHSB(a.x, a.y, a.z);
+            }
+        };
+    }
+}

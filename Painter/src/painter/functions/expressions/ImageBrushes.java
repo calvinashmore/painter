@@ -48,6 +48,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_simple() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -136,6 +137,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_simple_parameter1() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
          Random rand = new Random ( ) ;
          round = rand . nextBoolean ( ) ;
          scaleImage = rand . nextBoolean ( ) ;
@@ -232,6 +234,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_xformed1() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
          scale = new LDouble ( .5 + 2 * Math . random ( ) ) ;
          rotation = new LDouble ( Math . PI * Math . random ( ) ) ;
          offset = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
@@ -339,6 +342,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_xformed2() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
          Random rand = new Random ( ) ;
          round = rand . nextBoolean ( ) ;
          scaleImage = rand . nextBoolean ( ) ;
@@ -398,6 +402,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_op() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -491,6 +496,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_op_parameter() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
          Random rand = new Random ( ) ;
          round = rand . nextBoolean ( ) ;
          scaleImage = rand . nextBoolean ( ) ;
@@ -591,6 +597,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_xformed3() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
          scale = new LDouble ( .5 + 2 * Math . random ( ) ) ;
          rotation = new LDouble ( Math . PI * Math . random ( ) ) ;
          offset = new LVect2d ( 2 * Math . random ( ) - 1 , 2 * Math . random ( ) - 1 ) ;
@@ -702,6 +709,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_xformed4() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
          Random rand = new Random ( ) ;
          round = rand . nextBoolean ( ) ;
          scaleImage = rand . nextBoolean ( ) ;
@@ -812,6 +820,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_inxform1() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
          Random rand = new Random ( ) ;
          round = rand . nextBoolean ( ) ;
          scaleImage = rand . nextBoolean ( ) ;
@@ -922,6 +931,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_inxform2() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
          Random rand = new Random ( ) ;
          round = rand . nextBoolean ( ) ;
          scaleImage = rand . nextBoolean ( ) ;
@@ -993,6 +1003,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_inxform3() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -1063,6 +1074,7 @@ public final class ImageBrushes implements AllComponents<ExpressionFunction>, De
 
       public imageBrush_inxform4() {
          addGroupMeta(this);
+         addMeta("selectionWeight", .1);
       }
 
       public Brush evaluate(Context context, Object[] inputs) {

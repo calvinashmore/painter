@@ -56,10 +56,10 @@ abstract public class GradientBrush implements Brush {
 
         float x1, x2, y1, y2;
 
-        x1 = (float) (x+.5*width*(1+Math.cos(angle)));
-        y1 = (float) (y+.5*width*(1+Math.sin(angle)));
-        x2 = (float) (x+.5*width*(1-Math.cos(angle)));
-        y2 = (float) (y+.5*width*(1-Math.sin(angle)));
+        x1 = (float) (x + .5 * width * (1 + Math.cos(angle * Math.PI)));
+        y1 = (float) (y + .5 * width * (1 + Math.sin(angle * Math.PI)));
+        x2 = (float) (x + .5 * width * (1 - Math.cos(angle * Math.PI)));
+        y2 = (float) (y + .5 * width * (1 - Math.sin(angle * Math.PI)));
 
         Color color2 = getColor2(color1);
         GradientPaint paint = new GradientPaint(x1, y1, new java.awt.Color(color1.toARGB()), x2, y2, new java.awt.Color(color2.toARGB()), true);

@@ -81,6 +81,40 @@ fn ColorSizeStroke {
     }
 }
 
+fn ColorSizeCircle {
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+    in LVect2d center;
+    in LDouble radius;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        stroke.render(brush, width, new Circle(center, radius.val), color, canvas, renderer);
+    }
+}
+
+
+fn ColorSizeCircle2 {
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+    in LVect2d center;
+    parameter LDouble radius;
+
+    init {
+        radius = new LDouble(.5+.5*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        stroke.render(brush, width, new Circle(center, radius.val), color, canvas, renderer);
+    }
+}
 
 // *****************************************
 // ****** SPECIAL STROKES
@@ -139,6 +173,35 @@ fn TwoCurveStroke2 {
             double x = (double)i/middlePoints;
 
             Curve<LVect2d> position = new SegmentCurve(position1.getValue(x), position2.getValue(1-x));
+            stroke.render(brush, width, position, color, canvas, renderer);
+        }
+    }
+}
+
+fn CurveAndPointStroke {
+    in CurveUtil.Curve_v2 position1;
+    in LVect2d position2;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+
+    description "draws strokes between a point and a curve";
+
+    parameter int middlePoints;
+
+    init {
+        middlePoints = (int)(20 + 50*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(int i=0;i<middlePoints;i++) {
+            double x = (double)i/middlePoints;
+
+            Curve<LVect2d> position = new SegmentCurve(position1.getValue(x), position2);
             stroke.render(brush, width, position, color, canvas, renderer);
         }
     }

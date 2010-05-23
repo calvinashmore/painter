@@ -692,6 +692,524 @@ public final class PointPlot implements AllComponents<Command>, Described {
 
    }
 
+   public static class PlotBuffer2_curve_col extends Command {
+
+      private LDouble samplingRatio;private LDouble sampleSharpness;private Integer sampleRadius;
+      public int getNumberParameters() {
+         return 3;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return samplingRatio;
+            case 1: return sampleSharpness;
+            case 2: return sampleRadius;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "samplingRatio";
+            case 1: return "sampleSharpness";
+            case 2: return "sampleRadius";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return LDouble.class;
+            case 2: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: samplingRatio = (LDouble) value; return;
+            case 1: sampleSharpness = (LDouble) value; return;
+            case 2: sampleRadius = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            case 1: return "color";
+            case 2: return "buffer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return CurveUtil . Curve_col.class;
+            case 2: return Buffer_d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotBuffer2_curve_col() {
+         addGroupMeta(this);
+         samplingRatio = new LDouble ( 2 + 3 * Math . random ( ) ) ;
+         sampleSharpness = new LDouble ( .01 + .5 * Math . random ( ) ) ;
+         sampleRadius = ( int ) ( 2 + 3 * Math . random ( ) ) ;
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final Buffer_d buffer = (Buffer_d)inputs[2];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         double step = 1.0 / samplingRatio . val ;
+         for ( double dx = 0 ;
+         dx < buffer . getXRes ( ) ;
+         dx += step ) for ( double dy = 0 ;
+         dy < buffer . getYRes ( ) ;
+         dy += step ) {
+         double x = dx / buffer . getXRes ( ) ;
+         double y = dy / buffer . getYRes ( ) ;
+         double value = buffer . pointGaussAverage ( dx , dy , sampleRadius , sampleSharpness . val ) . val ;
+         Color c = color . getValue ( value ) ;
+         brush . paint ( x , y , 0 , 0 , .02 , c , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotBuffer2_curve_col2 extends Command {
+
+      private LDouble samplingRatio;private LDouble sampleSharpness;private Integer sampleRadius;
+      public int getNumberParameters() {
+         return 3;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return samplingRatio;
+            case 1: return sampleSharpness;
+            case 2: return sampleRadius;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "samplingRatio";
+            case 1: return "sampleSharpness";
+            case 2: return "sampleRadius";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return LDouble.class;
+            case 2: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: samplingRatio = (LDouble) value; return;
+            case 1: sampleSharpness = (LDouble) value; return;
+            case 2: sampleRadius = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            case 1: return "color";
+            case 2: return "buffer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return CurveUtil . Curve_col.class;
+            case 2: return Buffer_d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotBuffer2_curve_col2() {
+         addGroupMeta(this);
+         samplingRatio = new LDouble ( 2 + 3 * Math . random ( ) ) ;
+         sampleSharpness = new LDouble ( .01 + .5 * Math . random ( ) ) ;
+         sampleRadius = ( int ) ( 2 + 3 * Math . random ( ) ) ;
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final Buffer_d buffer = (Buffer_d)inputs[2];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         double step = 1.0 / samplingRatio . val ;
+         for ( double dx = 0 ;
+         dx < buffer . getXRes ( ) ;
+         dx += step ) for ( double dy = 0 ;
+         dy < buffer . getYRes ( ) ;
+         dy += step ) {
+         double x = dx / buffer . getXRes ( ) ;
+         double y = dy / buffer . getYRes ( ) ;
+         double value = buffer . pointGaussAverage ( dx , dy , sampleRadius , sampleSharpness . val ) . val ;
+         Color c = color . getValue ( value ) ;
+         brush . paint ( x , y , 0 , 0 , .1 * value , c , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotBuffer2_curve_col_size extends Command {
+
+      private LDouble samplingRatio;private LDouble sampleSharpness;private Integer sampleRadius;
+      public int getNumberParameters() {
+         return 3;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return samplingRatio;
+            case 1: return sampleSharpness;
+            case 2: return sampleRadius;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "samplingRatio";
+            case 1: return "sampleSharpness";
+            case 2: return "sampleRadius";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return LDouble.class;
+            case 2: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: samplingRatio = (LDouble) value; return;
+            case 1: sampleSharpness = (LDouble) value; return;
+            case 2: sampleRadius = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            case 1: return "color";
+            case 2: return "width";
+            case 3: return "buffer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return CurveUtil . Curve_col.class;
+            case 2: return CurveUtil . Curve_d.class;
+            case 3: return Buffer_d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotBuffer2_curve_col_size() {
+         addGroupMeta(this);
+         samplingRatio = new LDouble ( 2 + 3 * Math . random ( ) ) ;
+         sampleSharpness = new LDouble ( .01 + .5 * Math . random ( ) ) ;
+         sampleRadius = ( int ) ( 2 + 3 * Math . random ( ) ) ;
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[2];
+         final Buffer_d buffer = (Buffer_d)inputs[3];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         double step = 1.0 / samplingRatio . val ;
+         for ( double dx = 0 ;
+         dx < buffer . getXRes ( ) ;
+         dx += step ) for ( double dy = 0 ;
+         dy < buffer . getYRes ( ) ;
+         dy += step ) {
+         double x = dx / buffer . getXRes ( ) ;
+         double y = dy / buffer . getYRes ( ) ;
+         double value = buffer . pointGaussAverage ( dx , dy , sampleRadius , sampleSharpness . val ) . val ;
+         Color c = color . getValue ( value ) ;
+         brush . paint ( x , y , 0 , 0 , .5 * width . getValue ( value ) . val , c , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotBuffer2_thresh1_curve_col_size extends Command {
+
+      private LDouble threshold;private LDouble samplingRatio;private LDouble sampleSharpness;private Integer sampleRadius;
+      public int getNumberParameters() {
+         return 4;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return threshold;
+            case 1: return samplingRatio;
+            case 2: return sampleSharpness;
+            case 3: return sampleRadius;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "threshold";
+            case 1: return "samplingRatio";
+            case 2: return "sampleSharpness";
+            case 3: return "sampleRadius";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return LDouble.class;
+            case 2: return LDouble.class;
+            case 3: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: threshold = (LDouble) value; return;
+            case 1: samplingRatio = (LDouble) value; return;
+            case 2: sampleSharpness = (LDouble) value; return;
+            case 3: sampleRadius = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            case 1: return "color";
+            case 2: return "width";
+            case 3: return "buffer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return CurveUtil . Curve_col.class;
+            case 2: return CurveUtil . Curve_d.class;
+            case 3: return Buffer_d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotBuffer2_thresh1_curve_col_size() {
+         addGroupMeta(this);
+         threshold = new LDouble ( .1 + .8 * Math . random ( ) ) ;
+         samplingRatio = new LDouble ( 2 + 3 * Math . random ( ) ) ;
+         sampleSharpness = new LDouble ( .01 + .5 * Math . random ( ) ) ;
+         sampleRadius = ( int ) ( 2 + 3 * Math . random ( ) ) ;
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[2];
+         final Buffer_d buffer = (Buffer_d)inputs[3];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         double step = 1.0 / samplingRatio . val ;
+         for ( double dx = 0 ;
+         dx < buffer . getXRes ( ) ;
+         dx += step ) for ( double dy = 0 ;
+         dy < buffer . getYRes ( ) ;
+         dy += step ) {
+         double x = dx / buffer . getXRes ( ) ;
+         double y = dy / buffer . getYRes ( ) ;
+         double value = buffer . pointGaussAverage ( dx , dy , sampleRadius , sampleSharpness . val ) . val ;
+         if ( value < threshold . val ) continue ;
+         value = ( value - threshold . val ) / ( 1 - threshold . val ) ;
+         Color c = color . getValue ( value ) ;
+         brush . paint ( x , y , 0 , 0 , .5 * width . getValue ( value ) . val , c , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotBuffer2_thresh2_curve_col_size extends Command {
+
+      private LDouble threshold;private LDouble samplingRatio;private LDouble sampleSharpness;private Integer sampleRadius;
+      public int getNumberParameters() {
+         return 4;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return threshold;
+            case 1: return samplingRatio;
+            case 2: return sampleSharpness;
+            case 3: return sampleRadius;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "threshold";
+            case 1: return "samplingRatio";
+            case 2: return "sampleSharpness";
+            case 3: return "sampleRadius";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return LDouble.class;
+            case 2: return LDouble.class;
+            case 3: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: threshold = (LDouble) value; return;
+            case 1: samplingRatio = (LDouble) value; return;
+            case 2: sampleSharpness = (LDouble) value; return;
+            case 3: sampleRadius = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            case 1: return "color";
+            case 2: return "width";
+            case 3: return "buffer";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            case 1: return CurveUtil . Curve_col.class;
+            case 2: return CurveUtil . Curve_d.class;
+            case 3: return Buffer_d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotBuffer2_thresh2_curve_col_size() {
+         addGroupMeta(this);
+         threshold = new LDouble ( .1 + .8 * Math . random ( ) ) ;
+         samplingRatio = new LDouble ( 2 + 3 * Math . random ( ) ) ;
+         sampleSharpness = new LDouble ( .01 + .5 * Math . random ( ) ) ;
+         sampleRadius = ( int ) ( 2 + 3 * Math . random ( ) ) ;
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[1];
+         final CurveUtil . Curve_d width = (CurveUtil . Curve_d)inputs[2];
+         final Buffer_d buffer = (Buffer_d)inputs[3];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         double step = 1.0 / samplingRatio . val ;
+         for ( double dx = 0 ;
+         dx < buffer . getXRes ( ) ;
+         dx += step ) for ( double dy = 0 ;
+         dy < buffer . getYRes ( ) ;
+         dy += step ) {
+         double x = dx / buffer . getXRes ( ) ;
+         double y = dy / buffer . getYRes ( ) ;
+         double value = buffer . pointGaussAverage ( dx , dy , sampleRadius , sampleSharpness . val ) . val ;
+         if ( value > threshold . val ) continue ;
+         value = ( value ) / ( threshold . val ) ;
+         Color c = color . getValue ( value ) ;
+         brush . paint ( x , y , 0 , 0 , .5 * width . getValue ( value ) . val , c , canvas ) ;
+         }
+      }
+
+   }
+
    public String getDescription() {
       return "Plots out points";
    }
@@ -708,6 +1226,11 @@ public final class PointPlot implements AllComponents<Command>, Described {
       r.add(new PlotBuffer_curve_col_size());
       r.add(new PlotBuffer_thresh1_curve_col_size());
       r.add(new PlotBuffer_thresh2_curve_col_size());
+      r.add(new PlotBuffer2_curve_col());
+      r.add(new PlotBuffer2_curve_col2());
+      r.add(new PlotBuffer2_curve_col_size());
+      r.add(new PlotBuffer2_thresh1_curve_col_size());
+      r.add(new PlotBuffer2_thresh2_curve_col_size());
       return r;
    }
 

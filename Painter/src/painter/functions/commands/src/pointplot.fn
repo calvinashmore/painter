@@ -257,3 +257,172 @@ fn PlotBuffer_thresh2_curve_col_size {
         }
     }
 }
+
+
+fn PlotBuffer2_curve_col {
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in Buffer_d buffer;
+
+    parameter LDouble samplingRatio;
+    parameter LDouble sampleSharpness;
+    parameter Integer sampleRadius;
+    init {
+        samplingRatio = new LDouble(2+3*Math.random());
+        sampleSharpness = new LDouble(.01 + .5 * Math.random());
+        sampleRadius = (int)(2+3*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        double step = 1.0 / samplingRatio.val;
+        for(double dx=0; dx<buffer.getXRes(); dx += step)
+        for(double dy=0; dy<buffer.getYRes(); dy += step) {
+            double x = dx / buffer.getXRes();
+            double y = dy / buffer.getYRes();
+            double value = buffer.pointGaussAverage(dx, dy, sampleRadius, sampleSharpness.val).val;
+
+            Color c = color.getValue(value);
+            brush.paint(x, y, 0, 0, .02, c, canvas);
+        }
+    }
+}
+
+fn PlotBuffer2_curve_col2 {
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in Buffer_d buffer;
+
+    parameter LDouble samplingRatio;
+    parameter LDouble sampleSharpness;
+    parameter Integer sampleRadius;
+    init {
+        samplingRatio = new LDouble(2+3*Math.random());
+        sampleSharpness = new LDouble(.01 + .5 * Math.random());
+        sampleRadius = (int)(2+3*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        double step = 1.0 / samplingRatio.val;
+        for(double dx=0; dx<buffer.getXRes(); dx += step)
+        for(double dy=0; dy<buffer.getYRes(); dy += step) {
+            double x = dx / buffer.getXRes();
+            double y = dy / buffer.getYRes();
+            double value = buffer.pointGaussAverage(dx, dy, sampleRadius, sampleSharpness.val).val;
+
+            Color c = color.getValue(value);
+            brush.paint(x, y, 0, 0, .1*value, c, canvas);
+        }
+    }
+}
+
+fn PlotBuffer2_curve_col_size {
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Buffer_d buffer;
+
+    parameter LDouble samplingRatio;
+    parameter LDouble sampleSharpness;
+    parameter Integer sampleRadius;
+    init {
+        samplingRatio = new LDouble(2+3*Math.random());
+        sampleSharpness = new LDouble(.01 + .5 * Math.random());
+        sampleRadius = (int)(2+3*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        double step = 1.0 / samplingRatio.val;
+        for(double dx=0; dx<buffer.getXRes(); dx += step)
+        for(double dy=0; dy<buffer.getYRes(); dy += step) {
+            double x = dx / buffer.getXRes();
+            double y = dy / buffer.getYRes();
+            double value = buffer.pointGaussAverage(dx, dy, sampleRadius, sampleSharpness.val).val;
+
+            Color c = color.getValue(value);
+            brush.paint(x, y, 0, 0, .5*width.getValue(value).val, c, canvas);
+        }
+    }
+}
+
+
+fn PlotBuffer2_thresh1_curve_col_size {
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Buffer_d buffer;
+
+    parameter LDouble threshold;
+    parameter LDouble samplingRatio;
+    parameter LDouble sampleSharpness;
+    parameter Integer sampleRadius;
+    init {
+        threshold = new LDouble(.1+.8*Math.random());
+        samplingRatio = new LDouble(2+3*Math.random());
+        sampleSharpness = new LDouble(.01 + .5 * Math.random());
+        sampleRadius = (int)(2+3*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        double step = 1.0 / samplingRatio.val;
+        for(double dx=0; dx<buffer.getXRes(); dx += step)
+        for(double dy=0; dy<buffer.getYRes(); dy += step) {
+            double x = dx / buffer.getXRes();
+            double y = dy / buffer.getYRes();
+            double value = buffer.pointGaussAverage(dx, dy, sampleRadius, sampleSharpness.val).val;
+
+            if(value < threshold.val)
+                continue;
+
+            value = (value-threshold.val)/(1-threshold.val);
+
+            Color c = color.getValue(value);
+            brush.paint(x, y, 0, 0, .5*width.getValue(value).val, c, canvas);
+        }
+    }
+}
+
+fn PlotBuffer2_thresh2_curve_col_size {
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Buffer_d buffer;
+
+    parameter LDouble threshold;
+    parameter LDouble samplingRatio;
+    parameter LDouble sampleSharpness;
+    parameter Integer sampleRadius;
+    init {
+        threshold = new LDouble(.1+.8*Math.random());
+        samplingRatio = new LDouble(2+3*Math.random());
+        sampleSharpness = new LDouble(.01 + .5 * Math.random());
+        sampleRadius = (int)(2+3*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        double step = 1.0 / samplingRatio.val;
+        for(double dx=0; dx<buffer.getXRes(); dx += step)
+        for(double dy=0; dy<buffer.getYRes(); dy += step) {
+            double x = dx / buffer.getXRes();
+            double y = dy / buffer.getYRes();
+            double value = buffer.pointGaussAverage(dx, dy, sampleRadius, sampleSharpness.val).val;
+
+            if(value > threshold.val)
+                continue;
+
+            value = (value)/(threshold.val);
+
+            Color c = color.getValue(value);
+            brush.paint(x, y, 0, 0, .5*width.getValue(value).val, c, canvas);
+        }
+    }
+}

@@ -2118,6 +2118,218 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class gradientBrush1 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 4;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "angle";
+            case 3: return "color2";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LDouble.class;
+            case 3: return Color.class;
+            default: return null;
+         }
+
+      }
+
+      public gradientBrush1() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LDouble angle = (LDouble)inputs[2];
+         final Color color2 = (Color)inputs[3];
+         GradientBrush brush = new GradientBrush ( positionPolicy , sizePolicy ) {
+         public Color getColor2 ( Color baseColor ) {
+         return color2 ;
+         }
+         }
+         ;
+         brush . setAngle ( angle . val ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class gradientBrush2 extends ExpressionFunction {
+
+      private LDouble hOffset;private LDouble sOffset;private LDouble bOffset;
+      public int getNumberParameters() {
+         return 3;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return hOffset;
+            case 1: return sOffset;
+            case 2: return bOffset;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "hOffset";
+            case 1: return "sOffset";
+            case 2: return "bOffset";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return LDouble.class;
+            case 2: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: hOffset = (LDouble) value; return;
+            case 1: sOffset = (LDouble) value; return;
+            case 2: bOffset = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "angle";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public gradientBrush2() {
+         addGroupMeta(this);
+         hOffset = new LDouble ( Math . random ( ) ) ;
+         sOffset = new LDouble ( .4 * ( 1 - 2 * Math . random ( ) ) ) ;
+         bOffset = new LDouble ( .4 * ( 1 - 2 * Math . random ( ) ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LDouble angle = (LDouble)inputs[2];
+         GradientBrush brush = new GradientBrush ( positionPolicy , sizePolicy ) {
+         public Color getColor2 ( Color baseColor ) {
+         double hsb [ ] = baseColor . hsbvals ( ) ;
+         return Color . makeHSB ( hsb [ 0 ] + hOffset . val , hsb [ 1 ] + sOffset . val , hsb [ 2 ] + bOffset . val ) ;
+         }
+         }
+         ;
+         brush . setAngle ( angle . val ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class gradientBrush3 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 6;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "positionPolicy";
+            case 1: return "sizePolicy";
+            case 2: return "angle";
+            case 3: return "hOffset";
+            case 4: return "sOffset";
+            case 5: return "bOffset";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return BrushPositionPolicy.class;
+            case 1: return BrushSizePolicy.class;
+            case 2: return LDouble.class;
+            case 3: return LDouble.class;
+            case 4: return LDouble.class;
+            case 5: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public gradientBrush3() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[0];
+         final BrushSizePolicy sizePolicy = (BrushSizePolicy)inputs[1];
+         final LDouble angle = (LDouble)inputs[2];
+         final LDouble hOffset = (LDouble)inputs[3];
+         final LDouble sOffset = (LDouble)inputs[4];
+         final LDouble bOffset = (LDouble)inputs[5];
+         GradientBrush brush = new GradientBrush ( positionPolicy , sizePolicy ) {
+         public Color getColor2 ( Color baseColor ) {
+         double hsb [ ] = baseColor . hsbvals ( ) ;
+         return Color . makeHSB ( hsb [ 0 ] + hOffset . val , hsb [ 1 ] + sOffset . val , hsb [ 2 ] + bOffset . val ) ;
+         }
+         }
+         ;
+         brush . setAngle ( angle . val ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class simplePositionPolicy extends ExpressionFunction {
 
       private LDouble xAnchor;private LDouble yAnchor;private LDouble xDirection;private LDouble yDirection;
@@ -2495,6 +2707,9 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new rubberStampBrush2());
       r.add(new rubberStampBrush3());
       r.add(new rubberStampBrush4());
+      r.add(new gradientBrush1());
+      r.add(new gradientBrush2());
+      r.add(new gradientBrush3());
       r.add(new simplePositionPolicy());
       r.add(new rotationPositionPolicy());
       r.add(new skewPositionPolicy());

@@ -569,6 +569,73 @@ fn rubberStampBrush4 {
     }
 }
 
+fn gradientBrush1 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in LDouble angle;
+    in Color color2;
+
+    eval {
+        GradientBrush brush = new GradientBrush(positionPolicy, sizePolicy) {
+            public Color getColor2(Color baseColor) {
+                return color2;
+            }
+        };
+        brush.setAngle(angle.val);
+        return brush;
+    }
+}
+
+fn gradientBrush2 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in LDouble angle;
+    parameter LDouble hOffset;
+    parameter LDouble sOffset;
+    parameter LDouble bOffset;
+
+    init {
+        hOffset = new LDouble(Math.random());
+        sOffset = new LDouble(.4 * (1-2*Math.random()));
+        bOffset = new LDouble(.4 * (1-2*Math.random()));
+    }
+
+    eval {
+        GradientBrush brush = new GradientBrush(positionPolicy, sizePolicy) {
+            public Color getColor2(Color baseColor) {
+                double hsb[] = baseColor.hsbvals();
+                return Color.makeHSB(hsb[0] + hOffset.val, hsb[1] + sOffset.val, hsb[2] + bOffset.val);
+            }
+        };
+        brush.setAngle(angle.val);
+        return brush;
+    }
+}
+
+fn gradientBrush3 {
+    fout Brush;
+    in BrushPositionPolicy positionPolicy;
+    in BrushSizePolicy sizePolicy;
+    in LDouble angle;
+    in LDouble hOffset;
+    in LDouble sOffset;
+    in LDouble bOffset;
+
+    eval {
+        GradientBrush brush = new GradientBrush(positionPolicy, sizePolicy) {
+            public Color getColor2(Color baseColor) {
+                double hsb[] = baseColor.hsbvals();
+                return Color.makeHSB(hsb[0] + hOffset.val, hsb[1] + sOffset.val, hsb[2] + bOffset.val);
+            }
+        };
+        brush.setAngle(angle.val);
+        return brush;
+    }
+}
+
+
 // ********************************
 // Brush Policies
 // ********************************

@@ -10,7 +10,10 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
+import java.awt.image.LookupOp;
+import java.awt.image.LookupTable;
 import painter.tools.canvas.Canvas;
+import painter.tools.misc.ColorTransformer;
 import utils.linear.Color;
 
 /**
@@ -113,6 +116,19 @@ public class ImageBrush implements Brush {
 
         BufferedImage subimage = image.getSubimage(stampX, stampY, stampWidth, stampHeight);
 
+        final double[] colorHSB = color.hsbvals();
+        LookupTable lookupTable = new ColorTransformer() {
+
+            public void transformPixel(int[] src, int[] dst) {
+                double[] hsbvals = toHSB(src);
+
+                hsbvals[0] += colorHSB[0];
+                hsbvals[1] = (hsbvals[1] + colorHSB[1]) / 2;
+                hsbvals[2] = (hsbvals[2] + colorHSB[2]) / 2;
+                toRGB(hsbvals, dst);
+            }
+        }.createLookup();
+        subimage = new LookupOp(lookupTable, null).filter(subimage, null);
 
         if (scaleImage) {
             graphics.scale(scale * stampWidth / image.getWidth(),

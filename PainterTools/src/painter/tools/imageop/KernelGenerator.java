@@ -40,7 +40,7 @@ public abstract class KernelGenerator {
         }
 
         // normalize
-        if (Math.abs(total) > .001) {
+        if (Math.abs(total) > 1) {
             for (int i = 0; i < data.length; i++) {
                 data[i] /= total;
             }

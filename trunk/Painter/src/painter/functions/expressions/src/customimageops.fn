@@ -70,8 +70,8 @@ fn smooth_boxBlur {
     meta selectionWeight 3;
 
     init {
-        xSize = (int)(5+40*Math.random()*Math.random());
-        ySize = (int)(5+40*Math.random()*Math.random());
+        xSize = (int)(5+20*Math.random()*Math.random());
+        ySize = (int)(5+20*Math.random()*Math.random());
     }
 
     eval {
@@ -94,8 +94,8 @@ fn smooth_cosRipple1 {
     meta selectionWeight 3;
 
     init {
-        xSize = (int)(5+40*Math.random()*Math.random());
-        ySize = (int)(5+40*Math.random()*Math.random());
+        xSize = (int)(5+20*Math.random()*Math.random());
+        ySize = (int)(5+20*Math.random()*Math.random());
         xScale = new LDouble((3-6*Math.random())*Math.PI);
         yScale = new LDouble((3-6*Math.random())*Math.PI);
     }
@@ -120,8 +120,8 @@ fn smooth_cosRipple2 {
     meta selectionWeight 3;
 
     init {
-        xSize = (int)(5+40*Math.random()*Math.random());
-        ySize = (int)(5+40*Math.random()*Math.random());
+        xSize = (int)(5+20*Math.random()*Math.random());
+        ySize = (int)(5+20*Math.random()*Math.random());
         xScale = new LDouble((3-6*Math.random())*Math.PI);
         yScale = new LDouble((3-6*Math.random())*Math.PI);
     }
@@ -147,8 +147,8 @@ fn smooth_sinRipple1 {
     meta selectionWeight 3;
 
     init {
-        xSize = (int)(5+40*Math.random()*Math.random());
-        ySize = (int)(5+40*Math.random()*Math.random());
+        xSize = (int)(5+20*Math.random()*Math.random());
+        ySize = (int)(5+20*Math.random()*Math.random());
         xScale = new LDouble((3-6*Math.random())*Math.PI);
         yScale = new LDouble((3-6*Math.random())*Math.PI);
     }
@@ -173,8 +173,8 @@ fn smooth_sinRipple2 {
     meta selectionWeight 3;
 
     init {
-        xSize = (int)(5+40*Math.random()*Math.random());
-        ySize = (int)(5+40*Math.random()*Math.random());
+        xSize = (int)(5+20*Math.random()*Math.random());
+        ySize = (int)(5+20*Math.random()*Math.random());
         xScale = new LDouble((3-6*Math.random())*Math.PI);
         yScale = new LDouble((3-6*Math.random())*Math.PI);
     }
@@ -196,7 +196,7 @@ fn smooth_simpleXBoxBlur {
     meta selectionWeight 3;
 
     init {
-        xSize = (int)(5+40*Math.random()*Math.random());
+        xSize = (int)(5+20*Math.random()*Math.random());
     }
 
     eval {
@@ -216,7 +216,7 @@ fn smooth_simpleYBoxBlur {
     meta selectionWeight 3;
 
     init {
-        ySize = (int)(5+40*Math.random()*Math.random());
+        ySize = (int)(5+20*Math.random()*Math.random());
     }
 
     eval {
@@ -236,7 +236,7 @@ fn smooth_simpleXEdge {
     meta selectionWeight 3;
 
     init {
-        xSize = (int)(5+40*Math.random()*Math.random());
+        xSize = (int)(5+20*Math.random()*Math.random());
     }
 
     eval {
@@ -256,7 +256,7 @@ fn smooth_simpleYEdge {
     meta selectionWeight 3;
 
     init {
-        ySize = (int)(5+40*Math.random()*Math.random());
+        ySize = (int)(5+20*Math.random()*Math.random());
     }
 
     eval {
@@ -278,8 +278,8 @@ fn smooth_edge {
     meta selectionWeight 3;
 
     init {
-        xSize = (int)(5+40*Math.random()*Math.random());
-        ySize = (int)(5+40*Math.random()*Math.random());
+        xSize = (int)(5+20*Math.random()*Math.random());
+        ySize = (int)(5+20*Math.random()*Math.random());
         angle = new LDouble(2*Math.random()*Math.PI);
     }
 
@@ -302,8 +302,8 @@ fn smooth_invertEdge {
     meta selectionWeight 3;
 
     init {
-        xSize = (int)(5+40*Math.random()*Math.random());
-        ySize = (int)(5+40*Math.random()*Math.random());
+        xSize = (int)(5+20*Math.random()*Math.random());
+        ySize = (int)(5+20*Math.random()*Math.random());
         angle = new LDouble(2*Math.random()*Math.PI);
     }
 

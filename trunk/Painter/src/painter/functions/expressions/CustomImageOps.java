@@ -210,8 +210,8 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_boxBlur() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         xSize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
-         ySize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         xSize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
+         ySize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
       }
 
       public BufferedImageOp evaluate(Context context, Object[] inputs) {
@@ -286,8 +286,8 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_cosRipple1() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         xSize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
-         ySize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         xSize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
+         ySize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
          xScale = new LDouble ( ( 3 - 6 * Math . random ( ) ) * Math . PI ) ;
          yScale = new LDouble ( ( 3 - 6 * Math . random ( ) ) * Math . PI ) ;
       }
@@ -364,8 +364,8 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_cosRipple2() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         xSize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
-         ySize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         xSize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
+         ySize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
          xScale = new LDouble ( ( 3 - 6 * Math . random ( ) ) * Math . PI ) ;
          yScale = new LDouble ( ( 3 - 6 * Math . random ( ) ) * Math . PI ) ;
       }
@@ -442,8 +442,8 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_sinRipple1() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         xSize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
-         ySize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         xSize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
+         ySize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
          xScale = new LDouble ( ( 3 - 6 * Math . random ( ) ) * Math . PI ) ;
          yScale = new LDouble ( ( 3 - 6 * Math . random ( ) ) * Math . PI ) ;
       }
@@ -520,8 +520,8 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_sinRipple2() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         xSize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
-         ySize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         xSize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
+         ySize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
          xScale = new LDouble ( ( 3 - 6 * Math . random ( ) ) * Math . PI ) ;
          yScale = new LDouble ( ( 3 - 6 * Math . random ( ) ) * Math . PI ) ;
       }
@@ -586,7 +586,7 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_simpleXBoxBlur() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         xSize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         xSize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
       }
 
       public BufferedImageOp evaluate(Context context, Object[] inputs) {
@@ -649,7 +649,7 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_simpleYBoxBlur() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         ySize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         ySize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
       }
 
       public BufferedImageOp evaluate(Context context, Object[] inputs) {
@@ -712,7 +712,7 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_simpleXEdge() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         xSize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         xSize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
       }
 
       public BufferedImageOp evaluate(Context context, Object[] inputs) {
@@ -775,7 +775,7 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_simpleYEdge() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         ySize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         ySize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
       }
 
       public BufferedImageOp evaluate(Context context, Object[] inputs) {
@@ -846,8 +846,8 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_edge() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         xSize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
-         ySize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         xSize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
+         ySize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
          angle = new LDouble ( 2 * Math . random ( ) * Math . PI ) ;
       }
 
@@ -919,8 +919,8 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
       public smooth_invertEdge() {
          addGroupMeta(this);
          addMeta("selectionWeight", 3);
-         xSize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
-         ySize = ( int ) ( 5 + 40 * Math . random ( ) * Math . random ( ) ) ;
+         xSize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
+         ySize = ( int ) ( 5 + 20 * Math . random ( ) * Math . random ( ) ) ;
          angle = new LDouble ( 2 * Math . random ( ) * Math . PI ) ;
       }
 

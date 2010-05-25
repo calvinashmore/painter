@@ -14,12 +14,11 @@ description "expressions for custom image operations";
 fn Mosaic1 {
     fout BufferedImageOp;
     parameter LDouble tileSize;
+    meta selectionWeight 3;
 
     init {
         tileSize = new LDouble(.01*Math.random()+.005);
     }
-
-meta selectionWeight 10;
 
     eval {
         Canvas canvas = (Canvas) context.getVariable("canvas");
@@ -31,6 +30,7 @@ meta selectionWeight 10;
 fn Mosaic2 {
     fout BufferedImageOp;
     in LDouble tileSize;
+    meta selectionWeight 3;
 
     eval {
         Canvas canvas = (Canvas) context.getVariable("canvas");
@@ -47,6 +47,7 @@ fn Mosaic2 {
 fn Mosaic3 {
     fout BufferedImageOp;
     in Integer tileSize;
+    meta selectionWeight 3;
 
     eval {
         Canvas canvas = (Canvas) context.getVariable("canvas");
@@ -59,3 +60,261 @@ fn Mosaic3 {
         return new MosaicFilter(iTileSize);
     }
 }
+
+///////////////////////////////////////////////
+
+fn smooth_boxBlur {
+    fout BufferedImageOp;
+    parameter Integer xSize;
+    parameter Integer ySize;
+    meta selectionWeight 3;
+
+    init {
+        xSize = (int)(5+40*Math.random()*Math.random());
+        ySize = (int)(5+40*Math.random()*Math.random());
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return 1;
+            }
+        }.createKernel(xSize, ySize);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn smooth_cosRipple1 {
+    fout BufferedImageOp;
+    parameter Integer xSize;
+    parameter Integer ySize;
+    parameter LDouble xScale;
+    parameter LDouble yScale;
+    meta selectionWeight 3;
+
+    init {
+        xSize = (int)(5+40*Math.random()*Math.random());
+        ySize = (int)(5+40*Math.random()*Math.random());
+        xScale = new LDouble((3-6*Math.random())*Math.PI);
+        yScale = new LDouble((3-6*Math.random())*Math.PI);
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return Math.cos(xScale.val*x+yScale.val*y);
+            }
+        }.createKernel(xSize, ySize);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn smooth_cosRipple2 {
+    fout BufferedImageOp;
+    parameter Integer xSize;
+    parameter Integer ySize;
+    parameter LDouble xScale;
+    parameter LDouble yScale;
+    meta selectionWeight 3;
+
+    init {
+        xSize = (int)(5+40*Math.random()*Math.random());
+        ySize = (int)(5+40*Math.random()*Math.random());
+        xScale = new LDouble((3-6*Math.random())*Math.PI);
+        yScale = new LDouble((3-6*Math.random())*Math.PI);
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return Math.cos(xScale.val*x)*Math.cos(yScale.val*y);
+            }
+        }.createKernel(xSize, ySize);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+
+fn smooth_sinRipple1 {
+    fout BufferedImageOp;
+    parameter Integer xSize;
+    parameter Integer ySize;
+    parameter LDouble xScale;
+    parameter LDouble yScale;
+    meta selectionWeight 3;
+
+    init {
+        xSize = (int)(5+40*Math.random()*Math.random());
+        ySize = (int)(5+40*Math.random()*Math.random());
+        xScale = new LDouble((3-6*Math.random())*Math.PI);
+        yScale = new LDouble((3-6*Math.random())*Math.PI);
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return Math.sin(xScale.val*x+yScale.val*y);
+            }
+        }.createKernel(xSize, ySize);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn smooth_sinRipple2 {
+    fout BufferedImageOp;
+    parameter Integer xSize;
+    parameter Integer ySize;
+    parameter LDouble xScale;
+    parameter LDouble yScale;
+    meta selectionWeight 3;
+
+    init {
+        xSize = (int)(5+40*Math.random()*Math.random());
+        ySize = (int)(5+40*Math.random()*Math.random());
+        xScale = new LDouble((3-6*Math.random())*Math.PI);
+        yScale = new LDouble((3-6*Math.random())*Math.PI);
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return Math.sin(xScale.val*x)*Math.sin(yScale.val*y);
+            }
+        }.createKernel(xSize, ySize);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn smooth_simpleXBoxBlur {
+    fout BufferedImageOp;
+    parameter Integer xSize;
+    meta selectionWeight 3;
+
+    init {
+        xSize = (int)(5+40*Math.random()*Math.random());
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return 1;
+            }
+        }.createKernel(xSize, 1);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn smooth_simpleYBoxBlur {
+    fout BufferedImageOp;
+    parameter Integer ySize;
+    meta selectionWeight 3;
+
+    init {
+        ySize = (int)(5+40*Math.random()*Math.random());
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return 1;
+            }
+        }.createKernel(ySize, 1);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn smooth_simpleXEdge {
+    fout BufferedImageOp;
+    parameter Integer xSize;
+    meta selectionWeight 3;
+
+    init {
+        xSize = (int)(5+40*Math.random()*Math.random());
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return x;
+            }
+        }.createKernel(xSize, 1);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn smooth_simpleYEdge {
+    fout BufferedImageOp;
+    parameter Integer ySize;
+    meta selectionWeight 3;
+
+    init {
+        ySize = (int)(5+40*Math.random()*Math.random());
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return y;
+            }
+        }.createKernel(ySize, 1);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn smooth_edge {
+    fout BufferedImageOp;
+    parameter Integer xSize;
+    parameter Integer ySize;
+    parameter LDouble angle;
+    meta selectionWeight 3;
+
+    init {
+        xSize = (int)(5+40*Math.random()*Math.random());
+        ySize = (int)(5+40*Math.random()*Math.random());
+        angle = new LDouble(2*Math.random()*Math.PI);
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return x*Math.cos(angle.val) + y*Math.sin(angle.val);
+            }
+        }.createKernel(xSize, ySize);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+
+fn smooth_invertEdge {
+    fout BufferedImageOp;
+    parameter Integer xSize;
+    parameter Integer ySize;
+    parameter LDouble angle;
+    meta selectionWeight 3;
+
+    init {
+        xSize = (int)(5+40*Math.random()*Math.random());
+        ySize = (int)(5+40*Math.random()*Math.random());
+        angle = new LDouble(2*Math.random()*Math.PI);
+    }
+
+    eval {
+        Kernel kernel = new KernelGenerator() {
+            public double getValue(double x, double y) {
+                return 1.0/(x*Math.cos(angle.val) + y*Math.sin(angle.val));
+            }
+        }.createKernel(xSize, ySize);
+        ConvolveOp op = new ConvolveOp(kernel);
+        return op;
+    }
+}
+

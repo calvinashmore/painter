@@ -31,7 +31,7 @@ public class ImageOpBrush implements Brush {
 
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
-        if(Thread.interrupted()) {
+        if (Thread.interrupted()) {
             throw new TerminationException();
         }
 
@@ -48,13 +48,15 @@ public class ImageOpBrush implements Brush {
         // create the shape
         Shape clip = new Ellipse2D.Double(x, y, width, width);
 
-        // clip
-        graphics.setClip(clip);
 
         // apply the operation
         BufferedImage result = op.filter(canvas.makeImage(), null);
 
-        // draw it using the clipped graphics
-        graphics.drawImage(result, 0, 0, null);
+        synchronized (graphics) {
+            // clip
+            graphics.setClip(clip);
+            // draw it using the clipped graphics
+            graphics.drawImage(result, 0, 0, null);
+        }
     }
 }

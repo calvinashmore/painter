@@ -48,7 +48,6 @@ public class CurvyBrush implements  Brush {
         x = positionPolicy.getX(x, y, canvas) + sizePolicy.getXOffset(width);
         y = positionPolicy.getY(x, y, canvas) + sizePolicy.getYOffset(width);
 
-        graphics.setColor(new java.awt.Color(color.toARGB()));
 
         Shape shape = new java.awt.geom.CubicCurve2D.Double(
                 x+v1.x*width, y+v1.y*width,
@@ -56,6 +55,9 @@ public class CurvyBrush implements  Brush {
                 x+v3.x*width, y+v3.y*width,
                 x+v4.x*width, y+v4.y*width);
 
+        synchronized(graphics) {
+        graphics.setColor(new java.awt.Color(color.toARGB()));
         graphics.draw(shape);
+        }
     }
 }

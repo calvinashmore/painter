@@ -26,17 +26,15 @@ public class DistortingPenBrush implements Brush {
 
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
-        if(Thread.interrupted()) {
+        if (Thread.interrupted()) {
             throw new TerminationException();
         }
-        
+
         Graphics2D graphics = canvas.getGraphics();
         graphics = (Graphics2D) graphics.create();
 
         radius = Math.abs(radius);
 
-        graphics.setColor(new java.awt.Color(color.toARGB()));
-        graphics.setStroke(new BasicStroke((float) (radius * canvas.getWidth())));
 
         double width = radius * canvas.getHeight();
         //double height = radius * canvas.getHeight();
@@ -46,10 +44,14 @@ public class DistortingPenBrush implements Brush {
         double x2 = positionPolicy.getY(x + dx, y + dy, canvas) + sizePolicy.getYOffset(width);
         double y2 = positionPolicy.getY(x + dx, y + dy, canvas) + sizePolicy.getYOffset(width);
 
-        graphics.drawLine(
-                (int) (x1),
-                (int) (y1),
-                (int) (x2),
-                (int) (y2));
+        synchronized (graphics) {
+            graphics.setColor(new java.awt.Color(color.toARGB()));
+            graphics.setStroke(new BasicStroke((float) (radius * canvas.getWidth())));
+            graphics.drawLine(
+                    (int) (x1),
+                    (int) (y1),
+                    (int) (x2),
+                    (int) (y2));
+        }
     }
 }

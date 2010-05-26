@@ -46,24 +46,26 @@ public class EllipseBrush implements Brush {
 
         AffineTransform transform = graphics.getTransform();
 
-        graphics.translate(x, y);
-        graphics.rotate(theta);
+        synchronized (graphics) {
+            graphics.translate(x, y);
+            graphics.rotate(theta);
 
-        graphics.setColor(new java.awt.Color(color.toARGB()));
-        if (hollow) {
-            graphics.drawOval(
-                    (int) (0),
-                    (int) (0),
-                    (int) (width),
-                    (int) (height));
-        } else {
-            graphics.fillOval(
-                    (int) (0),
-                    (int) (0),
-                    (int) (width),
-                    (int) (height));
+            graphics.setColor(new java.awt.Color(color.toARGB()));
+            if (hollow) {
+                graphics.drawOval(
+                        (int) (0),
+                        (int) (0),
+                        (int) (width),
+                        (int) (height));
+            } else {
+                graphics.fillOval(
+                        (int) (0),
+                        (int) (0),
+                        (int) (width),
+                        (int) (height));
+            }
+
+            graphics.setTransform(transform);
         }
-
-        graphics.setTransform(transform);
     }
 }

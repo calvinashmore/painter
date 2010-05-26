@@ -130,26 +130,29 @@ public class ImageBrush implements Brush {
         }.createLookup();
         subimage = new LookupOp(lookupTable, null).filter(subimage, null);
 
-        if (scaleImage) {
-            graphics.scale(scale * stampWidth / image.getWidth(),
-                    scale * stampHeight / image.getHeight());
-        } else {
-            graphics.scale(scale, scale);
-        }
-        graphics.rotate(rotation);
-        graphics.translate(x, y);
 
-        if (round) {
-            // create the shape
-            Shape clip = new Ellipse2D.Double(0, 0, width, width);
-            // clip
-            graphics.setClip(clip);
-        }
+        synchronized (graphics) {
+            if (scaleImage) {
+                graphics.scale(scale * stampWidth / image.getWidth(),
+                        scale * stampHeight / image.getHeight());
+            } else {
+                graphics.scale(scale, scale);
+            }
+            graphics.rotate(rotation);
+            graphics.translate(x, y);
 
-        if (op != null) {
-            graphics.drawImage(subimage, op, 0, 0);
-        } else {
-            graphics.drawImage(subimage, 0, 0, null);
+            if (round) {
+                // create the shape
+                Shape clip = new Ellipse2D.Double(0, 0, width, width);
+                // clip
+                graphics.setClip(clip);
+            }
+
+            if (op != null) {
+                graphics.drawImage(subimage, op, 0, 0);
+            } else {
+                graphics.drawImage(subimage, 0, 0, null);
+            }
         }
     }
 }

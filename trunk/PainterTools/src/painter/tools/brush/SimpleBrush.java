@@ -46,11 +46,13 @@ public class SimpleBrush implements Brush {
         x = positionPolicy.getX(x, y, canvas) + sizePolicy.getXOffset(width);
         y = positionPolicy.getY(x, y, canvas) + sizePolicy.getYOffset(width);
 
+        synchronized(graphics) {
         graphics.setColor(new java.awt.Color(color.toARGB()));
         graphics.fillOval(
                 (int) (x),
                 (int) (y),
                 (int) (width),
                 (int) (width));
+        }
     }
 }

@@ -25,7 +25,7 @@ public class HollowCircleBrush implements Brush {
 
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
-        if(Thread.interrupted()) {
+        if (Thread.interrupted()) {
             throw new TerminationException();
         }
 
@@ -39,11 +39,13 @@ public class HollowCircleBrush implements Brush {
         x = positionPolicy.getX(x, y, canvas) + sizePolicy.getXOffset(width);
         y = positionPolicy.getY(x, y, canvas) + sizePolicy.getYOffset(width);
 
-        graphics.setColor(new java.awt.Color(color.toARGB()));
-        graphics.drawOval(
-                (int) (x),
-                (int) (y),
-                (int) (width),
-                (int) (width));
+        synchronized (graphics) {
+            graphics.setColor(new java.awt.Color(color.toARGB()));
+            graphics.drawOval(
+                    (int) (x),
+                    (int) (y),
+                    (int) (width),
+                    (int) (width));
+        }
     }
 }

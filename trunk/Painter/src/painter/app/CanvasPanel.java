@@ -11,6 +11,7 @@ import painter.tools.canvas.CanvasImpl;
 
 public class CanvasPanel extends JPanel {
 
+    private static long CANVAS_REFRESH_INTERVAL = 50;
     private CanvasImpl canvas;
     private ScheduledExecutorService executor;
 
@@ -28,7 +29,7 @@ public class CanvasPanel extends JPanel {
             public void run() {
                 repaint();
             }
-        }, 0, 200, TimeUnit.MILLISECONDS);
+        }, 0, CANVAS_REFRESH_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
     public void shutdown() {

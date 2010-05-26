@@ -64,11 +64,13 @@ abstract public class GradientBrush implements Brush {
         Color color2 = getColor2(color1);
         GradientPaint paint = new GradientPaint(x1, y1, new java.awt.Color(color1.toARGB()), x2, y2, new java.awt.Color(color2.toARGB()), true);
 
-        graphics.setPaint(paint);
-        graphics.fillOval(
-                (int) (x),
-                (int) (y),
-                (int) (width),
-                (int) (width));
+        synchronized (graphics) {
+            graphics.setPaint(paint);
+            graphics.fillOval(
+                    (int) (x),
+                    (int) (y),
+                    (int) (width),
+                    (int) (width));
+        }
     }
 }

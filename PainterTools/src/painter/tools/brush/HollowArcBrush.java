@@ -32,7 +32,7 @@ public class HollowArcBrush implements Brush {
 
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
-        if(Thread.interrupted()) {
+        if (Thread.interrupted()) {
             throw new TerminationException();
         }
 
@@ -49,13 +49,15 @@ public class HollowArcBrush implements Brush {
         int iStartAngle = (int) (360 * startAngle);
         int iEndAngle = (int) (360 * endAngle);
 
-        graphics.setColor(new java.awt.Color(color.toARGB()));
-        graphics.drawArc(
-                (int) (x),
-                (int) (y),
-                (int) (width),
-                (int) (width),
-                iStartAngle,
-                iEndAngle);
+        synchronized (graphics) {
+            graphics.setColor(new java.awt.Color(color.toARGB()));
+            graphics.drawArc(
+                    (int) (x),
+                    (int) (y),
+                    (int) (width),
+                    (int) (width),
+                    iStartAngle,
+                    iEndAngle);
+        }
     }
 }

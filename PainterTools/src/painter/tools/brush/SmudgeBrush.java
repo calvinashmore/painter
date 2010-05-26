@@ -37,10 +37,10 @@ public class SmudgeBrush implements Brush {
 
     public void paint(double x, double y, double dx, double dy, double radius, Color color, Canvas canvas) {
 
-        if(Thread.interrupted()) {
+        if (Thread.interrupted()) {
             throw new TerminationException();
         }
-        
+
         double smudgeX, smudgeY;
 
         if (orient) {
@@ -72,11 +72,13 @@ public class SmudgeBrush implements Brush {
         // create the shape
         Shape clip = new Ellipse2D.Double(x, y, width, width);
 
-        // clip
-        graphics.setClip(clip);
+        synchronized (graphics) {
+            // clip
+            graphics.setClip(clip);
 
-        int offsetX = (int) (smudgeX);
-        int offsetY = (int) (smudgeY);
-        graphics.drawImage(canvas.makeImage(), offsetX, offsetY, null);
+            int offsetX = (int) (smudgeX);
+            int offsetY = (int) (smudgeY);
+            graphics.drawImage(canvas.makeImage(), offsetX, offsetY, null);
+        }
     }
 }

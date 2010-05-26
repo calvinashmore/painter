@@ -42,9 +42,6 @@ public class DashBrush implements Brush {
 
         radius = Math.abs(radius);
 
-        graphics.setColor(new java.awt.Color(color.toARGB()));
-        graphics.setStroke(new BasicStroke(1));
-
         double width = radius * canvas.getHeight();
         //double height = radius * canvas.getHeight();
 
@@ -74,10 +71,15 @@ public class DashBrush implements Brush {
         y1 = y + vy;
         y2 = y - vy;
 
+        synchronized(graphics) {
+        graphics.setColor(new java.awt.Color(color.toARGB()));
+        graphics.setStroke(new BasicStroke(1));
+
         graphics.drawLine(
                 (int) (x1),
                 (int) (y1),
                 (int) (x2),
                 (int) (y2));
+        }
     }
 }

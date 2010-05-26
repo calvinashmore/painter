@@ -8,8 +8,6 @@ import genetic.BuildException;
 import genetic.GeneticTopLevel;
 import genetic.TerminationException;
 import genetic.component.program.Program;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import painter.foundation.Foundation;
 import painter.tools.canvas.Canvas;
 import painter.tools.canvas.CanvasImpl;
@@ -24,9 +22,8 @@ public class PainterProgram {
     private Thread executionThread;
     private static final String METHOD_NAME = "paint";
     private static int THREAD_COUNT = 0;
-
     private final Object lock = new Object();
-    //private boolean running;
+    private long startTime;
 
     public static PainterProgram buildNew(Canvas canvas) throws BuildException {
 
@@ -45,10 +42,6 @@ public class PainterProgram {
         System.out.println("Setting up...");
         program.setup();
 
-//        StringBuilder sb = new StringBuilder();
-//        ProgramPrinter.printProgram(sb, program);
-//        System.out.println(sb);
-
         program.getContext().setVariable("canvas", canvas);
 
         return new PainterProgram(program);
@@ -63,7 +56,7 @@ public class PainterProgram {
      * This starts painting on the canvas in a new thread
      */
     public void startPaint() {
-        String threadName = "Paint-"+THREAD_COUNT;
+        String threadName = "Paint-" + THREAD_COUNT;
         THREAD_COUNT++;
 
         executionThread = new Thread(new Runnable() {
@@ -73,32 +66,37 @@ public class PainterProgram {
             }
         }, threadName);
         executionThread.start();
+        this.startTime = System.currentTimeMillis();
+    }
+
+    public long getExecutionTime() {
+        if (!isRunning()) {
+            return -1;
+        }
+        return System.currentTimeMillis() - startTime;
     }
 
     /**
      * This actually does the work of the painting, and is run in its own thread.
      */
     private void doPaint() {
-        synchronized(lock) {
-        System.out.println("running.... ("+Thread.currentThread().getName()+")");
-//        running = true;
-        try {
-            //while (true) {
-            program.callMethod(METHOD_NAME);
-            //}
-        } catch (TerminationException ex) {
-            // the program has been terminated. This is an expected occurrence if
-            // the user forces it to stop, or if it has timed out.
-            System.out.println("terminated ("+Thread.currentThread().getName()+")");
-        }
-//        running = false;
-        System.out.println("done.... ("+Thread.currentThread().getName()+")");
-        lock.notifyAll();
+        synchronized (lock) {
+            System.out.println("running.... (" + Thread.currentThread().getName() + ")");
+
+            try {
+                program.callMethod(METHOD_NAME);
+            } catch (TerminationException ex) {
+                // the program has been terminated. This is an expected occurrence if
+                // the user forces it to stop, or if it has timed out.
+                System.out.println("terminated (" + Thread.currentThread().getName() + ")");
+            }
+
+            System.out.println("done.... (" + Thread.currentThread().getName() + ")");
+            lock.notifyAll();
         }
     }
 
     public boolean isRunning() {
-//        return running;
         return executionThread.isAlive();
     }
 
@@ -106,18 +104,9 @@ public class PainterProgram {
      * This forces the paint program to shut down.
      */
     public void stopPaint() {
-        System.out.println("stopping... ("+executionThread.getName()+")");
-//        executionThread.stop();
+        System.out.println("stopping... (" + executionThread.getName() + ")");
         ((Program) program).terminate();
         executionThread.interrupt();
-
-        //synchronized(lock) {
-//        try {
-//            lock.wait();
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(PainterProgram.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        //}
         System.out.println("continuing...");
     }
 }

@@ -77,13 +77,15 @@ public class RubberStampBrush implements Brush {
         // create the shape
         Shape clip = new Ellipse2D.Double(x, y, width, width);
 
-        // clip
-        graphics.setClip(clip);
+        synchronized (graphics) {
+            // clip
+            graphics.setClip(clip);
 
-        if (op != null) {
-            graphics.drawImage(subimage, op, (int) x, (int) y);
-        } else {
-            graphics.drawImage(subimage, (int) x, (int) y, null);
+            if (op != null) {
+                graphics.drawImage(subimage, op, (int) x, (int) y);
+            } else {
+                graphics.drawImage(subimage, (int) x, (int) y, null);
+            }
         }
 
 //        graphics.setColor(new java.awt.Color(color.toARGB()));

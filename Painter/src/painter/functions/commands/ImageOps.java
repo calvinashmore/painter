@@ -49,7 +49,9 @@ public final class ImageOps implements AllComponents<Command>, Described {
          final BufferedImageOp op = (BufferedImageOp)inputs[0];
          Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
          BufferedImage result = op . filter ( canvas . makeImage ( ) , null ) ;
+         synchronized ( canvas . getGraphics ( ) ) {
          canvas . getGraphics ( ) . drawImage ( result , 0 , 0 , null ) ;
+         }
       }
 
    }

@@ -18,14 +18,24 @@ import java.util.logging.Logger;
  */
 public class ProgramManager {
 
+    private static ProgramManager instance;
+
+    public static ProgramManager getInstance() {
+        return instance;
+    }
     private List<PainterProgram> programs = new ArrayList<PainterProgram>();
     private PainterProgramQueue queue;
-    private int simultaneousPrograms = 2;
-    private int programDuration = 6000;
+    private int simultaneousPrograms = 1;
+    private int programDuration = 5000;
     private ScheduledExecutorService executor;
+
+    public List<PainterProgram> getPrograms() {
+        return programs;
+    }
 
     public ProgramManager(CanvasPanel canvasPanel) {
         queue = new PainterProgramQueue(canvasPanel.getCanvas());
+        instance = this;
     }
 
     public void start() {

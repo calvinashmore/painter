@@ -187,6 +187,22 @@ fn penBrush2 {
     }
 }
 
+fn sweepBrush1 {
+    fout Brush;
+    parameter int numberDots;
+    in LDouble dotSize;
+
+    in Brush brush;
+
+    init {
+        numberDots = (int)(3+5*Math.random());
+    }
+
+    eval {
+        return new SweepBrush(numberDots, dotSize.val, brush);
+    }
+}
+
 fn sweepBrush2 {
     fout Brush;
     parameter int numberDots;
@@ -201,6 +217,63 @@ fn sweepBrush2 {
 
     eval {
         return new SweepBrush(numberDots, dotSize, brush);
+    }
+}
+
+fn sweepBrush3 {
+    fout Brush;
+    in Integer numberDots;
+    in LDouble dotSize;
+
+    in Brush brush;
+
+    eval {
+        return new SweepBrush(numberDots, dotSize.val, brush);
+    }
+}
+
+fn circularBrush1 {
+    fout Brush;
+    parameter int numberDots;
+    in LDouble dotSize;
+
+    in Brush brush;
+
+    init {
+        numberDots = (int)(3+5*Math.random());
+    }
+
+    eval {
+        return new CircularBrush(numberDots, dotSize.val, brush);
+    }
+}
+
+fn circularBrush2 {
+    fout Brush;
+    parameter int numberDots;
+    parameter double dotSize;
+
+    in Brush brush;
+
+    init {
+        dotSize = .2+.8*Math.random();
+        numberDots = (int)(3+5*Math.random());
+    }
+
+    eval {
+        return new CircularBrush(numberDots, dotSize, brush);
+    }
+}
+
+fn circularBrush3 {
+    fout Brush;
+    in Integer numberDots;
+    in LDouble dotSize;
+
+    in Brush brush;
+
+    eval {
+        return new CircularBrush(numberDots, dotSize.val, brush);
     }
 }
 

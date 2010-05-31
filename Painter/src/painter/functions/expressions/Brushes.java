@@ -761,6 +761,84 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class sweepBrush1 extends ExpressionFunction {
+
+      private int numberDots;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return numberDots;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "numberDots";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return int.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: numberDots = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "dotSize";
+            case 1: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public sweepBrush1() {
+         addGroupMeta(this);
+         numberDots = ( int ) ( 3 + 5 * Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final LDouble dotSize = (LDouble)inputs[0];
+         final Brush brush = (Brush)inputs[1];
+         return new SweepBrush ( numberDots , dotSize . val , brush ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class sweepBrush2 extends ExpressionFunction {
 
       private int numberDots;private double dotSize;
@@ -833,6 +911,250 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       public Brush evaluate(Context context, Object[] inputs) {
          final Brush brush = (Brush)inputs[0];
          return new SweepBrush ( numberDots , dotSize , brush ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class sweepBrush3 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "numberDots";
+            case 1: return "dotSize";
+            case 2: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            case 1: return LDouble.class;
+            case 2: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public sweepBrush3() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final Integer numberDots = (Integer)inputs[0];
+         final LDouble dotSize = (LDouble)inputs[1];
+         final Brush brush = (Brush)inputs[2];
+         return new SweepBrush ( numberDots , dotSize . val , brush ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class circularBrush1 extends ExpressionFunction {
+
+      private int numberDots;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return numberDots;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "numberDots";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return int.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: numberDots = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "dotSize";
+            case 1: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            case 1: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public circularBrush1() {
+         addGroupMeta(this);
+         numberDots = ( int ) ( 3 + 5 * Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final LDouble dotSize = (LDouble)inputs[0];
+         final Brush brush = (Brush)inputs[1];
+         return new CircularBrush ( numberDots , dotSize . val , brush ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class circularBrush2 extends ExpressionFunction {
+
+      private int numberDots;private double dotSize;
+      public int getNumberParameters() {
+         return 2;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return numberDots;
+            case 1: return dotSize;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "numberDots";
+            case 1: return "dotSize";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return int.class;
+            case 1: return double.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: numberDots = (Integer) value; return;
+            case 1: dotSize = (Double) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public circularBrush2() {
+         addGroupMeta(this);
+         dotSize = .2 + .8 * Math . random ( ) ;
+         numberDots = ( int ) ( 3 + 5 * Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final Brush brush = (Brush)inputs[0];
+         return new CircularBrush ( numberDots , dotSize , brush ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class circularBrush3 extends ExpressionFunction {
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "numberDots";
+            case 1: return "dotSize";
+            case 2: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            case 1: return LDouble.class;
+            case 2: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public circularBrush3() {
+         addGroupMeta(this);
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final Integer numberDots = (Integer)inputs[0];
+         final LDouble dotSize = (LDouble)inputs[1];
+         final Brush brush = (Brush)inputs[2];
+         return new CircularBrush ( numberDots , dotSize . val , brush ) ;
       }
 
       public Class getReturnType() {
@@ -2691,7 +3013,12 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new curvyBrush2());
       r.add(new penBrush());
       r.add(new penBrush2());
+      r.add(new sweepBrush1());
       r.add(new sweepBrush2());
+      r.add(new sweepBrush3());
+      r.add(new circularBrush1());
+      r.add(new circularBrush2());
+      r.add(new circularBrush3());
       r.add(new spatterBrush1());
       r.add(new spatterBrush2());
       r.add(new spatterBrush3());

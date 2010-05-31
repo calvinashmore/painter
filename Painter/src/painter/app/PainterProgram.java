@@ -25,6 +25,10 @@ public class PainterProgram {
     private final Object lock = new Object();
     private long startTime;
 
+    public GeneticTopLevel getProgram() {
+        return program;
+    }
+
     public static PainterProgram buildNew(Canvas canvas) throws BuildException {
 
         Foundation foundation = (Foundation) genetic.Foundation.getInstance();

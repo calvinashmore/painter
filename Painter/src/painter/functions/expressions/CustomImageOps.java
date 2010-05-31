@@ -659,7 +659,7 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
          return 1 ;
          }
          }
-         . createKernel ( ySize , 1 ) ;
+         . createKernel ( 1 , ySize ) ;
          ConvolveOp op = new ConvolveOp ( kernel ) ;
          return op ;
       }
@@ -785,7 +785,7 @@ public final class CustomImageOps implements AllComponents<ExpressionFunction>, 
          return y ;
          }
          }
-         . createKernel ( ySize , 1 ) ;
+         . createKernel ( 1 , ySize ) ;
          ConvolveOp op = new ConvolveOp ( kernel ) ;
          return op ;
       }

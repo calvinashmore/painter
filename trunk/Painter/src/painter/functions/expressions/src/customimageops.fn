@@ -224,7 +224,7 @@ fn smooth_simpleYBoxBlur {
             public double getValue(double x, double y) {
                 return 1;
             }
-        }.createKernel(ySize, 1);
+        }.createKernel(1, ySize);
         ConvolveOp op = new ConvolveOp(kernel);
         return op;
     }
@@ -264,7 +264,7 @@ fn smooth_simpleYEdge {
             public double getValue(double x, double y) {
                 return y;
             }
-        }.createKernel(ySize, 1);
+        }.createKernel(1, ySize);
         ConvolveOp op = new ConvolveOp(kernel);
         return op;
     }

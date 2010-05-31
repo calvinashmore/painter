@@ -63,6 +63,7 @@ public class SpatterBrush implements Brush {
             // if there is no specified direction, use a default.
             dx = 1;
             dy = 0;
+            dSize = 1;
         }
 
         // these define the tangent for the sweep

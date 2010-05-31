@@ -11,7 +11,7 @@ import utils.linear.Color;
  *
  * @author Calvin Ashmore
  */
-public class SweepBrush implements Brush {
+public class CircularBrush implements Brush {
 
     private int numberDots;
     private double dotSize;
@@ -22,7 +22,7 @@ public class SweepBrush implements Brush {
      * @param numberDots
      * @param dotSize
      */
-    public SweepBrush(int numberDots, double dotSize, Brush subBrush) {
+    public CircularBrush(int numberDots, double dotSize, Brush subBrush) {
         this.numberDots = numberDots;
         this.dotSize = dotSize;
         this.subBrush = subBrush;
@@ -44,9 +44,9 @@ public class SweepBrush implements Brush {
         double ty = -dx / dSize;
 
         for (int i = 0; i < numberDots; i++) {
-            double t = 2 * (double) i / (numberDots - 1) - 1;
-            double dotx = t * tx * radius + x;
-            double doty = t * ty * radius + y;
+            double t = 2*Math.PI*(double) i / (numberDots - 1);
+            double dotx = Math.cos(t) * tx * radius + x;
+            double doty = Math.sin(t) * ty * radius + y;
 
             double dotr = radius * dotSize / numberDots;
 

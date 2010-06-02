@@ -775,10 +775,34 @@ fn rotationPositionPolicy {
     eval {return this;}
 }
 
+fn rotationPositionPolicy1 {
+    fout BrushPositionPolicy;
+    description "This is a policy that treats zero as centered, but rotates the canvas direction an arbitrary amount";
+    in LDouble theta;
+    interface BrushPositionPolicy;
+
+    private double m00, m01, m10, m11;
+
+    public double getX(double x, double y, Canvas canvas) {
+        return (.5 + x*m00 + y*m01) * canvas.getWidth();
+    }
+
+    public double getY(double x, double y, Canvas canvas) {
+        return (.5 + x*m10 + y*m11) * canvas.getHeight();
+    }
+
+    eval {
+        m00 = Math.cos(theta.val);
+        m01 = Math.sin(theta.val);
+        m10 = -Math.sin(theta.val);
+        m11 = Math.cos(theta.val);
+        return this;
+    }
+}
+
 fn skewPositionPolicy {
     fout BrushPositionPolicy;
     description "This is a policy that creates an arbitrary skew";
-    parameter LDouble theta;
     interface BrushPositionPolicy;
 
     parameter LDouble m00;

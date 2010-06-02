@@ -2801,20 +2801,64 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
    }
 
+   public static class rotationPositionPolicy1 extends ExpressionFunction implements BrushPositionPolicy {
+      private double m00 , m01 , m10 , m11 ;public double getX ( double x , double y , Canvas canvas ) { return ( .5 + x * m00 + y * m01 ) * canvas . getWidth ( ) ; }public double getY ( double x , double y , Canvas canvas ) { return ( .5 + x * m10 + y * m11 ) * canvas . getHeight ( ) ; }
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "theta";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public rotationPositionPolicy1() {
+         addGroupMeta(this);
+      }
+
+      public String getDescription() {
+         return "This is a policy that treats zero as centered, but rotates the canvas direction an arbitrary amount";
+      }
+
+      public BrushPositionPolicy evaluate(Context context, Object[] inputs) {
+         final LDouble theta = (LDouble)inputs[0];
+         m00 = Math . cos ( theta . val ) ;
+         m01 = Math . sin ( theta . val ) ;
+         m10 = - Math . sin ( theta . val ) ;
+         m11 = Math . cos ( theta . val ) ;
+         return this ;
+      }
+
+      public Class getReturnType() {
+         return BrushPositionPolicy.class;
+      }
+
+   }
+
    public static class skewPositionPolicy extends ExpressionFunction implements BrushPositionPolicy {
       public double getX ( double x , double y , Canvas canvas ) { return ( .5 + x * m00 . val + y * m01 . val ) * canvas . getWidth ( ) ; }public double getY ( double x , double y , Canvas canvas ) { return ( .5 + x * m10 . val + y * m11 . val ) * canvas . getHeight ( ) ; }
-      private LDouble theta;private LDouble m00;private LDouble m01;private LDouble m10;private LDouble m11;
+      private LDouble m00;private LDouble m01;private LDouble m10;private LDouble m11;
       public int getNumberParameters() {
-         return 5;
+         return 4;
       }
 
       public Object getParameter(int i) {
          switch(i) {
-            case 0: return theta;
-            case 1: return m00;
-            case 2: return m01;
-            case 3: return m10;
-            case 4: return m11;
+            case 0: return m00;
+            case 1: return m01;
+            case 2: return m10;
+            case 3: return m11;
             default: return null;
          }
 
@@ -2822,11 +2866,10 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
       public String getParameterName(int i) {
          switch(i) {
-            case 0: return "theta";
-            case 1: return "m00";
-            case 2: return "m01";
-            case 3: return "m10";
-            case 4: return "m11";
+            case 0: return "m00";
+            case 1: return "m01";
+            case 2: return "m10";
+            case 3: return "m11";
             default: return null;
          }
 
@@ -2838,7 +2881,6 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
             case 1: return LDouble.class;
             case 2: return LDouble.class;
             case 3: return LDouble.class;
-            case 4: return LDouble.class;
             default: return null;
          }
 
@@ -2846,11 +2888,10 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
 
       public void setParameter(int i, Object value) {
          switch(i) {
-            case 0: theta = (LDouble) value; return;
-            case 1: m00 = (LDouble) value; return;
-            case 2: m01 = (LDouble) value; return;
-            case 3: m10 = (LDouble) value; return;
-            case 4: m11 = (LDouble) value; return;
+            case 0: m00 = (LDouble) value; return;
+            case 1: m01 = (LDouble) value; return;
+            case 2: m10 = (LDouble) value; return;
+            case 3: m11 = (LDouble) value; return;
             default: return;
          }
 
@@ -3039,6 +3080,7 @@ public final class Brushes implements AllComponents<ExpressionFunction>, Describ
       r.add(new gradientBrush3());
       r.add(new simplePositionPolicy());
       r.add(new rotationPositionPolicy());
+      r.add(new rotationPositionPolicy1());
       r.add(new skewPositionPolicy());
       r.add(new cyclePositionPolicy());
       r.add(new simpleBrushSizePolicy());

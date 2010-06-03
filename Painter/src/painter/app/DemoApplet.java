@@ -5,14 +5,10 @@
 package painter.app;
 
 import java.awt.BorderLayout;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JApplet;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import painter.app.ui.PainterView;
 
 /**
  *
@@ -20,55 +16,60 @@ import javax.swing.JPanel;
  */
 public class DemoApplet extends JApplet {
 
-    private static final int RESOLUTION = 800;
-    private CanvasPanel canvasPanel;
-    private JLabel captionLabel;
+//    private static final int RESOLUTION = 800;
+//    private CanvasPanel canvasPanel;
+//    private JLabel captionLabel;
 //    private long calculationStart;
 //    private ScheduledExecutorService executor;
 //    private PainterProgramQueue queue;
 //    private PainterProgram currentProgram;
-    private ProgramManager manager;
+//    private ProgramManager manager;
+    private PainterView painterView;
 
     @Override
     public void init() {
         super.init();
 
-        canvasPanel = new CanvasPanel(1200, RESOLUTION);
-        captionLabel = new JLabel("Loading...");
-
-//        queue = new PainterProgramQueue(canvasPanel.getCanvas());
-
-        manager = new ProgramManager(canvasPanel);
-
-        JPanel controlPanel = new JPanel(new BorderLayout());
-        controlPanel.add(captionLabel, BorderLayout.CENTER);
-        //controlPanel.add(mutateButton, BorderLayout.EAST);
-
-        getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(canvasPanel, BorderLayout.CENTER);
-        getContentPane().add(controlPanel, BorderLayout.SOUTH);
+//        canvasPanel = new CanvasPanel();
+//        captionLabel = new JLabel("Loading...");
+//
+////        queue = new PainterProgramQueue(canvasPanel.getCanvas());
+//
+//        manager = new ProgramManager(canvasPanel);
+//
+//        JPanel controlPanel = new JPanel(new BorderLayout());
+//        controlPanel.add(captionLabel, BorderLayout.CENTER);
+//        //controlPanel.add(mutateButton, BorderLayout.EAST);
+//
+//        getContentPane().setLayout(new BorderLayout());
+//        getContentPane().add(canvasPanel, BorderLayout.CENTER);
+//        getContentPane().add(controlPanel, BorderLayout.SOUTH);
+        painterView = new PainterView();
+        getContentPane().add(painterView);
     }
 
     @Override
     public void start() {
         super.start();
-        manager.start();
-//        executor = Executors.newSingleThreadScheduledExecutor();
-//        executor.scheduleAtFixedRate(new Runnable() {
-//
-//            public void run() {
-//                updateUI();
-//            }
-//        }, 0, 200, TimeUnit.MILLISECONDS);
-        canvasPanel.start();
+        painterView.start();
+//        manager.start();
+////        executor = Executors.newSingleThreadScheduledExecutor();
+////        executor.scheduleAtFixedRate(new Runnable() {
+////
+////            public void run() {
+////                updateUI();
+////            }
+////        }, 0, 200, TimeUnit.MILLISECONDS);
+//        canvasPanel.start();
     }
 
     @Override
     public void stop() {
         super.stop();
+        painterView.stop();
 //        executor.shutdown();
-        manager.shutdown();
-        canvasPanel.shutdown();
+//        manager.shutdown();
+//        canvasPanel.shutdown();
     }
 //
 //    private void updateUI() {

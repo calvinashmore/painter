@@ -15,8 +15,8 @@ import painter.app.ProgramManager;
  */
 public class PainterView extends JPanel {
 
-    private static final int CANVAS_WIDTH = 1550;
-    private static final int CANVAS_HEIGHT = 1025;
+//    private static final int CANVAS_WIDTH = 1550;
+//    private static final int CANVAS_HEIGHT = 1025;
 
     private CanvasPanel canvasPanel;
     private boolean running = false;
@@ -28,7 +28,7 @@ public class PainterView extends JPanel {
 
     public PainterView() {
 
-        canvasPanel = new CanvasPanel(CANVAS_WIDTH, CANVAS_HEIGHT);
+        canvasPanel = new CanvasPanel();
         manager = new ProgramManager(canvasPanel);
 
         setLayout(new BorderLayout());
@@ -47,5 +47,15 @@ public class PainterView extends JPanel {
 
         running = false;
     }
+
+    @Override
+    public void doLayout() {
+        super.doLayout();
+//        System.out.println("doLayout");
+//        System.out.println(getSize());
+        System.out.println("resizing: "+getSize());
+        canvasPanel.setSize(getSize());
+    }
+
 
 }

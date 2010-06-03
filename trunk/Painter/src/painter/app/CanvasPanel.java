@@ -15,11 +15,10 @@ public class CanvasPanel extends JPanel {
     private CanvasImpl canvas;
     private ScheduledExecutorService executor;
 
-    public CanvasPanel(int width, int height) {
+    public CanvasPanel() {
         super();
-        canvas = new CanvasImpl(width, height);
-        canvas.getGraphics().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        setPreferredSize(new Dimension(width, height));
+        canvas = new CanvasImpl();
+        //setPreferredSize(new Dimension(width, height));
     }
 
     public void start() {
@@ -47,5 +46,11 @@ public class CanvasPanel extends JPanel {
         //g.setColor(Color.WHITE);
         //g.fillRect(0, 0, RESOLUTION, RESOLUTION);
         g.drawImage(canvas.makeImage(), 0, 0, null);
+    }
+
+    @Override
+    public void setSize(Dimension d) {
+        super.setSize(d);
+        canvas.setSize((int) d.getWidth(), (int) d.getHeight());
     }
 }

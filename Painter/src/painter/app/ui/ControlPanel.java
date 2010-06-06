@@ -11,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import painter.app.ui.actions.Capture;
+import painter.app.ui.actions.Fullscreen;
 import painter.app.ui.actions.Pause;
 import painter.app.ui.actions.Play;
 import painter.app.ui.actions.ShowInfo;
@@ -27,6 +28,7 @@ public class ControlPanel extends JPanel {
 //    private JButton dislike;
     private JButton capture;
     private JButton showInfo;
+    private JButton fullscreen;
 
     public ControlPanel() {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -37,6 +39,7 @@ public class ControlPanel extends JPanel {
 //        add(dislike = new JButton(new Dislike()));
         add(capture = new JButton(new Capture()));
         add(capture = new JButton(new ShowInfo()));
+        add(fullscreen = new JButton(new Fullscreen()));
 
         playPause.addActionListener(new ActionListener() {
 

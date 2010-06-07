@@ -24,7 +24,7 @@ import javax.swing.JPanel;
  */
 public class FullscreenGlassPane extends JPanel {
 
-    private static final int reminderTicks = 300;
+    private static final int reminderTicks = 100;
     private int displayReminder = reminderTicks;
     private static final String reminderString = "Press ESC to exit fullscreen";
     private static final Font font = new Font("Dialog", Font.PLAIN, 50);

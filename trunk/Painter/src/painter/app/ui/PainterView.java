@@ -87,6 +87,7 @@ public class PainterView extends JPanel {
 
             device.setFullScreenWindow(null);
             add(canvasPanel, BorderLayout.CENTER);
+            canvasPanel.setSize(getSize());
             fullscreenFrame.setVisible(false);
             fullscreenFrame.dispose();
             fullscreenFrame = null;

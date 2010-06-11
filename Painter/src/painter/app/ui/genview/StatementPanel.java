@@ -8,9 +8,15 @@ import genetic.GeneticComponent;
 import genetic.component.expression.Expression;
 import genetic.component.statement.Statement;
 import genetic.component.statementlist.StatementList;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -23,23 +29,45 @@ public class StatementPanel extends JPanel {
     public StatementPanel(Statement statement) {
         this.statement = statement;
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        //setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new GridBagLayout());
 
-        add(new JLabel(statement.getFunction().getName()));
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.weightx = 1;
+        constraints.ipadx = 3;
+        constraints.ipady = 3;
 
-        // TODO: Add parameters.
+        constraints.gridwidth = 2;
+        add(new JLabel(statement.getFunction().getName()), constraints);
 
+        int gridy = 1;
+        if (statement.getFunction().getNumberParameters() > 0) {
+            constraints.gridy = gridy++;
+            add(new ParameterPanel(statement.getFunction()), constraints);
+        }
+
+        constraints.gridwidth = 1;
         for (int i = 0; i < statement.getFunction().getNumberInputs(); i++) {
 
+            constraints.gridx = 0;
+            constraints.gridy = gridy + i;
+            constraints.fill = GridBagConstraints.NONE;
             String name = statement.getFunction().getInputName(i);
-            add(new JLabel(name + ": "));
+            add(new JLabel(name), constraints);
 
+            constraints.gridx = 1;
+            constraints.fill = GridBagConstraints.HORIZONTAL;
             GeneticComponent input = statement.getInput(i);
             if (input instanceof StatementList) {
-                add(new StatementListPanel((StatementList) input));
+                add(new StatementListPanel((StatementList) input), constraints);
             } else if (input instanceof Expression) {
-                add(new ExpressionPanel((Expression) input));
+//                add(new ExpressionPanel((Expression) input), constraints);
+                add(new VisualNodeView((Expression) input), constraints);
             }
+
         }
+        setBorder(new CompoundBorder(new EmptyBorder(3, 3, 3, 3), new LineBorder(Color.GRAY)));
     }
 }

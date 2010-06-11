@@ -61,6 +61,10 @@ public class Expression implements Parameterized, GeneticComponent {
         this.depth = parent.getDepth() + 1;
     }
 
+    public Object getCachedInput(int i) {
+        return cacheInputs[i];
+    }
+
     public Class getOutputType() {
         return function.getReturnType();
     }

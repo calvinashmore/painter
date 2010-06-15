@@ -24,7 +24,7 @@ public class ProgramPanel extends JPanel {
 
         // first context model for whole
 
-        add(new ContextModelPanel(program.getContextModel()));
+//        add(new ContextModelPanel(program.getContextModel()));
 
         for (Entry<String, Method> entry : program.getMethods().entrySet()) {
             addMethod(entry.getKey(), entry.getValue());

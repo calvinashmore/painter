@@ -29,6 +29,7 @@ public class Expression implements Parameterized, GeneticComponent {
 
     private List<Expression> children;
     private Object[] cacheInputs;
+    private Object cacheValue;
     private ExpressionFunction function;
     private GeneticComponent parent;
     private ContextDependentExpressionProxy cxProxy = null; // this stays null unless the function is context dependent.
@@ -63,6 +64,10 @@ public class Expression implements Parameterized, GeneticComponent {
 
     public Object getCachedInput(int i) {
         return cacheInputs[i];
+    }
+
+    public Object getCacheValue() {
+        return cacheValue;
     }
 
     public Class getOutputType() {
@@ -108,8 +113,9 @@ public class Expression implements Parameterized, GeneticComponent {
     }
 
     public Object evaluate(Context context) throws TerminationException {
-        if(context.getTopLevel().getTerminationFlag())
+        if (context.getTopLevel().getTerminationFlag()) {
             throw new TerminationException();
+        }
 
         Object output;
 
@@ -140,6 +146,8 @@ public class Expression implements Parameterized, GeneticComponent {
             output = Foundation.getInstance().getTypeSystem().createDefault(function.getReturnType());
             throw e;
         }
+
+        cacheValue = output;
 
         return output;
     }

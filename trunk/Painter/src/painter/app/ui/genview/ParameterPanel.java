@@ -5,6 +5,7 @@
 package painter.app.ui.genview;
 
 import genetic.Parameterized;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -25,8 +26,13 @@ public class ParameterPanel extends JPanel {
     public ParameterPanel(Parameterized component) {
         this.component = component;
 
+        setLayout(new BorderLayout());
+
+        JPanel contentPanel = new JPanel();
+        add(contentPanel, BorderLayout.WEST);
+
         //setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setLayout(new GridBagLayout());
+        contentPanel.setLayout(new GridBagLayout());
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -37,13 +43,13 @@ public class ParameterPanel extends JPanel {
             constraints.gridy = i;
 
             constraints.gridx = 0;
-            add(new JLabel(component.getParameterType(i).getSimpleName()), constraints);
+            contentPanel.add(new JLabel(component.getParameterType(i).getSimpleName()), constraints);
 
             constraints.gridx = 1;
-            add(new JLabel(component.getParameterName(i)), constraints);
+            contentPanel.add(new JLabel(component.getParameterName(i)), constraints);
 
             constraints.gridx = 2;
-            add(new JLabel(""+component.getParameter(i)), constraints);
+            contentPanel.add(new JLabel(""+component.getParameter(i)), constraints);
 //            add(new JLabel(
 //                    component.getParameterType(i).getSimpleName() + " " +
 //                    component.getParameterName(i) + " = " + component.getParameter(i)));

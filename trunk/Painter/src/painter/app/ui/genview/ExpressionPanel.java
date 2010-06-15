@@ -5,9 +5,13 @@
 package painter.app.ui.genview;
 
 import genetic.component.expression.Expression;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
@@ -21,44 +25,40 @@ import javax.swing.border.LineBorder;
 public class ExpressionPanel extends JPanel {
 
     private Expression expression;
+    private JButton expandButton;
+    private boolean expanded = false;
+    private VisualNodeView view;
 
     public ExpressionPanel(Expression expression) {
         this.expression = expression;
 
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
+        expandButton = new JButton("+");
+        expandButton.addActionListener(new ActionListener() {
 
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.FIRST_LINE_START;
-        constraints.ipadx = 3;
-        constraints.ipady = 3;
+            public void actionPerformed(ActionEvent e) {
+                onExpand();
+            }
+        });
+        add(expandButton, BorderLayout.WEST);
+//        add(new VisualNodeView(expression), BorderLayout.CENTER);
+        view = new VisualNodeView(expression);
 
-        constraints.gridwidth = 2;
-        add(new JLabel(expression.getFunction().getClass().getSimpleName()), constraints);
+        setBorder(new CompoundBorder(new EmptyBorder(3, 3, 3, 3), new LineBorder(Color.GREEN)));
+//        setBorder(new EmptyBorder(3, 3, 3, 3));
+    }
 
-        int gridy = 1;
-        if (expression.getFunction().getNumberParameters() > 0) {
-            constraints.gridy = gridy++;
-            add(new ParameterPanel(expression.getFunction()), constraints);
+    private void onExpand() {
+        if (expanded) {
+            // already expanded, so contract
+            remove(view);
+            expanded = false;
+            expandButton.setText("+");
+        } else {
+            // contracted, so expand
+            add(view, BorderLayout.CENTER);
+            expanded = true;
+            expandButton.setText("-");
         }
-
-        constraints.gridwidth = 1;
-
-        for (int i = 0; i < expression.getFunction().getNumberInputs(); i++) {
-
-            constraints.gridx = 0;
-            constraints.gridy = gridy + i;
-            constraints.fill = GridBagConstraints.NONE;
-
-            String name = expression.getFunction().getInputName(i);
-            add(new JLabel(name), constraints);
-
-            constraints.gridx = 1;
-            add(new JLabel(""+expression.getCachedInput(i)), constraints);
-
-            constraints.gridx = 2;
-            add(new ExpressionPanel(expression.getInput(i)), constraints);
-        }
-
-        setBorder(new CompoundBorder(new EmptyBorder(1, 1, 1, 1), new LineBorder(Color.LIGHT_GRAY)));
     }
 }

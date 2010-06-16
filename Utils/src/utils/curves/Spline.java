@@ -24,10 +24,10 @@ public class Spline<T extends Linear<T>> implements Curve<T> {
         int i = (int)(t*a.length);
 
         T r = a[0].zero();
-        r.add(a[getWrap(i-1)].mult(splineEval(alpha, -1)));
-        r.add(a[getWrap(i+0)].mult(splineEval(alpha, 0)));
-        r.add(a[getWrap(i+1)].mult(splineEval(alpha, 1)));
-        r.add(a[getWrap(i+2)].mult(splineEval(alpha, 2)));
+        r.addv(a[getWrap(i-1)].mult(splineEval(alpha, -1)));
+        r.addv(a[getWrap(i+0)].mult(splineEval(alpha, 0)));
+        r.addv(a[getWrap(i+1)].mult(splineEval(alpha, 1)));
+        r.addv(a[getWrap(i+2)].mult(splineEval(alpha, 2)));
         return r;
     }
 

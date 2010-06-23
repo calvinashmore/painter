@@ -8,7 +8,6 @@ package painter.app.ui.actions;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import painter.app.ui.InfoWindow;
 import painter.app.ui.genview.ProgramFrame;
 
 /**
@@ -23,7 +22,7 @@ public class ShowInfo extends AbstractAction {
     }
 
     public void actionPerformed(ActionEvent e) {
-        InfoWindow.getInstance().setVisible(true);
+//        InfoWindow.getInstance().setVisible(true);
 
         new ProgramFrame().setVisible(true);
     }

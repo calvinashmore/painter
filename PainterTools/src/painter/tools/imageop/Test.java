@@ -4,6 +4,7 @@
  */
 package painter.tools.imageop;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
@@ -25,20 +26,7 @@ public class Test {
         BufferedImage img = ImageIO.read(new File("painterfun.png"));
 
         //img = new MosaicFilter(5).filter(img, null);
-//        img = new SmoothConvolution(4) {
-//
-//            @Override
-//            public double getCoefficient(double x, double y) {
-//                return Math.cos(x*y*Math.PI*.98);
-//            }
-//        }.filter(img, null);
 
-//        Kernel kernel = new Kernel(5, 5, new float[]{
-//                    0.0f, 0.3f, 0.5f, 0.3f, 0.0f,
-//                    0.3f, 0.5f, 0.1f, 0.5f, 0.3f,
-//                    0.5f, 0.1f, -1.0f, 0.1f, 0.5f,
-//                    0.3f, 0.5f, 0.1f, 0.5f, 0.3f,
-//                    0.0f, 0.3f, 0.5f, 0.3f, 0.0f,});
         Kernel kernel = new KernelGenerator() {
 
             @Override
@@ -47,25 +35,30 @@ public class Test {
                 //return Math.cos(x*3*Math.PI);
 //                return x*y*y - x*x*y;
                 //return 2*x + (y)*(y-1);
-                return 1.0/x;
+                //return 1.0/x;
+                return 1.0/(x*Math.cos(1.3) + y*Math.sin(1.3));
             }
-        }.createKernel(5, 20);
+        }.createKernel(15, 15);
 
 //        float[] data = kernel.getKernelData(null);
 //        for (float f : data) {
 //            System.out.println("  "+f);
 //        }
 
-        //System.out.println(kernel);
         ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
-        img = op.filter(img, null);
-        img = op.filter(img, null);
-        img = op.filter(img, null);
-        img = op.filter(img, null);
+        BufferedImage newImg = op.filter(img, null);
+
+
+        BufferedImage myImage = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = myImage.getGraphics();
+
+        g.drawImage(img, 0, 0, null);
+        g.setClip(new java.awt.geom.Ellipse2D.Double(0, 0, 400, 400));
+        g.drawImage(newImg, 0, 0, null);
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new JLabel(new ImageIcon(img)));
+        frame.add(new JLabel(new ImageIcon(myImage)));
         frame.pack();
         frame.setVisible(true);
     }

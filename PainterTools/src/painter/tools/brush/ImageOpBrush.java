@@ -49,7 +49,7 @@ public class ImageOpBrush implements Brush {
         Shape clip = new Ellipse2D.Double(x, y, width, width);
 
 
-        // apply the operation
+        // apply the operation 
         BufferedImage result = op.filter(canvas.makeImage(), null);
 
         synchronized (graphics) {

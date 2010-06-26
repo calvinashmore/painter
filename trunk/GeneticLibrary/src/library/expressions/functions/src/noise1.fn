@@ -4,6 +4,7 @@ type Expression;
 
 import utils.linear.*;
 import utils.noise.*;
+import utils.linear.grid.*;
 
 description "Noise: Evaluation";
 
@@ -1392,3 +1393,33 @@ fn Fractal_v3_col1A_n {
     }
 }
 
+fn Fractal_buffer {
+    fout Buffer_d;
+    in NoiseFunction noise;
+    in NoiseFractal fractal;
+
+    parameter Integer dataSize;
+    parameter LDouble scale;
+
+    init {
+        dataSize = (int)(20+Math.random()*30);
+        scale = new LDouble(2+Math.random()*5);
+    }
+
+    eval {
+
+        Buffer_d buffer = new Buffer_d(dataSize, dataSize);
+
+        for(int ix=0; ix<dataSize; ix++)
+        for(int iy=0; iy<dataSize; iy++) {
+
+            double x = (((double)ix/dataSize)*2-1)*scale.val;
+            double y = (((double)iy/dataSize)*2-1)*scale.val;
+
+            double value = fractal.evalFractal(noise, x, y, 0);
+
+            buffer.setValue(ix, iy, new LDouble(value));
+        }
+        return buffer;
+    }
+}

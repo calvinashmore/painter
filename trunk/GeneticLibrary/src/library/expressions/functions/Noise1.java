@@ -15,6 +15,7 @@ import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
 import utils.linear.*;
 import utils.noise.*;
+import utils.linear.grid.*;
 
 public final class Noise1 implements AllComponents<ExpressionFunction>, Described {
 
@@ -5348,6 +5349,100 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
 
    }
 
+   public static class Fractal_buffer extends ExpressionFunction {
+
+      private Integer dataSize;private LDouble scale;
+      public int getNumberParameters() {
+         return 2;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return dataSize;
+            case 1: return scale;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "dataSize";
+            case 1: return "scale";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            case 1: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: dataSize = (Integer) value; return;
+            case 1: scale = (LDouble) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "noise";
+            case 1: return "fractal";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return NoiseFunction.class;
+            case 1: return NoiseFractal.class;
+            default: return null;
+         }
+
+      }
+
+      public Fractal_buffer() {
+         addGroupMeta(this);
+         dataSize = ( int ) ( 20 + Math . random ( ) * 30 ) ;
+         scale = new LDouble ( 2 + Math . random ( ) * 5 ) ;
+      }
+
+      public Buffer_d evaluate(Context context, Object[] inputs) {
+         final NoiseFunction noise = (NoiseFunction)inputs[0];
+         final NoiseFractal fractal = (NoiseFractal)inputs[1];
+         Buffer_d buffer = new Buffer_d ( dataSize , dataSize ) ;
+         for ( int ix = 0 ;
+         ix < dataSize ;
+         ix ++ ) for ( int iy = 0 ;
+         iy < dataSize ;
+         iy ++ ) {
+         double x = ( ( ( double ) ix / dataSize ) * 2 - 1 ) * scale . val ;
+         double y = ( ( ( double ) iy / dataSize ) * 2 - 1 ) * scale . val ;
+         double value = fractal . evalFractal ( noise , x , y , 0 ) ;
+         buffer . setValue ( ix , iy , new LDouble ( value ) ) ;
+         }
+         return buffer ;
+      }
+
+      public Class getReturnType() {
+         return Buffer_d.class;
+      }
+
+   }
+
    public String getDescription() {
       return "Noise: Evaluation";
    }
@@ -5482,6 +5577,7 @@ public final class Noise1 implements AllComponents<ExpressionFunction>, Describe
       r.add(new Fractal_v3_colA_n());
       r.add(new Fractal_v3_col1A());
       r.add(new Fractal_v3_col1A_n());
+      r.add(new Fractal_buffer());
       return r;
    }
 

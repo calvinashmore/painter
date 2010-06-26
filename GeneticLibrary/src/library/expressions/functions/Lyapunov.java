@@ -15,6 +15,7 @@ import genetic.component.statementlist.*;
 import genetic.component.statement.function.*;
 import utils.linear.*;
 import utils.lyapunov.*;
+import utils.linear.grid.*;
 
 public final class Lyapunov implements AllComponents<ExpressionFunction>, Described {
 
@@ -574,6 +575,126 @@ public final class Lyapunov implements AllComponents<ExpressionFunction>, Descri
 
    }
 
+   public static class Lyapunov_buffer extends ExpressionFunction {
+      private static final int prelim = 20 ;private static final int iterations = 100 ;private char seqAt ( int i ) { return sequence . charAt ( i % sequence . length ( ) ) ; }
+      private String sequence;private double seed;private Integer dataSize;
+      public int getNumberParameters() {
+         return 3;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return sequence;
+            case 1: return seed;
+            case 2: return dataSize;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "sequence";
+            case 1: return "seed";
+            case 2: return "dataSize";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return String.class;
+            case 1: return double.class;
+            case 2: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: sequence = (String) value; return;
+            case 1: seed = (Double) value; return;
+            case 2: dataSize = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "f";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return LyapunovFunction.class;
+            default: return null;
+         }
+
+      }
+
+      public Lyapunov_buffer() {
+         addGroupMeta(this);
+         int len = 2 + ( int ) ( Math . random ( ) * 6 ) ;
+         char chars [ ] = new char [ len ] ;
+         chars [ 0 ] = 'a' ;
+         do {
+         for ( int i = 1 ;
+         i < len ;
+         i ++ ) chars [ i ] = ( char ) ( 'a' + ( Math . random ( ) * 2 ) ) ;
+         sequence = new String ( chars ) ;
+         }
+         while ( sequence . indexOf ( 'b' ) == - 1 ) ;
+         seed = Math . random ( ) * Math . PI ;
+         dataSize = ( int ) ( 20 + Math . random ( ) * 30 ) ;
+      }
+
+      public Buffer_d evaluate(Context context, Object[] inputs) {
+         final LyapunovFunction f = (LyapunovFunction)inputs[0];
+         Buffer_d buffer = new Buffer_d ( dataSize , dataSize ) ;
+         for ( int ix = 0 ;
+         ix < dataSize ;
+         ix ++ ) for ( int iy = 0 ;
+         iy < dataSize ;
+         iy ++ ) {
+         double x = ( ( double ) ix / dataSize ) * 4 - 2 ;
+         double y = ( ( double ) iy / dataSize ) * 4 - 2 ;
+         double sum = 0 ;
+         double p = seed ;
+         for ( int i = 0 ;
+         i < iterations ;
+         i ++ ) {
+         char seq = seqAt ( i ) ;
+         if ( i > prelim ) {
+         if ( seq == 'a' ) sum += Math . log ( Math . abs ( f . deriv ( p , x ) ) ) ;
+         else sum += Math . log ( Math . abs ( f . deriv ( p , y ) ) ) ;
+         }
+         if ( seq == 'a' ) p = f . apply ( p , x ) ;
+         else p = f . apply ( p , y ) ;
+         }
+         sum /= ( iterations - prelim ) ;
+         if ( sum < 0 ) sum /= 2 ;
+         else sum *= 2 ;
+         buffer . setValue ( ix , iy , new LDouble ( sum ) ) ;
+         }
+         return buffer ;
+      }
+
+      public Class getReturnType() {
+         return Buffer_d.class;
+      }
+
+   }
+
    public String getDescription() {
       return "Lyapunov fractals";
    }
@@ -589,6 +710,7 @@ public final class Lyapunov implements AllComponents<ExpressionFunction>, Descri
       r.add(new Lyapunov_2_v2());
       r.add(new Lyapunov_2_dd());
       r.add(new Lyapunov_3_v3());
+      r.add(new Lyapunov_buffer());
       return r;
    }
 

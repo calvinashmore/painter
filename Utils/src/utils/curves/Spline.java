@@ -40,7 +40,12 @@ public class Spline<T extends Linear<T>> implements Curve<T> {
         }
         return 0;
     }
+
     private int getWrap(int x) {
-        return (x+a.length)%a.length;
+        int r = (x + a.length) % a.length;
+        if (r < 0) {
+            r += a.length;
+        }
+        return r;
     }
 }

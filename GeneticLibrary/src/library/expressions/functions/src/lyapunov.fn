@@ -4,6 +4,7 @@ type Expression;
 
 import utils.linear.*;
 import utils.lyapunov.*;
+import utils.linear.grid.*;
 
 description "Lyapunov fractals";
 
@@ -300,5 +301,70 @@ fn Lyapunov_3_v3 {
         if(sum < 0) sum /= 2;
         else sum *= 2;
         return new LDouble(sum);
+    }
+}
+
+fn Lyapunov_buffer {
+    fout Buffer_d;
+    in LyapunovFunction f;
+
+    parameter String sequence;
+    parameter double seed;
+    parameter Integer dataSize;
+
+    init {
+        int len = 2+(int)(Math.random()*6);
+        char chars[] = new char[len];
+        chars[0] = 'a';
+        do {
+            for(int i=1;i<len;i++)
+                chars[i] = (char)('a' + (Math.random()*2));
+            sequence = new String(chars);
+        } while(sequence.indexOf('b') == -1);
+
+        seed = Math.random()*Math.PI;
+
+        dataSize = (int)(20+Math.random()*30);
+    }
+
+    private static final int prelim = 20;
+    private static final int iterations = 100;
+    private char seqAt(int i) {
+        return sequence.charAt( i % sequence.length() );
+    }
+
+    eval {
+        Buffer_d buffer = new Buffer_d(dataSize, dataSize);
+
+        for(int ix=0; ix<dataSize; ix++)
+        for(int iy=0; iy<dataSize; iy++) {
+
+            double x = ((double)ix/dataSize)*4-2;
+            double y = ((double)iy/dataSize)*4-2;
+
+            double sum = 0;
+            double p = seed;
+
+            for(int i=0;i<iterations;i++) {
+                char seq = seqAt(i);
+
+                if(i > prelim) {
+                    if(seq == 'a')
+                         sum += Math.log( Math.abs(f.deriv(p,x)) );
+                    else sum += Math.log( Math.abs(f.deriv(p,y)) );
+                }
+
+                if(seq == 'a')
+                     p = f.apply(p , x);
+                else p = f.apply(p , y);
+            }
+
+            sum /= (iterations - prelim);
+            if(sum < 0) sum /= 2;
+            else sum *= 2;
+            buffer.setValue(ix, iy, new LDouble(sum));
+        }
+
+        return buffer;
     }
 }

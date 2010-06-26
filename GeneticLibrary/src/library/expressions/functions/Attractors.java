@@ -426,6 +426,74 @@ public final class Attractors implements AllComponents<ExpressionFunction>, Desc
 
    }
 
+   public static class Julia2 extends ExpressionFunction {
+      private boolean built ;private Attractor2 attractor ;private class Impl extends AttractorFunction2 { @ Override public void apply ( APoint2d in_val , APoint2d out_val ) { double x = in_val . x - c . x ; double y = in_val . y - c . y ; double mag = Math . pow ( x * x + y * y , 1.0 / 4 ) ; double theta = Math . atan2 ( y , x ) / 2 ; if ( Math . random ( ) < .5 ) theta += Math . PI ; out_val . x = mag * Math . cos ( theta ) ; out_val . y = mag * Math . sin ( theta ) ; } @ Override public double derivMagnitude ( APoint2d in_val ) { double x = in_val . x ; double y = in_val . y ; double theta = Math . atan2 ( y , x ) ; if ( Math . random ( ) < .5 ) theta += Math . PI ; double r3 = 2 * Math . pow ( y * y + x * x , 3.0 / 4 ) ; double sin = Math . sin ( theta / 2 ) ; double cos = Math . cos ( theta / 2 ) ; double d00 = ( y * sin + x * cos ) / r3 ; double d01 = - ( x * sin - y * cos ) / r3 ; double d10 = ( x * sin - y * cos ) / r3 ; double d11 = ( y * sin + x * cos ) / r3 ; return Math . max ( Math . abs ( d00 ) + Math . abs ( d01 ) , Math . abs ( d10 ) + Math . abs ( d11 ) ) ; } }
+      private Complex c;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return c;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "c";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Complex.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: c = (Complex) value; return;
+            default: return;
+         }
+
+      }
+
+      public void setup() throws BuildException {
+         super.setup();
+         if ( ! built ) {
+         attractor = new Attractor2 ( new Impl ( ) , new APoint2d ( ) ) ;
+         setParametersChanged ( false ) ;
+         built = true ;
+         }
+         else if ( parametersChanged ( ) ) {
+         attractor = new Attractor2 ( new Impl ( ) , new APoint2d ( ) ) ;
+         setParametersChanged ( false ) ;
+         }
+      }
+
+      public Julia2() {
+         addGroupMeta(this);
+         c = new Complex ( - .5 + 1.5 * ( Math . random ( ) - Math . random ( ) ) , 1.5 * ( Math . random ( ) - Math . random ( ) ) ) ;
+      }
+
+      public Attractor2 evaluate(Context context, Object[] inputs) {
+
+         return attractor ;
+      }
+
+      public Class getReturnType() {
+         return Attractor2.class;
+      }
+
+   }
+
    public String getDescription() {
       return "Functions for strange attractors";
    }
@@ -438,6 +506,7 @@ public final class Attractors implements AllComponents<ExpressionFunction>, Desc
       r.add(new Quadratic2_x1());
       r.add(new Quadratic2());
       r.add(new Cubic2());
+      r.add(new Julia2());
       return r;
    }
 

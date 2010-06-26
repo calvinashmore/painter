@@ -70,7 +70,16 @@ public class AttractorResult<PointType extends APoint> {
     }
 
     public void configureQuadtree(Quadtree quadtree) {
+        configureQuadtree(quadtree, -1);
+    }
+
+    public void configureQuadtree(Quadtree quadtree, int number) {
         quadtree.setup(minVals.x, maxVals.x, minVals.y, maxVals.y);
-        quadtree.setData(values);
+
+        if(number > 0) {
+            quadtree.setData(values.subList(0, number));
+        } else {
+            quadtree.setData(values);
+        }
     }
 }

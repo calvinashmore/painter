@@ -68,6 +68,16 @@ public class Attractor<Function extends AttractorFunction> {
                     lyapunov < f.getMaxLyapunov()) {
 
                 result = execute(startPoint.clone());
+
+                Quadtree qtree = f.makeQuadtree();
+                result.configureQuadtree(qtree, 100);
+                if (qtree.getNumberSmallCells() < f.getMinimumCells()) {
+                    continue;
+                }
+
+//                System.out.println(lyapunov);
+//                System.out.println(result.getMaxVals().x+", "+result.getMinVals().x);
+
                 return result;
             }
         }

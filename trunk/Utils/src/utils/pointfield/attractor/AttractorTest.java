@@ -13,6 +13,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import utils.linear.Complex;
+import utils.linear.Quaternion;
 import utils.pointfield.Point;
 
 /**
@@ -42,10 +43,16 @@ public final class AttractorTest {
 //        AttractorFunction function = new Quadratic2();
 //        AttractorFunction function = new Julia2();
 //        AttractorFunction function = new PeterDeJong();
-        AttractorFunction function = new Quadratic3();
+        //AttractorFunction function = new Quadratic3();
+//        AttractorFunction function = new Icon();
+        AttractorFunction function = new Julia4();
 
         // MAKE adjustParameters or whatever method
         Attractor attractor = new Attractor(function, function.getNewPoint());
+//        APoint2d start = new APoint2d();
+//        start.x = 1;
+//        start.y = .1;
+//        Attractor attractor = new Attractor(function, start);
         result = attractor.getResult();
 
         //quadtree = new Attractor().makeQuadtree(function,startVals);
@@ -57,11 +64,12 @@ public final class AttractorTest {
     }
 
     private static class Julia2 extends AttractorFunction2 {
+
         private Complex c;
 
         public Julia2() {
             //c = new Complex(2-4*Math.random(), 2-4*Math.random()).mult(.7);
-            c = new Complex(-.5+1.5*(Math.random()-Math.random()), 1.5*(Math.random()-Math.random()));
+            c = new Complex(-.5 + 1.5 * (Math.random() - Math.random()), 1.5 * (Math.random() - Math.random()));
         }
 
         @Override
@@ -71,31 +79,33 @@ public final class AttractorTest {
 
             double x = in_val.x - c.x;
             double y = in_val.y - c.y;
-            double mag = Math.pow(x*x+y*y, 1.0/4);
-            double theta = Math.atan2(y,x)/2;
-            if(Math.random() < .5)
+            double mag = Math.pow(x * x + y * y, 1.0 / 4);
+            double theta = Math.atan2(y, x) / 2;
+            if (Math.random() < .5) {
                 theta += Math.PI;
+            }
 
-            out_val.x = mag*Math.cos(theta);
-            out_val.y = mag*Math.sin(theta);
+            out_val.x = mag * Math.cos(theta);
+            out_val.y = mag * Math.sin(theta);
         }
 
         @Override
         public double derivMagnitude(APoint2d in_val) {
 
-            double x = in_val.x;
-            double y = in_val.y;
-            double theta = Math.atan2(y,x);
-            if(Math.random() < .5)
+            double x = in_val.x - c.x;
+            double y = in_val.y - c.y;
+            double theta = Math.atan2(y, x);
+            if (Math.random() < .5) {
                 theta += Math.PI;
-            double r3 = 2*Math.pow(y*y+x*x, 3.0/4);
-            double sin = Math.sin(theta/2);
-            double cos = Math.cos(theta/2);
+            }
+            double r3 = 2 * Math.pow(y * y + x * x, 3.0 / 4);
+            double sin = Math.sin(theta / 2);
+            double cos = Math.cos(theta / 2);
 
-            double d00 = (y*sin+x*cos)/r3;
-            double d01 = -(x*sin-y*cos)/r3;
-            double d10 = (x*sin-y*cos)/r3;
-            double d11 = (y*sin+x*cos)/r3;
+            double d00 = (y * sin + x * cos) / r3;
+            double d01 = -(x * sin - y * cos) / r3;
+            double d10 = (x * sin - y * cos) / r3;
+            double d11 = (y * sin + x * cos) / r3;
 
             return Math.max(
                     Math.abs(d00) + Math.abs(d01),
@@ -103,37 +113,146 @@ public final class AttractorTest {
         }
     }
 
-//    private static class Icon extends AttractorFunction2 {
-//
-//        private double degree, alpha, beta, lambda, gamma, omega;
-//
-//        public Icon() {
-//            degree = 1 + 3 * Math.random();
-//            alpha = .5 + 2 * Math.random();
-//            beta = .5 + 2 * Math.random();
-//            lambda = .5 + 2 * Math.random();
-//            gamma = .5 + 2 * Math.random();
-//            omega = .5 + 2 * Math.random();
-//        }
-//
-//        @Override
-//        public void apply(APoint2d x, APoint2d out) {
+    private static class Julia4 extends AttractorFunction4 {
+
+        private Quaternion c;
+
+        public Julia4() {
+        }
+
+        @Override
+        public void adjustParameters() {
+            c = new Quaternion(
+                    -.5 + 1.5 * (Math.random() - Math.random()),
+                    1.5 * (Math.random() - Math.random()),
+                    1.5 * (Math.random() - Math.random()),
+                    1.5 * (Math.random() - Math.random()));
+        }
+
+        @Override
+        public void apply(APoint4d in_val, APoint4d out_val) {
+//            Complex z = new Complex(in_val.x, in_val.y);
+//            Complex z2 = z.sub(c).pow(.5);
+
+            double w = in_val.w - c.u;
+            double x = in_val.x - c.i;
+            double y = in_val.y - c.j;
+            double z = in_val.z - c.k;
+            double mag = Math.pow(w * w + x * x + y * y + z * z, 1.0 / 4);
+            double vmag = Math.pow(x * x + y * y + z * z, .5);
+            if (vmag > 0) {
+                x = x / vmag;
+                y = y / vmag;
+                z = z / vmag;
+            }
+            double theta = Math.atan2(vmag, w) / 2;
+            if (Math.random() < .5) {
+                theta += Math.PI;
+            }
+
+            out_val.w = mag * Math.cos(theta);
+            out_val.x = mag * x * Math.sin(theta);
+            out_val.y = mag * y * Math.sin(theta);
+            out_val.z = mag * z * Math.sin(theta);
+        }
+
+        @Override
+        public double derivMagnitude(APoint4d in_val) {
+
+//            double x = in_val.x;
+//            double y = in_val.y;
+            double w = in_val.w - c.u;
+            double x = in_val.x - c.i;
+            double y = in_val.y - c.j;
+            double z = in_val.z - c.k;
+
+            double vmag = Math.sqrt(x * x + y * y + z * z);
+            double r3 = 2 * Math.pow(w * w + x * x + y * y + z * z, 3.0 / 4);
+            double theta = Math.atan2(vmag, w);
+            if (Math.random() < .5) {
+                theta += Math.PI;
+            }
+            double sin = Math.sin(theta / 2);
+            double cos = Math.cos(theta / 2);
+            double underTerm1 = (vmag * cos - w * sin) / (r3 * vmag);
+            //double underTerm2 = (vmag*cos-w*sin)/(r3*vmag);
+            double underTerm2 = 1.0 / (r3 * ((z * z + 2 * y * y + 2 * x * x) * z * z + Math.pow(y, 4) + 2 * x * x * y * y + Math.pow(x, 4)));
+
+            double vmagSquared = x * x + y * y + z * z;
+            double upperTerm1 = vmagSquared + 2 * w * w;
+            double upperTerm2 = w * x * y * vmagSquared;
+
+            double d00 = (vmag * sin + w * cos) / r3;
+            double d01 = x * underTerm1;
+            double d02 = y * underTerm1;
+            double d03 = z * underTerm1;
+
+            double d10 = -d01;
+
+            double d11 = (Math.pow(x, 4) + (x * x + vmagSquared) * (z * z + y * y) * sin + w * x * x * vmag * cos) / (r3 * vmag * vmagSquared);
+            double d12 = (vmag * y * x * upperTerm1 * sin - upperTerm2 * cos) * underTerm2;
+            double d13 = (vmag * z * x * upperTerm1 * sin - upperTerm2 * cos) * underTerm2;
+
+            double d20 = -d02;
+            double d21 = -d12;
+            double d22 = (Math.pow(y, 4) + (y * y + vmagSquared) * (z * z + x * x) * sin + w * y * y * vmag * cos) / (r3 * vmag * vmagSquared);
+            double d23 = -(vmag * y * x * upperTerm1 * sin - upperTerm2 * cos) * underTerm2;
+
+            double d30 = -d03;
+            double d31 = -d13;
+            double d32 = -d23;
+            double d33 = (Math.pow(z, 4) + (z * z + vmagSquared) * (y * y + x * x) * sin + w * z * z * vmag * cos) / (r3 * vmag * vmagSquared);
+
+            return Math.max(
+                    Math.max(
+                    Math.abs(d00) + Math.abs(d01) + Math.abs(d02) + Math.abs(d03),
+                    Math.abs(d10) + Math.abs(d11) + Math.abs(d12) + Math.abs(d13)),
+                    Math.max(
+                    Math.abs(d20) + Math.abs(d21) + Math.abs(d22) + Math.abs(d23),
+                    Math.abs(d30) + Math.abs(d31) + Math.abs(d32) + Math.abs(d33)));
+        }
+    }
+
+    private static class Icon extends AttractorFunction2 {
+
+        private double degree, alpha, beta, lambda, gamma, omega;
+
+        public Icon() {
+        }
+
+        @Override
+        public void adjustParameters() {
+            degree = 1 + 3 * Math.random();
+            alpha = .5 + 2 * Math.random();
+            beta = .5 + 2 * Math.random();
+            lambda = .5 + 2 * Math.random();
+            gamma = .5 + 2 * Math.random();
+            omega = .5 + 2 * Math.random();
+        }
+
+        @Override
+        public void apply(APoint2d x, APoint2d out) {
 //            Complex v = new Complex(x.x, x.y);
 //            Complex r = v.pow(degree);
-//
-//            double p = lambda + alpha*v.magnitude() + beta*(x.x*r.x - x.y*r.y);
-//            double xnew = p*x.x + gamma*r.x - omega * x.y;
-//            double ynew = p*x.y - gamma*r.y + omega * x.x;
-//
-//            out.x = xnew;
-//            out.y = ynew;
-//        }
-//
-//        @Override
-//        public double derivMagnitude(APoint2d x) {
-//
-//        }
-//    }
+            double vmag = Math.pow(x.x * x.x + x.y * x.y, .5);
+            double mag = Math.pow(vmag, degree);
+            double theta = Math.atan2(x.y, x.x) * degree;
+            double rx = mag * Math.cos(theta);
+            double ry = mag * Math.sin(theta);
+
+            double p = lambda + alpha * vmag + beta * (x.x * rx - x.y * ry);
+            double xnew = p * x.x + gamma * rx - omega * x.y;
+            double ynew = p * x.y - gamma * ry + omega * x.x;
+
+            out.x = xnew;
+            out.y = ynew;
+        }
+
+        @Override
+        public double derivMagnitude(APoint2d x) {
+            return 1; //?
+        }
+    }
 
     private static class PeterDeJong extends AttractorFunction2 {
 
@@ -464,10 +583,11 @@ public final class AttractorTest {
             double z = (double) i / result.getValues().size();
             //double z = (values[i+1][0] - minVals[0]) / (maxVals[0] - minVals[0]);
 
-            Point point = (Point) result.getValue(i);
+//            Point point = (Point) result.getValue(i);
+APoint4d point = (APoint4d) result.getValue(i);
 
-
-            double x = (point.x - result.getMinVals().x) / (result.getMaxVals().x - result.getMinVals().x);
+double x = (point.w - ((APoint4d)result.getMinVals()).w) / (((APoint4d)result.getMaxVals()).w - ((APoint4d)result.getMinVals()).w);
+//            double x = (point.x - result.getMinVals().x) / (result.getMaxVals().x - result.getMinVals().x);
             double y = (point.y - result.getMinVals().y) / (result.getMaxVals().y - result.getMinVals().y);
 
             int ix = Math.max(Math.min((int) (x * res), res - 1), 0);

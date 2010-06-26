@@ -347,14 +347,15 @@ fn Julia2 {
         }
     }
 
-    init {
-        c = new Complex(-.5+1.5*(Math.random()-Math.random()), 1.5*(Math.random()-Math.random()));
-    }
-
     private boolean built;
     private Attractor2 attractor;
 
     private class Impl extends AttractorFunction2 {
+
+        @Override
+        public void adjustParameters() {
+            c = new Complex(-.5+1.5*(Math.random()-Math.random()), 1.5*(Math.random()-Math.random()));
+        }
 
         @Override
         public void apply(APoint2d in_val, APoint2d out_val) {
@@ -375,8 +376,8 @@ fn Julia2 {
         @Override
         public double derivMagnitude(APoint2d in_val) {
 
-            double x = in_val.x;
-            double y = in_val.y;
+            double x = in_val.x - c.x;
+            double y = in_val.y - c.y;
             double theta = Math.atan2(y,x);
             if(Math.random() < .5)
                 theta += Math.PI;
@@ -398,4 +399,77 @@ fn Julia2 {
     eval {return attractor;}
 }
 
+fn Quadratic3 {
+    fout Attractor3;
 
+    parameter double a[];
+    parameter double b[];
+    parameter double c[];
+
+    setup {
+        if(!built) {
+            attractor = new Attractor3(new Impl(), new APoint3d());
+            setParametersChanged(false);
+            built = true;
+        } else if(parametersChanged()) {
+            attractor = new Attractor3(new Impl(), new APoint3d());
+            setParametersChanged(false);
+        }
+    }
+
+    private class Impl extends AttractorFunction3 {
+
+        public void adjustParameters() {
+            a = new double[10];
+            b = new double[10];
+            c = new double[10];
+            for (int i = 0; i < 10; i++) {
+                a[i] = Math.random() * 2 - 1;
+                b[i] = Math.random() * 2 - 1;
+                c[i] = Math.random() * 2 - 1;
+            }
+        }
+
+        public void apply(APoint3d in_val, APoint3d out_val) {
+
+            double x = in_val.x;
+            double y = in_val.y;
+            double z = in_val.z;
+
+            out_val.x = x * x * a[0] + x * y * a[1] + x * z * a[2] + y * y * a[3] + y * z * a[4] + z * z * a[5] + x * a[6] + y * a[7] + z * a[8] + a[9];
+            out_val.y = x * x * b[0] + x * y * b[1] + x * z * b[2] + y * y * b[3] + y * z * b[4] + z * z * b[5] + x * b[6] + y * b[7] + z * b[8] + b[9];
+            out_val.z = x * x * c[0] + x * y * c[1] + x * z * c[2] + y * y * c[3] + y * z * c[4] + z * z * c[5] + x * c[6] + y * c[7] + z * c[8] + c[9];
+        }
+
+        public double derivMagnitude(APoint3d in_val) {
+
+            double x = in_val.x;
+            double y = in_val.y;
+            double z = in_val.y;
+
+            double d00 = 2 * x * a[0] + y * a[1] + z * a[2] + a[6];
+            double d01 = 2 * y * a[3] + x * a[1] + z * a[4] + a[7];
+            double d02 = 2 * z * a[5] + x * a[2] + y * a[4] + a[8];
+            double d10 = 2 * x * b[0] + y * b[1] + z * b[2] + b[6];
+            double d11 = 2 * y * b[3] + x * b[1] + z * b[4] + b[7];
+            double d12 = 2 * z * b[5] + x * b[2] + y * b[4] + b[8];
+            double d20 = 2 * x * c[0] + y * c[1] + z * c[2] + c[6];
+            double d21 = 2 * y * c[3] + x * c[1] + z * c[4] + c[7];
+            double d22 = 2 * z * c[5] + x * c[2] + y * c[4] + c[8];
+
+            return Math.max(Math.max(
+                    Math.abs(d00) + Math.abs(d01) + Math.abs(d02),
+                    Math.abs(d10) + Math.abs(d11) + Math.abs(d12)),
+                    Math.abs(d20) + Math.abs(d21) + Math.abs(d22));
+        }
+
+        public int getIdealIterations() {
+            return super.getIdealIterations() / 2;
+        }
+    }
+
+    private boolean built;
+    private Attractor3 attractor;
+
+    eval {return attractor;}
+}

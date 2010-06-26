@@ -39,3 +39,67 @@ fn attractorLoop_v2 {
     }
 }
 
+fn attractorLoop_v3 {
+    description "this loops through the attractor and gives variables indicating direction and gradient";
+    exin Attractor3 attractorExpression;
+    slin body;
+
+    cvar LVect3d v;
+    cvar LVect3d direction;
+    cvar LDouble derivative;
+    cvar LDouble t;
+
+    exec {
+        Attractor3 attractor = (Attractor3) attractorExpression.evaluate(context);
+
+        LVect3d lastv = null;
+        int count = 0;
+        List<APoint3d> points = (List<APoint3d>) attractor.getResult().getValues(); //attractor.getQuadtree().getPoints();
+        for(APoint3d a : points) {
+            v = new LVect3d(a.x,a.y,a.z);
+            if(count > 0) {
+                direction = v.sub(lastv);
+                derivative = new LDouble(attractor.getFunction().derivMagnitude(a));
+                t = new LDouble(1.0*count / points.size());
+
+                body.execute(context);
+
+            }
+            lastv = v;
+            count++;
+        }
+    }
+}
+
+fn attractorLoop_v4 {
+    description "this loops through the attractor and gives variables indicating direction and gradient";
+    exin Attractor4 attractorExpression;
+    slin body;
+
+    //cvar LVect3d v;
+    cvar Quaternion direction;
+    cvar Quaternion q;
+    cvar LDouble derivative;
+    cvar LDouble t;
+
+    exec {
+        Attractor4 attractor = (Attractor4) attractorExpression.evaluate(context);
+
+        Quaternion lastv = null;
+        int count = 0;
+        List<APoint4d> points = (List<APoint4d>) attractor.getResult().getValues(); //attractor.getQuadtree().getPoints();
+        for(APoint3d a : points) {
+            q = new Quaternion(a.w,a.x,a.y,a.z);
+            if(count > 0) {
+                direction = v.sub(lastv);
+                derivative = new LDouble(attractor.getFunction().derivMagnitude(a));
+                t = new LDouble(1.0*count / points.size());
+
+                body.execute(context);
+
+            }
+            lastv = v;
+            count++;
+        }
+    }
+}

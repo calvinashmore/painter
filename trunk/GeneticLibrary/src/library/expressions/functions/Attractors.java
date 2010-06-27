@@ -427,7 +427,7 @@ public final class Attractors implements AllComponents<ExpressionFunction>, Desc
    }
 
    public static class Julia2 extends ExpressionFunction {
-      private boolean built ;private Attractor2 attractor ;private class Impl extends AttractorFunction2 { @ Override public void apply ( APoint2d in_val , APoint2d out_val ) { double x = in_val . x - c . x ; double y = in_val . y - c . y ; double mag = Math . pow ( x * x + y * y , 1.0 / 4 ) ; double theta = Math . atan2 ( y , x ) / 2 ; if ( Math . random ( ) < .5 ) theta += Math . PI ; out_val . x = mag * Math . cos ( theta ) ; out_val . y = mag * Math . sin ( theta ) ; } @ Override public double derivMagnitude ( APoint2d in_val ) { double x = in_val . x ; double y = in_val . y ; double theta = Math . atan2 ( y , x ) ; if ( Math . random ( ) < .5 ) theta += Math . PI ; double r3 = 2 * Math . pow ( y * y + x * x , 3.0 / 4 ) ; double sin = Math . sin ( theta / 2 ) ; double cos = Math . cos ( theta / 2 ) ; double d00 = ( y * sin + x * cos ) / r3 ; double d01 = - ( x * sin - y * cos ) / r3 ; double d10 = ( x * sin - y * cos ) / r3 ; double d11 = ( y * sin + x * cos ) / r3 ; return Math . max ( Math . abs ( d00 ) + Math . abs ( d01 ) , Math . abs ( d10 ) + Math . abs ( d11 ) ) ; } }
+      private boolean built ;private Attractor2 attractor ;private class Impl extends AttractorFunction2 { @ Override public void adjustParameters ( ) { c = new Complex ( - .5 + 1.5 * ( Math . random ( ) - Math . random ( ) ) , 1.5 * ( Math . random ( ) - Math . random ( ) ) ) ; } @ Override public void apply ( APoint2d in_val , APoint2d out_val ) { double x = in_val . x - c . x ; double y = in_val . y - c . y ; double mag = Math . pow ( x * x + y * y , 1.0 / 4 ) ; double theta = Math . atan2 ( y , x ) / 2 ; if ( Math . random ( ) < .5 ) theta += Math . PI ; out_val . x = mag * Math . cos ( theta ) ; out_val . y = mag * Math . sin ( theta ) ; } @ Override public double derivMagnitude ( APoint2d in_val ) { double x = in_val . x - c . x ; double y = in_val . y - c . y ; double theta = Math . atan2 ( y , x ) ; if ( Math . random ( ) < .5 ) theta += Math . PI ; double r3 = 2 * Math . pow ( y * y + x * x , 3.0 / 4 ) ; double sin = Math . sin ( theta / 2 ) ; double cos = Math . cos ( theta / 2 ) ; double d00 = ( y * sin + x * cos ) / r3 ; double d01 = - ( x * sin - y * cos ) / r3 ; double d10 = ( x * sin - y * cos ) / r3 ; double d11 = ( y * sin + x * cos ) / r3 ; return Math . max ( Math . abs ( d00 ) + Math . abs ( d01 ) , Math . abs ( d10 ) + Math . abs ( d11 ) ) ; } }
       private Complex c;
       public int getNumberParameters() {
          return 1;
@@ -480,7 +480,6 @@ public final class Attractors implements AllComponents<ExpressionFunction>, Desc
 
       public Julia2() {
          addGroupMeta(this);
-         c = new Complex ( - .5 + 1.5 * ( Math . random ( ) - Math . random ( ) ) , 1.5 * ( Math . random ( ) - Math . random ( ) ) ) ;
       }
 
       public Attractor2 evaluate(Context context, Object[] inputs) {
@@ -490,6 +489,148 @@ public final class Attractors implements AllComponents<ExpressionFunction>, Desc
 
       public Class getReturnType() {
          return Attractor2.class;
+      }
+
+   }
+
+   public static class Quadratic3 extends ExpressionFunction {
+      private class Impl extends AttractorFunction3 { public void adjustParameters ( ) { a = new double [ 10 ] ; b = new double [ 10 ] ; c = new double [ 10 ] ; for ( int i = 0 ; i < 10 ; i ++ ) { a [ i ] = Math . random ( ) * 2 - 1 ; b [ i ] = Math . random ( ) * 2 - 1 ; c [ i ] = Math . random ( ) * 2 - 1 ; } } public void apply ( APoint3d in_val , APoint3d out_val ) { double x = in_val . x ; double y = in_val . y ; double z = in_val . z ; out_val . x = x * x * a [ 0 ] + x * y * a [ 1 ] + x * z * a [ 2 ] + y * y * a [ 3 ] + y * z * a [ 4 ] + z * z * a [ 5 ] + x * a [ 6 ] + y * a [ 7 ] + z * a [ 8 ] + a [ 9 ] ; out_val . y = x * x * b [ 0 ] + x * y * b [ 1 ] + x * z * b [ 2 ] + y * y * b [ 3 ] + y * z * b [ 4 ] + z * z * b [ 5 ] + x * b [ 6 ] + y * b [ 7 ] + z * b [ 8 ] + b [ 9 ] ; out_val . z = x * x * c [ 0 ] + x * y * c [ 1 ] + x * z * c [ 2 ] + y * y * c [ 3 ] + y * z * c [ 4 ] + z * z * c [ 5 ] + x * c [ 6 ] + y * c [ 7 ] + z * c [ 8 ] + c [ 9 ] ; } public double derivMagnitude ( APoint3d in_val ) { double x = in_val . x ; double y = in_val . y ; double z = in_val . y ; double d00 = 2 * x * a [ 0 ] + y * a [ 1 ] + z * a [ 2 ] + a [ 6 ] ; double d01 = 2 * y * a [ 3 ] + x * a [ 1 ] + z * a [ 4 ] + a [ 7 ] ; double d02 = 2 * z * a [ 5 ] + x * a [ 2 ] + y * a [ 4 ] + a [ 8 ] ; double d10 = 2 * x * b [ 0 ] + y * b [ 1 ] + z * b [ 2 ] + b [ 6 ] ; double d11 = 2 * y * b [ 3 ] + x * b [ 1 ] + z * b [ 4 ] + b [ 7 ] ; double d12 = 2 * z * b [ 5 ] + x * b [ 2 ] + y * b [ 4 ] + b [ 8 ] ; double d20 = 2 * x * c [ 0 ] + y * c [ 1 ] + z * c [ 2 ] + c [ 6 ] ; double d21 = 2 * y * c [ 3 ] + x * c [ 1 ] + z * c [ 4 ] + c [ 7 ] ; double d22 = 2 * z * c [ 5 ] + x * c [ 2 ] + y * c [ 4 ] + c [ 8 ] ; return Math . max ( Math . max ( Math . abs ( d00 ) + Math . abs ( d01 ) + Math . abs ( d02 ) , Math . abs ( d10 ) + Math . abs ( d11 ) + Math . abs ( d12 ) ) , Math . abs ( d20 ) + Math . abs ( d21 ) + Math . abs ( d22 ) ) ; } public int getIdealIterations ( ) { return super . getIdealIterations ( ) / 2 ; } }private boolean built ;private Attractor3 attractor ;
+      private double [ ] a;private double [ ] b;private double [ ] c;
+      public int getNumberParameters() {
+         return 3;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return a;
+            case 1: return b;
+            case 2: return c;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "a";
+            case 1: return "b";
+            case 2: return "c";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return double [ ].class;
+            case 1: return double [ ].class;
+            case 2: return double [ ].class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: a = (double [ ]) value; return;
+            case 1: b = (double [ ]) value; return;
+            case 2: c = (double [ ]) value; return;
+            default: return;
+         }
+
+      }
+
+      public void setup() throws BuildException {
+         super.setup();
+         if ( ! built ) {
+         attractor = new Attractor3 ( new Impl ( ) , new APoint3d ( ) ) ;
+         setParametersChanged ( false ) ;
+         built = true ;
+         }
+         else if ( parametersChanged ( ) ) {
+         attractor = new Attractor3 ( new Impl ( ) , new APoint3d ( ) ) ;
+         setParametersChanged ( false ) ;
+         }
+      }
+
+      public Quadratic3() {
+         addGroupMeta(this);
+      }
+
+      public Attractor3 evaluate(Context context, Object[] inputs) {
+
+         return attractor ;
+      }
+
+      public Class getReturnType() {
+         return Attractor3.class;
+      }
+
+   }
+
+   public static class Julia4 extends ExpressionFunction {
+      private boolean built ;private Attractor4 attractor ;private class Impl extends AttractorFunction4 { @ Override public void adjustParameters ( ) { c = new Quaternion ( - .5 + 1.5 * ( Math . random ( ) - Math . random ( ) ) , 1.5 * ( Math . random ( ) - Math . random ( ) ) , 1.5 * ( Math . random ( ) - Math . random ( ) ) , 1.5 * ( Math . random ( ) - Math . random ( ) ) ) ; } @ Override public void apply ( APoint4d in_val , APoint4d out_val ) { double w = in_val . w - c . u ; double x = in_val . x - c . i ; double y = in_val . y - c . j ; double z = in_val . z - c . k ; double mag = Math . pow ( w * w + x * x + y * y + z * z , 1.0 / 4 ) ; double vmag = Math . pow ( x * x + y * y + z * z , .5 ) ; if ( vmag > 0 ) { x = x / vmag ; y = y / vmag ; z = z / vmag ; } double theta = Math . atan2 ( vmag , w ) / 2 ; if ( Math . random ( ) < .5 ) { theta += Math . PI ; } out_val . w = mag * Math . cos ( theta ) ; out_val . x = mag * x * Math . sin ( theta ) ; out_val . y = mag * y * Math . sin ( theta ) ; out_val . z = mag * z * Math . sin ( theta ) ; } @ Override public double derivMagnitude ( APoint4d in_val ) { double w = in_val . w - c . u ; double x = in_val . x - c . i ; double y = in_val . y - c . j ; double z = in_val . z - c . k ; double vmag = Math . sqrt ( x * x + y * y + z * z ) ; double r3 = 2 * Math . pow ( w * w + x * x + y * y + z * z , 3.0 / 4 ) ; double theta = Math . atan2 ( vmag , w ) ; if ( Math . random ( ) < .5 ) { theta += Math . PI ; } double sin = Math . sin ( theta / 2 ) ; double cos = Math . cos ( theta / 2 ) ; double underTerm1 = ( vmag * cos - w * sin ) / ( r3 * vmag ) ; double underTerm2 = 1.0 / ( r3 * ( ( z * z + 2 * y * y + 2 * x * x ) * z * z + Math . pow ( y , 4 ) + 2 * x * x * y * y + Math . pow ( x , 4 ) ) ) ; double vmagSquared = x * x + y * y + z * z ; double upperTerm1 = vmagSquared + 2 * w * w ; double upperTerm2 = w * x * y * vmagSquared ; double d00 = ( vmag * sin + w * cos ) / r3 ; double d01 = x * underTerm1 ; double d02 = y * underTerm1 ; double d03 = z * underTerm1 ; double d10 = - d01 ; double d11 = ( Math . pow ( x , 4 ) + ( x * x + vmagSquared ) * ( z * z + y * y ) * sin + w * x * x * vmag * cos ) / ( r3 * vmag * vmagSquared ) ; double d12 = ( vmag * y * x * upperTerm1 * sin - upperTerm2 * cos ) * underTerm2 ; double d13 = ( vmag * z * x * upperTerm1 * sin - upperTerm2 * cos ) * underTerm2 ; double d20 = - d02 ; double d21 = - d12 ; double d22 = ( Math . pow ( y , 4 ) + ( y * y + vmagSquared ) * ( z * z + x * x ) * sin + w * y * y * vmag * cos ) / ( r3 * vmag * vmagSquared ) ; double d23 = - ( vmag * y * x * upperTerm1 * sin - upperTerm2 * cos ) * underTerm2 ; double d30 = - d03 ; double d31 = - d13 ; double d32 = - d23 ; double d33 = ( Math . pow ( z , 4 ) + ( z * z + vmagSquared ) * ( y * y + x * x ) * sin + w * z * z * vmag * cos ) / ( r3 * vmag * vmagSquared ) ; return Math . max ( Math . max ( Math . abs ( d00 ) + Math . abs ( d01 ) + Math . abs ( d02 ) + Math . abs ( d03 ) , Math . abs ( d10 ) + Math . abs ( d11 ) + Math . abs ( d12 ) + Math . abs ( d13 ) ) , Math . max ( Math . abs ( d20 ) + Math . abs ( d21 ) + Math . abs ( d22 ) + Math . abs ( d23 ) , Math . abs ( d30 ) + Math . abs ( d31 ) + Math . abs ( d32 ) + Math . abs ( d33 ) ) ) ; } }
+      private Quaternion c;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return c;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "c";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Quaternion.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: c = (Quaternion) value; return;
+            default: return;
+         }
+
+      }
+
+      public void setup() throws BuildException {
+         super.setup();
+         if ( ! built ) {
+         attractor = new Attractor4 ( new Impl ( ) , new APoint4d ( ) ) ;
+         setParametersChanged ( false ) ;
+         built = true ;
+         }
+         else if ( parametersChanged ( ) ) {
+         attractor = new Attractor4 ( new Impl ( ) , new APoint4d ( ) ) ;
+         setParametersChanged ( false ) ;
+         }
+      }
+
+      public Julia4() {
+         addGroupMeta(this);
+      }
+
+      public Attractor4 evaluate(Context context, Object[] inputs) {
+
+         return attractor ;
+      }
+
+      public Class getReturnType() {
+         return Attractor4.class;
       }
 
    }
@@ -507,6 +648,8 @@ public final class Attractors implements AllComponents<ExpressionFunction>, Desc
       r.add(new Quadratic2());
       r.add(new Cubic2());
       r.add(new Julia2());
+      r.add(new Quadratic3());
+      r.add(new Julia4());
       return r;
    }
 

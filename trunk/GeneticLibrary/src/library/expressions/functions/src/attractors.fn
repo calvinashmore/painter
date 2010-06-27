@@ -402,9 +402,9 @@ fn Julia2 {
 fn Quadratic3 {
     fout Attractor3;
 
-    parameter double a[];
-    parameter double b[];
-    parameter double c[];
+    parameter double[] a;
+    parameter double[] b;
+    parameter double[] c;
 
     setup {
         if(!built) {
@@ -472,4 +472,120 @@ fn Quadratic3 {
     private Attractor3 attractor;
 
     eval {return attractor;}
+}
+
+fn Julia4 {
+    fout Attractor4;
+
+    parameter Quaternion c;
+
+    setup {
+        if(!built) {
+            attractor = new Attractor4(new Impl(), new APoint4d());
+            setParametersChanged(false);
+            built = true;
+        } else if(parametersChanged()) {
+            attractor = new Attractor4(new Impl(), new APoint4d());
+            setParametersChanged(false);
+        }
+    }
+    private boolean built;
+    private Attractor4 attractor;
+
+    eval {return attractor;}
+
+    private class Impl extends AttractorFunction4 {
+
+        @Override
+        public void adjustParameters() {
+            c = new Quaternion(
+                    -.5 + 1.5 * (Math.random() - Math.random()),
+                    1.5 * (Math.random() - Math.random()),
+                    1.5 * (Math.random() - Math.random()),
+                    1.5 * (Math.random() - Math.random()));
+        }
+
+        @Override
+        public void apply(APoint4d in_val, APoint4d out_val) {
+//            Complex z = new Complex(in_val.x, in_val.y);
+//            Complex z2 = z.sub(c).pow(.5);
+
+            double w = in_val.w - c.u;
+            double x = in_val.x - c.i;
+            double y = in_val.y - c.j;
+            double z = in_val.z - c.k;
+            double mag = Math.pow(w * w + x * x + y * y + z * z, 1.0 / 4);
+            double vmag = Math.pow(x * x + y * y + z * z, .5);
+            if (vmag > 0) {
+                x = x / vmag;
+                y = y / vmag;
+                z = z / vmag;
+            }
+            double theta = Math.atan2(vmag, w) / 2;
+            if (Math.random() < .5) {
+                theta += Math.PI;
+            }
+
+            out_val.w = mag * Math.cos(theta);
+            out_val.x = mag * x * Math.sin(theta);
+            out_val.y = mag * y * Math.sin(theta);
+            out_val.z = mag * z * Math.sin(theta);
+        }
+
+        @Override
+        public double derivMagnitude(APoint4d in_val) {
+
+//            double x = in_val.x;
+//            double y = in_val.y;
+            double w = in_val.w - c.u;
+            double x = in_val.x - c.i;
+            double y = in_val.y - c.j;
+            double z = in_val.z - c.k;
+
+            double vmag = Math.sqrt(x * x + y * y + z * z);
+            double r3 = 2 * Math.pow(w * w + x * x + y * y + z * z, 3.0 / 4);
+            double theta = Math.atan2(vmag, w);
+            if (Math.random() < .5) {
+                theta += Math.PI;
+            }
+            double sin = Math.sin(theta / 2);
+            double cos = Math.cos(theta / 2);
+            double underTerm1 = (vmag * cos - w * sin) / (r3 * vmag);
+            //double underTerm2 = (vmag*cos-w*sin)/(r3*vmag);
+            double underTerm2 = 1.0 / (r3 * ((z * z + 2 * y * y + 2 * x * x) * z * z + Math.pow(y, 4) + 2 * x * x * y * y + Math.pow(x, 4)));
+
+            double vmagSquared = x * x + y * y + z * z;
+            double upperTerm1 = vmagSquared + 2 * w * w;
+            double upperTerm2 = w * x * y * vmagSquared;
+
+            double d00 = (vmag * sin + w * cos) / r3;
+            double d01 = x * underTerm1;
+            double d02 = y * underTerm1;
+            double d03 = z * underTerm1;
+
+            double d10 = -d01;
+
+            double d11 = (Math.pow(x, 4) + (x * x + vmagSquared) * (z * z + y * y) * sin + w * x * x * vmag * cos) / (r3 * vmag * vmagSquared);
+            double d12 = (vmag * y * x * upperTerm1 * sin - upperTerm2 * cos) * underTerm2;
+            double d13 = (vmag * z * x * upperTerm1 * sin - upperTerm2 * cos) * underTerm2;
+
+            double d20 = -d02;
+            double d21 = -d12;
+            double d22 = (Math.pow(y, 4) + (y * y + vmagSquared) * (z * z + x * x) * sin + w * y * y * vmag * cos) / (r3 * vmag * vmagSquared);
+            double d23 = -(vmag * y * x * upperTerm1 * sin - upperTerm2 * cos) * underTerm2;
+
+            double d30 = -d03;
+            double d31 = -d13;
+            double d32 = -d23;
+            double d33 = (Math.pow(z, 4) + (z * z + vmagSquared) * (y * y + x * x) * sin + w * z * z * vmag * cos) / (r3 * vmag * vmagSquared);
+
+            return Math.max(
+                    Math.max(
+                    Math.abs(d00) + Math.abs(d01) + Math.abs(d02) + Math.abs(d03),
+                    Math.abs(d10) + Math.abs(d11) + Math.abs(d12) + Math.abs(d13)),
+                    Math.max(
+                    Math.abs(d20) + Math.abs(d21) + Math.abs(d22) + Math.abs(d23),
+                    Math.abs(d30) + Math.abs(d31) + Math.abs(d32) + Math.abs(d33)));
+        }
+    }
 }

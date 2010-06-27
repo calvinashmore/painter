@@ -87,6 +87,74 @@ fn PlotAttractor_curve_col {
     }
 }
 
+fn PlotAttractor3_curve_col {
+    in Attractor3 attractor;
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in LVect3d xDot;
+    in LVect3d yDot;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint3d minVals = (APoint3d)result.getMinVals();
+        APoint3d maxVals = (APoint3d)result.getMaxVals();
+        double maxx = Math.abs(xDot.x) * maxVals.x + Math.abs(xDot.y) * maxVals.y + Math.abs(xDot.z) * maxVals.z;
+        double minx = Math.abs(xDot.x) * minVals.x + Math.abs(xDot.y) * minVals.y + Math.abs(xDot.z) * minVals.z;
+        double maxy = Math.abs(yDot.x) * maxVals.x + Math.abs(yDot.y) * maxVals.y + Math.abs(yDot.z) * maxVals.z;
+        double miny = Math.abs(yDot.x) * minVals.x + Math.abs(yDot.y) * minVals.y + Math.abs(yDot.z) * minVals.z;
+
+        double spanx = 1.0/(maxx - minx);
+        double spany = 1.0/(maxy - miny);
+
+        List<APoint3d> points = (List<APoint3d>) result.getValues();
+        for(int i=0;i<points.size();i++) {
+            APoint3d a = points.get(i);
+            double t = (double)i/points.size();
+            double ax = xDot.x*a.x + xDot.y*a.y + xDot.z*a.z;
+            double ay = yDot.x*a.x + yDot.y*a.y + yDot.z*a.z;
+            double x = (ax - minx) * spanx;
+            double y = (ay - miny) * spanx;
+            brush.paint(x, y,0,0, .02, color.getValue(t), canvas);
+        }
+    }
+}
+
+fn PlotAttractor4_curve_col {
+    in Attractor4 attractor;
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in Quaternion xDot;
+    in Quaternion yDot;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint4d minVals = (APoint4d)result.getMinVals();
+        APoint4d maxVals = (APoint4d)result.getMaxVals();
+        double maxx = Math.abs(xDot.u) * maxVals.w + Math.abs(xDot.i) * maxVals.x + Math.abs(xDot.j) * maxVals.y + Math.abs(xDot.k) * maxVals.z;
+        double minx = Math.abs(xDot.u) * minVals.w + Math.abs(xDot.i) * minVals.x + Math.abs(xDot.j) * minVals.y + Math.abs(xDot.k) * minVals.z;
+        double maxy = Math.abs(yDot.u) * maxVals.w + Math.abs(yDot.i) * maxVals.x + Math.abs(yDot.j) * maxVals.y + Math.abs(yDot.k) * maxVals.z;
+        double miny = Math.abs(yDot.u) * minVals.w + Math.abs(yDot.i) * minVals.x + Math.abs(yDot.j) * minVals.y + Math.abs(yDot.k) * minVals.z;
+
+        double spanx = 1.0/(maxx - minx);
+        double spany = 1.0/(maxy - miny);
+
+        List<APoint4d> points = (List<APoint4d>) result.getValues();
+        for(int i=0;i<points.size();i++) {
+            APoint4d a = points.get(i);
+            double t = (double)i/points.size();
+            double ax = xDot.u*a.w + xDot.i*a.x + xDot.j*a.y + xDot.k*a.z;
+            double ay = yDot.u*a.w + yDot.i*a.x + yDot.j*a.y + yDot.k*a.z;
+            double x = (ax - minx) * spanx;
+            double y = (ay - miny) * spanx;
+            brush.paint(x, y,0,0, .02, color.getValue(t), canvas);
+        }
+    }
+}
+
 fn PlotIFS {
     in IFSUtil.IFS_v2 ifs;
     in Brush brush;

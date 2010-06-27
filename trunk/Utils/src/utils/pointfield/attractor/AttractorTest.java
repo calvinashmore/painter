@@ -211,6 +211,11 @@ public final class AttractorTest {
                     Math.abs(d20) + Math.abs(d21) + Math.abs(d22) + Math.abs(d23),
                     Math.abs(d30) + Math.abs(d31) + Math.abs(d32) + Math.abs(d33)));
         }
+
+        @Override
+        public int getIdealIterations() {
+            return 3*super.getIdealIterations();
+        }
     }
 
     private static class Icon extends AttractorFunction2 {

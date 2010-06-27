@@ -180,6 +180,138 @@ public final class PointPlot implements AllComponents<Command>, Described {
 
    }
 
+   public static class PlotAttractor3_curve_col extends Command {
+
+      public int getNumberInputs() {
+         return 5;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "attractor";
+            case 1: return "brush";
+            case 2: return "color";
+            case 3: return "xDot";
+            case 4: return "yDot";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Attractor3.class;
+            case 1: return Brush.class;
+            case 2: return CurveUtil . Curve_col.class;
+            case 3: return LVect3d.class;
+            case 4: return LVect3d.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotAttractor3_curve_col() {
+         addGroupMeta(this);
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Attractor3 attractor = (Attractor3)inputs[0];
+         final Brush brush = (Brush)inputs[1];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[2];
+         final LVect3d xDot = (LVect3d)inputs[3];
+         final LVect3d yDot = (LVect3d)inputs[4];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         AttractorResult result = attractor . getResult ( ) ;
+         APoint3d minVals = ( APoint3d ) result . getMinVals ( ) ;
+         APoint3d maxVals = ( APoint3d ) result . getMaxVals ( ) ;
+         double maxx = Math . abs ( xDot . x ) * maxVals . x + Math . abs ( xDot . y ) * maxVals . y + Math . abs ( xDot . z ) * maxVals . z ;
+         double minx = Math . abs ( xDot . x ) * minVals . x + Math . abs ( xDot . y ) * minVals . y + Math . abs ( xDot . z ) * minVals . z ;
+         double maxy = Math . abs ( yDot . x ) * maxVals . x + Math . abs ( yDot . y ) * maxVals . y + Math . abs ( yDot . z ) * maxVals . z ;
+         double miny = Math . abs ( yDot . x ) * minVals . x + Math . abs ( yDot . y ) * minVals . y + Math . abs ( yDot . z ) * minVals . z ;
+         double spanx = 1.0 / ( maxx - minx ) ;
+         double spany = 1.0 / ( maxy - miny ) ;
+         List < APoint3d > points = ( List < APoint3d > ) result . getValues ( ) ;
+         for ( int i = 0 ;
+         i < points . size ( ) ;
+         i ++ ) {
+         APoint3d a = points . get ( i ) ;
+         double t = ( double ) i / points . size ( ) ;
+         double ax = xDot . x * a . x + xDot . y * a . y + xDot . z * a . z ;
+         double ay = yDot . x * a . x + yDot . y * a . y + yDot . z * a . z ;
+         double x = ( ax - minx ) * spanx ;
+         double y = ( ay - miny ) * spanx ;
+         brush . paint ( x , y , 0 , 0 , .02 , color . getValue ( t ) , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotAttractor4_curve_col extends Command {
+
+      public int getNumberInputs() {
+         return 5;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "attractor";
+            case 1: return "brush";
+            case 2: return "color";
+            case 3: return "xDot";
+            case 4: return "yDot";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return Attractor4.class;
+            case 1: return Brush.class;
+            case 2: return CurveUtil . Curve_col.class;
+            case 3: return Quaternion.class;
+            case 4: return Quaternion.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotAttractor4_curve_col() {
+         addGroupMeta(this);
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final Attractor4 attractor = (Attractor4)inputs[0];
+         final Brush brush = (Brush)inputs[1];
+         final CurveUtil . Curve_col color = (CurveUtil . Curve_col)inputs[2];
+         final Quaternion xDot = (Quaternion)inputs[3];
+         final Quaternion yDot = (Quaternion)inputs[4];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         AttractorResult result = attractor . getResult ( ) ;
+         APoint4d minVals = ( APoint4d ) result . getMinVals ( ) ;
+         APoint4d maxVals = ( APoint4d ) result . getMaxVals ( ) ;
+         double maxx = Math . abs ( xDot . u ) * maxVals . w + Math . abs ( xDot . i ) * maxVals . x + Math . abs ( xDot . j ) * maxVals . y + Math . abs ( xDot . k ) * maxVals . z ;
+         double minx = Math . abs ( xDot . u ) * minVals . w + Math . abs ( xDot . i ) * minVals . x + Math . abs ( xDot . j ) * minVals . y + Math . abs ( xDot . k ) * minVals . z ;
+         double maxy = Math . abs ( yDot . u ) * maxVals . w + Math . abs ( yDot . i ) * maxVals . x + Math . abs ( yDot . j ) * maxVals . y + Math . abs ( yDot . k ) * maxVals . z ;
+         double miny = Math . abs ( yDot . u ) * minVals . w + Math . abs ( yDot . i ) * minVals . x + Math . abs ( yDot . j ) * minVals . y + Math . abs ( yDot . k ) * minVals . z ;
+         double spanx = 1.0 / ( maxx - minx ) ;
+         double spany = 1.0 / ( maxy - miny ) ;
+         List < APoint4d > points = ( List < APoint4d > ) result . getValues ( ) ;
+         for ( int i = 0 ;
+         i < points . size ( ) ;
+         i ++ ) {
+         APoint4d a = points . get ( i ) ;
+         double t = ( double ) i / points . size ( ) ;
+         double ax = xDot . u * a . w + xDot . i * a . x + xDot . j * a . y + xDot . k * a . z ;
+         double ay = yDot . u * a . w + yDot . i * a . x + yDot . j * a . y + yDot . k * a . z ;
+         double x = ( ax - minx ) * spanx ;
+         double y = ( ay - miny ) * spanx ;
+         brush . paint ( x , y , 0 , 0 , .02 , color . getValue ( t ) , canvas ) ;
+         }
+      }
+
+   }
+
    public static class PlotIFS extends Command {
 
       private Integer seed;
@@ -1219,6 +1351,8 @@ public final class PointPlot implements AllComponents<Command>, Described {
       r.add(new PlotAttractor1());
       r.add(new PlotAttractor2());
       r.add(new PlotAttractor_curve_col());
+      r.add(new PlotAttractor3_curve_col());
+      r.add(new PlotAttractor4_curve_col());
       r.add(new PlotIFS());
       r.add(new PlotIFS_curve_col());
       r.add(new PlotBuffer_curve_col());

@@ -76,9 +76,8 @@ fn attractorLoop_v4 {
     exin Attractor4 attractorExpression;
     slin body;
 
-    //cvar LVect3d v;
     cvar Quaternion direction;
-    cvar Quaternion q;
+    cvar Quaternion v;
     cvar LDouble derivative;
     cvar LDouble t;
 
@@ -88,8 +87,8 @@ fn attractorLoop_v4 {
         Quaternion lastv = null;
         int count = 0;
         List<APoint4d> points = (List<APoint4d>) attractor.getResult().getValues(); //attractor.getQuadtree().getPoints();
-        for(APoint3d a : points) {
-            q = new Quaternion(a.w,a.x,a.y,a.z);
+        for(APoint4d a : points) {
+            v = new Quaternion(a.w,a.x,a.y,a.z);
             if(count > 0) {
                 direction = v.sub(lastv);
                 derivative = new LDouble(attractor.getFunction().derivMagnitude(a));

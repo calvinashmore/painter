@@ -45,6 +45,9 @@ fn attractorLoop_v3 {
     slin body;
 
     cvar LVect3d v;
+    cvar LVect2d xy;
+    cvar LVect2d yz;
+    cvar LVect2d xz;
     cvar LVect3d direction;
     cvar LDouble derivative;
     cvar LDouble t;
@@ -57,6 +60,9 @@ fn attractorLoop_v3 {
         List<APoint3d> points = (List<APoint3d>) attractor.getResult().getValues(); //attractor.getQuadtree().getPoints();
         for(APoint3d a : points) {
             v = new LVect3d(a.x,a.y,a.z);
+            xy = new LVect2d(a.x, a.y);
+            yz = new LVect2d(a.y, a.z);
+            xz = new LVect2d(a.x, a.z);
             if(count > 0) {
                 direction = v.sub(lastv);
                 derivative = new LDouble(attractor.getFunction().derivMagnitude(a));
@@ -78,6 +84,10 @@ fn attractorLoop_v4 {
 
     cvar Quaternion direction;
     cvar Quaternion v;
+    cvar LVect2d wx;
+    cvar LVect2d wy;
+    cvar LVect2d wz;
+    cvar LVect3d xyz;
     cvar LDouble derivative;
     cvar LDouble t;
 
@@ -89,6 +99,10 @@ fn attractorLoop_v4 {
         List<APoint4d> points = (List<APoint4d>) attractor.getResult().getValues(); //attractor.getQuadtree().getPoints();
         for(APoint4d a : points) {
             v = new Quaternion(a.w,a.x,a.y,a.z);
+            wx = new LVect2d(a.w, a.x);
+            wy = new LVect2d(a.w, a.y);
+            wz = new LVect2d(a.w, a.z);
+            xyz = new LVect3d(a.x, a.y, a.z);
             if(count > 0) {
                 direction = v.sub(lastv);
                 derivative = new LDouble(attractor.getFunction().derivMagnitude(a));

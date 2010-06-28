@@ -224,6 +224,8 @@ public final class PointPlot implements AllComponents<Command>, Described {
          AttractorResult result = attractor . getResult ( ) ;
          APoint3d minVals = ( APoint3d ) result . getMinVals ( ) ;
          APoint3d maxVals = ( APoint3d ) result . getMaxVals ( ) ;
+         xDot . normalv ( ) ;
+         yDot . normalv ( ) ;
          double maxx = Math . abs ( xDot . x ) * maxVals . x + Math . abs ( xDot . y ) * maxVals . y + Math . abs ( xDot . z ) * maxVals . z ;
          double minx = Math . abs ( xDot . x ) * minVals . x + Math . abs ( xDot . y ) * minVals . y + Math . abs ( xDot . z ) * minVals . z ;
          double maxy = Math . abs ( yDot . x ) * maxVals . x + Math . abs ( yDot . y ) * maxVals . y + Math . abs ( yDot . z ) * maxVals . z ;
@@ -627,6 +629,8 @@ public final class PointPlot implements AllComponents<Command>, Described {
          AttractorResult result = attractor . getResult ( ) ;
          APoint4d minVals = ( APoint4d ) result . getMinVals ( ) ;
          APoint4d maxVals = ( APoint4d ) result . getMaxVals ( ) ;
+         xDot . normalv ( ) ;
+         yDot . normalv ( ) ;
          double maxx = Math . abs ( xDot . u ) * maxVals . w + Math . abs ( xDot . i ) * maxVals . x + Math . abs ( xDot . j ) * maxVals . y + Math . abs ( xDot . k ) * maxVals . z ;
          double minx = Math . abs ( xDot . u ) * minVals . w + Math . abs ( xDot . i ) * minVals . x + Math . abs ( xDot . j ) * minVals . y + Math . abs ( xDot . k ) * minVals . z ;
          double maxy = Math . abs ( yDot . u ) * maxVals . w + Math . abs ( yDot . i ) * maxVals . x + Math . abs ( yDot . j ) * maxVals . y + Math . abs ( yDot . k ) * maxVals . z ;

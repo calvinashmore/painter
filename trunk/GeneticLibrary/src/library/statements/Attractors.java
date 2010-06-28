@@ -139,15 +139,18 @@ public final class Attractors implements AllComponents<StatementFunction>, Descr
       }
 
       public int getNumberContextVariables() {
-         return 4;
+         return 7;
       }
 
       public String getContextVariableIntendedName(int i) {
          switch(i) {
             case 0: return "v";
-            case 1: return "direction";
-            case 2: return "derivative";
-            case 3: return "t";
+            case 1: return "xy";
+            case 2: return "yz";
+            case 3: return "xz";
+            case 4: return "direction";
+            case 5: return "derivative";
+            case 6: return "t";
             default: return null;
          }
 
@@ -156,9 +159,12 @@ public final class Attractors implements AllComponents<StatementFunction>, Descr
       public Class getContextVariableType(int i) {
          switch(i) {
             case 0: return LVect3d.class;
-            case 1: return LVect3d.class;
-            case 2: return LDouble.class;
-            case 3: return LDouble.class;
+            case 1: return LVect2d.class;
+            case 2: return LVect2d.class;
+            case 3: return LVect2d.class;
+            case 4: return LVect3d.class;
+            case 5: return LDouble.class;
+            case 6: return LDouble.class;
             default: return null;
          }
 
@@ -169,6 +175,12 @@ public final class Attractors implements AllComponents<StatementFunction>, Descr
          StatementList body = (StatementList) inputs.get(1);
          final String __v = getContextVariableActualName("v");
          LVect3d v;
+         final String __xy = getContextVariableActualName("xy");
+         LVect2d xy;
+         final String __yz = getContextVariableActualName("yz");
+         LVect2d yz;
+         final String __xz = getContextVariableActualName("xz");
+         LVect2d xz;
          final String __direction = getContextVariableActualName("direction");
          LVect3d direction;
          final String __derivative = getContextVariableActualName("derivative");
@@ -181,6 +193,9 @@ public final class Attractors implements AllComponents<StatementFunction>, Descr
          List < APoint3d > points = ( List < APoint3d > ) attractor . getResult ( ) . getValues ( ) ;
          for ( APoint3d a : points ) {
          v = new LVect3d ( a . x , a . y , a . z ) ; context.setVariable(__v, v);
+         xy = new LVect2d ( a . x , a . y ) ; context.setVariable(__xy, xy);
+         yz = new LVect2d ( a . y , a . z ) ; context.setVariable(__yz, yz);
+         xz = new LVect2d ( a . x , a . z ) ; context.setVariable(__xz, xz);
          if ( count > 0 ) {
          direction = v . sub ( lastv ) ; context.setVariable(__direction, direction);
          derivative = new LDouble ( attractor . getFunction ( ) . derivMagnitude ( a ) ) ; context.setVariable(__derivative, derivative);
@@ -227,15 +242,19 @@ public final class Attractors implements AllComponents<StatementFunction>, Descr
       }
 
       public int getNumberContextVariables() {
-         return 4;
+         return 8;
       }
 
       public String getContextVariableIntendedName(int i) {
          switch(i) {
             case 0: return "direction";
             case 1: return "v";
-            case 2: return "derivative";
-            case 3: return "t";
+            case 2: return "wx";
+            case 3: return "wy";
+            case 4: return "wz";
+            case 5: return "xyz";
+            case 6: return "derivative";
+            case 7: return "t";
             default: return null;
          }
 
@@ -245,8 +264,12 @@ public final class Attractors implements AllComponents<StatementFunction>, Descr
          switch(i) {
             case 0: return Quaternion.class;
             case 1: return Quaternion.class;
-            case 2: return LDouble.class;
-            case 3: return LDouble.class;
+            case 2: return LVect2d.class;
+            case 3: return LVect2d.class;
+            case 4: return LVect2d.class;
+            case 5: return LVect3d.class;
+            case 6: return LDouble.class;
+            case 7: return LDouble.class;
             default: return null;
          }
 
@@ -259,6 +282,14 @@ public final class Attractors implements AllComponents<StatementFunction>, Descr
          Quaternion direction;
          final String __v = getContextVariableActualName("v");
          Quaternion v;
+         final String __wx = getContextVariableActualName("wx");
+         LVect2d wx;
+         final String __wy = getContextVariableActualName("wy");
+         LVect2d wy;
+         final String __wz = getContextVariableActualName("wz");
+         LVect2d wz;
+         final String __xyz = getContextVariableActualName("xyz");
+         LVect3d xyz;
          final String __derivative = getContextVariableActualName("derivative");
          LDouble derivative;
          final String __t = getContextVariableActualName("t");
@@ -269,6 +300,10 @@ public final class Attractors implements AllComponents<StatementFunction>, Descr
          List < APoint4d > points = ( List < APoint4d > ) attractor . getResult ( ) . getValues ( ) ;
          for ( APoint4d a : points ) {
          v = new Quaternion ( a . w , a . x , a . y , a . z ) ; context.setVariable(__v, v);
+         wx = new LVect2d ( a . w , a . x ) ; context.setVariable(__wx, wx);
+         wy = new LVect2d ( a . w , a . y ) ; context.setVariable(__wy, wy);
+         wz = new LVect2d ( a . w , a . z ) ; context.setVariable(__wz, wz);
+         xyz = new LVect3d ( a . x , a . y , a . z ) ; context.setVariable(__xyz, xyz);
          if ( count > 0 ) {
          direction = v . sub ( lastv ) ; context.setVariable(__direction, direction);
          derivative = new LDouble ( attractor . getFunction ( ) . derivMagnitude ( a ) ) ; context.setVariable(__derivative, derivative);

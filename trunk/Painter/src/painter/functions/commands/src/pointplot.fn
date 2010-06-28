@@ -115,11 +115,157 @@ fn PlotAttractor3_curve_col {
             double ax = xDot.x*a.x + xDot.y*a.y + xDot.z*a.z;
             double ay = yDot.x*a.x + yDot.y*a.y + yDot.z*a.z;
             double x = (ax - minx) * spanx;
-            double y = (ay - miny) * spanx;
+            double y = (ay - miny) * spany;
             brush.paint(x, y,0,0, .02, color.getValue(t), canvas);
         }
     }
 }
+
+fn PlotAttractor3a_curve_col {
+    in Attractor3 attractor;
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    parameter LVect3d xDot;
+    parameter LVect3d yDot;
+
+    init {
+        xDot = new LVect3d(Math.random(), Math.random(), Math.random());
+        yDot = new LVect3d(Math.random(), Math.random(), Math.random());
+
+        // orthonormalize
+        yDot = yDot.sub(xDot.mult(xDot.dot(yDot)));
+        xDot.normalv();
+        yDot.normalv();
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint3d minVals = (APoint3d)result.getMinVals();
+        APoint3d maxVals = (APoint3d)result.getMaxVals();
+        double maxx = Math.abs(xDot.x) * maxVals.x + Math.abs(xDot.y) * maxVals.y + Math.abs(xDot.z) * maxVals.z;
+        double minx = Math.abs(xDot.x) * minVals.x + Math.abs(xDot.y) * minVals.y + Math.abs(xDot.z) * minVals.z;
+        double maxy = Math.abs(yDot.x) * maxVals.x + Math.abs(yDot.y) * maxVals.y + Math.abs(yDot.z) * maxVals.z;
+        double miny = Math.abs(yDot.x) * minVals.x + Math.abs(yDot.y) * minVals.y + Math.abs(yDot.z) * minVals.z;
+
+        double spanx = 1.0/(maxx - minx);
+        double spany = 1.0/(maxy - miny);
+
+        List<APoint3d> points = (List<APoint3d>) result.getValues();
+        for(int i=0;i<points.size();i++) {
+            APoint3d a = points.get(i);
+            double t = (double)i/points.size();
+            double ax = xDot.x*a.x + xDot.y*a.y + xDot.z*a.z;
+            double ay = yDot.x*a.x + yDot.y*a.y + yDot.z*a.z;
+            double x = (ax - minx) * spanx;
+            double y = (ay - miny) * spany;
+            brush.paint(x, y,0,0, .02, color.getValue(t), canvas);
+        }
+    }
+}
+
+fn PlotAttractor3a_dotcol_curve_col {
+    in Attractor3 attractor;
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    parameter LVect3d xDot;
+    parameter LVect3d yDot;
+    parameter LVect3d zDot;
+
+    init {
+        xDot = new LVect3d(Math.random(), Math.random(), Math.random());
+        yDot = new LVect3d(Math.random(), Math.random(), Math.random());
+        zDot = new LVect3d(Math.random(), Math.random(), Math.random());
+
+        // orthonormalize
+        yDot = yDot.sub(xDot.mult(xDot.dot(yDot)));
+        zDot = zDot.sub(xDot.mult(xDot.dot(zDot)));
+        zDot = zDot.sub(yDot.mult(yDot.dot(zDot)));
+        xDot.normalv();
+        yDot.normalv();
+        zDot.normalv();
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint3d minVals = (APoint3d)result.getMinVals();
+        APoint3d maxVals = (APoint3d)result.getMaxVals();
+        double maxx = Math.abs(xDot.x) * maxVals.x + Math.abs(xDot.y) * maxVals.y + Math.abs(xDot.z) * maxVals.z;
+        double minx = Math.abs(xDot.x) * minVals.x + Math.abs(xDot.y) * minVals.y + Math.abs(xDot.z) * minVals.z;
+        double maxy = Math.abs(yDot.x) * maxVals.x + Math.abs(yDot.y) * maxVals.y + Math.abs(yDot.z) * maxVals.z;
+        double miny = Math.abs(yDot.x) * minVals.x + Math.abs(yDot.y) * minVals.y + Math.abs(yDot.z) * minVals.z;
+
+        double spanx = 1.0/(maxx - minx);
+        double spany = 1.0/(maxy - miny);
+
+        List<APoint3d> points = (List<APoint3d>) result.getValues();
+        for(int i=0;i<points.size();i++) {
+            APoint3d a = points.get(i);
+            //double t = (double)i/points.size();
+            double ax = xDot.x*a.x + xDot.y*a.y + xDot.z*a.z;
+            double ay = yDot.x*a.x + yDot.y*a.y + yDot.z*a.z;
+            double x = (ax - minx) * spanx;
+            double y = (ay - miny) * spany;
+            double t = zDot.x*a.x + zDot.y*a.y + zDot.z*a.z;
+            brush.paint(x, y,0,0, .02, color.getValue(t), canvas);
+        }
+    }
+}
+
+fn PlotAttractor3b_curve_col {
+    in Attractor3 attractor;
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    parameter LVect3d xDot;
+    parameter LVect3d yDot;
+    parameter LVect3d zDot;
+
+    init {
+        xDot = new LVect3d(Math.random(), Math.random(), Math.random());
+        yDot = new LVect3d(Math.random(), Math.random(), Math.random());
+        zDot = new LVect3d(Math.random(), Math.random(), Math.random());
+
+        // orthonormalize
+        yDot = yDot.sub(xDot.mult(xDot.dot(yDot)));
+        zDot = zDot.sub(xDot.mult(xDot.dot(zDot)));
+        zDot = zDot.sub(yDot.mult(yDot.dot(zDot)));
+        xDot.normalv();
+        yDot.normalv();
+        zDot.normalv();
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint3d minVals = (APoint3d)result.getMinVals();
+        APoint3d maxVals = (APoint3d)result.getMaxVals();
+        double maxx = Math.abs(xDot.x) * maxVals.x + Math.abs(xDot.y) * maxVals.y + Math.abs(xDot.z) * maxVals.z;
+        double minx = Math.abs(xDot.x) * minVals.x + Math.abs(xDot.y) * minVals.y + Math.abs(xDot.z) * minVals.z;
+        double maxy = Math.abs(yDot.x) * maxVals.x + Math.abs(yDot.y) * maxVals.y + Math.abs(yDot.z) * maxVals.z;
+        double miny = Math.abs(yDot.x) * minVals.x + Math.abs(yDot.y) * minVals.y + Math.abs(yDot.z) * minVals.z;
+
+        double spanx = 1.0/(maxx - minx);
+        double spany = 1.0/(maxy - miny);
+
+        List<APoint3d> points = (List<APoint3d>) result.getValues();
+        for(int i=0;i<points.size();i++) {
+            APoint3d a = points.get(i);
+            //double t = (double)i/points.size();
+            double ax = xDot.x*a.x + xDot.y*a.y + xDot.z*a.z;
+            double ay = yDot.x*a.x + yDot.y*a.y + yDot.z*a.z;
+            double x = (ax - minx) * spanx;
+            double y = (ay - miny) * spany;
+            double t = zDot.x*a.x + zDot.y*a.y + zDot.z*a.z;
+            brush.paint(x, y,0,0, .02*width.getValue(t).val, color.getValue(t), canvas);
+        }
+    }
+}
+
 
 fn PlotAttractor4_curve_col {
     in Attractor4 attractor;
@@ -149,8 +295,160 @@ fn PlotAttractor4_curve_col {
             double ax = xDot.u*a.w + xDot.i*a.x + xDot.j*a.y + xDot.k*a.z;
             double ay = yDot.u*a.w + yDot.i*a.x + yDot.j*a.y + yDot.k*a.z;
             double x = (ax - minx) * spanx;
-            double y = (ay - miny) * spanx;
+            double y = (ay - miny) * spany;
             brush.paint(x, y,0,0, .02, color.getValue(t), canvas);
+        }
+    }
+}
+
+fn PlotAttractor4a_curve_col {
+    in Attractor4 attractor;
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    parameter Quaternion xDot;
+    parameter Quaternion yDot;
+
+    init {
+        xDot = new Quaternion(Math.random(), Math.random(), Math.random(), Math.random());
+        yDot = new Quaternion(Math.random(), Math.random(), Math.random(), Math.random());
+
+        // orthonormalize
+        yDot = yDot.sub(xDot.mult(xDot.dot(yDot)));
+        xDot.normalv();
+        yDot.normalv();
+    }
+
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint4d minVals = (APoint4d)result.getMinVals();
+        APoint4d maxVals = (APoint4d)result.getMaxVals();
+        double maxx = Math.abs(xDot.u) * maxVals.w + Math.abs(xDot.i) * maxVals.x + Math.abs(xDot.j) * maxVals.y + Math.abs(xDot.k) * maxVals.z;
+        double minx = Math.abs(xDot.u) * minVals.w + Math.abs(xDot.i) * minVals.x + Math.abs(xDot.j) * minVals.y + Math.abs(xDot.k) * minVals.z;
+        double maxy = Math.abs(yDot.u) * maxVals.w + Math.abs(yDot.i) * maxVals.x + Math.abs(yDot.j) * maxVals.y + Math.abs(yDot.k) * maxVals.z;
+        double miny = Math.abs(yDot.u) * minVals.w + Math.abs(yDot.i) * minVals.x + Math.abs(yDot.j) * minVals.y + Math.abs(yDot.k) * minVals.z;
+
+        double spanx = 1.0/(maxx - minx);
+        double spany = 1.0/(maxy - miny);
+
+        List<APoint4d> points = (List<APoint4d>) result.getValues();
+        for(int i=0;i<points.size();i++) {
+            APoint4d a = points.get(i);
+            double t = (double)i/points.size();
+            double ax = xDot.u*a.w + xDot.i*a.x + xDot.j*a.y + xDot.k*a.z;
+            double ay = yDot.u*a.w + yDot.i*a.x + yDot.j*a.y + yDot.k*a.z;
+            double x = (ax - minx) * spanx;
+            double y = (ay - miny) * spany;
+            brush.paint(x, y,0,0, .02, color.getValue(t), canvas);
+        }
+    }
+}
+
+fn PlotAttractor4a_dotcol_curve_col {
+    in Attractor4 attractor;
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    parameter Quaternion xDot;
+    parameter Quaternion yDot;
+    parameter Quaternion zDot;
+
+    init {
+        xDot = new Quaternion(Math.random(), Math.random(), Math.random(), Math.random());
+        yDot = new Quaternion(Math.random(), Math.random(), Math.random(), Math.random());
+        zDot = new Quaternion(Math.random(), Math.random(), Math.random(), Math.random());
+
+        // orthonormalize
+        yDot = yDot.sub(xDot.mult(xDot.dot(yDot)));
+        zDot = zDot.sub(xDot.mult(xDot.dot(zDot)));
+        zDot = zDot.sub(yDot.mult(yDot.dot(zDot)));
+        xDot.normalv();
+        yDot.normalv();
+        zDot.normalv();
+    }
+
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint4d minVals = (APoint4d)result.getMinVals();
+        APoint4d maxVals = (APoint4d)result.getMaxVals();
+        double maxx = Math.abs(xDot.u) * maxVals.w + Math.abs(xDot.i) * maxVals.x + Math.abs(xDot.j) * maxVals.y + Math.abs(xDot.k) * maxVals.z;
+        double minx = Math.abs(xDot.u) * minVals.w + Math.abs(xDot.i) * minVals.x + Math.abs(xDot.j) * minVals.y + Math.abs(xDot.k) * minVals.z;
+        double maxy = Math.abs(yDot.u) * maxVals.w + Math.abs(yDot.i) * maxVals.x + Math.abs(yDot.j) * maxVals.y + Math.abs(yDot.k) * maxVals.z;
+        double miny = Math.abs(yDot.u) * minVals.w + Math.abs(yDot.i) * minVals.x + Math.abs(yDot.j) * minVals.y + Math.abs(yDot.k) * minVals.z;
+
+        double spanx = 1.0/(maxx - minx);
+        double spany = 1.0/(maxy - miny);
+
+        List<APoint4d> points = (List<APoint4d>) result.getValues();
+        for(int i=0;i<points.size();i++) {
+            APoint4d a = points.get(i);
+            double t = zDot.u*a.w + zDot.i*a.x + zDot.j*a.y + zDot.k*a.z;
+            double ax = xDot.u*a.w + xDot.i*a.x + xDot.j*a.y + xDot.k*a.z;
+            double ay = yDot.u*a.w + yDot.i*a.x + yDot.j*a.y + yDot.k*a.z;
+            double x = (ax - minx) * spanx;
+            double y = (ay - miny) * spany;
+            brush.paint(x, y,0,0, .02, color.getValue(t), canvas);
+        }
+    }
+}
+
+fn PlotAttractor4b_curve_col {
+    in Attractor4 attractor;
+    in Brush brush;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    parameter Quaternion xDot;
+    parameter Quaternion yDot;
+    parameter Quaternion zDot;
+    parameter Quaternion wDot;
+
+    init {
+        xDot = new Quaternion(Math.random(), Math.random(), Math.random(), Math.random());
+        yDot = new Quaternion(Math.random(), Math.random(), Math.random(), Math.random());
+        zDot = new Quaternion(Math.random(), Math.random(), Math.random(), Math.random());
+        wDot = new Quaternion(Math.random(), Math.random(), Math.random(), Math.random());
+
+        // orthonormalize
+        yDot = yDot.sub(xDot.mult(xDot.dot(yDot)));
+        zDot = zDot.sub(xDot.mult(xDot.dot(zDot)));
+        zDot = zDot.sub(yDot.mult(yDot.dot(zDot)));
+        wDot = wDot.sub(xDot.mult(xDot.dot(wDot)));
+        wDot = wDot.sub(yDot.mult(yDot.dot(wDot)));
+        wDot = wDot.sub(zDot.mult(zDot.dot(wDot)));
+        xDot.normalv();
+        yDot.normalv();
+        zDot.normalv();
+        wDot.normalv();
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        AttractorResult result = attractor.getResult();
+        APoint4d minVals = (APoint4d)result.getMinVals();
+        APoint4d maxVals = (APoint4d)result.getMaxVals();
+        double maxx = Math.abs(xDot.u) * maxVals.w + Math.abs(xDot.i) * maxVals.x + Math.abs(xDot.j) * maxVals.y + Math.abs(xDot.k) * maxVals.z;
+        double minx = Math.abs(xDot.u) * minVals.w + Math.abs(xDot.i) * minVals.x + Math.abs(xDot.j) * minVals.y + Math.abs(xDot.k) * minVals.z;
+        double maxy = Math.abs(yDot.u) * maxVals.w + Math.abs(yDot.i) * maxVals.x + Math.abs(yDot.j) * maxVals.y + Math.abs(yDot.k) * maxVals.z;
+        double miny = Math.abs(yDot.u) * minVals.w + Math.abs(yDot.i) * minVals.x + Math.abs(yDot.j) * minVals.y + Math.abs(yDot.k) * minVals.z;
+
+        double spanx = 1.0/(maxx - minx);
+        double spany = 1.0/(maxy - miny);
+
+        List<APoint4d> points = (List<APoint4d>) result.getValues();
+        for(int i=0;i<points.size();i++) {
+            APoint4d a = points.get(i);
+            double ax = xDot.u*a.w + xDot.i*a.x + xDot.j*a.y + xDot.k*a.z;
+            double ay = yDot.u*a.w + yDot.i*a.x + yDot.j*a.y + yDot.k*a.z;
+            double x = (ax - minx) * spanx;
+            double y = (ay - miny) * spany;
+            double t = zDot.u*a.w + zDot.i*a.x + zDot.j*a.y + zDot.k*a.z;
+            double u = wDot.u*a.w + wDot.i*a.x + wDot.j*a.y + wDot.k*a.z;
+            brush.paint(x, y,0,0, .02*width.getValue(u).val, color.getValue(t), canvas);
         }
     }
 }

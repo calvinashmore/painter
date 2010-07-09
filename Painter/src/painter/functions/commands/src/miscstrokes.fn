@@ -1,0 +1,142 @@
+package painter.functions.commands;
+group MiscStrokeCommands;
+type Command;
+
+import utils.linear.*;
+import utils.curves.*;
+import painter.tools.canvas.*;
+import painter.tools.brush.*;
+import painter.tools.stroke.*;
+
+
+description "Miscellaneous stroke commands";
+
+
+fn RadialStrokes1 {
+    in CurveUtil.Curve_v2 position;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+
+    description "draws several strokes surrounding a point.";
+
+    parameter int middlePoints;
+
+    init {
+        middlePoints = (int)(5 + 20*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        LVect2d center = position.getValue(0);
+
+        for(int i=0;i<middlePoints;i++) {
+            double theta = 2*Math.PI*(double)i/middlePoints;
+            Curve<LVect2d> curve = CurveUtil.add(CurveUtil.rotate(CurveUtil.sub(position, center), theta), center);
+            stroke.render(brush, width, curve, color, canvas, renderer);
+        }
+    }
+}
+
+fn RadialStrokes2 {
+    in CurveUtil.Curve_v2 position;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+
+    description "draws several strokes surrounding a point.";
+
+    parameter int middlePoints;
+
+    init {
+        middlePoints = (int)(3 + 10*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        LVect2d center = position.getValue(0);
+
+        for(int i=0;i<middlePoints;i++) {
+            double theta = 2*Math.PI*(double)i/middlePoints;
+            Curve<LVect2d> curve = CurveUtil.add(CurveUtil.rotate(CurveUtil.sub(position, center), theta), center);
+            stroke.render(brush, width, curve, color, canvas, renderer);
+        }
+    }
+}
+
+fn RadialSpiral1 {
+    in CurveUtil.Curve_v2 position;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+
+    description "draws several strokes surrounding a point.";
+
+    parameter int middlePoints;
+    parameter LDouble multTheta;
+    parameter LDouble multScale;
+
+    init {
+        middlePoints = (int)(5 + 20*Math.random());
+        multTheta = new LDouble(1 + 2*Math.random());
+        multScale = new LDouble(1 + 2*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        LVect2d center = position.getValue(0);
+
+        for(int i=0;i<middlePoints;i++) {
+            double t = (double)i/middlePoints;
+            double theta = multTheta.val * 2*Math.PI*t;
+            double scale = (t+.1)*multScale.val;
+            Curve<LVect2d> curve = CurveUtil.add(CurveUtil.mult(CurveUtil.rotate(CurveUtil.sub(position, center), theta),scale), center);
+            stroke.render(brush, width, curve, color, canvas, renderer);
+        }
+    }
+}
+
+fn RadialSpiral2 {
+    in CurveUtil.Curve_v2 position;
+    in CurveUtil.Curve_col color;
+    in CurveUtil.Curve_d width;
+    in Brush brush;
+    in Stroke stroke;
+    in SegmentRenderer renderer;
+
+    description "draws several strokes surrounding a point.";
+
+    parameter int middlePoints;
+    parameter LDouble multTheta;
+    parameter LDouble multScale;
+
+    init {
+        middlePoints = (int)(5 + 20*Math.random());
+        multTheta = new LDouble(1 + 2*Math.random());
+        multScale = new LDouble(1 + 2*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        LVect2d center = position.getValue(0);
+
+        for(int i=0;i<middlePoints;i++) {
+            double t = (double)i/middlePoints;
+            double theta = multTheta.val * 2*Math.PI*t;
+            double scale = (t+.1)*multScale.val;
+            Curve<LVect2d> curve = CurveUtil.add(CurveUtil.mult(CurveUtil.rotate(CurveUtil.sub(position, center), theta),scale), center);
+            stroke.render(brush, CurveUtil.mult(width, scale), curve, color, canvas, renderer);
+        }
+    }
+}
+

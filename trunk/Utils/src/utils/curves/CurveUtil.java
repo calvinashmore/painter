@@ -76,11 +76,29 @@ public class CurveUtil {
         };
     }
 
+    public static <T extends Linear<T>> Curve<T> add(final Curve<T> a, final T offset) {
+        return new Curve<T>() {
+
+            public T getValue(double t) {
+                return a.getValue(t).add(offset);
+            }
+        };
+    }
+
     public static <T extends Linear<T>> Curve<T> add(final Curve<T> a, final Curve<T> b) {
         return new Curve<T>() {
 
             public T getValue(double t) {
                 return a.getValue(t).add(b.getValue(t));
+            }
+        };
+    }
+
+    public static <T extends Linear<T>> Curve<T> sub(final Curve<T> a, final T offset) {
+        return new Curve<T>() {
+
+            public T getValue(double t) {
+                return a.getValue(t).sub(offset);
             }
         };
     }
@@ -108,6 +126,18 @@ public class CurveUtil {
 
             public T getValue(double t) {
                 return a.getValue(1 - t);
+            }
+        };
+    }
+
+    public static Curve_v2 rotate(final Curve<LVect2d> a, final double theta) {
+        final double c = Math.cos(theta);
+        final double s = Math.sin(theta);
+        return new Curve_v2() {
+
+            public LVect2d getValue(double t) {
+                LVect2d v = a.getValue(t);
+                return new LVect2d(v.x * c + v.y * s, v.y * c - v.x * s);
             }
         };
     }

@@ -9,28 +9,26 @@
  */
 package utils;
 
-import java.util.*;
-
 /**
- *
+ * This is a pair of items of the same type with a special property,
  * @author Calvin Ashmore
  */
-public class Pair<A, B> {
+public class UnorderedPair<T> {
 
-    private A a;
-    private B b;
+    private T a;
+    private T b;
 
     /** Creates a new instance of UpdatePair */
-    public Pair(A a, B b) {
+    public UnorderedPair(T a, T b) {
         this.a = a;
         this.b = b;
     }
 
-    public A getLeft() {
+    public T getLeft() {
         return a;
     }
 
-    public B getRight() {
+    public T getRight() {
         return b;
     }
 
@@ -47,21 +45,27 @@ public class Pair<A, B> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Pair<A, B> other = (Pair<A, B>) obj;
-        if (this.a != other.a && (this.a == null || !this.a.equals(other.a))) {
-            return false;
+        final UnorderedPair<T> other = (UnorderedPair<T>) obj;
+
+        // if (this.a == other.a && this.b == other.b) -> true
+        // if (this.a == other.b && this.b == other.a) -> true
+
+        if ((this.a == other.a || (this.a != null && this.a.equals(other.a)))
+                && (this.b == other.b || (this.b != null && this.b.equals(other.b)))) {
+            return true;
         }
-        if (this.b != other.b && (this.b == null || !this.b.equals(other.b))) {
-            return false;
+
+        if ((this.a == other.b || (this.a != null && this.a.equals(other.b)))
+                && (this.b == other.a || (this.b != null && this.b.equals(other.a)))) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + (this.a != null ? this.a.hashCode() : 0);
-        hash = 29 * hash + (this.b != null ? this.b.hashCode() : 0);
+        hash = 23 * hash + (this.a != null ? this.a.hashCode() : 0) + (this.b != null ? this.b.hashCode() : 0);
         return hash;
     }
 }

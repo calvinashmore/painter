@@ -36,14 +36,10 @@ public class Fluid<T extends Particle> {
     private FluidViscosity<T> viscosity;
     private List<Emitter<T>> emitters = new ArrayList<Emitter<T>>();
 
-    public Fluid(double interactionRadius, double range) {
-        this(interactionRadius, new LVect3d(-range, -range, -range), new LVect3d(range, range, range));
-    }
-
-    public Fluid(double interactionRadius, LVect3d minima, LVect3d maxima) {
+    public Fluid(double interactionRadius) {
         this.interactionRadius = interactionRadius;
         this.interactionRadiusSquared = interactionRadius * interactionRadius;
-        this.aggregator = new ParticleAggregator(interactionRadius, minima, maxima, activeParticles);
+        this.aggregator = new ParticleAggregator(interactionRadius, activeParticles);
     }
 
     public void addEmitter(Emitter<T> emitter) {
@@ -169,7 +165,6 @@ public class Fluid<T extends Particle> {
             // 5: apply spring displacement
             elastics.applyElastity(this);
         }
-
 
         // 6: relaxations
         if (densityRelaxation != null) {

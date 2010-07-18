@@ -34,7 +34,7 @@ public class Demo01 {
 
     private void doStuff() {
 
-        fluid = new Fluid(.1, 1.25);
+        fluid = new Fluid(.1);
         fluid.setDt(1);
         //fluid.setDensityRelaxation(new FluidDensityRelaxation());
         fluid.setDensityRelaxation(new FluidDensityRelaxation(10, .004, .05));

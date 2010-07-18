@@ -52,7 +52,6 @@ public class FluidDensityRelaxation<T extends Particle> {
             double nearPressure = nearStiffness * nearDensity;
             LVect3d displacement = new LVect3d();
 
-
 //int usedNeighbors = 0;
             for (T neighbor : neighbors) {
                 double q = fluid.getDistanceSquared(particle, neighbor);

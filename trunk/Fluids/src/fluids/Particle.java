@@ -36,7 +36,7 @@ public class Particle {
             this.restLength = restLength;
         }
     }
-    LVect3d previousPosition = new LVect3d();
+    private LVect3d previousPosition = new LVect3d();
     private LVect3d position = new LVect3d();
     private LVect3d velocity = new LVect3d();
     int index;
@@ -53,6 +53,10 @@ public class Particle {
 
     public double distance(Particle p) {
         return distanceTo(p.position);
+    }
+
+    public LVect3d getPreviousPosition() {
+        return previousPosition;
     }
 
     public LVect3d getPosition() {

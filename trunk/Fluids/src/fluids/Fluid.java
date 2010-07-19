@@ -30,6 +30,7 @@ public class Fluid<T extends Particle> {
     //= new ParticleAggregator(
     //      interactionRadius * 2, new LVect3d(-range, -range, -range), new LVect3d(range, range, range), activeParticles);
     // algorithms:
+    private FluidCollisions<T> collisions;
     private FluidDensityRelaxation<T> densityRelaxation;
     private FluidForces<T> forces;
     private FluidElastics<T> elastics;
@@ -83,6 +84,10 @@ public class Fluid<T extends Particle> {
         this.viscosity = viscosity;
     }
 
+    public void setCollisions(FluidCollisions<T> collisions) {
+        this.collisions = collisions;
+    }
+
     public List<T> getAllParticles() {
         return unmodifiableActiveParticles;
     }
@@ -130,6 +135,15 @@ public class Fluid<T extends Particle> {
         return neighbors;
     }
 
+    /**
+     * Returns a list of particles that are close to the hull of 3d points given
+     * @param hull
+     * @return
+     */
+    public List<T> getNeighbors(List<LVect3d> hull) {
+        return aggregator.getNeighbors(hull, interactionRadius / 2);
+    }
+
     public double getDistanceSquared(T a, T b) {
 
         double dx = a.getPosition().x - b.getPosition().x;
@@ -172,7 +186,9 @@ public class Fluid<T extends Particle> {
         }
 
         // 7: collisions
-        resolveCollisions();
+        if (collisions != null) {
+            collisions.resolveCollisions(this);
+        }
 
         // 8: compute next velocities
         computeNextVelocity();
@@ -184,17 +200,14 @@ public class Fluid<T extends Particle> {
     private void applyVelocity() {
         for (T particle : activeParticles) {
             // move particle
-            particle.previousPosition.setTo(particle.getPosition());
+            particle.getPreviousPosition().setTo(particle.getPosition());
             particle.getPosition().addv(particle.getVelocity().mult(dt));
         }
     }
 
-    private void resolveCollisions() {
-    }
-
     private void computeNextVelocity() {
         for (T particle : activeParticles) {
-            LVect3d displacement = particle.getPosition().sub(particle.previousPosition);
+            LVect3d displacement = particle.getPosition().sub(particle.getPreviousPosition());
             displacement.multv(1.0 / dt);
             particle.getVelocity().setTo(displacement);
         }

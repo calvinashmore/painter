@@ -19,15 +19,6 @@ public class CollidableBox implements Collidable {
     private LVect3d center;
     private double dx, dy, dz;
     private List<LVect3d> hull;
-    private double slidingFriction = 0;
-
-    public double getSlidingFriction() {
-        return slidingFriction;
-    }
-
-    public void setSlidingFriction(double slidingFriction) {
-        this.slidingFriction = slidingFriction;
-    }
 
     public CollidableBox(LVect3d center, double dx, double dy, double dz) {
         this.center = center;
@@ -211,12 +202,10 @@ public class CollidableBox implements Collidable {
         double py = Math.abs(point.y - center.y) - dy;
         double pz = Math.abs(point.z - center.z) - dz;
 
-
-
         if (px >= py && px >= pz) {
             // x is greatest
             return new LVect3d(Math.signum(point.x - center.x), 0, 0);
-        } else if(py >= px && py >= pz) {
+        } else if (py >= px && py >= pz) {
             // y is greatest
             return new LVect3d(0, Math.signum(point.y - center.y), 0);
         } else {

@@ -19,16 +19,16 @@ public class ParticleAggregator<T extends Particle> {
 
     private final double gridWidth;
     private final double invGridWidth;
-    private final List<Particle> backingArray;
-    private Map<LVect3i, List<Particle>> grid;
+    private final List<T> backingArray;
+    private Map<LVect3i, List<T>> grid;
 //    private Map<UnorderedPair<Particle>, Double> distances;
 
-    public ParticleAggregator(double gridWidth, List<Particle> backingArray) {
+    public ParticleAggregator(double gridWidth, List<T> backingArray) {
         this.gridWidth = gridWidth;
         invGridWidth = 1.0 / gridWidth;
         this.backingArray = backingArray;
 
-        grid = new HashMap<LVect3i, List<Particle>>();
+        grid = new HashMap<LVect3i, List<T>>();
 //        distances = new HashMap<UnorderedPair<Particle>, Double>();
     }
 
@@ -45,16 +45,16 @@ public class ParticleAggregator<T extends Particle> {
 
     public void update() {
 
-        for (List<Particle> list : grid.values()) {
+        for (List<T> list : grid.values()) {
             list.clear();
         }
 //        distances.clear();
 
-        for (Particle particle : backingArray) {
+        for (T particle : backingArray) {
             LVect3i cell = getCell(particle);
-            List<Particle> cellContents = grid.get(cell);
+            List<T> cellContents = grid.get(cell);
             if (cellContents == null) {
-                cellContents = new ArrayList<Particle>();
+                cellContents = new ArrayList<T>();
                 grid.put(cell, cellContents);
             }
 
@@ -77,15 +77,15 @@ public class ParticleAggregator<T extends Particle> {
      * @param particle
      * @return
      */
-    public List<Particle> getNeighbors(Particle particle) {
+    public List<T> getNeighbors(Particle particle) {
         return getNeighbors(particle.getPosition(), gridWidth);
     }
 
-    public List<Particle> getNeighbors(LVect3d position, double radius) {
+    public List<T> getNeighbors(LVect3d position, double radius) {
         return getNeighbors(position, radius, radius, radius);
     }
 
-    public List<Particle> getNeighbors(LVect3d position, double dx, double dy, double dz) {
+    public List<T> getNeighbors(LVect3d position, double dx, double dy, double dz) {
         LVect3i cell = new LVect3i();
 
         int x0 = (int) Math.floor((position.x - dx) * invGridWidth);
@@ -98,7 +98,7 @@ public class ParticleAggregator<T extends Particle> {
 //        int cellsSearched=0;
 //        int populatedCells=0;
 
-        List<Particle> r = new ArrayList<Particle>();
+        List<T> r = new ArrayList<T>();
         for (int i = x0; i <= x1; i++) {
             for (int j = y0; j <= y1; j++) {
                 for (int k = z0; k <= z1; k++) {
@@ -109,7 +109,7 @@ public class ParticleAggregator<T extends Particle> {
                     cell.y = j;
                     cell.z = k;
                     // add neighbors
-                    List<Particle> neighborContents = grid.get(cell);
+                    List<T> neighborContents = grid.get(cell);
                     if (neighborContents != null) {
                         r.addAll(neighborContents);
 //                        populatedCells++;
@@ -117,7 +117,50 @@ public class ParticleAggregator<T extends Particle> {
                 }
             }
         }
+        return r;
+    }
 
+    /**
+     * Returns a list of particles close to the hull of points given.
+     * @param hull
+     * @return
+     */
+    public List<T> getNeighbors(List<LVect3d> hull, double radius) {
+        // estimate via a box.
+
+        LVect3i cell = new LVect3i();
+
+        int x0 = Integer.MAX_VALUE;
+        int x1 = Integer.MIN_VALUE;
+        int y0 = Integer.MAX_VALUE;
+        int y1 = Integer.MIN_VALUE;
+        int z0 = Integer.MAX_VALUE;
+        int z1 = Integer.MIN_VALUE;
+
+        for (LVect3d position : hull) {
+            x0 = Math.min(x0, (int) Math.floor((position.x - radius) * invGridWidth));
+            x1 = Math.max(x1, (int) Math.floor((position.x + radius) * invGridWidth));
+            y0 = Math.min(y0, (int) Math.floor((position.y - radius) * invGridWidth));
+            y1 = Math.max(y1, (int) Math.floor((position.y + radius) * invGridWidth));
+            z0 = Math.min(z0, (int) Math.floor((position.z - radius) * invGridWidth));
+            z1 = Math.max(z1, (int) Math.floor((position.z + radius) * invGridWidth));
+        }
+
+        List<T> r = new ArrayList<T>();
+        for (int i = x0; i <= x1; i++) {
+            for (int j = y0; j <= y1; j++) {
+                for (int k = z0; k <= z1; k++) {
+                    cell.x = i;
+                    cell.y = j;
+                    cell.z = k;
+                    // add neighbors
+                    List<T> neighborContents = grid.get(cell);
+                    if (neighborContents != null) {
+                        r.addAll(neighborContents);
+                    }
+                }
+            }
+        }
         return r;
     }
 }

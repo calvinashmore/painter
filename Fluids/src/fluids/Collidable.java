@@ -5,6 +5,7 @@
 
 package fluids;
 
+import java.util.List;
 import utils.linear.LVect3d;
 
 /**
@@ -16,7 +17,6 @@ public interface Collidable {
     public class TraceResult {
         public LVect3d intersectionPoint;
         public LVect3d surfaceNormal;
-        public LVect3d surfaceTangent;
     }
 
     /**
@@ -33,5 +33,20 @@ public interface Collidable {
      */
     public boolean isInside(LVect3d point);
 
+    /**
+     * Returns a trace result indicating the data from the trace if the segment given by start and end intersects the collidable.
+     * If it does NOT intersect, then NULL is returned.
+     * @param start
+     * @param end
+     * @return
+     */
     public TraceResult trace(LVect3d start, LVect3d end);
+
+    /**
+     * Returns a list of points whose convex hull bounds the collidable object
+     * @return
+     */
+    public List<LVect3d> getHull();
+
+    public LVect3d normalTo(LVect3d point);
 }

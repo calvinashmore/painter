@@ -33,9 +33,9 @@ abstract public class BoxEmitter<T extends Particle> extends SimpleEmitter<T> {
     @Override
     public T createParticle() {
         T particle = constructParticle();
-        particle.getPosition().x = 2 * (Math.random() - 1) * boxSize.x;
-        particle.getPosition().y = 2 * (Math.random() - 1) * boxSize.y;
-        particle.getPosition().z = 2 * (Math.random() - 1) * boxSize.z;
+        particle.getPosition().x = (2 * Math.random() - 1) * boxSize.x;
+        particle.getPosition().y = (2 * Math.random() - 1) * boxSize.y;
+        particle.getPosition().z = (2 * Math.random() - 1) * boxSize.z;
         particle.getVelocity().setTo(velocity);
         return particle;
     }

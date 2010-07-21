@@ -19,6 +19,16 @@ public class FluidElastics<T extends Particle> {
     private double plasticity;
     private double yieldRatio;
 
+    public FluidElastics() {
+        this(.3, .3, .1);
+    }
+
+    public FluidElastics(double springTension, double plasticity, double yieldRatio) {
+        this.springTension = springTension;
+        this.plasticity = plasticity;
+        this.yieldRatio = yieldRatio;
+    }
+
     public void applyElastity(Fluid<T> fluid) {
         for (T particle : fluid.getAllParticles()) {
             // apply spring forces
@@ -50,21 +60,23 @@ public class FluidElastics<T extends Particle> {
                 }
 
                 double r = Math.sqrt(fluid.getDistanceSquared(particle, neighbor));
-                if(r > fluid.getInteractionRadius())
+                if (r > fluid.getInteractionRadius()) {
                     continue;
+                }
 
                 ParticleSpring spring = particle.getSpring(neighbor);
-                if(spring == null) {
+                if (spring == null) {
                     spring = particle.addSpring(neighbor, fluid.getInteractionRadius());
+                    spring.setRestLength(r);
                 }
                 double L = spring.getRestLength();
 
                 double d = yieldRatio * L;
-                if(r > L + d) {
+                if (r > L + d) {
                     // stretch
                     double change = fluid.getDt() * plasticity * (r - L - d);
                     spring.setRestLength(L + change);
-                } else if(r < L - d) {
+                } else if (r < L - d) {
                     // compress
                     double change = fluid.getDt() * plasticity * (L - d - r);
                     spring.setRestLength(L - change);
@@ -73,8 +85,9 @@ public class FluidElastics<T extends Particle> {
 
             List<ParticleSpring> toRemove = new ArrayList<ParticleSpring>();
             for (ParticleSpring spring : particle.getSprings()) {
-                if(spring.getRestLength() > fluid.getInteractionRadius())
+                if (spring.getRestLength() > fluid.getInteractionRadius()) {
                     toRemove.add(spring);
+                }
             }
             for (ParticleSpring spring : toRemove) {
                 particle.removeSpring(spring);

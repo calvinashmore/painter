@@ -7,6 +7,7 @@ package fluids.demo;
 import fluids.Fluid;
 import fluids.FluidCollisions;
 import fluids.FluidDensityRelaxation;
+import fluids.FluidViscosity;
 import fluids.Particle;
 import fluids.applied.BoxEmitter;
 import fluids.applied.CollidableBox;
@@ -27,10 +28,10 @@ import utils.linear.LVect3d;
  *
  * @author Calvin Ashmore
  */
-public class Demo04 {
+public class Demo06 {
 
     public static void main(String args[]) {
-        new Demo04().doStuff();
+        new Demo06().doStuff();
     }
     private JPanel panel;
     private Fluid<Particle> fluid;
@@ -39,21 +40,22 @@ public class Demo04 {
     private void doStuff() {
 
         fluid = new Fluid(.1);
-        fluid.setDt(.2);
-        fluid.setDensityRelaxation(new FluidDensityRelaxation());
-        fluid.setForces(new FieldForces(new LVect3d(0, .07, 0)));
+        fluid.setDt(.05);
+        fluid.setDensityRelaxation(new FluidDensityRelaxation(10,.01,.002));
+        fluid.setForces(new FieldForces(new LVect3d(0, .03, 0)));
 
         FluidCollisions collisions = new FluidCollisions();
         CollidableBox box = new CollidableBox(new LVect3d(0, 1.5, 0), 2, .52, 2);
-        sphere = new CollidableSphere(new LVect3d(.5, -.5, 0), .25);
+        sphere = new CollidableSphere(new LVect3d(0, 0, 0), .25);
         collisions.addCollidable(box);
         collisions.addCollidable(sphere);
-        collisions.setSlidingFriction(.5);
-//        collisions.setStickCoefficient(1);
-//        collisions.setStickDistance(.05);
+        collisions.setSlidingFriction(.3);
+        collisions.setStickCoefficient(.03);
+        collisions.setStickDistance(.2);
         fluid.setCollisions(collisions);
+        fluid.setViscosity(new FluidViscosity<Particle>(100, 25));
 
-        fluid.addEmitter(new BoxEmitter<Particle>(5, false, new LVect3d(.18, -.35, 0), new LVect3d(-.9, .0, 0), new LVect3d(.05, .05, .01)) {
+        fluid.addEmitter(new BoxEmitter<Particle>(500, true, new LVect3d(), new LVect3d(-.0, -.4, 0), new LVect3d(.2, .25, .1)) {
 
             @Override
             public Particle constructParticle() {
@@ -82,7 +84,7 @@ public class Demo04 {
     }
 
     private void onAdvance(Fluid fluid) {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 10; i++) {
             fluid.simulateTimestep();
         }
         panel.repaint();

@@ -42,7 +42,7 @@ public class Demo07 {
 
         fluid = new Fluid(.1);
         fluid.setDt(.05);
-        fluid.setDensityRelaxation(new FluidDensityRelaxation(10,.01,.002));
+        fluid.setDensityRelaxation(new FluidDensityRelaxation());
         fluid.setForces(new FieldForces(new LVect3d(0, .03, 0)));
 
         FluidCollisions collisions = new FluidCollisions();
@@ -55,7 +55,7 @@ public class Demo07 {
 //        collisions.setStickDistance(.1);
         fluid.setCollisions(collisions);
         fluid.setViscosity(new FluidViscosity<Particle>(100, 25));
-        fluid.setElastics(new FluidElastics<Particle>(.5, .8, .1));
+        fluid.setElastics(new FluidElastics<Particle>(.5, .5, .0));
 
         fluid.addEmitter(new BoxEmitter<Particle>(800, true, new LVect3d(), new LVect3d(0, -.4, 0), new LVect3d(.6, .1, .1)) {
 

@@ -36,12 +36,17 @@ public class FluidElastics<T extends Particle> {
 
                 LVect3d D = particle.getPosition().sub(spring.getOther().getPosition());
                 double r = D.magnitude();
+
+                if (r < .0001) {
+                    continue;
+                }
+
                 D.multv(1.0 / r);
 
                 double L = spring.getRestLength();
                 double h = fluid.getInteractionRadius();
                 double dtSquared = fluid.getDt() * fluid.getDt();
-                double dConstant = .5 * dtSquared * springTension * (1 - L / h) * (L - r);
+                double dConstant = -.5 * dtSquared * springTension * (1 - L / h) * (L - r);
                 D.multv(dConstant);
 
                 particle.getPosition().subv(D);
@@ -67,7 +72,7 @@ public class FluidElastics<T extends Particle> {
                 ParticleSpring spring = particle.getSpring(neighbor);
                 if (spring == null) {
                     spring = particle.addSpring(neighbor, fluid.getInteractionRadius());
-                    spring.setRestLength(r);
+//                    spring.setRestLength(r);
                 }
                 double L = spring.getRestLength();
 
@@ -79,7 +84,7 @@ public class FluidElastics<T extends Particle> {
                 } else if (r < L - d) {
                     // compress
                     double change = fluid.getDt() * plasticity * (L - d - r);
-                    spring.setRestLength(L - change);
+                    spring.setRestLength(Math.max(L - change, 0));
                 }
             }
 

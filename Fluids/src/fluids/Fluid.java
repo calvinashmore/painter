@@ -209,6 +209,10 @@ public class Fluid<T extends Particle> {
         for (T particle : activeParticles) {
             LVect3d displacement = particle.getPosition().sub(particle.getPreviousPosition());
             displacement.multv(1.0 / dt);
+            if(displacement.magnitude() > 10*interactionRadius) {
+                displacement.normalv();
+                displacement.multv(10*interactionRadius);
+            }
             particle.getVelocity().setTo(displacement);
         }
     }

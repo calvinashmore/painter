@@ -54,22 +54,29 @@ public class FluidCollisions<T extends Particle> {
 
             List<T> toTest = fluid.getNeighbors(collidable.getHull());
             for (Particle particle : toTest) {
-                TraceResult trace = collidable.trace(particle.getPreviousPosition(), particle.getPosition());
+//                TraceResult trace = collidable.trace(particle.getPreviousPosition(), particle.getPosition());
 
-                if (trace == null) {
-                    // does not intersect, can ignore this.
-                    continue;
-                } else {
+                // FIRST check stickiness.
+                if (stickCoefficient > 0 && collidable.getDistance(particle.getPosition()) < stickDistance) {
+                    double d = collidable.getDistance(particle.getPosition());
+                    double impulseMagnitude = -fluid.getDt() * stickCoefficient * (d / stickDistance) * (1 - d / stickDistance);
+                    LVect3d impulse = collidable.normalTo(particle.getPosition()).mult(impulseMagnitude);
+                    particle.getPosition().addv(impulse);
+                }
+
+                // THEN check collisions
+                if(collidable.getDistance(particle.getPosition()) < 0) {
                     // okay, we hit the obstacle.
                     // now it bounces.
+
+                    LVect3d surfaceNormal = collidable.normalTo(particle.getPosition());
 
                     LVect3d v = particle.getPosition().sub(particle.getPreviousPosition());
                     //v.multv(1.0/fluid.getDt());
 
-
-                    double normalMagnitude = v.dot(trace.surfaceNormal);
-                    LVect3d vNormal = v.mult(normalMagnitude);
-                    LVect3d vTangent = v.sub(vNormal);
+                    double normalMagnitude = -v.dot(surfaceNormal);
+                    LVect3d vNormal = surfaceNormal.mult(normalMagnitude);
+                    LVect3d vTangent = v.add(vNormal);
 
                     vTangent.multv(slidingFriction);
                     LVect3d impulse = vNormal.sub(vTangent);
@@ -77,16 +84,13 @@ public class FluidCollisions<T extends Particle> {
 
                     particle.getPosition().addv(impulse);
                     if (collidable.getDistance(particle.getPosition()) < 0) {
-                        particle.getPosition().setTo(trace.intersectionPoint);
+                        double d = -collidable.getDistance(particle.getPosition());
+                        surfaceNormal = collidable.normalTo(particle.getPosition());
+                        surfaceNormal.multv(d);
+                        particle.getPosition().addv(surfaceNormal);
+//                        TraceResult trace = collidable.trace(particle.getPreviousPosition(), particle.getPosition());
+//                        particle.getPosition().setTo(trace.intersectionPoint);
                     }
-                }
-
-                // check stickiness.
-                if (stickCoefficient > 0 && collidable.getDistance(particle.getPosition()) < stickDistance) {
-                    double d = collidable.getDistance(particle.getPosition());
-                    double impulseMagnitude = -fluid.getDt() * d * (1 - d / stickDistance);
-                    LVect3d impulse = collidable.normalTo(particle.getPosition()).mult(impulseMagnitude);
-                    particle.getPosition().addv(impulse);
                 }
             }
         }

@@ -20,6 +20,22 @@ public class CollidableBox implements Collidable {
     private double dx, dy, dz;
     private List<LVect3d> hull;
 
+    public LVect3d getCenter() {
+        return center;
+    }
+
+    public double getDx() {
+        return dx;
+    }
+
+    public double getDy() {
+        return dy;
+    }
+
+    public double getDz() {
+        return dz;
+    }
+
     public CollidableBox(LVect3d center, double dx, double dy, double dz) {
         this.center = center;
         this.dx = dx;

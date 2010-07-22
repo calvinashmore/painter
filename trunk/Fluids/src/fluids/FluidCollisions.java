@@ -4,7 +4,6 @@
  */
 package fluids;
 
-import fluids.Collidable.TraceResult;
 import java.util.ArrayList;
 import java.util.List;
 import utils.linear.LVect3d;
@@ -44,6 +43,10 @@ public class FluidCollisions<T extends Particle> {
         this.stickDistance = stickDistance;
     }
 
+    public List<Collidable> getCollidables() {
+        return collidables;
+    }
+
     public void addCollidable(Collidable collidable) {
         collidables.add(collidable);
     }
@@ -65,7 +68,7 @@ public class FluidCollisions<T extends Particle> {
                 }
 
                 // THEN check collisions
-                if(collidable.getDistance(particle.getPosition()) < 0) {
+                if (collidable.getDistance(particle.getPosition()) < 0) {
                     // okay, we hit the obstacle.
                     // now it bounces.
 

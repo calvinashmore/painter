@@ -11,6 +11,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 /**
@@ -22,7 +23,7 @@ public class DemoPanel extends JPanel {
     private DisplayPanel display;
     private JButton play, stop;
     private ScheduledExecutorService executor;
-    private boolean isRunning = false;
+//    private boolean isRunning = false;
 
     public DemoPanel() {
         setLayout(new BorderLayout());
@@ -58,6 +59,16 @@ public class DemoPanel extends JPanel {
 
             public void actionPerformed(ActionEvent e) {
                 Demo.getInstance().showControlPanel();
+            }
+        });
+ 
+        final JCheckBox viewTop = new JCheckBox("view top");
+        controls.add(viewTop);
+        viewTop.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                display.setViewTop(viewTop.isSelected());
+                display.repaint();
             }
         });
     }

@@ -15,11 +15,11 @@ public class DemoApplet extends JApplet {
 
     public DemoApplet() {
         Demo.getInstance();
+        add(new DemoPanel());
     }
 
     @Override
     public void start() {
-
     }
 
 

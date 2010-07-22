@@ -14,6 +14,8 @@ import fluids.applied.SimpleEmitter;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import utils.linear.LVect3d;
 
@@ -26,6 +28,8 @@ public class DisplayPanel extends JPanel {
     public DisplayPanel() {
         setPreferredSize(new Dimension(600, 600));
     }
+    private List<Particle> particles = new ArrayList<Particle>();
+    private boolean viewTop = false;
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -42,23 +46,42 @@ public class DisplayPanel extends JPanel {
 
         } else {
 
-            // fluid exists, so display.
-            for (Particle particle : fluid.getAllParticles()) {
-                double x = getWidth() * (.5 + .5 * particle.getPosition().x);
-                double y = getHeight() * (.5 + .5 * particle.getPosition().y);
+            particles.clear();
+            particles.addAll(fluid.getAllParticles());
 
-                g.setColor(new Color(1, 1, 1, .5f));
-                g.fillOval((int) x, (int) y, 8, 8);
-            }
+            if (viewTop) {
 
-            if (fluid.getCollisions() != null) {
-                for (Collidable collidable : fluid.getCollisions().getCollidables()) {
-                    drawCollidable(collidable, g);
+                // fluid exists, so display.
+                //for (Particle particle : fluid.getAllParticles()) {
+                for (Particle particle : particles) {
+                    double x = getWidth() * (.5 + .5 * particle.getPosition().x);
+                    double y = getHeight() * (.5 + .5 * particle.getPosition().z);
+
+                    g.setColor(new Color(1, 1, 1, .5f));
+                    g.fillOval((int) x, (int) y, 8, 8);
                 }
-            }
 
-            for (Emitter<Particle> emitter : fluid.getEmitters()) {
-                drawEmitter(emitter, g);
+            } else {
+
+                // fluid exists, so display.
+                //for (Particle particle : fluid.getAllParticles()) {
+                for (Particle particle : particles) {
+                    double x = getWidth() * (.5 + .5 * particle.getPosition().x);
+                    double y = getHeight() * (.5 + .5 * particle.getPosition().y);
+
+                    g.setColor(new Color(1, 1, 1, .5f));
+                    g.fillOval((int) x, (int) y, 8, 8);
+                }
+
+                if (fluid.getCollisions() != null) {
+                    for (Collidable collidable : fluid.getCollisions().getCollidables()) {
+                        drawCollidable(collidable, g);
+                    }
+                }
+
+                for (Emitter<Particle> emitter : fluid.getEmitters()) {
+                    drawEmitter(emitter, g);
+                }
             }
         }
     }
@@ -99,5 +122,9 @@ public class DisplayPanel extends JPanel {
 
             g.fillRect(x, y, dx, dy);
         }
+    }
+
+    void setViewTop(boolean selected) {
+        this.viewTop = selected;
     }
 }

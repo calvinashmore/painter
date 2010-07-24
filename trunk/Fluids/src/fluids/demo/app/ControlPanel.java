@@ -5,11 +5,11 @@
 package fluids.demo.app;
 
 import fluids.Fluid;
-import fluids.FluidCollisions;
 import fluids.FluidDensityRelaxation;
 import fluids.FluidElastics;
 import fluids.FluidViscosity;
 import fluids.Particle;
+import fluids.applied.AbsorptionCollisions;
 import fluids.applied.BoxEmitter;
 import fluids.applied.CollidableBox;
 import fluids.applied.CollidableSphere;
@@ -119,6 +119,7 @@ public class ControlPanel extends JPanel {
             fields.get("slidingFriction").setEnabled(either);
             fields.get("stickDistance").setEnabled(either);
             fields.get("stickForce").setEnabled(either);
+            fields.get("absorption").setEnabled(either);
         }
     }
 
@@ -314,6 +315,12 @@ public class ControlPanel extends JPanel {
         constraints.gridx = 1;
         panel.add(new NTextField("stickForce", ".01"), constraints);
 
+        constraints.gridy++;
+        constraints.gridx = 0;
+        panel.add(new JLabel("absorption: "), constraints);
+        constraints.gridx = 1;
+        panel.add(new NTextField("absorption", ".1"), constraints);
+
         return panel;
     }
 
@@ -431,7 +438,8 @@ public class ControlPanel extends JPanel {
 
         if (checkBoxes.get("collisionSphereMiddle").isSelected() || checkBoxes.get("collisionFloor").isSelected()) {
 
-            FluidCollisions collisions = new FluidCollisions();
+//            FluidCollisions collisions = new FluidCollisions();
+            AbsorptionCollisions collisions = new AbsorptionCollisions();
             if (checkBoxes.get("collisionSphereMiddle").isSelected()) {
                 collisions.addCollidable(new CollidableSphere(new LVect3d(0, 0, 0), .25));
             }
@@ -441,9 +449,11 @@ public class ControlPanel extends JPanel {
             double slidingFriction = getDouble("slidingFriction");
             double stickDistance = getDouble("stickDistance");
             double stickForce = getDouble("stickForce");
+            double absorption = getDouble("absorption");
             collisions.setSlidingFriction(slidingFriction);
             collisions.setStickCoefficient(stickForce);
             collisions.setStickDistance(stickDistance);
+            collisions.setAbsorptionRate(absorption);
 
             fluid.setCollisions(collisions);
         } else {

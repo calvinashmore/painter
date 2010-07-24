@@ -30,14 +30,21 @@ public class FluidElastics<T extends Particle> {
     }
 
     public void applyElastity(Fluid<T> fluid) {
+        List<Particle.ParticleSpring> toRemove = new ArrayList<ParticleSpring>();
         for (T particle : fluid.getAllParticles()) {
             // apply spring forces
+
+            toRemove.clear();
             for (Particle.ParticleSpring spring : particle.getSprings()) {
 
                 LVect3d D = particle.getPosition().sub(spring.getOther().getPosition());
                 double r = D.magnitude();
 
                 if (r < .0001) {
+                    continue;
+                } else if(r > fluid.getInteractionRadius()) {
+                    // break the spring if this is too long
+                    toRemove.add(spring);
                     continue;
                 }
 
@@ -52,6 +59,7 @@ public class FluidElastics<T extends Particle> {
                 particle.getPosition().subv(D);
                 spring.getOther().getPosition().addv(D);
             }
+            particle.getSprings().removeAll(toRemove);
         }
     }
 

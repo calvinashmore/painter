@@ -56,7 +56,7 @@ public class FluidCollisions<T extends Particle> {
         for (Collidable collidable : collidables) {
 
             List<T> toTest = fluid.getNeighbors(collidable.getHull());
-            for (Particle particle : toTest) {
+            for (T particle : toTest) {
 //                TraceResult trace = collidable.trace(particle.getPreviousPosition(), particle.getPosition());
 
                 // FIRST check stickiness.
@@ -69,33 +69,37 @@ public class FluidCollisions<T extends Particle> {
 
                 // THEN check collisions
                 if (collidable.getDistance(particle.getPosition()) < 0) {
-                    // okay, we hit the obstacle.
-                    // now it bounces.
-
-                    LVect3d surfaceNormal = collidable.normalTo(particle.getPosition());
-
-                    LVect3d v = particle.getPosition().sub(particle.getPreviousPosition());
-                    //v.multv(1.0/fluid.getDt());
-
-                    double normalMagnitude = -v.dot(surfaceNormal);
-                    LVect3d vNormal = surfaceNormal.mult(normalMagnitude);
-                    LVect3d vTangent = v.add(vNormal);
-
-                    vTangent.multv(slidingFriction);
-                    LVect3d impulse = vNormal.sub(vTangent);
-                    //impulse.multv(fluid.getDt());
-
-                    particle.getPosition().addv(impulse);
-                    if (collidable.getDistance(particle.getPosition()) < 0) {
-                        double d = -collidable.getDistance(particle.getPosition());
-                        surfaceNormal = collidable.normalTo(particle.getPosition());
-                        surfaceNormal.multv(d);
-                        particle.getPosition().addv(surfaceNormal);
-//                        TraceResult trace = collidable.trace(particle.getPreviousPosition(), particle.getPosition());
-//                        particle.getPosition().setTo(trace.intersectionPoint);
-                    }
+                    handleCollision(collidable, particle);
                 }
             }
+        }
+    }
+
+    protected void handleCollision(Collidable collidable, T particle) {
+        // okay, we hit the obstacle.
+        // now it bounces.
+
+        LVect3d surfaceNormal = collidable.normalTo(particle.getPosition());
+        
+        LVect3d v = particle.getPosition().sub(particle.getPreviousPosition());
+        //v.multv(1.0/fluid.getDt());
+
+        double normalMagnitude = -v.dot(surfaceNormal);
+        LVect3d vNormal = surfaceNormal.mult(normalMagnitude);
+        LVect3d vTangent = v.add(vNormal);
+
+        vTangent.multv(slidingFriction);
+        LVect3d impulse = vNormal.sub(vTangent);
+        //impulse.multv(fluid.getDt());
+
+        particle.getPosition().addv(impulse);
+        if (collidable.getDistance(particle.getPosition()) < 0) {
+            double d = -collidable.getDistance(particle.getPosition());
+            surfaceNormal = collidable.normalTo(particle.getPosition());
+            surfaceNormal.multv(d);
+            particle.getPosition().addv(surfaceNormal);
+//            TraceResult trace = collidable.trace(particle.getPreviousPosition(), particle.getPosition());
+//            particle.getPosition().setTo(trace.intersectionPoint);
         }
     }
 }

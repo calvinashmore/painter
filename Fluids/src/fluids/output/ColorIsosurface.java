@@ -17,6 +17,11 @@ public class ColorIsosurface implements Isofunction<Color, ColorParticle> {
 
     private double distanceScale = 10;
     private double radiusMultiplier = 2;
+    private double cutoff = 0;
+
+    public void setCutoff(double cutoff) {
+        this.cutoff = cutoff;
+    }
 
     public ColorIsosurface(double distanceScale, double radiusMultiplier) {
         this.distanceScale = distanceScale;
@@ -53,8 +58,12 @@ public class ColorIsosurface implements Isofunction<Color, ColorParticle> {
                 color.addv(particle.getColor().mult(v));
             }
         }
+        if (r < cutoff) {
+            return new Color();
+        }
+
         if (r > 0) {
-            color.multv(1.0/r);
+            color.multv(1.0 / r);
         }
 
         return color;

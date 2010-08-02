@@ -8,7 +8,7 @@ import fluids.Fluid;
 import fluids.FluidDensityRelaxation;
 import fluids.FluidViscosity;
 import fluids.applied.BoxEmitter;
-import fluids.applied.ColorIsosurface;
+import fluids.output.ColorIsosurface;
 import fluids.applied.ColorParticle;
 import fluids.applied.FieldForces;
 import java.awt.BorderLayout;

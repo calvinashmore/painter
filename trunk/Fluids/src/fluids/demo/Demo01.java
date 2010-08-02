@@ -7,7 +7,7 @@ package fluids.demo;
 import fluids.Fluid;
 import fluids.FluidDensityRelaxation;
 import fluids.Particle;
-import fluids.applied.ColorIsosurface;
+import fluids.output.ColorIsosurface;
 import fluids.applied.ColorParticle;
 import java.awt.BorderLayout;
 import java.awt.Dimension;

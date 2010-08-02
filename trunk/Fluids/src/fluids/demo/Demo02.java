@@ -7,7 +7,7 @@ package fluids.demo;
 import fluids.Fluid;
 import fluids.FluidDensityRelaxation;
 import fluids.Particle;
-import fluids.applied.BasicIsosurface;
+import fluids.output.BasicIsosurface;
 import fluids.applied.BoxEmitter;
 import fluids.applied.FieldForces;
 import java.awt.BorderLayout;

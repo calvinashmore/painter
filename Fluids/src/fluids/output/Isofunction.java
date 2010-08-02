@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package fluids;
+package fluids.output;
 
+import fluids.Fluid;
+import fluids.Particle;
 import utils.linear.LVect3d;
 
 /**

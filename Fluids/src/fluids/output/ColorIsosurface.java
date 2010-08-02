@@ -2,13 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fluids.applied;
+package fluids.output;
 
 import fluids.Fluid;
-import fluids.Isofunction;
-import fluids.Particle;
+import fluids.applied.ColorParticle;
 import utils.linear.Color;
-import utils.linear.LDouble;
 import utils.linear.LVect3d;
 
 /**

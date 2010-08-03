@@ -27,10 +27,10 @@ import utils.linear.LVect3d;
  *
  * @author Calvin Ashmore
  */
-public class Demo01 {
+public class Demo02 {
 
     public static void main(String args[]) {
-        new Demo01().doStuff();
+        new Demo02().doStuff();
     }
 
     private void doStuff() {
@@ -39,18 +39,18 @@ public class Demo01 {
 
         Fluid<ColorParticle> fluid = new Fluid(.1);
         fluid.setDt(.1);
-        fluid.setDensityRelaxation(new FluidDensityRelaxation(5, .01, .002));
+        fluid.setDensityRelaxation(new FluidDensityRelaxation(10, .004, .01));
         fluid.setForces(new FieldForces(new LVect3d(0, .03, 0)));
-        fluid.setViscosity(new FluidViscosity<ColorParticle>(20, 1.5));
+//        fluid.setViscosity(new FluidViscosity<ColorParticle>(20, 1.5));
 
         AbsorptionCollisions collisions = new AbsorptionCollisions();
         CollidableBox box = new CollidableBox(new LVect3d(0, 0.5, 0), 2, .50, 2);
         collisions.addCollidable(box);
-        collisions.setSlidingFriction(.01);
-        collisions.setAbsorptionRate(.007);
+        collisions.setSlidingFriction(.03);
+        collisions.setAbsorptionRate(.1);
         fluid.setCollisions(collisions);
 
-        fluid.addEmitter(new BoxEmitter<ColorParticle>(300, true, new LVect3d(0, .5, 0), new LVect3d(new LVect3d(0, -.5, 0)), new LVect3d(.10, .30, .10)) {
+        fluid.addEmitter(new BoxEmitter<ColorParticle>(200, true, new LVect3d(.4, .5, 0), new LVect3d(new LVect3d(-1.25, -.5, 0)), new LVect3d(.10, .10, .10)){
 
             @Override
             public ColorParticle constructParticle() {

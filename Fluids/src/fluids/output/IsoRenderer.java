@@ -36,6 +36,53 @@ public class IsoRenderer {
         this.viewY = viewY;
     }
 
+    public double getAspectRatio() {
+        return viewX.magnitude() / viewY.magnitude();
+    }
+
+    public void updateBounds() {
+
+        double minX = Double.MAX_VALUE;
+        double maxX = -Double.MAX_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxY = -Double.MAX_VALUE;
+
+        LVect3d viewZ = LVect3d.cross(viewX, viewY).normal();
+        viewX.normalv();
+        viewY.normalv();
+
+        for (ColorParticle particle : fluid.getAllParticles()) {
+            LVect3d relativePos = particle.getPosition().sub(viewCenter);
+            double zOffset = relativePos.dot(viewZ);
+            if (Math.abs(zOffset) > fluid.getInteractionRadius()) {
+                continue;
+            }
+
+            double x = relativePos.dot(viewX);
+            double y = relativePos.dot(viewY);
+            if (x < minX) {
+                minX = x;
+            }
+            if (x > maxX) {
+                maxX = x;
+            }
+            if (y < minY) {
+                minY = y;
+            }
+            if (y > maxY) {
+                maxY = y;
+            }
+        }
+
+        LVect3d newViewCenter = viewCenter.add(viewX.mult((maxX + minX) / 2)).add(viewY.mult((maxY + minY) / 2));
+        LVect3d newViewX = viewX.mult(0.55 * (maxX - minX));
+        LVect3d newViewY = viewY.mult(0.55 * (maxY - minY));
+
+        viewCenter = newViewCenter;
+        viewX = newViewX;
+        viewY = newViewY;
+    }
+
     public BufferedImage createImage(
             int xRes, int yRes) {
         BufferedImage img = new BufferedImage(xRes, yRes, BufferedImage.TYPE_INT_ARGB);
@@ -48,7 +95,11 @@ public class IsoRenderer {
                         viewCenter.x + viewX.x * x + viewY.x * y,
                         viewCenter.y + viewX.y * x + viewY.y * y,
                         viewCenter.z + viewX.z * x + viewY.z * y));
-                img.setRGB(ix, iy, color.toARGB());
+                if (color.r == 0 && color.g == 0 && color.b == 0) {
+                    img.setRGB(ix, iy, 0);
+                } else {
+                    img.setRGB(ix, iy, color.toARGB());
+                }
             }
         }
         return img;

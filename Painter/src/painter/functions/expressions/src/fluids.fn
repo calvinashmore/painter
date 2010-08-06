@@ -34,6 +34,82 @@ fn fluidImage_1 {
     }
 }
 
+fn fluidBrush_1 {
+    in ColorFluid fluid;
+    in BrushPositionPolicy positionPolicy;
+    fout Brush;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(100 + 400*Math.random());
+    }
+
+    eval {
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        return new FullImageBrush(image, positionPolicy);
+    }
+}
+
+fn fluidBrush_2 {
+    in ColorFluid fluid;
+    in BrushPositionPolicy positionPolicy;
+    in BufferedImageOp op;
+    fout Brush;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(100 + 400*Math.random());
+    }
+
+    eval {
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        FullImageBrush brush = new FullImageBrush(image, positionPolicy);
+        brush.setOp(op);
+        return brush;
+    }
+}
+
+fn fluidBrush_3 {
+    in ColorFluid fluid;
+    in BrushPositionPolicy positionPolicy;
+    fout Brush;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(100 + 400*Math.random());
+    }
+
+    eval {
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        FullImageBrush brush = new FullImageBrush(image, positionPolicy);
+        brush.setSizeOffset(1.0);
+        return brush;
+    }
+}
+
+fn fluidBrush_4 {
+    in ColorFluid fluid;
+    in BrushPositionPolicy positionPolicy;
+    in BufferedImageOp op;
+    fout Brush;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(100 + 400*Math.random());
+    }
+
+    eval {
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        FullImageBrush brush = new FullImageBrush(image, positionPolicy);
+        brush.setSizeOffset(1.0);
+        brush.setOp(op);
+        return brush;
+    }
+}
 
 // ************************************************
 // *** FUNCTIONS TO MAKE FLUIDS

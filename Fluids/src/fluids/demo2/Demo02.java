@@ -50,7 +50,7 @@ public class Demo02 {
         collisions.setAbsorptionRate(.1);
         fluid.setCollisions(collisions);
 
-        fluid.addEmitter(new BoxEmitter<ColorParticle>(200, true, new LVect3d(.4, .5, 0), new LVect3d(new LVect3d(-1.25, -.5, 0)), new LVect3d(.10, .10, .10)){
+        fluid.addEmitter(new BoxEmitter<ColorParticle>(200, true, new LVect3d(.4, .5, 0).mult(2), new LVect3d(new LVect3d(-1.25, -.5, 0)), new LVect3d(.10, .10, .10)){
 
             @Override
             public ColorParticle constructParticle() {

@@ -5,8 +5,8 @@
 package fluids.applied;
 
 import fluids.Fluid;
-import fluids.output.ColorIsosurface;
-import fluids.output.IsoRenderer;
+import fluids.output.ColorIsosurface2;
+import fluids.output.IsoRenderer2;
 import java.awt.image.BufferedImage;
 import utils.linear.LVect3d;
 
@@ -22,9 +22,9 @@ public class ColorFluid extends Fluid<ColorParticle> {
 
     public BufferedImage createBasicImage(int imageSize) {
 
-        ColorIsosurface iso = new ColorIsosurface();
-        iso.setCutoff(.7);
-        IsoRenderer renderer = new IsoRenderer(iso, this);
+        ColorIsosurface2 iso = new ColorIsosurface2();
+        iso.setCutoff(.5,.7);
+        IsoRenderer2 renderer = new IsoRenderer2(iso, this);
         renderer.setTransformation(
                 new LVect3d(0, 0, 0),
                 new LVect3d(1.0, 0, 0),

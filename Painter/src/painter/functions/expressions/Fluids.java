@@ -99,6 +99,335 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
 
    }
 
+   public static class fluidBrush_1 extends ExpressionFunction {
+
+      private Integer imageSize;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return imageSize;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "imageSize";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: imageSize = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "fluid";
+            case 1: return "positionPolicy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return ColorFluid.class;
+            case 1: return BrushPositionPolicy.class;
+            default: return null;
+         }
+
+      }
+
+      public fluidBrush_1() {
+         addGroupMeta(this);
+         imageSize = ( int ) ( 100 + 400 * Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final ColorFluid fluid = (ColorFluid)inputs[0];
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[1];
+         BufferedImage image = fluid . createBasicImage ( imageSize ) ;
+         return new FullImageBrush ( image , positionPolicy ) ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class fluidBrush_2 extends ExpressionFunction {
+
+      private Integer imageSize;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return imageSize;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "imageSize";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: imageSize = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "fluid";
+            case 1: return "positionPolicy";
+            case 2: return "op";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return ColorFluid.class;
+            case 1: return BrushPositionPolicy.class;
+            case 2: return BufferedImageOp.class;
+            default: return null;
+         }
+
+      }
+
+      public fluidBrush_2() {
+         addGroupMeta(this);
+         imageSize = ( int ) ( 100 + 400 * Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final ColorFluid fluid = (ColorFluid)inputs[0];
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[1];
+         final BufferedImageOp op = (BufferedImageOp)inputs[2];
+         BufferedImage image = fluid . createBasicImage ( imageSize ) ;
+         FullImageBrush brush = new FullImageBrush ( image , positionPolicy ) ;
+         brush . setOp ( op ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class fluidBrush_3 extends ExpressionFunction {
+
+      private Integer imageSize;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return imageSize;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "imageSize";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: imageSize = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "fluid";
+            case 1: return "positionPolicy";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return ColorFluid.class;
+            case 1: return BrushPositionPolicy.class;
+            default: return null;
+         }
+
+      }
+
+      public fluidBrush_3() {
+         addGroupMeta(this);
+         imageSize = ( int ) ( 100 + 400 * Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final ColorFluid fluid = (ColorFluid)inputs[0];
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[1];
+         BufferedImage image = fluid . createBasicImage ( imageSize ) ;
+         FullImageBrush brush = new FullImageBrush ( image , positionPolicy ) ;
+         brush . setSizeOffset ( 1.0 ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
+   public static class fluidBrush_4 extends ExpressionFunction {
+
+      private Integer imageSize;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return imageSize;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "imageSize";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: imageSize = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "fluid";
+            case 1: return "positionPolicy";
+            case 2: return "op";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return ColorFluid.class;
+            case 1: return BrushPositionPolicy.class;
+            case 2: return BufferedImageOp.class;
+            default: return null;
+         }
+
+      }
+
+      public fluidBrush_4() {
+         addGroupMeta(this);
+         imageSize = ( int ) ( 100 + 400 * Math . random ( ) ) ;
+      }
+
+      public Brush evaluate(Context context, Object[] inputs) {
+         final ColorFluid fluid = (ColorFluid)inputs[0];
+         final BrushPositionPolicy positionPolicy = (BrushPositionPolicy)inputs[1];
+         final BufferedImageOp op = (BufferedImageOp)inputs[2];
+         BufferedImage image = fluid . createBasicImage ( imageSize ) ;
+         FullImageBrush brush = new FullImageBrush ( image , positionPolicy ) ;
+         brush . setSizeOffset ( 1.0 ) ;
+         brush . setOp ( op ) ;
+         return brush ;
+      }
+
+      public Class getReturnType() {
+         return Brush.class;
+      }
+
+   }
+
    public static class droplet_1 extends ExpressionFunction {
 
       private LDouble density;private LDouble viscosity1;private LDouble viscosity2;private LDouble absorption;private LDouble friction;private Integer numberParticles;private LDouble speed;
@@ -891,6 +1220,10 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
    public List<ExpressionFunction> allInstances(ContextModel cm) {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
       r.add(new fluidImage_1());
+      r.add(new fluidBrush_1());
+      r.add(new fluidBrush_2());
+      r.add(new fluidBrush_3());
+      r.add(new fluidBrush_4());
       r.add(new droplet_1());
       r.add(new droplet_2());
       r.add(new droplet_3());

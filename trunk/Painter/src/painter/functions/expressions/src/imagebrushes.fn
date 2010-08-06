@@ -15,7 +15,7 @@ fn imageBrush_simple {
     in BrushSizePolicy sizePolicy;
     in BufferedImage image;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     eval {
         return new ImageBrush(image, positionPolicy, sizePolicy);
@@ -28,7 +28,7 @@ fn imageBrush_simple_parameter1 {
     in BrushSizePolicy sizePolicy;
     in BufferedImage image;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     parameter Boolean round;
     parameter Boolean scaleImage;
@@ -56,7 +56,7 @@ fn imageBrush_xformed1 {
     in BrushSizePolicy sizePolicy;
     in BufferedImage image;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     parameter LDouble scale;
     parameter LDouble rotation;
@@ -83,7 +83,7 @@ fn imageBrush_xformed2 {
     in BrushSizePolicy sizePolicy;
     in BufferedImage image;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     parameter Boolean round;
     parameter Boolean scaleImage;
@@ -125,7 +125,7 @@ fn imageBrush_op {
     in BufferedImage image;
     in BufferedImageOp op;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     eval {
         ImageBrush brush = new ImageBrush(image, positionPolicy, sizePolicy);
@@ -145,7 +145,7 @@ fn imageBrush_op_parameter {
     parameter Boolean scaleImage;
     parameter Boolean stamp;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     init {
         Random rand = new Random();
@@ -171,7 +171,7 @@ fn imageBrush_xformed3 {
     in BufferedImage image;
     in BufferedImageOp op;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     parameter LDouble scale;
     parameter LDouble rotation;
@@ -200,7 +200,7 @@ fn imageBrush_xformed4 {
     in BufferedImage image;
     in BufferedImageOp op;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     parameter Boolean round;
     parameter Boolean scaleImage;
@@ -240,7 +240,7 @@ fn imageBrush_inxform1 {
     in BrushSizePolicy sizePolicy;
     in BufferedImage image;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     parameter Boolean round;
     parameter Boolean scaleImage;
@@ -275,7 +275,7 @@ fn imageBrush_inxform2 {
     in BufferedImage image;
     in BufferedImageOp op;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     parameter Boolean round;
     parameter Boolean scaleImage;
@@ -310,7 +310,7 @@ fn imageBrush_inxform3 {
     in BrushSizePolicy sizePolicy;
     in BufferedImage image;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     in Boolean round;
     in Boolean scaleImage;
@@ -338,7 +338,7 @@ fn imageBrush_inxform4 {
     in BufferedImage image;
     in BufferedImageOp op;
 
-    meta selectionWeight .1;
+    meta selectionWeight .2;
 
     in Boolean round;
     in Boolean scaleImage;

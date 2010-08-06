@@ -17,6 +17,7 @@ public class AllFn implements AllComponents<Command> {
    public List<Command> allInstances(ContextModel cm) {
       List<Command> r = new ArrayList<Command>();
       r.addAll(new BrushCommands().allInstances(cm));
+      r.addAll(new Fluids().allInstances(cm));
       r.addAll(new ImageOps().allInstances(cm));
       r.addAll(new LSystems().allInstances(cm));
       r.addAll(new MiscStrokeCommands().allInstances(cm));

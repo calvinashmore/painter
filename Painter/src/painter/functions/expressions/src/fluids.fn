@@ -1,0 +1,95 @@
+package painter.functions.expressions;
+group Fluids;
+type Expression;
+
+import java.awt.image.*;
+import utils.linear.*;
+import painter.tools.brush.*;
+import painter.tools.canvas.*;
+import fluids.*;
+import fluids.applied.*;
+import fluids.output.*;
+
+description "expressions to generate fluids, and things used by fluids";
+
+
+
+// ************************************************
+// *** FUNCTIONS TO DO THINGS WITH FLUIDS
+// ************************************************
+
+fn fluidImage_1 {
+    in ColorFluid fluid;
+    fout BufferedImage;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(100 + 400*Math.random());
+    }
+
+    eval {
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        return image;
+    }
+}
+
+
+// ************************************************
+// *** FUNCTIONS TO MAKE FLUIDS
+// ************************************************
+
+fn droplet_1 {
+    fout ColorFluid;
+    in Color color;
+
+    parameter LDouble density;
+    parameter LDouble viscosity1;
+    parameter LDouble viscosity2;
+    parameter LDouble absorption;
+    parameter LDouble friction;
+    parameter Integer numberParticles;
+    parameter LDouble speed;
+    init {
+        density = new LDouble(5 + 5*Math.random());
+        viscosity1 = new LDouble(5+15*Math.random());
+        viscosity2 = new LDouble(.5+1*Math.random());
+        absorption = new LDouble(.003*.01*Math.random());
+        friction = new LDouble(.001+.1*Math.random()*Math.random());
+        numberParticles = (int)(100+300*Math.random());
+        speed = new LDouble(.3+.6*Math.random());
+    }
+
+    eval {
+
+        ColorFluid fluid = new ColorFluid(.1);
+        fluid.setDt(.1);
+        fluid.setDensityRelaxation(new FluidDensityRelaxation(density.val, .01, .002));
+        fluid.setForces(new FieldForces(new LVect3d(0, .03, 0)));
+        fluid.setViscosity(new FluidViscosity<ColorParticle>(viscosity1.val, viscosity2.val));
+
+        AbsorptionCollisions collisions = new AbsorptionCollisions();
+        CollidableBox box = new CollidableBox(new LVect3d(0, 0.5, 0), 2, .50, 2);
+        collisions.addCollidable(box);
+        collisions.setSlidingFriction(friction.val);
+        collisions.setAbsorptionRate(absorption.val);
+        fluid.setCollisions(collisions);
+
+        fluid.addEmitter(new BoxEmitter<ColorParticle>(numberParticles, true, new LVect3d(0, speed.val, 0), new LVect3d(new LVect3d(0, -.5, 0)), new LVect3d(.10, .30, .10)) {
+
+            @Override
+            public ColorParticle constructParticle() {
+                ColorParticle particle = new ColorParticle();
+                particle.setColor(color);
+                return particle;
+            }
+        });
+
+        for (int i = 0; i < 100; i++) {
+            fluid.simulateTimestep();
+        }
+
+        return fluid;
+    }
+}
+

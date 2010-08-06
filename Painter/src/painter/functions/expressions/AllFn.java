@@ -18,6 +18,7 @@ public class AllFn implements AllComponents<ExpressionFunction> {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
       r.addAll(new Brushes().allInstances(cm));
       r.addAll(new CustomImageOps().allInstances(cm));
+      r.addAll(new Fluids().allInstances(cm));
       r.addAll(new ImageBrushes().allInstances(cm));
       r.addAll(new ImageOps().allInstances(cm));
       r.addAll(new LSystems().allInstances(cm));

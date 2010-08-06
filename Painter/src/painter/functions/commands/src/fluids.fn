@@ -1,0 +1,135 @@
+package painter.functions.commands;
+group Fluids;
+type Command;
+
+import utils.linear.*;
+import utils.linear.grid.*;
+import utils.curves.*;
+import utils.pointfield.attractor.*;
+import utils.ifs.*;
+import painter.tools.canvas.*;
+import painter.tools.brush.*;
+import fluids.*;
+import fluids.applied.*;
+import fluids.output.*;
+import java.awt.Graphics2D;
+import java.awt.image.*;
+
+
+fn DrawFluid_1 {
+    in ColorFluid fluid;
+    in LDouble x;
+    in LDouble y;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(100 + 400*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        Graphics2D graphics = (Graphics2D) canvas.getGraphics().create();
+
+        synchronized (graphics) {
+            double dx = (Math.abs(x.val) % 1) * canvas.getWidth();
+            double dy = (Math.abs(y.val) % 1) * canvas.getHeight();
+
+            graphics.translate(-image.getWidth()/2, -image.getHeight()/2);
+            //graphics.rotate(theta.val);
+            graphics.translate(dx, dy);
+
+            graphics.drawImage(image, 0, 0, null);
+        }
+    }
+}
+
+fn DrawFluid_1a {
+    in ColorFluid fluid;
+    in LVect2d v;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(100 + 400*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        Graphics2D graphics = (Graphics2D) canvas.getGraphics().create();
+
+        synchronized (graphics) {
+            double dx = (Math.abs(v.x) % 1) * canvas.getWidth();
+            double dy = (Math.abs(v.y) % 1) * canvas.getHeight();
+
+            graphics.translate(-image.getWidth()/2, -image.getHeight()/2);
+            //graphics.rotate(theta.val);
+            graphics.translate(dx, dy);
+
+            graphics.drawImage(image, 0, 0, null);
+        }
+    }
+}
+
+
+fn DrawFluid_2 {
+    in ColorFluid fluid;
+    in LDouble x;
+    in LDouble y;
+    in LDouble theta;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(100 + 400*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        Graphics2D graphics = (Graphics2D) canvas.getGraphics().create();
+
+        synchronized (graphics) {
+            double dx = (Math.abs(x.val) % 1) * canvas.getWidth();
+            double dy = (Math.abs(y.val) % 1) * canvas.getHeight();
+
+            graphics.translate(-image.getWidth()/2, -image.getHeight()/2);
+            graphics.rotate(theta.val);
+            graphics.translate(dx, dy);
+
+            graphics.drawImage(image, 0, 0, null);
+        }
+    }
+}
+
+fn DrawFluid_2a {
+    in ColorFluid fluid;
+    in LVect2d v;
+    in LDouble theta;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(100 + 400*Math.random());
+    }
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        Graphics2D graphics = (Graphics2D) canvas.getGraphics().create();
+
+        synchronized (graphics) {
+            double dx = (Math.abs(v.x) % 1) * canvas.getWidth();
+            double dy = (Math.abs(v.y) % 1) * canvas.getHeight();
+
+            graphics.translate(-image.getWidth()/2, -image.getHeight()/2);
+            graphics.rotate(theta.val);
+            graphics.translate(dx, dy);
+
+            graphics.drawImage(image, 0, 0, null);
+        }
+    }
+}
+

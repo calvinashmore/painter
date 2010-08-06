@@ -60,6 +60,13 @@ public class ParticleAggregator<T extends Particle> {
 
             cellContents.add(particle);
         }
+
+        last_x0 = Integer.MAX_VALUE;
+        last_x1 = Integer.MAX_VALUE;
+        last_y0 = Integer.MAX_VALUE;
+        last_y1 = Integer.MAX_VALUE;
+        last_z0 = Integer.MAX_VALUE;
+        last_z1 = Integer.MAX_VALUE;
     }
 
 //    public double getDistance(Particle a, Particle b) {

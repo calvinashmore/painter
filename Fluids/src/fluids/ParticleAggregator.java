@@ -84,6 +84,13 @@ public class ParticleAggregator<T extends Particle> {
     public List<T> getNeighbors(LVect3d position, double radius) {
         return getNeighbors(position, radius, radius, radius);
     }
+    private int last_x0 = Integer.MAX_VALUE;
+    private int last_x1 = Integer.MAX_VALUE;
+    private int last_y0 = Integer.MAX_VALUE;
+    private int last_y1 = Integer.MAX_VALUE;
+    private int last_z0 = Integer.MAX_VALUE;
+    private int last_z1 = Integer.MAX_VALUE;
+    private List<T> lastResult;
 
     public List<T> getNeighbors(LVect3d position, double dx, double dy, double dz) {
         LVect3i cell = new LVect3i();
@@ -94,6 +101,17 @@ public class ParticleAggregator<T extends Particle> {
         int y1 = (int) Math.floor((position.y + dy) * invGridWidth);
         int z0 = (int) Math.floor((position.z - dz) * invGridWidth);
         int z1 = (int) Math.floor((position.z + dz) * invGridWidth);
+
+        if (x0 == last_x0 && x1 == last_x1 && y0 == last_y0 && y1 == last_y1 && z0 == last_z0 && z1 == last_z1) {
+            return lastResult;
+        }
+
+        last_x0 = x0;
+        last_x1 = x1;
+        last_y0 = y0;
+        last_y1 = y1;
+        last_z0 = z0;
+        last_z1 = z1;
 
 //        int cellsSearched=0;
 //        int populatedCells=0;
@@ -117,6 +135,7 @@ public class ParticleAggregator<T extends Particle> {
                 }
             }
         }
+        lastResult = r;
         return r;
     }
 

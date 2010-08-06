@@ -147,16 +147,30 @@ public class ParticleAggregator<T extends Particle> {
         }
 
         List<T> r = new ArrayList<T>();
-        for (int i = x0; i <= x1; i++) {
-            for (int j = y0; j <= y1; j++) {
-                for (int k = z0; k <= z1; k++) {
-                    cell.x = i;
-                    cell.y = j;
-                    cell.z = k;
-                    // add neighbors
-                    List<T> neighborContents = grid.get(cell);
-                    if (neighborContents != null) {
-                        r.addAll(neighborContents);
+        if ((x1 - x0) * (y1 - y0) * (z1 - z0) > backingArray.size()) {
+            for (T particle : backingArray) {
+                LVect3d pos = particle.getPosition();
+
+                int ix = (int) Math.floor(pos.x * invGridWidth);
+                int iy = (int) Math.floor(pos.y * invGridWidth);
+                int iz = (int) Math.floor(pos.z * invGridWidth);
+
+                if (ix >= x0 && ix <= x1 && iy >= y0 && iy <= y1 && iz >= z0 && iz <= z1) {
+                    r.add(particle);
+                }
+            }
+        } else {
+            for (int i = x0; i <= x1; i++) {
+                for (int j = y0; j <= y1; j++) {
+                    for (int k = z0; k <= z1; k++) {
+                        cell.x = i;
+                        cell.y = j;
+                        cell.z = k;
+                        // add neighbors
+                        List<T> neighborContents = grid.get(cell);
+                        if (neighborContents != null) {
+                            r.addAll(neighborContents);
+                        }
                     }
                 }
             }

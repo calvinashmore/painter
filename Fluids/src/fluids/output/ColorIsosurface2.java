@@ -67,7 +67,7 @@ public class ColorIsosurface2 implements Isofunction<Integer, ColorParticle> {
         if (r > 0) {
             color.multv(1.0 / r);
         }
-        double alpha = (r - minCutoff) / (maxCutoff- minCutoff);
+        double alpha = Math.min((r - minCutoff) / (maxCutoff- minCutoff),1);
         int A = (int) (255 * alpha) & 0xff;
 
         int argb = color.toARGB();

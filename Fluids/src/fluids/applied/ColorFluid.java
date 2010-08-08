@@ -40,6 +40,9 @@ public class ColorFluid extends Fluid<ColorParticle> {
             height = (int)(imageSize/renderer.getAspectRatio());
         }
 
+        width = Math.max(20,width);
+        height = Math.max(20,height);
+
         BufferedImage image = renderer.createImage(width, height);
         return image;
     }

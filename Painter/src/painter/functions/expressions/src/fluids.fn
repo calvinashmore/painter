@@ -111,6 +111,86 @@ fn fluidBrush_4 {
     }
 }
 
+fn fluidBrush_5 {
+    in ColorFluid fluid;
+    in BrushPositionPolicy positionPolicy;
+    fout Brush;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(400 + 400*Math.random());
+    }
+
+    eval {
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        FullImageBrush brush = new FullImageBrush(image, positionPolicy);
+        brush.setSizeOffset(1.0);
+        return brush;
+    }
+}
+
+fn fluidBrush_6 {
+    in ColorFluid fluid;
+    in BrushPositionPolicy positionPolicy;
+    in BufferedImageOp op;
+    fout Brush;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(400 + 400*Math.random());
+    }
+
+    eval {
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        FullImageBrush brush = new FullImageBrush(image, positionPolicy);
+        brush.setSizeOffset(1.0);
+        brush.setOp(op);
+        return brush;
+    }
+}
+
+fn fluidBrush_7 {
+    in ColorFluid fluid;
+    in BrushPositionPolicy positionPolicy;
+    fout Brush;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(800 + 400*Math.random());
+    }
+
+    eval {
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        FullImageBrush brush = new FullImageBrush(image, positionPolicy);
+        brush.setSizeOffset(1.0);
+        return brush;
+    }
+}
+
+fn fluidBrush_8 {
+    in ColorFluid fluid;
+    in BrushPositionPolicy positionPolicy;
+    in BufferedImageOp op;
+    fout Brush;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(800 + 400*Math.random());
+    }
+
+    eval {
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        FullImageBrush brush = new FullImageBrush(image, positionPolicy);
+        brush.setSizeOffset(1.0);
+        brush.setOp(op);
+        return brush;
+    }
+}
+
 // ************************************************
 // *** FUNCTIONS TO MAKE FLUIDS
 // ************************************************
@@ -211,6 +291,62 @@ fn droplet_2 {
             public ColorParticle constructParticle() {
                 ColorParticle particle = new ColorParticle();
                 double v = Math.random();
+                particle.setColor(color1.mult(v).add(color2.mult(1-v)));
+                return particle;
+            }
+        });
+
+        for (int i = 0; i < 100; i++) {
+            fluid.simulateTimestep();
+        }
+
+        return fluid;
+    }
+}
+
+fn droplet_2a {
+    fout ColorFluid;
+    in Color color1;
+
+    parameter LDouble density;
+    parameter LDouble viscosity1;
+    parameter LDouble viscosity2;
+    parameter LDouble absorption;
+    parameter LDouble friction;
+    parameter Integer numberParticles;
+    parameter LDouble speed;
+    init {
+        density = new LDouble(5 + 5*Math.random());
+        viscosity1 = new LDouble(5+15*Math.random());
+        viscosity2 = new LDouble(.5+1*Math.random());
+        absorption = new LDouble(.003*.01*Math.random());
+        friction = new LDouble(.001+.1*Math.random()*Math.random());
+        numberParticles = (int)(100+300*Math.random());
+        speed = new LDouble(.3+.6*Math.random());
+    }
+
+    eval {
+
+        ColorFluid fluid = new ColorFluid(.1);
+        fluid.setDt(.1);
+        fluid.setDensityRelaxation(new FluidDensityRelaxation(density.val, .01, .002));
+        fluid.setForces(new FieldForces(new LVect3d(0, .03, 0)));
+        fluid.setViscosity(new FluidViscosity<ColorParticle>(viscosity1.val, viscosity2.val));
+
+        AbsorptionCollisions collisions = new AbsorptionCollisions();
+        CollidableBox box = new CollidableBox(new LVect3d(0, 0.5, 0), 2, .50, 2);
+        collisions.addCollidable(box);
+        collisions.setSlidingFriction(friction.val);
+        collisions.setAbsorptionRate(absorption.val);
+        fluid.setCollisions(collisions);
+
+        fluid.addEmitter(new BoxEmitter<ColorParticle>(numberParticles, true, new LVect3d(0, speed.val, 0), new LVect3d(new LVect3d(0, -.5, 0)), new LVect3d(.10, .30, .10)) {
+
+            @Override
+            public ColorParticle constructParticle() {
+                ColorParticle particle = new ColorParticle();
+                Color color2 = new Color(Math.random(), Math.random(), Math.random());
+                double v = .5+.5*Math.random();
                 particle.setColor(color1.mult(v).add(color2.mult(1-v)));
                 return particle;
             }
@@ -394,6 +530,57 @@ fn spray_2 {
     }
 }
 
+fn spray_2a {
+    fout ColorFluid;
+    in Color color1;
+
+    parameter LDouble absorption;
+    parameter LDouble friction;
+    parameter Integer numberParticles;
+    parameter LDouble speed;
+    parameter LDouble angle;
+    init {
+        absorption = new LDouble(.003*.01*Math.random());
+        friction = new LDouble(.005+.1*Math.random()*Math.random());
+        numberParticles = (int)(100+200*Math.random());
+        speed = new LDouble(.4+1.5*Math.random());
+        angle = new LDouble(.25+Math.PI*.5*Math.random());
+    }
+
+    eval {
+        ColorFluid fluid = new ColorFluid(.1);
+        fluid.setDt(.1);
+        fluid.setDensityRelaxation(new FluidDensityRelaxation(10, .004, .01));
+        fluid.setForces(new FieldForces(new LVect3d(0, .03, 0)));
+
+        AbsorptionCollisions collisions = new AbsorptionCollisions();
+        CollidableBox box = new CollidableBox(new LVect3d(0, 0.5, 0), 20, .50, 20);
+        collisions.addCollidable(box);
+        collisions.setSlidingFriction(friction.val);
+        collisions.setAbsorptionRate(absorption.val);
+        fluid.setCollisions(collisions);
+
+        LVect3d velocity = new LVect3d(0, Math.cos(angle.val), Math.sin(angle.val)).mult(speed.val);
+        fluid.addEmitter(new BoxEmitter<ColorParticle>(numberParticles, true, velocity, new LVect3d(new LVect3d(-1.25, -.5, 0)), new LVect3d(.10, .10, .10)) {
+
+            @Override
+            public ColorParticle constructParticle() {
+                ColorParticle particle = new ColorParticle();
+                Color color2 = new Color(Math.random(), Math.random(), Math.random());
+                double v = .5+.5*Math.random();
+                particle.setColor(color1.mult(v).add(color2.mult(1-v)));
+                return particle;
+            }
+        });
+
+        for (int i = 0; i < 100; i++) {
+            fluid.simulateTimestep();
+        }
+
+        return fluid;
+    }
+}
+
 fn spray_3 {
     fout ColorFluid;
     in Color color1;
@@ -458,4 +645,247 @@ fn spray_3 {
     }
 }
 
+fn arc_1 {
+    fout ColorFluid;
+    in Color color1;
+    in Color color2;
+
+    meta selectionWeight 2;
+
+    parameter LDouble absorption;
+    parameter LDouble friction;
+    parameter Integer arcDensity;
+    parameter LDouble arcThickness;
+    parameter Integer arcSidedness;
+
+    parameter LDouble vx_magnitude;
+    parameter LDouble vx_frequency;
+    parameter LDouble vx_offset;
+    parameter LDouble vx_tInfluence;
+    parameter LDouble vy_baseline;
+    parameter LDouble vy_frequency;
+    parameter LDouble vy_magnitude;
+    parameter LDouble vy_offset;
+    parameter LDouble vy_randomness;
+    parameter LDouble vz_magnitude;
+    parameter LDouble vz_frequency;
+    parameter LDouble vz_offset;
+    parameter LDouble vz_randomness;
+
+    init {
+        absorption = new LDouble(.01*.2*Math.random());
+        friction = new LDouble(.01+.05*Math.random()*Math.random());
+        arcDensity = (int)(100+200*Math.random());
+        arcThickness = new LDouble(4 + 3*Math.random());
+        arcSidedness = (int)(3*Math.random());
+
+        vx_offset = new LDouble(Math.random());
+        vx_magnitude = new LDouble(.01+.1*Math.random());
+        vx_frequency = new LDouble(.5+2*Math.random());
+        vx_tInfluence = new LDouble(.1+.8*Math.random());
+        vy_baseline = new LDouble(.3+.4*Math.random());
+        vy_frequency = new LDouble(.5+2*Math.random());
+        vy_magnitude = new LDouble(.05+.1*Math.random());
+        vy_offset = new LDouble(Math.random());
+        vy_randomness = new LDouble(.3*Math.random());
+        vz_magnitude = new LDouble(.01*.1*Math.random());
+        vz_frequency = new LDouble(.5+2*Math.random());
+        vz_offset = new LDouble(Math.random());
+        vz_randomness = new LDouble(.3*Math.random());
+    }
+
+    eval {
+        ColorFluid fluid = new ColorFluid(.1);
+        fluid.setDt(.1);
+        fluid.setDensityRelaxation(new FluidDensityRelaxation(10, .004, .01));
+        fluid.setForces(new FieldForces(new LVect3d(0, .03, 0)));
+        fluid.setViscosity(new FluidViscosity<ColorParticle>(20, 1.5));
+        fluid.setElastics(new FluidElastics<ColorParticle>(.1, .1, 0));
+
+
+        AbsorptionCollisions collisions = new AbsorptionCollisions();
+        CollidableBox box = new CollidableBox(new LVect3d(0, 0.5, 0), 20, .50, 20);
+        collisions.addCollidable(box);
+        collisions.setSlidingFriction(friction.val);
+        collisions.setAbsorptionRate(absorption.val);
+        fluid.setCollisions(collisions);
+
+        fluid.addEmitter(new Emitter<ColorParticle>() {
+
+            boolean fired = false;
+
+            @Override
+            public List<ColorParticle> emitParticles() {
+
+                if (fired) {
+                    return Collections.emptyList();
+                }
+
+                fired = true;
+                List<ColorParticle> particles = new ArrayList<ColorParticle>();
+
+                int N = arcDensity;
+                for (int i = 0; i < N; i++) {
+                    double t = 1.0 * i / N;
+                    int M;
+                    if(arcSidedness % 3 == 0)
+                        M = 1 + (int) (arcThickness.val *(1-t)* Math.random());
+                    else if(arcSidedness % 3 == 1)
+                        M = 1 + (int) (arcThickness.val *(t)* Math.random());
+                    else
+                        M = 1 + (int) (arcThickness.val * .5 * Math.random());
+
+                    for (int j = 0; j < M; j++) {
+                        double u = 1.0 * j / M;
+
+                        ColorParticle particle = new ColorParticle();
+                        particle.getPosition().x = 2 * (2 * t - 1);
+                        particle.getPosition().y = -.5;
+                        particle.getPosition().z = 0 + .1 * u;
+
+                        particle.getVelocity().x = vx_magnitude.val * Math.cos(Math.PI * t * vx_frequency.val + vx_offset.val*2*Math.PI) + vx_tInfluence.val * t;
+                        particle.getVelocity().y = vy_baseline.val + vy_magnitude.val * Math.cos(2 * Math.PI * vy_frequency.val * t + vy_randomness.val * Math.random() +  + vy_offset.val*2*Math.PI);
+                        particle.getVelocity().z = .0 + vz_magnitude.val * Math.sin(4 * Math.PI * vz_frequency.val * t +  + vz_offset.val*2*Math.PI + vz_randomness.val * Math.random());
+
+                        particle.setColor(color1.mult(t).add(color2.mult(1 - t)));
+
+                        particles.add(particle);
+                    }
+                }
+
+                return particles;
+            }
+        });
+
+        for (int i = 0; i < 100; i++) {
+            fluid.simulateTimestep();
+        }
+
+        return fluid;
+    }
+}
+
+fn arc_2 {
+    fout ColorFluid;
+    in Color color1;
+    in Color color2;
+    in Color color3;
+
+    meta selectionWeight 2;
+
+    parameter LDouble absorption;
+    parameter LDouble friction;
+    parameter Integer arcDensity;
+    parameter LDouble arcThickness;
+    parameter Integer arcSidedness;
+
+    parameter LDouble vx_magnitude;
+    parameter LDouble vx_frequency;
+    parameter LDouble vx_offset;
+    parameter LDouble vx_tInfluence;
+    parameter LDouble vy_baseline;
+    parameter LDouble vy_frequency;
+    parameter LDouble vy_magnitude;
+    parameter LDouble vy_offset;
+    parameter LDouble vy_randomness;
+    parameter LDouble vz_magnitude;
+    parameter LDouble vz_frequency;
+    parameter LDouble vz_offset;
+    parameter LDouble vz_randomness;
+
+    init {
+        absorption = new LDouble(.01*.2*Math.random());
+        friction = new LDouble(.01+.05*Math.random()*Math.random());
+        arcDensity = (int)(100+200*Math.random());
+        arcThickness = new LDouble(4 + 3*Math.random());
+        arcSidedness = (int)(3*Math.random());
+
+        vx_offset = new LDouble(Math.random());
+        vx_magnitude = new LDouble(.01+.1*Math.random());
+        vx_frequency = new LDouble(.5+2*Math.random());
+        vx_tInfluence = new LDouble(.1+.8*Math.random());
+        vy_baseline = new LDouble(.3+.4*Math.random());
+        vy_frequency = new LDouble(.5+2*Math.random());
+        vy_magnitude = new LDouble(.05+.1*Math.random());
+        vy_offset = new LDouble(Math.random());
+        vy_randomness = new LDouble(.3*Math.random());
+        vz_magnitude = new LDouble(.01*.1*Math.random());
+        vz_frequency = new LDouble(.5+2*Math.random());
+        vz_offset = new LDouble(Math.random());
+        vz_randomness = new LDouble(.3*Math.random());
+    }
+
+    eval {
+        ColorFluid fluid = new ColorFluid(.1);
+        fluid.setDt(.1);
+        fluid.setDensityRelaxation(new FluidDensityRelaxation(10, .004, .01));
+        fluid.setForces(new FieldForces(new LVect3d(0, .03, 0)));
+        fluid.setViscosity(new FluidViscosity<ColorParticle>(20, 1.5));
+        fluid.setElastics(new FluidElastics<ColorParticle>(.1, .1, 0));
+
+
+        AbsorptionCollisions collisions = new AbsorptionCollisions();
+        CollidableBox box = new CollidableBox(new LVect3d(0, 0.5, 0), 20, .50, 20);
+        collisions.addCollidable(box);
+        collisions.setSlidingFriction(friction.val);
+        collisions.setAbsorptionRate(absorption.val);
+        fluid.setCollisions(collisions);
+
+        fluid.addEmitter(new Emitter<ColorParticle>() {
+
+            boolean fired = false;
+
+            @Override
+            public List<ColorParticle> emitParticles() {
+
+                if (fired) {
+                    return Collections.emptyList();
+                }
+
+                fired = true;
+                List<ColorParticle> particles = new ArrayList<ColorParticle>();
+
+                int N = arcDensity;
+                for (int i = 0; i < N; i++) {
+                    double t = 1.0 * i / N;
+                    int M;
+                    if(arcSidedness % 3 == 0)
+                        M = 1 + (int) (arcThickness.val *(1-t)* Math.random());
+                    else if(arcSidedness % 3 == 1)
+                        M = 1 + (int) (arcThickness.val *(t)* Math.random());
+                    else
+                        M = 1 + (int) (arcThickness.val * .5 * Math.random());
+
+                    for (int j = 0; j < M; j++) {
+                        double u = 1.0 * j / M;
+
+                        ColorParticle particle = new ColorParticle();
+                        particle.getPosition().x = 2 * (2 * t - 1);
+                        particle.getPosition().y = -.5;
+                        particle.getPosition().z = 0 + .1 * u;
+
+                        particle.getVelocity().x = vx_magnitude.val * Math.cos(Math.PI * t * vx_frequency.val + vx_offset.val*2*Math.PI) + vx_tInfluence.val * t;
+                        particle.getVelocity().y = vy_baseline.val + vy_magnitude.val * Math.cos(2 * Math.PI * vy_frequency.val * t + vy_randomness.val * Math.random() +  + vy_offset.val*2*Math.PI);
+                        particle.getVelocity().z = .0 + vz_magnitude.val * Math.sin(4 * Math.PI * vz_frequency.val * t +  + vz_offset.val*2*Math.PI + vz_randomness.val * Math.random());
+
+                        double v = Math.random();
+                        Color c = color1.mult(t).add(color2.mult(1 - t));
+
+                        particle.setColor(c.mult(v).add(color3.mult(1 - v)));
+
+                        particles.add(particle);
+                    }
+                }
+
+                return particles;
+            }
+        });
+
+        for (int i = 0; i < 100; i++) {
+            fluid.simulateTimestep();
+        }
+
+        return fluid;
+    }
+}
 

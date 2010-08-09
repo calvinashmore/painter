@@ -9,6 +9,8 @@ import utils.pointfield.attractor.*;
 import utils.ifs.*;
 import painter.tools.canvas.*;
 import painter.tools.brush.*;
+import fluids.*;
+import fluids.applied.*;
 
 
 description "Plots out points";
@@ -793,6 +795,67 @@ fn PlotBuffer2_thresh2_curve_col_size {
 
             Color c = color.getValue(value);
             brush.paint(x, y, 0, 0, .5*width.getValue(value).val, c, canvas);
+        }
+    }
+}
+
+
+fn PlotFluid_1 {
+    in ColorFluid fluid;
+    in Brush brush;
+    in LDouble radius;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(ColorParticle particle : fluid.getAllParticles()) {
+            LVect3d position = particle.getPosition();
+            brush.paint(position.x, position.z,0,0, radius.val, particle.getColor(), canvas);
+        }
+    }
+}
+
+fn PlotFluid_2 {
+    in ColorFluid fluid;
+    in Brush brush;
+    in LDouble radius;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(ColorParticle particle : fluid.getAllParticles()) {
+            LVect3d position = particle.getPosition();
+            LVect3d velocity = particle.getVelocity();
+            brush.paint(position.x, position.z,velocity.x,velocity.z, radius.val, particle.getColor(), canvas);
+        }
+    }
+}
+
+fn PlotFluid_3 {
+    in ColorFluid fluid;
+    in Brush brush;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(ColorParticle particle : fluid.getAllParticles()) {
+            LVect3d position = particle.getPosition();
+            brush.paint(position.x, position.z,0,0, .02, particle.getColor(), canvas);
+        }
+    }
+}
+
+fn PlotFluid_4 {
+    in ColorFluid fluid;
+    in Brush brush;
+
+    exec {
+        Canvas canvas = (Canvas) context.getVariable("canvas");
+
+        for(ColorParticle particle : fluid.getAllParticles()) {
+            LVect3d position = particle.getPosition();
+            LVect3d velocity = particle.getVelocity();
+            brush.paint(position.x, position.z,velocity.x,velocity.z, .02, particle.getColor(), canvas);
         }
     }
 }

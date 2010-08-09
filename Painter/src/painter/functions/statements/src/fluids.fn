@@ -1,0 +1,32 @@
+package painter.functions.statements;
+group Fluids;
+type Statement;
+
+import utils.linear.*;
+import fluids.*;
+import fluids.applied.*;
+
+description "statements that iterate through fluids";
+
+fn FluidLoop {
+    exin ColorFluid fluidExpression;
+    slin body;
+
+    cvar Color color;
+    cvar LVect3d position;
+    cvar LVect3d velocity;
+    cvar LVect2d position2d;
+
+    exec {
+        ColorFluid fluid = (ColorFluid) fluidExpression.evaluate(context);
+
+        for(ColorParticle particle : fluid.getAllParticles()) {
+            color = particle.getColor();
+            position = particle.getPosition();
+            velocity = particle.getVelocity();
+            position2d = new LVect2d(position.x, position.z);
+
+            body.execute(context);
+        }
+    }
+}

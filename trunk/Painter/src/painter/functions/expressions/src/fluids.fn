@@ -25,7 +25,23 @@ fn fluidImage_1 {
     // maximum dimension of the image
     parameter Integer imageSize;
     init {
-        imageSize = (int)(100 + 400*Math.random());
+        imageSize = (int)(400 + 400*Math.random());
+    }
+
+    eval {
+        BufferedImage image = fluid.createBasicImage(imageSize);
+        return image;
+    }
+}
+
+fn fluidImage_2 {
+    in ColorFluid fluid;
+    fout BufferedImage;
+
+    // maximum dimension of the image
+    parameter Integer imageSize;
+    init {
+        imageSize = (int)(800 + 400*Math.random());
     }
 
     eval {
@@ -42,7 +58,7 @@ fn fluidBrush_1 {
     // maximum dimension of the image
     parameter Integer imageSize;
     init {
-        imageSize = (int)(100 + 400*Math.random());
+        imageSize = (int)(400 + 400*Math.random());
     }
 
     eval {
@@ -60,7 +76,7 @@ fn fluidBrush_2 {
     // maximum dimension of the image
     parameter Integer imageSize;
     init {
-        imageSize = (int)(100 + 400*Math.random());
+        imageSize = (int)(400 + 400*Math.random());
     }
 
     eval {
@@ -79,7 +95,7 @@ fn fluidBrush_3 {
     // maximum dimension of the image
     parameter Integer imageSize;
     init {
-        imageSize = (int)(100 + 400*Math.random());
+        imageSize = (int)(400 + 400*Math.random());
     }
 
     eval {
@@ -99,7 +115,7 @@ fn fluidBrush_4 {
     // maximum dimension of the image
     parameter Integer imageSize;
     init {
-        imageSize = (int)(100 + 400*Math.random());
+        imageSize = (int)(400 + 400*Math.random());
     }
 
     eval {
@@ -119,7 +135,7 @@ fn fluidBrush_5 {
     // maximum dimension of the image
     parameter Integer imageSize;
     init {
-        imageSize = (int)(400 + 400*Math.random());
+        imageSize = (int)(800 + 400*Math.random());
     }
 
     eval {
@@ -139,7 +155,7 @@ fn fluidBrush_6 {
     // maximum dimension of the image
     parameter Integer imageSize;
     init {
-        imageSize = (int)(400 + 400*Math.random());
+        imageSize = (int)(800 + 400*Math.random());
     }
 
     eval {
@@ -159,7 +175,7 @@ fn fluidBrush_7 {
     // maximum dimension of the image
     parameter Integer imageSize;
     init {
-        imageSize = (int)(800 + 400*Math.random());
+        imageSize = (int)(1200 + 400*Math.random());
     }
 
     eval {
@@ -179,7 +195,7 @@ fn fluidBrush_8 {
     // maximum dimension of the image
     parameter Integer imageSize;
     init {
-        imageSize = (int)(800 + 400*Math.random());
+        imageSize = (int)(1200 + 400*Math.random());
     }
 
     eval {
@@ -688,7 +704,7 @@ fn arc_1 {
         vy_magnitude = new LDouble(.05+.1*Math.random());
         vy_offset = new LDouble(Math.random());
         vy_randomness = new LDouble(.3*Math.random());
-        vz_magnitude = new LDouble(.01*.1*Math.random());
+        vz_magnitude = new LDouble(.01+.1*Math.random());
         vz_frequency = new LDouble(.5+2*Math.random());
         vz_offset = new LDouble(Math.random());
         vz_randomness = new LDouble(.3*Math.random());
@@ -809,7 +825,7 @@ fn arc_2 {
         vy_magnitude = new LDouble(.05+.1*Math.random());
         vy_offset = new LDouble(Math.random());
         vy_randomness = new LDouble(.3*Math.random());
-        vz_magnitude = new LDouble(.01*.1*Math.random());
+        vz_magnitude = new LDouble(.01+.1*Math.random());
         vz_frequency = new LDouble(.5+2*Math.random());
         vz_offset = new LDouble(Math.random());
         vz_randomness = new LDouble(.3*Math.random());

@@ -20,6 +20,8 @@ import utils.pointfield.attractor.*;
 import utils.ifs.*;
 import painter.tools.canvas.*;
 import painter.tools.brush.*;
+import fluids.*;
+import fluids.applied.*;
 
 public final class PointPlot implements AllComponents<Command>, Described {
 
@@ -2030,6 +2032,174 @@ public final class PointPlot implements AllComponents<Command>, Described {
 
    }
 
+   public static class PlotFluid_1 extends Command {
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "fluid";
+            case 1: return "brush";
+            case 2: return "radius";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return ColorFluid.class;
+            case 1: return Brush.class;
+            case 2: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotFluid_1() {
+         addGroupMeta(this);
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final ColorFluid fluid = (ColorFluid)inputs[0];
+         final Brush brush = (Brush)inputs[1];
+         final LDouble radius = (LDouble)inputs[2];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         for ( ColorParticle particle : fluid . getAllParticles ( ) ) {
+         LVect3d position = particle . getPosition ( ) ;
+         brush . paint ( position . x , position . z , 0 , 0 , radius . val , particle . getColor ( ) , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotFluid_2 extends Command {
+
+      public int getNumberInputs() {
+         return 3;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "fluid";
+            case 1: return "brush";
+            case 2: return "radius";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return ColorFluid.class;
+            case 1: return Brush.class;
+            case 2: return LDouble.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotFluid_2() {
+         addGroupMeta(this);
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final ColorFluid fluid = (ColorFluid)inputs[0];
+         final Brush brush = (Brush)inputs[1];
+         final LDouble radius = (LDouble)inputs[2];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         for ( ColorParticle particle : fluid . getAllParticles ( ) ) {
+         LVect3d position = particle . getPosition ( ) ;
+         LVect3d velocity = particle . getVelocity ( ) ;
+         brush . paint ( position . x , position . z , velocity . x , velocity . z , radius . val , particle . getColor ( ) , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotFluid_3 extends Command {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "fluid";
+            case 1: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return ColorFluid.class;
+            case 1: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotFluid_3() {
+         addGroupMeta(this);
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final ColorFluid fluid = (ColorFluid)inputs[0];
+         final Brush brush = (Brush)inputs[1];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         for ( ColorParticle particle : fluid . getAllParticles ( ) ) {
+         LVect3d position = particle . getPosition ( ) ;
+         brush . paint ( position . x , position . z , 0 , 0 , .02 , particle . getColor ( ) , canvas ) ;
+         }
+      }
+
+   }
+
+   public static class PlotFluid_4 extends Command {
+
+      public int getNumberInputs() {
+         return 2;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "fluid";
+            case 1: return "brush";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return ColorFluid.class;
+            case 1: return Brush.class;
+            default: return null;
+         }
+
+      }
+
+      public PlotFluid_4() {
+         addGroupMeta(this);
+      }
+
+      public void execute(Context context, Object[] inputs) {
+         final ColorFluid fluid = (ColorFluid)inputs[0];
+         final Brush brush = (Brush)inputs[1];
+         Canvas canvas = ( Canvas ) context . getVariable ( "canvas" ) ;
+         for ( ColorParticle particle : fluid . getAllParticles ( ) ) {
+         LVect3d position = particle . getPosition ( ) ;
+         LVect3d velocity = particle . getVelocity ( ) ;
+         brush . paint ( position . x , position . z , velocity . x , velocity . z , .02 , particle . getColor ( ) , canvas ) ;
+         }
+      }
+
+   }
+
    public String getDescription() {
       return "Plots out points";
    }
@@ -2059,6 +2229,10 @@ public final class PointPlot implements AllComponents<Command>, Described {
       r.add(new PlotBuffer2_curve_col_size());
       r.add(new PlotBuffer2_thresh1_curve_col_size());
       r.add(new PlotBuffer2_thresh2_curve_col_size());
+      r.add(new PlotFluid_1());
+      r.add(new PlotFluid_2());
+      r.add(new PlotFluid_3());
+      r.add(new PlotFluid_4());
       return r;
    }
 

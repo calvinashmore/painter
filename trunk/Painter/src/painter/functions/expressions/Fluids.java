@@ -84,7 +84,83 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
 
       public fluidImage_1() {
          addGroupMeta(this);
-         imageSize = ( int ) ( 100 + 400 * Math . random ( ) ) ;
+         imageSize = ( int ) ( 400 + 400 * Math . random ( ) ) ;
+      }
+
+      public BufferedImage evaluate(Context context, Object[] inputs) {
+         final ColorFluid fluid = (ColorFluid)inputs[0];
+         BufferedImage image = fluid . createBasicImage ( imageSize ) ;
+         return image ;
+      }
+
+      public Class getReturnType() {
+         return BufferedImage.class;
+      }
+
+   }
+
+   public static class fluidImage_2 extends ExpressionFunction {
+
+      private Integer imageSize;
+      public int getNumberParameters() {
+         return 1;
+      }
+
+      public Object getParameter(int i) {
+         switch(i) {
+            case 0: return imageSize;
+            default: return null;
+         }
+
+      }
+
+      public String getParameterName(int i) {
+         switch(i) {
+            case 0: return "imageSize";
+            default: return null;
+         }
+
+      }
+
+      public Class getParameterType(int i) {
+         switch(i) {
+            case 0: return Integer.class;
+            default: return null;
+         }
+
+      }
+
+      public void setParameter(int i, Object value) {
+         switch(i) {
+            case 0: imageSize = (Integer) value; return;
+            default: return;
+         }
+
+      }
+
+      public int getNumberInputs() {
+         return 1;
+      }
+
+      public String getInputName(int i) {
+         switch(i) {
+            case 0: return "fluid";
+            default: return null;
+         }
+
+      }
+
+      public Class getInputType(int i) {
+         switch(i) {
+            case 0: return ColorFluid.class;
+            default: return null;
+         }
+
+      }
+
+      public fluidImage_2() {
+         addGroupMeta(this);
+         imageSize = ( int ) ( 800 + 400 * Math . random ( ) ) ;
       }
 
       public BufferedImage evaluate(Context context, Object[] inputs) {
@@ -162,7 +238,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
 
       public fluidBrush_1() {
          addGroupMeta(this);
-         imageSize = ( int ) ( 100 + 400 * Math . random ( ) ) ;
+         imageSize = ( int ) ( 400 + 400 * Math . random ( ) ) ;
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -243,7 +319,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
 
       public fluidBrush_2() {
          addGroupMeta(this);
-         imageSize = ( int ) ( 100 + 400 * Math . random ( ) ) ;
+         imageSize = ( int ) ( 400 + 400 * Math . random ( ) ) ;
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -325,7 +401,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
 
       public fluidBrush_3() {
          addGroupMeta(this);
-         imageSize = ( int ) ( 100 + 400 * Math . random ( ) ) ;
+         imageSize = ( int ) ( 400 + 400 * Math . random ( ) ) ;
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -408,7 +484,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
 
       public fluidBrush_4() {
          addGroupMeta(this);
-         imageSize = ( int ) ( 100 + 400 * Math . random ( ) ) ;
+         imageSize = ( int ) ( 400 + 400 * Math . random ( ) ) ;
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -491,7 +567,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
 
       public fluidBrush_5() {
          addGroupMeta(this);
-         imageSize = ( int ) ( 400 + 400 * Math . random ( ) ) ;
+         imageSize = ( int ) ( 800 + 400 * Math . random ( ) ) ;
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -574,7 +650,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
 
       public fluidBrush_6() {
          addGroupMeta(this);
-         imageSize = ( int ) ( 400 + 400 * Math . random ( ) ) ;
+         imageSize = ( int ) ( 800 + 400 * Math . random ( ) ) ;
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -657,7 +733,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
 
       public fluidBrush_7() {
          addGroupMeta(this);
-         imageSize = ( int ) ( 800 + 400 * Math . random ( ) ) ;
+         imageSize = ( int ) ( 1200 + 400 * Math . random ( ) ) ;
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -740,7 +816,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
 
       public fluidBrush_8() {
          addGroupMeta(this);
-         imageSize = ( int ) ( 800 + 400 * Math . random ( ) ) ;
+         imageSize = ( int ) ( 1200 + 400 * Math . random ( ) ) ;
       }
 
       public Brush evaluate(Context context, Object[] inputs) {
@@ -1943,7 +2019,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
          vy_magnitude = new LDouble ( .05 + .1 * Math . random ( ) ) ;
          vy_offset = new LDouble ( Math . random ( ) ) ;
          vy_randomness = new LDouble ( .3 * Math . random ( ) ) ;
-         vz_magnitude = new LDouble ( .01 * .1 * Math . random ( ) ) ;
+         vz_magnitude = new LDouble ( .01 + .1 * Math . random ( ) ) ;
          vz_frequency = new LDouble ( .5 + 2 * Math . random ( ) ) ;
          vz_offset = new LDouble ( Math . random ( ) ) ;
          vz_randomness = new LDouble ( .3 * Math . random ( ) ) ;
@@ -2162,7 +2238,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
          vy_magnitude = new LDouble ( .05 + .1 * Math . random ( ) ) ;
          vy_offset = new LDouble ( Math . random ( ) ) ;
          vy_randomness = new LDouble ( .3 * Math . random ( ) ) ;
-         vz_magnitude = new LDouble ( .01 * .1 * Math . random ( ) ) ;
+         vz_magnitude = new LDouble ( .01 + .1 * Math . random ( ) ) ;
          vz_frequency = new LDouble ( .5 + 2 * Math . random ( ) ) ;
          vz_offset = new LDouble ( Math . random ( ) ) ;
          vz_randomness = new LDouble ( .3 * Math . random ( ) ) ;
@@ -2243,6 +2319,7 @@ public final class Fluids implements AllComponents<ExpressionFunction>, Describe
    public List<ExpressionFunction> allInstances(ContextModel cm) {
       List<ExpressionFunction> r = new ArrayList<ExpressionFunction>();
       r.add(new fluidImage_1());
+      r.add(new fluidImage_2());
       r.add(new fluidBrush_1());
       r.add(new fluidBrush_2());
       r.add(new fluidBrush_3());

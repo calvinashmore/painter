@@ -37,8 +37,8 @@ public class ControlPanel extends JPanel {
         //add(skip = new JButton(new Skip()));
 //        add(like = new JButton(new Like()));
 //        add(dislike = new JButton(new Dislike()));
-        add(capture = new JButton(new Capture()));
-        add(capture = new JButton(new ShowInfo()));
+//        add(capture = new JButton(new Capture()));
+        add(showInfo = new JButton(new ShowInfo()));
         add(fullscreen = new JButton(new Fullscreen()));
 
         playPause.addActionListener(new ActionListener() {

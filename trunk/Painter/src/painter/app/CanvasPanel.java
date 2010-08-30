@@ -32,7 +32,11 @@ public class CanvasPanel extends JPanel {
     }
 
     public void shutdown() {
-        executor.shutdown();
+        try {
+            executor.shutdown();
+        } catch (java.security.AccessControlException ex) {
+            System.out.println("Security doesn't seem to want us to shut down the executor: "+ex);
+        }
     }
 
     public CanvasImpl getCanvas() {

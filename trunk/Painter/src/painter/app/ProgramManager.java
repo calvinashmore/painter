@@ -56,7 +56,11 @@ public class ProgramManager {
         for (PainterProgram painterProgram : programs) {
             painterProgram.stopPaint();
         }
-        executor.shutdown();
+        try {
+            executor.shutdown();
+        } catch (SecurityException ex) {
+            System.out.println("Security doesn't seem to want us to shut down the executor: "+ex);
+        }
     }
 
     private void updatePrograms() {

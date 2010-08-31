@@ -18,6 +18,9 @@
         <echo>Building: PainterTools</echo>
         <subant buildpath="PainterTools/" target="jar"/>
 
+        <echo>Building: Fluids</echo>
+        <subant buildpath="Fluids/" target="jar"/>
+
         <echo>Building: Painter</echo>
         <subant buildpath="Painter/" target="jar"/>
         
@@ -43,6 +46,9 @@
 
         <echo>Cleaning: PainterTools</echo>
         <subant buildpath="PainterTools/" target="clean"/>
+
+        <echo>Cleaning: Fluids</echo>
+        <subant buildpath="Fluids/" target="clean"/>
 
         <echo>Cleaning: Painter</echo>
         <subant buildpath="Painter/" target="clean"/>

@@ -28,7 +28,7 @@ public class Main {
 
         CesaroFunction c = new CesaroFunction(new Complex(.6, -.37));
         KochPeanoFunction c2 = new KochPeanoFunction(new Complex(.4, .2));
-        GeneralAffineFunction c3 = new GeneralAffineFunction(-.5,.5,-.02,-.1,-.4,.1);
+        GeneralAffineFunction c3 = new GeneralAffineFunction(.5,.3,-.4,.05,.4,.4);
         DeRahmCurve<Complex> curve = new DeRahmCurve<Complex>(c2);
         DeRahmCurve<LVect2d> curve2 = new DeRahmCurve<LVect2d>(c3);
 

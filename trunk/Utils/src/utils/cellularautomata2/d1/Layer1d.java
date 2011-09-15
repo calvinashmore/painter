@@ -30,7 +30,7 @@ public class Layer1d implements Layer<LDouble, CellCoordinate1d> {
     public Layer<LDouble, CellCoordinate1d> copy() {
         Layer1d layer = new Layer1d(grid.length);
         for (int i=0;i<grid.length;i++) {
-            layer.grid[i].val = grid[i].val;
+            layer.grid[i] = new LDouble(grid[i].val);
         }
         return layer;
     }
@@ -56,7 +56,7 @@ public class Layer1d implements Layer<LDouble, CellCoordinate1d> {
             int index = 0;
             
             public boolean hasNext() {
-                return index < grid.length-1;
+                return index < grid.length;
             }
 
             public CellCoordinate1d next() {

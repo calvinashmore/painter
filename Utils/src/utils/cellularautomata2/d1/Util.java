@@ -41,4 +41,21 @@ public final class Util {
         }
         return layer;
     }
+
+    /**
+     * Creates a layer of zeroes, except for a 1 at 1/2 size
+     * @param size
+     * @param maxValue
+     * @return
+     */
+    public static Layer1d createSingletonLayer(int size) {
+        Layer1d layer = new Layer1d(size);
+        for (CellCoordinate1d coord : layer) {
+            layer.setData(coord, new LDouble(0));
+        }
+        CellCoordinate1d c = new CellCoordinate1d(size/2);
+        layer.setData(c, new LDouble(1));
+
+        return layer;
+    }
 }

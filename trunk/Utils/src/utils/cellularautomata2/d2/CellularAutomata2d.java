@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils.cellularautomata2.d1;
+package utils.cellularautomata2.d2;
 
 import utils.cellularautomata2.CellFunction;
 import utils.cellularautomata2.CellularAutomata;
@@ -12,10 +12,9 @@ import utils.linear.LDouble;
  *
  * @author Calvin Ashmore
  */
-public class CellularAutomata1d extends CellularAutomata<LDouble, CellCoordinate1d> {
+public class CellularAutomata2d extends CellularAutomata<LDouble, CellCoordinate2d> {
 
-    public CellularAutomata1d(CellFunction<LDouble, CellCoordinate1d> function) {
+    public CellularAutomata2d(CellFunction<LDouble, CellCoordinate2d> function) {
         super(function);
     }
-    
 }

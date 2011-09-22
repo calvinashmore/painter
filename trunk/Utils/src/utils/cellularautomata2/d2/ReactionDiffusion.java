@@ -98,7 +98,7 @@ public class ReactionDiffusion implements CellFunction<LVect2d, CellCoordinate2d
                 if (i == 0 && j == 0) {
                     continue;
                 }
-                double partial = 1.0 / Math.sqrt(i + j);
+                double partial = 1.0;// / (i*i + j*j);
                 diffusion.addv(layer.getData(new CellCoordinate2d(coord.x + i, coord.y + j)).mult(partial));
                 amount += partial;
             }

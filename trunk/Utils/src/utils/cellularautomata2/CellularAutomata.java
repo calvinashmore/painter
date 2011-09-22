@@ -14,7 +14,7 @@ import utils.linear.Linear;
  * Type represents the structure of the CA, eg, 1d or 2d
  * @author Calvin Ashmore
  */
-public abstract class CellularAutomata<T extends Linear<T>, Coord extends CellCoordinate> {
+public class CellularAutomata<T extends Linear<T>, Coord extends CellCoordinate> {
 
     private CellFunction<T, Coord> function;
     private List<Layer<T, Coord>> layers = new ArrayList<Layer<T, Coord>>();
